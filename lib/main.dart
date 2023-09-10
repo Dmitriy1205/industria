@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'app/app.dart';
 import 'app/bloc_observer.dart';
+import 'core/services/service_locator.dart' as sl;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,5 +17,6 @@ void main() async {
         projectId: "industria-a338a",
         storageBucket: 'industria-a338a.appspot.comT'),
   );
+  await sl.init();
   runApp(App());
 }

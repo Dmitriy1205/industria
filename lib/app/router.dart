@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:industria/presentation/screens/condition.dart';
+import 'package:industria/presentation/screens/cookie.dart';
+import 'package:industria/presentation/screens/data_protection.dart';
 import 'package:industria/presentation/screens/for_employees.dart';
 import 'package:industria/presentation/screens/for_employers.dart';
 import 'package:industria/presentation/screens/jobs.dart';
-import 'package:industria/presentation/screens/login.dart';
 import 'package:industria/presentation/screens/main_screen.dart';
 import 'package:industria/presentation/screens/our_team.dart';
 
 import '../presentation/screens/contact.dart';
 import '../presentation/screens/home.dart';
+import '../presentation/screens/imprint.dart';
 
 final GoRouter router = GoRouter(
 
@@ -73,11 +76,35 @@ final GoRouter router = GoRouter(
             ),
           ),
           GoRoute(
-            path: '/login',
+            path: '/dataprotection',
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: const Login(),
+              child: const DataProtection(),
+            ),
+          ),
+          GoRoute(
+            path: '/imprint',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: const Imprint(),
+            ),
+          ),
+          GoRoute(
+            path: '/cookie',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: const Cookie(),
+            ),
+          ),
+          GoRoute(
+            path: '/condition',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: const Condition(),
             ),
           ),
         ],

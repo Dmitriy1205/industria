@@ -45,9 +45,9 @@ class AppTheme {
     fontFamily: 'OpenSans',
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 38,
-        color: Color(0xFFF2F2F2),
+        fontWeight: FontWeight.w700,
+        fontSize: 42,
+        color: Color(0xFF091312),
       ),
       headlineMedium: TextStyle(
         fontWeight: FontWeight.w700,

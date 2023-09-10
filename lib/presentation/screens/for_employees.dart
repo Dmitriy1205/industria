@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../core/constants/colors.dart';
+import '../../core/themes/theme.dart';
+import '../widgets/footer.dart';
 
 class ForEmployees extends StatelessWidget {
   const ForEmployees({super.key});
@@ -6,8 +11,34 @@ class ForEmployees extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('For Employees'),
+      body:CustomScrollView(
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 45.0),
+              child: Column(
+                children: [
+                 Text(AppLocalizations.of(context)!.forEmployees,style: AppTheme
+                     .themeData.textTheme.headlineLarge,),
+                  const SizedBox(height: 20,),
+                  Container(
+                    color:AppColors.mainAccent,
+                    height: 4,
+                    width: 110,
+                  ),
+                  const SizedBox(height: 47,),
+                  const SizedBox(
+                    height: 592,
+                    width: 658,
+                    child: Card(),
+                  ),
+                  const SizedBox(height: 161,),
+                ],
+              ),
+            ),
+          ),
+          const Footer(),
+        ],
       ),
     );
   }

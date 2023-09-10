@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
 import '../widgets/footer.dart';
-class OurTeam extends StatelessWidget {
-  const OurTeam({super.key});
+
+class DataProtection extends StatelessWidget {
+  const DataProtection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class OurTeam extends StatelessWidget {
               padding: const EdgeInsets.only(top: 45.0),
               child: Column(
                 children: [
-                  Text(AppLocalizations.of(context)!.ourTeam,style: AppTheme
+                  Text(AppLocalizations.of(context)!.dataProtection,style: AppTheme
                       .themeData.textTheme.headlineLarge,),
                   const SizedBox(height: 20,),
                   Container(

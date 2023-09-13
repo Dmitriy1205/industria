@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:industria/presentation/widgets/layouts/tablet_layout/tablet_navbar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:industria/presentation/screens/layouts/tablet_layout/tablet_navbar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../app/router.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/images.dart';
 import '../../../../core/constants/strings.dart';
 import '../../../../core/themes/theme.dart';
+import '../../../bloc/localization/localization_bloc.dart';
 
 class TabletLayout extends StatefulWidget {
   const TabletLayout({Key? key, required this.child}) : super(key: key);
@@ -18,39 +21,45 @@ class TabletLayout extends StatefulWidget {
 class _TabletLayoutState extends State<TabletLayout> {
   bool changedLang = true;
   String flag = AppImages.engFlag;
+  bool isHovered = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 30.0),
+        padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 40),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  if (changedLang) {
-                    //TODO: add change lang to german
-                    flag = AppImages.gerFlag;
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () {
+                  if (context.read<LocalizationBloc>().state.locale ==
+                      const Locale('en')) {
+                    context.read<LocalizationBloc>().add(
+                        const LocalizationEvent.changeLang(
+                            locale: Locale('de')));
                   } else {
-                    //TODO: add change lang to eng
-                    flag = AppImages.engFlag;
+                    context.read<LocalizationBloc>().add(
+                        const LocalizationEvent.changeLang(
+                            locale: Locale('en')));
                   }
-                  changedLang = !changedLang;
-                });
-              },
-              child: SizedBox(
-                width: 55,
-                height: 27,
-                child: Image.asset(
-                  flag,
-                  fit: BoxFit.fill,
+                },
+                child: SizedBox(
+                  width: 55,
+                  height: 27,
+                  child: Image.asset(
+                    context
+                        .read<LocalizationBloc>()
+                        .state
+                        .locale ==
+                        const Locale('en') ? AppImages.engFlag: AppImages.gerFlag,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
-          ),
           MouseRegion(
             cursor: SystemMouseCursors.click,
             child: GestureDetector(
@@ -58,7 +67,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                 router.go('/home');
               },
               child: Text(
-                AppString.home,
+                  AppLocalizations.of(context)!.home,
                 style: AppTheme.themeData.textTheme.headlineMedium!
                     .copyWith(color: Colors.black),
               ),
@@ -72,7 +81,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                 router.go('/jobs');
               },
               child: Text(
-                AppString.jobs,
+                AppLocalizations.of(context)!.jobs,
                 style: AppTheme.themeData.textTheme.headlineMedium!
                     .copyWith(color: Colors.black),
               ),
@@ -85,7 +94,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                 router.go('/employers');
               },
               child: Text(
-                AppString.forEmployers,
+                AppLocalizations.of(context)!.forEmployers,
                 style: AppTheme.themeData.textTheme.headlineMedium!
                     .copyWith(color: Colors.black),
               ),
@@ -98,7 +107,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                 router.go('/employees');
               },
               child: Text(
-                AppString.forEmployees,
+                AppLocalizations.of(context)!.forEmployees,
                 style: AppTheme.themeData.textTheme.headlineMedium!
                     .copyWith(color: Colors.black),
               ),
@@ -111,7 +120,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                 router.go('/ourteam');
               },
               child: Text(
-                AppString.ourTeam,
+                AppLocalizations.of(context)!.ourTeam,
                 style: AppTheme.themeData.textTheme.headlineMedium!
                     .copyWith(color: Colors.black),
               ),
@@ -124,43 +133,58 @@ class _TabletLayoutState extends State<TabletLayout> {
                 router.go('/contact');
               },
               child: Text(
-                AppString.contact,
+                AppLocalizations.of(context)!.contact,
                 style: AppTheme.themeData.textTheme.headlineMedium!
                     .copyWith(color: Colors.black),
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              router.go('/employees');
-            },
-            child: Container(
-              width: 120,
-              height: 45,
-              decoration: BoxDecoration(
-                  color:
-                  AppColors.mainAccent,
-                  borderRadius: BorderRadius.circular(8)),
-              child: Padding(
-                padding: const EdgeInsets.only(right: 15.0, left: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      AppString.login,
-                      style:
-                      AppTheme.themeData.textTheme.headlineMedium,
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              onEnter: (_) {
+                setState(() {
+                  isHovered = !isHovered;
+                });
+              },
+              onExit: (_) {
+                setState(() {
+                  isHovered = !isHovered;
+                });
+              },
+              child: GestureDetector(
+                onTap: () {
+                  router.go('/employees');
+                },
+                child: Container(
+                  height: 45,
+                  decoration: BoxDecoration(
+                      color:
+                      isHovered ? AppColors.mainDarkAccent : AppColors.mainAccent,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 14.0, left: 31),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.login,
+                          style:
+                          AppTheme.themeData.textTheme.headlineMedium,
+                        ),
+                        const SizedBox(
+                          width: 22,
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          size: 14,
+                          color: Colors.white,
+                        ),
+                      ],
                     ),
-                    const Icon(
-                      Icons.arrow_forward_ios_outlined,
-                      size: 15,
-                      color: Colors.white,
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
         ],),
       ),),
       appBar: const PreferredSize(

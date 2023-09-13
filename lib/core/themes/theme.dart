@@ -14,7 +14,7 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     textSelectionTheme:
-    const TextSelectionThemeData(cursorColor: Color(0xFFB38F5C)),
+    const TextSelectionThemeData(cursorColor: Color(0xFF2976B6)),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: const TextStyle(color:Color(0xFF474D4C) ),
       prefixIconColor:const Color(0xFF474D4C)  ,
@@ -22,12 +22,13 @@ class AppTheme {
       enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
-            color: Color(0xFF474D4C),
+            color: Color(0xFFEDEDED)
           )),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(
-          color: Color(0xFFB38F5C),
+          width: 2,
+          color: Color(0xFF2976B6),
         ),
       ),
       errorBorder: OutlineInputBorder(
@@ -55,7 +56,7 @@ class AppTheme {
         color: Color(0xFFF2F2F2),
       ),
       titleLarge: TextStyle(
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w500,
         fontSize: 16,
         color: Color(0xFFF2F2F2),
       ),
@@ -73,7 +74,7 @@ class AppTheme {
       displayMedium: TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 20,
-        color: Color(0xFFB38F5C),
+        color:  Color(0xFF091312),
       ),
       labelLarge: TextStyle(
         fontWeight: FontWeight.w500,
@@ -86,20 +87,9 @@ class AppTheme {
         color: Color(0xFF091312),
       ),
       labelSmall: TextStyle(
-        fontWeight: FontWeight.w400,
-        fontSize: 12,
-        color: Color(0xFFF2F2F2),
-      ),
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        textStyle: const TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 24,
-          color: Color(0xFFF2F2F2),
-        ),
-        backgroundColor: const Color(0xFFFFBC42),
+        fontWeight: FontWeight.w500,
+        fontSize: 14,
+        color: Color(0xFF8B8B8B),
       ),
     ),
   );

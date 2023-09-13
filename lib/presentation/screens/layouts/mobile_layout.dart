@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../navbar.dart';
+import '../../widgets/navbar.dart';
 
-class DesktopLayout extends StatelessWidget {
+class MobileLayout extends StatelessWidget {
+  const MobileLayout({Key? key, required this.child}) : super(key: key);
   final Widget child;
-
-  const DesktopLayout({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

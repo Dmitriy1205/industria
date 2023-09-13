@@ -125,7 +125,7 @@ class _FooterState extends State<Footer> {
                       MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             router.go('/imprint');
                           },
                           child: Text(
@@ -150,7 +150,9 @@ class _FooterState extends State<Footer> {
                       });
                     },
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        router.go('/employees');
+                      },
                       child: Container(
                         height: 45,
                         decoration: BoxDecoration(
@@ -227,7 +229,7 @@ class _FooterState extends State<Footer> {
                       MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             router.go('/cookie');
                           },
                           child: Text(
@@ -245,7 +247,7 @@ class _FooterState extends State<Footer> {
                       MouseRegion(
                         cursor: SystemMouseCursors.click,
                         child: GestureDetector(
-                          onTap: (){
+                          onTap: () {
                             router.go('/condition');
                           },
                           child: Text(

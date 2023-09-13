@@ -15,9 +15,57 @@
   "imprint":"Impressum",
   "address":"Adresse",
   "managingDirector":"Geschäftsführer",
+  "salesDirector":"Verkaufsleiter",
+   "operationsDirector":"Betriebsleiter",
+
+   "choosingRightCandidates": "Die richtigen Kandidaten auswählen",
+     "findYour": "Finde deinen",
+     "dream": "Traum",
+     "job": "Job",
+     "withUs": "bei uns",
+     "hrSoftware": "Eine All-in-One-HR-Software, die Ihre Personalabteilung\njetzt und in Zukunft optimiert.",
+     "jobTitle": "Berufsbezeichnung oder Stichwort",
+     "allGermany": "Ganz Deutschland",
+     "search": "Suchen",
+     "typeYourKeyword": "Geben Sie Ihr Stichwort ein, klicken Sie dann auf Suche, um Ihren perfekten Job zu finden.",
+     "ourIndustry": "Unsere Branche",
+     "connecting": "Verbindung von Spitzenkräften\nzu den besten Unternehmen\nweltweit",
+     "foundedInLondon": "Gegründet in London im Jahr 1975, hat Industry sich mittlerweile in\n12 Ländern weltweit ausgebreitet. Mit mehr als 1300 professionellen\nBeratern weltweit sind wir auf die Vermittlung von hochqualifizierten\nFachkräften an große multinationale Unternehmen in ganz\nAsien und darüber\nhinaus spezialisiert.",
+     "bestChoice": "Die beste Wahl",
+     "whyWeAre": "WARUM SIND WIR IHRE WAHL?",
+     "atIndustria": "Bei Industria heben wir uns als Ihre Top-Wahl für HR-Lösungen hervor.\nMit unserer bewährten Erfolgsbilanz, einem engagierten Expertenteam und\neinem Bekenntnis zur Exzellenz unterstützen wir Unternehmen umfassend bei\nihren HR-Angelegenheiten.",
+     "ourTailored": "Unsere maßgeschneiderten Strategien, moderne Technologie und\nunerschütterliche Hingabe gewährleisten, dass Ihre Belegschaft optimiert,\nkonform und bereit für den Erfolg ist. Arbeiten Sie mit uns zusammen und\nerleben Sie die Zukunft des HR-Managements.",
+     "achievements": "ERFOLGE",
+     "oneOfTheLargest": "Eine der größten\nPersonalvermitt\nlungsagenturen",
+     "weAreTop": "Wir gehören zu den Top 14 Personalvermitt\nlungsagenturen\nim Vereinigten Königreich und Deutschland.",
+     "overTwo": "Über 2.000 Mitarbeiter\nwurden in den letzten 12\nMonaten eingestellt.",
+     "weCanHelp": "Wir können Ihnen helfen, den besten Job zu finden\noder Ihnen Möglichkeiten\nbasierend auf Ihren Fähigkeiten bieten.\nJeden Monat helfen wir mehr als 150\nMenschen, ihren Traumjob zu finden.",
+     "weAreInternational": "Wir sind ein\ninternationales\nUnternehmen.",
+     "weHaveOur": "Wir haben unsere Unternehmen sowohl\nin Deutschland als auch im\nVereinigten Königreich,\nsowie separate Websites und Dienstleistungen.",
+     "considering": "Denken Sie über unsere Unterstützung in Deutschland nach? Möchten Sie mehr\nüber die anderen Standorte erfahren, an denen wir vertreten sind?",
+     "getInTouch": "Nehmen Sie Kontakt auf!",
+     "ourPartners": "UNSERE PARTNER",
+
+  "simplifyHiring": "Vereinfachen Sie Ihren Einstellungsprozess mit uns",
+  "simplifyHiringText": "Möchten Sie Ihren Einstellungsprozess optimieren und sich mit erstklassigen Talenten verbinden? Suchen Sie nicht weiter! Bei Industria sind wir bestrebt, Ihre\nRekrutierungsreise nahtlos und effizient zu gestalten.\nIn unserem Bereich \"Für Arbeitgeber\" bieten wir eine problemlose Lösung für die Veröffentlichung Ihrer Stellenangebote. Alles, was Sie tun müssen, ist unsere Kontaktseite zu besuchen und uns einige wesentliche Details zu Ihrer offenen Stelle zu geben. Unser erfahrenes Team von Administratoren wird sich darum kümmern und sicherstellen, dass Ihre Stellenanzeige die richtige Zielgruppe schnell erreicht.",
+
+  "whyChooseIndustria": "Warum Industria für Ihre Rekrutierungsbedürfnisse wählen?",
+  "whyChooseIndustriaText": "1. Effizienz: Wir verstehen, dass Zeit im Geschäftsumfeld Geld ist. Deshalb haben wir unsere Plattform so gestaltet, dass das Veröffentlichen von Stellenangeboten schnell und unkompliziert ist.\nKeine langwierigen Formulare oder komplizierten Prozesse – nur die Informationen, die wir benötigen, um Ihnen den perfekten Kandidaten zu vermitteln.\n2. Maßgeschneiderter Service: Unser engagiertes Team von Experten wird eng mit Ihnen zusammenarbeiten, um Ihr Stellenangebot auf die richtigen Kandidaten zuzuschneiden.\nWir verstehen, dass jede offene Stelle einzigartig ist, und wir werden sicherstellen, dass Ihr Angebot dies widerspiegelt.\n3. Erreichen Sie Top-Talente: Mit Industria werden Ihre Jobangebote ein breites Netzwerk von Jobsuchenden erreichen, die aktiv nach Positionen in Ihrer Branche suchen.\nWir werden Sie mit dem Talent verbinden, das Sie benötigen, um Ihr Unternehmen voranzutreiben.\n4. Unterstützung: Unsere Verpflichtung zur Kundenzufriedenheit ist unerschütterlich. Wenn Sie Fragen haben oder Unterstützung während des Prozesses benötigen, ist unser Support-Team nur eine Nachricht entfernt.\n\nAlso, warum warten? Gehen Sie den ersten Schritt, um Ihren nächsten großartigen Mitarbeiter zu finden. Besuchen Sie unsere Kontaktseite, und unser Administratorenteam wird sich umgehend bei Ihnen melden, um Ihre Rekrutierungsreise zu starten. Vereinfachen Sie Ihren Einstellungsprozess mit Industria und entfalten Sie das Potenzial Ihrer Belegschaft.\nHier finden Sie einige unserer Geschäftspartner: ",
+  "bapMemberShip": "BAP-Mitgliedschaftsurkunde Erlaubnis zur Arbeitnehmerüberlassung Allgemeine Geschäftsbedingungen.",
+
+  "meetOurTeam":"Treffen Sie unser Team",
+  "industriaServesClients": "Industria betreut Kunden und Partner in der\nÖffentlicher und privaten Sektor mit hochwertigen temporären Lösungen\nund Arbeitsvermittlungs- und Direktvermittlungsdiensten in Großbritannien und Europa.\nZu unseren Kunden zählen viele namhafte Unternehmen.",
+  "meetBigText": "Wir sind eine der größten unabhängigen Personalvermittlungsagenturen im Vereinigten Königreich und haben in den letzten 12 Monaten über 2.000 Personen dauerhaft für unsere Kunden eingestellt.\n\nEin Großteil unserer Belegschaft beginnt mit flexiblen Einsätzen bei unseren Kunden. Oftmals besteht für unsere Kunden auch die Möglichkeit, das Unternehmen zu übernehmen.\nIhr Berater vor Ort informiert Sie gerne über die Möglichkeiten. Wir sind stolz auf unser lokales Know-how und unser Angebot an interessanten Karrieremöglichkeiten in der Region.\nUnsere Website ist so gestaltet, dass Sie sich ganz einfach auf eine Stelle bewerben können, ohne vorher persönlich in unserer Filiale vorbeischauen zu müssen.\nSie melden sich online an, den Rest erledigen wir für Sie, bis wir Sie bei Bedarf zu einem persönlichen Gespräch einladen.\n\nUnsere Mitarbeiter sind ein fester Bestandteil unseres Teams. Unser gemeinsames Ziel ist daher die professionelle Arbeitssuche.\nWir können Ihnen helfen, den besten Job zu finden oder Ihnen Chancen bieten, die Ihren Fähigkeiten und Wünschen entsprechen.\nIndustria ist davon überzeugt, dass die Verbesserung des Arbeitslebens und die bestmögliche Beratung zur Realisierung von Potenzialen führen.\nWir vertreten Sie und sind darauf geschult, Ihnen kompetente Beratung zu bieten, die auf Ihre individuellen Arbeitsanforderungen zugeschnitten ist.\nBei Industria können Sie sich immer auf ehrliches Feedback verlassen. Wir informieren Sie stets genau darüber, welchen Eindruck Sie im Kunden- oder Vorstellungsgespräch hinterlassen haben.\nUnabhängig davon, wie das Feedback ausfällt, können Sie sicher sein, dass wir Ihnen das nächste Gespräch ermöglichen!",
+
   "registerCourt":"Registergericht",
   "cookiesBigText": "Um Ihr Verständnis auf unserer Website zu verbessern, verwenden einige unserer Webseiten möglicherweise „Cookies“. Cookies sind kleine Textdateien, die im Browser Ihres Computers abgelegt werden, um Ihre Präferenzen zu speichern. Cookies allein geben uns weder Ihre E-Mail-Adresse noch andere persönliche Informationen bekannt, es sei denn, Sie stellen uns diese Informationen zur Verfügung, indem Sie uns beispielsweise Informationen über ein Formular auf unserer Website senden. Sobald Sie sich dafür entscheiden, einer Webseite personenbezogene Daten zur Verfügung zu stellen, können diese Informationen mit den im Cookie gespeicherten Daten verknüpft werden. Ein Cookie ist wie ein Ausweis. Es ist einzigartig für Ihren Computer und kann nur von dem Server gelesen werden, der es Ihnen bereitgestellt hat.\nWir verwenden Cookies, um die Nutzung der Website zu verstehen. Beispielsweise können wir Cookies verwenden, um Ihr Erlebnis auf unseren Webseiten zu personalisieren und Sie wiederzuerkennen, wenn Sie auf unsere Website zurückkehren.\nWenn Sie steuern möchten, welche Cookies Sie akzeptieren. Sie können Ihren Browser so einstellen, dass er alle Cookies akzeptiert oder Sie jedes Mal benachrichtigt, wenn ein Cookie vom Server einer Website angeboten wird. Die meisten Browser akzeptieren Cookies automatisch. Sie können Ihren Browser so einstellen, dass er keine Cookies empfängt, und Sie können auch vorhandene Cookies aus Ihrem Browser löschen. Möglicherweise stellen Sie fest, dass einige Teile der Website nicht ordnungsgemäß funktionieren, wenn Sie Cookies abgelehnt haben.\nBitte beachten Sie, dass Sie die von dieser Website bereitgestellten Cookies akzeptieren, wenn Sie Ihren Browser nicht konfigurieren. So können Sie sehen, welche Cookies Sie akzeptiert haben:\nSie können Ihren Browser so einstellen, dass er alle Cookies akzeptiert oder Sie jedes Mal benachrichtigt, wenn ein Cookie vom Server unserer Website angezeigt wird.\nBeispiele dafür, wo Cookies eingesetzt werden können:\nJede Art von Registrierung. Jede Art von Login. Jede Art von Abonnement-Newsletter oder Ähnlichem. Jede Art von Zahlung oder Spende. Jede Art von Tracking-Code wie Google Analytics. Jede Art von eingebettetem Code wie Google Maps oder YouTube-Video. Jegliche eingebettete Werbung. Jeder eingebettete Code anderer Art. Alle Links zu Blogs.\nAlle Links zu Social-Media-Websites. Links zu anderen externen Websites, die möglicherweise Tracking-Code verwenden. Links zu offiziellen Websites.",
 
-  "conditions":"Bedingungen"
+  "conditions":"Bedingungen",
+  "userName":"Benutzername",
+   "password":"Passwort",
+   "passwordCantBeEmpty":"Passwort darf nicht leer sein",
+   "forgotPassword":"PASSWORT VERGESSEN",
+   "signIn":"Anmelden",
+   "ifYouDontHaveAccount":"Wenn Sie kein Konto haben, aber ein Mitarbeiter sind,\nklicken Sie hier, um den Administrator zu kontaktieren"
 
 }

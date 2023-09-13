@@ -164,7 +164,7 @@ class _NavbarState extends State<Navbar> {
                       height: 45,
                       decoration: BoxDecoration(
                           color:
-                              isHovered ? Colors.black : AppColors.mainAccent,
+                              isHovered ? AppColors.mainDarkAccent : AppColors.mainAccent,
                           borderRadius: BorderRadius.circular(8)),
                       child: Padding(
                         padding: const EdgeInsets.only(right: 14.0, left: 31),

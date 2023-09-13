@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
 import '../widgets/footer.dart';
+import 'dart:html' as html;
 
 class ForEmployers extends StatelessWidget {
   const ForEmployers({super.key});
@@ -17,21 +18,93 @@ class ForEmployers extends StatelessWidget {
               padding: const EdgeInsets.only(top: 45.0),
               child: Column(
                 children: [
-                  Text(AppLocalizations.of(context)!.forEmployers,style: AppTheme
-                      .themeData.textTheme.headlineLarge,),
-                  const SizedBox(height: 20,),
+                  Text(
+                    AppLocalizations.of(context)!.forEmployers,
+                    style: AppTheme.themeData.textTheme.headlineLarge,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Container(
-                    color:AppColors.mainAccent,
+                    color: AppColors.mainAccent,
                     height: 4,
                     width: 110,
                   ),
-                  const SizedBox(height: 47,),
-                  const SizedBox(
-                    height: 592,
-                    width: 658,
-                    child: Card(),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 47, left: 100, right: 105),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.simplifyHiring,
+                          style: AppTheme.themeData.textTheme.titleMedium!
+                              .copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 24,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.simplifyHiringText,
+                          style: AppTheme.themeData.textTheme.titleMedium,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.whyChooseIndustria,
+                          style: AppTheme.themeData.textTheme.titleMedium!
+                              .copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 24,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: AppLocalizations.of(context)!
+                                    .whyChooseIndustriaText,
+                                style: AppTheme.themeData.textTheme.titleMedium,
+                              ),
+                              WidgetSpan(
+                                child: MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      html.window.open(
+                                          'https://www.industria-jobs.de/download_files/Besch_Bap.pdf',
+                                          'pdf');
+                                    },
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .bapMemberShip,
+                                      style: AppTheme
+                                          .themeData.textTheme.titleMedium!
+                                          .copyWith(
+                                        color: AppColors.mainAccent,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 161,),
+                  const SizedBox(
+                    height: 161,
+                  ),
                 ],
               ),
             ),

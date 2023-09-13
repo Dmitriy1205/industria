@@ -23,7 +23,7 @@ class _TabletNavbarState extends State<TabletNavbar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-
+      surfaceTintColor: Colors.white,
       flexibleSpace: SizedBox(
         child: Stack(
           fit: StackFit.expand,

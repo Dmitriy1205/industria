@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:industria/presentation/widgets/layouts/desktop_layout.dart';
-import 'package:industria/presentation/widgets/layouts/mobile_layout.dart';
-import 'package:industria/presentation/widgets/layouts/responsive_layout.dart';
-import 'package:industria/presentation/widgets/layouts/tablet_layout/tablet_layout.dart';
 
 import '../widgets/navbar.dart';
+import 'layouts/desktop_layout.dart';
+import 'layouts/mobile_layout.dart';
+import 'layouts/responsive_layout.dart';
+import 'layouts/tablet_layout/tablet_layout.dart';
 
 class MainScreen extends StatelessWidget {
   final Widget child;

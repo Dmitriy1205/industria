@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../core/constants/colors.dart';
@@ -74,28 +75,42 @@ class ForEmployers extends StatelessWidget {
                                 text: AppLocalizations.of(context)!
                                     .whyChooseIndustriaText,
                                 style: AppTheme.themeData.textTheme.titleMedium,
+
                               ),
-                              WidgetSpan(
-                                child: MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      html.window.open(
-                                          'https://www.industria-jobs.de/download_files/Besch_Bap.pdf',
-                                          'pdf');
-                                    },
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .bapMemberShip,
-                                      style: AppTheme
-                                          .themeData.textTheme.titleMedium!
-                                          .copyWith(
-                                        color: AppColors.mainAccent,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                              TextSpan(
+                                text:AppLocalizations.of(context)!
+                                    .bapMemberShip,
+                                style:AppTheme
+                                    .themeData.textTheme.titleMedium!
+                                    .copyWith(
+                                  color: AppColors.mainDarkAccent,decoration: TextDecoration.underline,decorationColor:AppColors.mainDarkAccent ),
+                                mouseCursor: SystemMouseCursors.click,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    html.window.open(
+                                        'https://www.industria-jobs.de/download_files/Besch_Bap.pdf',
+                                        'pdf');
+                                  },
                               ),
+                              // WidgetSpan(
+                              //   child: MouseRegion(
+                              //     cursor: SystemMouseCursors.click,
+                              //     child: GestureDetector(
+                              //       onTap: () {
+                              //
+                              //       },
+                              //       child: Text(
+                              //         AppLocalizations.of(context)!
+                              //             .bapMemberShip,
+                              //         style: AppTheme
+                              //             .themeData.textTheme.titleMedium!
+                              //             .copyWith(
+                              //           color: AppColors.mainAccent,
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

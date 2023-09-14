@@ -3,14 +3,21 @@ import 'package:flutter/material.dart';
 class FadeIn extends StatefulWidget {
   final Widget child;
   final ScrollController scrollController;
+  final double revealOffset;
+  final Offset slideBegin;
+  final Offset slideEnd;
 
-  FadeIn({
+  const FadeIn({
+    super.key,
     required this.child,
     required this.scrollController,
+    required this.revealOffset,
+    required this.slideBegin,
+    required this.slideEnd,
   });
 
   @override
-  _FadeInState createState() => _FadeInState();
+  State<FadeIn> createState() => _FadeInState();
 }
 
 class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
@@ -23,14 +30,17 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(1.0, 0.0),
-      end: Offset.zero,
-    ).animate(_controller);
+      begin: widget.slideBegin,
+      end: widget.slideEnd,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
 
     _fadeAnimation = Tween<double>(
       begin: 0.0,
@@ -41,33 +51,24 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
         curve: Curves.easeInOut,
       ),
     );
-    _controller.forward();
-    _isVisible = true;
 
-    widget.scrollController.addListener(_onScroll);
+    widget.scrollController.addListener(_scrollListener);
   }
 
-  void _onScroll() {
-    const double containerHeight = 400.0;
-    const double itemHeight = 100.0;
-    const double startingOffset = containerHeight * 0;
-    const double endingOffset = startingOffset + containerHeight;
+  void _scrollListener() {
     final double scrollOffset = widget.scrollController.offset;
+    final double revealOffset = widget.revealOffset;
 
-    if (scrollOffset >= startingOffset && scrollOffset <= endingOffset) {
-      if (!_isVisible) {
-        _controller.forward();
-        setState(() {
-          _isVisible = true;
-        });
-      }
-    } else if (scrollOffset < startingOffset) {
-      if (_isVisible) {
-        _controller.reverse();
-        setState(() {
-          _isVisible = false;
-        });
-      }
+    if (scrollOffset >= revealOffset && !_isVisible) {
+      _controller.forward();
+      setState(() {
+        _isVisible = true;
+      });
+    } else if (scrollOffset < revealOffset && _isVisible) {
+      _controller.reverse();
+      setState(() {
+        _isVisible = false;
+      });
     }
   }
 
@@ -81,8 +82,8 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return SlideTransition(
       position: _slideAnimation,
-      child: Opacity(
-        opacity: _fadeAnimation.value,
+      child: FadeTransition(
+        opacity: _fadeAnimation,
         child: widget.child,
       ),
     );

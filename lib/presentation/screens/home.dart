@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:industria/core/constants/images.dart';
-import 'package:industria/presentation/widgets/fade_in_animation.dart';
+import 'package:industria/core/animations/fade_in_animation.dart';
 import '../../app/router.dart';
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
@@ -871,9 +871,12 @@ class _HomeState extends State<Home> {
                       ),
                       FadeIn(
                         scrollController: scrollController,
+                        revealOffset: 250,
+                        slideBegin: const Offset(0.0, 1.0),
+                        slideEnd: Offset.zero,
                         child: Padding(
                           padding: const EdgeInsets.only(
-                              top: 155, left: 90, right: 31),
+                              top: 155, left: 90, right: 115),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -897,7 +900,7 @@ class _HomeState extends State<Home> {
                                             .copyWith(
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 20,
-                                                color: AppColors.mainAccent),
+                                                color: AppColors.mainDarkAccent),
                                       ),
                                       SizedBox(
                                         width: 20,
@@ -935,294 +938,306 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 155, left: 90, right: 115),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      AppLocalizations.of(context)!.bestChoice,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelMedium!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 20,
-                                              color: AppColors.mainAccent),
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Container(
-                                      color: AppColors.mainAccent,
-                                      height: 2,
-                                      width: 340,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.whyWeAre,
-                                  style: AppTheme
-                                      .themeData.textTheme.headlineLarge!
-                                      .copyWith(fontSize: 36),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.atIndustria,
-                                  textAlign: TextAlign.start,
-                                  style: AppTheme
-                                      .themeData.textTheme.labelMedium!
-                                      .copyWith(fontSize: 18),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.ourTailored,
-                                  textAlign: TextAlign.start,
-                                  style: AppTheme
-                                      .themeData.textTheme.labelMedium!
-                                      .copyWith(fontSize: 18),
-                                ),
-                              ],
-                            ),
-                            Image.asset(
-                              AppImages.homePic2,
-                              height: 477,
-                              width: 472,
-                            ),
-                          ],
+                      FadeIn(
+                        scrollController: scrollController,
+                        revealOffset: 800,
+                        slideBegin: const Offset(1.0, 0.0),
+                        slideEnd: Offset.zero,
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 155, left: 90, right: 115),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        AppLocalizations.of(context)!.bestChoice,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelMedium!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 20,
+                                                color: AppColors.mainDarkAccent),
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Container(
+                                        color: AppColors.mainAccent,
+                                        height: 2,
+                                        width: 340,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.whyWeAre,
+                                    style: AppTheme
+                                        .themeData.textTheme.headlineLarge!
+                                        .copyWith(fontSize: 36),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.atIndustria,
+                                    textAlign: TextAlign.start,
+                                    style: AppTheme
+                                        .themeData.textTheme.labelMedium!
+                                        .copyWith(fontSize: 18),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.ourTailored,
+                                    textAlign: TextAlign.start,
+                                    style: AppTheme
+                                        .themeData.textTheme.labelMedium!
+                                        .copyWith(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                              Image.asset(
+                                AppImages.homePic2,
+                                height: 477,
+                                width: 472,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(
-                        height: 171,
+                        height: 80,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            AppLocalizations.of(context)!.achievements,
-                            style: AppTheme.themeData.textTheme.headlineLarge!
-                                .copyWith(fontSize: 36),
-                          ),
-                          SizedBox(
-                            height: 88,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  onEnter: (_) {
-                                    setState(() {
-                                      isHoveredCard1 = !isHoveredCard1;
-                                    });
-                                  },
-                                  onExit: (_) {
-                                    setState(() {
-                                      isHoveredCard1 = !isHoveredCard1;
-                                    });
-                                  },
-                                  child: AnimatedContainer(
-                                    duration: Duration(milliseconds: 300),
-                                    transform: isHoveredCard1
-                                        ? Matrix4.translationValues(0, -20, 0)
-                                        : Matrix4.identity(),
-                                    decoration: BoxDecoration(
-                                        color: isHoveredCard1
-                                            ? AppColors.mainLightAccent
-                                            : Colors.white,
-                                        border: Border(
-                                          top: BorderSide(
-                                              color: AppColors.mainAccent,
-                                              width: 2),
-                                        )),
-                                    width: 400,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Image.asset(
-                                            AppImages.cup,
-                                            scale: 2,
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .oneOfTheLargest,
-                                            style: AppTheme.themeData.textTheme
-                                                .headlineLarge!
-                                                .copyWith(fontSize: 32),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .weAreTop,
-                                            textAlign: TextAlign.start,
-                                            style: AppTheme.themeData.textTheme
-                                                .labelMedium!
-                                                .copyWith(fontSize: 18),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  onEnter: (_) {
-                                    setState(() {
-                                      isHoveredCard2 = !isHoveredCard2;
-                                    });
-                                  },
-                                  onExit: (_) {
-                                    setState(() {
-                                      isHoveredCard2 = !isHoveredCard2;
-                                    });
-                                  },
-                                  child: AnimatedContainer(
-                                    duration: Duration(milliseconds: 300),
-                                    transform: isHoveredCard2
-                                        ? Matrix4.translationValues(0, -20, 0)
-                                        : Matrix4.identity(),
-                                    decoration: BoxDecoration(
-                                        color: isHoveredCard2
-                                            ? AppColors.mainLightAccent
-                                            : Colors.white,
-                                        border: Border(
-                                          top: BorderSide(
-                                              color: AppColors.mainAccent,
-                                              width: 2),
-                                        )),
-                                    width: 400,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Image.asset(
-                                            AppImages.sector,
-                                            scale: 2,
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .overTwo,
-                                            style: AppTheme.themeData.textTheme
-                                                .headlineLarge!
-                                                .copyWith(fontSize: 32),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .weCanHelp,
-                                            textAlign: TextAlign.start,
-                                            style: AppTheme.themeData.textTheme
-                                                .labelMedium!
-                                                .copyWith(fontSize: 18),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  onEnter: (_) {
-                                    setState(() {
-                                      isHoveredCard3 = !isHoveredCard3;
-                                    });
-                                  },
-                                  onExit: (_) {
-                                    setState(() {
-                                      isHoveredCard3 = !isHoveredCard3;
-                                    });
-                                  },
-                                  child: AnimatedContainer(
-                                    duration: Duration(milliseconds: 300),
-                                    transform: isHoveredCard3
-                                        ? Matrix4.translationValues(0, -20, 0)
-                                        : Matrix4.identity(),
-                                    decoration: BoxDecoration(
-                                        color: isHoveredCard3
-                                            ? AppColors.mainLightAccent
-                                            : Colors.white,
-                                        border: Border(
-                                          top: BorderSide(
-                                              color: AppColors.mainAccent,
-                                              width: 2),
-                                        )),
-                                    width: 400,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Image.asset(
-                                            AppImages.globe,
-                                            scale: 2,
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .weAreInternational,
-                                            style: AppTheme.themeData.textTheme
-                                                .headlineLarge!
-                                                .copyWith(fontSize: 32),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
-                                          ),
-                                          Text(
-                                            AppLocalizations.of(context)!
-                                                .weHaveOur,
-                                            textAlign: TextAlign.start,
-                                            style: AppTheme.themeData.textTheme
-                                                .labelMedium!
-                                                .copyWith(fontSize: 18),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                      FadeIn(
+                        scrollController: scrollController,
+                        revealOffset: 1400,
+                        slideBegin: const Offset(-1.0, 0.0),
+                        slideEnd: Offset.zero,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.achievements,
+                              style: AppTheme.themeData.textTheme.headlineLarge!
+                                  .copyWith(fontSize: 36),
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              height: 88,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 50),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    onEnter: (_) {
+                                      setState(() {
+                                        isHoveredCard1 = !isHoveredCard1;
+                                      });
+                                    },
+                                    onExit: (_) {
+                                      setState(() {
+                                        isHoveredCard1 = !isHoveredCard1;
+                                      });
+                                    },
+                                    child: AnimatedContainer(
+                                      duration: Duration(milliseconds: 300),
+                                      transform: isHoveredCard1
+                                          ? Matrix4.translationValues(0, -20, 0)
+                                          : Matrix4.identity(),
+                                      decoration: BoxDecoration(
+                                          color: isHoveredCard1
+                                              ? AppColors.mainLightAccent
+                                              : Colors.white,
+                                          border: Border(
+                                            top: BorderSide(
+                                                color: AppColors.mainAccent,
+                                                width: 2),
+                                          )),
+                                      width: 400,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 20),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Image.asset(
+                                              AppImages.cup,
+                                              scale: 2,
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .oneOfTheLargest,
+                                              style: AppTheme.themeData.textTheme
+                                                  .headlineLarge!
+                                                  .copyWith(fontSize: 32),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .weAreTop,
+                                              textAlign: TextAlign.start,
+                                              style: AppTheme.themeData.textTheme
+                                                  .labelMedium!
+                                                  .copyWith(fontSize: 18),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    onEnter: (_) {
+                                      setState(() {
+                                        isHoveredCard2 = !isHoveredCard2;
+                                      });
+                                    },
+                                    onExit: (_) {
+                                      setState(() {
+                                        isHoveredCard2 = !isHoveredCard2;
+                                      });
+                                    },
+                                    child: AnimatedContainer(
+                                      duration: Duration(milliseconds: 300),
+                                      transform: isHoveredCard2
+                                          ? Matrix4.translationValues(0, -20, 0)
+                                          : Matrix4.identity(),
+                                      decoration: BoxDecoration(
+                                          color: isHoveredCard2
+                                              ? AppColors.mainLightAccent
+                                              : Colors.white,
+                                          border: Border(
+                                            top: BorderSide(
+                                                color: AppColors.mainAccent,
+                                                width: 2),
+                                          )),
+                                      width: 400,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 20),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Image.asset(
+                                              AppImages.sector,
+                                              scale: 2,
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .overTwo,
+                                              style: AppTheme.themeData.textTheme
+                                                  .headlineLarge!
+                                                  .copyWith(fontSize: 32),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .weCanHelp,
+                                              textAlign: TextAlign.start,
+                                              style: AppTheme.themeData.textTheme
+                                                  .labelMedium!
+                                                  .copyWith(fontSize: 18),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    onEnter: (_) {
+                                      setState(() {
+                                        isHoveredCard3 = !isHoveredCard3;
+                                      });
+                                    },
+                                    onExit: (_) {
+                                      setState(() {
+                                        isHoveredCard3 = !isHoveredCard3;
+                                      });
+                                    },
+                                    child: AnimatedContainer(
+                                      duration: Duration(milliseconds: 300),
+                                      transform: isHoveredCard3
+                                          ? Matrix4.translationValues(0, -20, 0)
+                                          : Matrix4.identity(),
+                                      decoration: BoxDecoration(
+                                          color: isHoveredCard3
+                                              ? AppColors.mainLightAccent
+                                              : Colors.white,
+                                          border: Border(
+                                            top: BorderSide(
+                                                color: AppColors.mainAccent,
+                                                width: 2),
+                                          )),
+                                      width: 400,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 20),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Image.asset(
+                                              AppImages.globe,
+                                              scale: 2,
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .weAreInternational,
+                                              style: AppTheme.themeData.textTheme
+                                                  .headlineLarge!
+                                                  .copyWith(fontSize: 32),
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .weHaveOur,
+                                              textAlign: TextAlign.start,
+                                              style: AppTheme.themeData.textTheme
+                                                  .labelMedium!
+                                                  .copyWith(fontSize: 18),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(
                         height: 128,

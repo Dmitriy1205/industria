@@ -59,6 +59,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     final double scrollOffset = widget.scrollController.offset;
     final double revealOffset = widget.revealOffset;
 
+
     if (scrollOffset >= revealOffset && !_isVisible) {
       _controller.forward();
       setState(() {

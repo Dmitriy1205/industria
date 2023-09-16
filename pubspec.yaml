@@ -30,6 +30,8 @@ dependencies:
   go_router: ^10.1.2
   font_awesome_flutter: ^10.4.0
   carousel_slider: ^4.2.1
+  youtube_player_iframe: ^4.0.4
+  selectable: any
   intl: any
 
 dev_dependencies:

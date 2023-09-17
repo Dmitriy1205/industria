@@ -67,5 +67,24 @@
  "passwordCantBeEmpty":"Password cant be empty",
  "forgotPassword":"FORGOT PASSWORD",
  "signIn":"Sign in",
- "ifYouDontHaveAccount":"If you do not have an account but you are an employee,\nclick here to contact admin"
+ "ifYouDontHaveAccount":"If you do not have an account but you are an employee,\nclick here to contact admin",
+
+ "contactUs": "Contact us",
+ "wannaContactUs": "Wanna contact us? Fill the form",
+ "whatWillBeNextStep": "What will be next step?",
+ "youAreOneStepCloseToFind": "You are one step close to find your perfect job",
+ "weWillPrepareAPropossal": "1. We will prepare a propossal",
+ "getListOfRecommendedJobs": "Get list of recommended jobs and analysis of each vacancy.",
+ "togetherWeWillDiscussIt": "2. Together we will discuss it",
+ "weWillSetUpAMeetingAtGoogle": "We will set up a meeting at Google Meet or Teams",
+ "summarizing": "3. Summarizing",
+ "basedOnYourSkillsAndDesires": "Based on your skills and desires, we will conduct top 3 vacancies to you",
+ "firstname": "Firstname*",
+ "lastname": "Lastname*",
+ "companyName": "Company name*",
+ "phoneNumber": "Phone number*",
+ "email": "Email*",
+ "description": "Description*",
+ "iAcceptApplicationDataProtectionPolicy": "I accept application Data Protection policy",
+ "send": "Send"
 }

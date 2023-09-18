@@ -56,9 +56,10 @@ class Contact extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 65.0, right: 65, top: 75, bottom: 71),
+                        left: 101.0, right: 289, top: 129),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,6 +85,7 @@ class Contact extends StatelessWidget {
                               Steps()
                             ]),
                         Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
@@ -94,7 +96,7 @@ class Contact extends StatelessWidget {
                                     controller: _firstNameController,
                                     style: AppTheme
                                         .themeData.textTheme.headlineLarge!
-                                        .copyWith(fontSize: 15),
+                                        .copyWith(fontSize: 14),
                                     decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
@@ -279,60 +281,67 @@ class Contact extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Checkbox(
-                                    activeColor: AppColors.mainAccent,
-                                    value: _checkboxValue,
-                                    onChanged: (_checkboxValue) {
-                                      _checkboxValue = !_checkboxValue!;
-                                    }),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                RichText(
-                                    text: TextSpan(
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!
-                                          .iAcceptApplicationDataProtectionPolicy,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelMedium!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              color: AppColors.darkGrey,
-                                              fontWeight: FontWeight.w600),
-                                    ),
-                                    TextSpan(
+                            Padding(
+                              padding: const EdgeInsets.only(top: 18),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(height:26,width: 26,
+                                    child: Checkbox(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                        activeColor: AppColors.mainAccent,
+                                        value: _checkboxValue,
+                                        onChanged: (_checkboxValue) {
+                                          _checkboxValue = !_checkboxValue!;
+                                          print('_checkboxValue $_checkboxValue' );
+                                        }),
+                                  ),
+                                  SizedBox(
+                                    width: 19,
+                                  ),
+                                  RichText(
+                                      text: TextSpan(
+                                    children: <TextSpan>[
+                                      TextSpan(
                                         text: AppLocalizations.of(context)!
-                                            .dataProtection,
+                                            .iAcceptApplicationDataProtectionPolicy,
                                         style: AppTheme
                                             .themeData.textTheme.labelMedium!
                                             .copyWith(
                                                 fontSize: 14,
-                                                color: AppColors.mainAccent,
+                                                color: AppColors.darkGrey,
                                                 fontWeight: FontWeight.w600),
-                                        mouseCursor: SystemMouseCursors.click),
-                                    TextSpan(
-                                      text:
-                                          AppLocalizations.of(context)!.policy,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelMedium!
-                                          .copyWith(
-                                              fontSize: 14,
-                                              color: AppColors.darkGrey,
-                                              fontWeight: FontWeight.w600),
-                                    ),
-                                  ],
-                                ))
-                              ],
+                                      ),
+                                      TextSpan(
+                                          text: AppLocalizations.of(context)!
+                                              .dataProtection,
+                                          style: AppTheme
+                                              .themeData.textTheme.labelMedium!
+                                              .copyWith(
+                                                  fontSize: 14,
+                                                  color: AppColors.mainAccent,
+                                                  fontWeight: FontWeight.w600),
+                                          mouseCursor: SystemMouseCursors.click),
+                                      TextSpan(
+                                        text:
+                                            AppLocalizations.of(context)!.policy,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelMedium!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                color: AppColors.darkGrey,
+                                                fontWeight: FontWeight.w600),
+                                      ),
+                                    ],
+                                  ))
+                                ],
+                              ),
                             ),
                             SizedBox(
-                              height: 30,
+                              height: 36,
                             ),
                             SizedBox(
-                              width: 530,
+                              width: 521,
+                              height: 36,
                               child: MouseRegion(
                                 cursor: SystemMouseCursors.click,
                                 child: MaterialButton(

@@ -60,6 +60,7 @@ flutter:
         - asset: assets/fonts/OpenSans-Medium.ttf
         - asset: assets/fonts/OpenSans-Light.ttf
         - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-SemiBold.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

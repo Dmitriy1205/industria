@@ -108,11 +108,10 @@ class Contact extends StatelessWidget {
                                           const EdgeInsets.symmetric(
                                               vertical: 10, horizontal: 10),
                                       labelStyle: AppTheme
-                                          .themeData.textTheme.labelMedium!
+                                          .themeData.textTheme.labelSmall!
                                           .copyWith(
-                                              fontSize: 14,
                                               color: AppColors.darkGrey,
-                                              fontWeight: FontWeight.w600),
+                                      ),
                                       labelText: AppLocalizations.of(context)!
                                           .firstname,
                                     ),
@@ -140,11 +139,10 @@ class Contact extends StatelessWidget {
                                           const EdgeInsets.symmetric(
                                               vertical: 10, horizontal: 10),
                                       labelStyle: AppTheme
-                                          .themeData.textTheme.labelMedium!
+                                          .themeData.textTheme.labelSmall!
                                           .copyWith(
-                                              fontSize: 14,
                                               color: AppColors.darkGrey,
-                                              fontWeight: FontWeight.w600),
+                                             ),
                                       labelText: AppLocalizations.of(context)!
                                           .lastname,
                                     ),
@@ -177,11 +175,10 @@ class Contact extends StatelessWidget {
                                           const EdgeInsets.symmetric(
                                               vertical: 10, horizontal: 10),
                                       labelStyle: AppTheme
-                                          .themeData.textTheme.labelMedium!
+                                          .themeData.textTheme.labelSmall!
                                           .copyWith(
-                                              fontSize: 14,
                                               color: AppColors.darkGrey,
-                                              fontWeight: FontWeight.w600),
+                                        ),
                                       labelText: AppLocalizations.of(context)!
                                           .companyName,
                                     ),
@@ -207,11 +204,10 @@ class Contact extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(10),
                                       ),
                                       labelStyle: AppTheme
-                                          .themeData.textTheme.labelMedium!
+                                          .themeData.textTheme.labelSmall!
                                           .copyWith(
-                                              fontSize: 14,
                                               color: AppColors.darkGrey,
-                                              fontWeight: FontWeight.w600),
+                                      ),
                                       labelText: AppLocalizations.of(context)!
                                           .phoneNumber,
                                     ),
@@ -220,7 +216,7 @@ class Contact extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 26,
                             ),
                             SizedBox(
                               width: 521,
@@ -232,7 +228,8 @@ class Contact extends StatelessWidget {
                                     .themeData.textTheme.headlineLarge!
                                     .copyWith(fontSize: 15),
                                 decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.email),
+                                  prefixIcon: Icon(Icons.email,
+                                      color: AppColors.darkGrey),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
                                       color: AppColors.lightGrey,
@@ -240,18 +237,17 @@ class Contact extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   labelStyle: AppTheme
-                                      .themeData.textTheme.labelMedium!
+                                      .themeData.textTheme.labelSmall!
                                       .copyWith(
-                                          fontSize: 14,
                                           color: AppColors.darkGrey,
-                                          fontWeight: FontWeight.w600),
+                                  ),
                                   labelText:
                                       AppLocalizations.of(context)!.email,
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 35,
                             ),
                             SizedBox(
                               width: 521,
@@ -259,6 +255,7 @@ class Contact extends StatelessWidget {
                               child: TextFormField(
                                 maxLines: 5,
                                 textAlign: TextAlign.start,
+                                textAlignVertical: TextAlignVertical.top,
                                 controller: _descriptionController,
                                 style: AppTheme
                                     .themeData.textTheme.headlineLarge!
@@ -270,12 +267,12 @@ class Contact extends StatelessWidget {
                                     ),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
+                                  alignLabelWithHint: true,
                                   labelStyle: AppTheme
-                                      .themeData.textTheme.labelMedium!
+                                      .themeData.textTheme.labelSmall!
                                       .copyWith(
-                                          fontSize: 14,
                                           color: AppColors.darkGrey,
-                                          fontWeight: FontWeight.w600),
+                                        ),
                                   labelText:
                                       AppLocalizations.of(context)!.description,
                                 ),
@@ -286,13 +283,19 @@ class Contact extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  SizedBox(height:26,width: 26,
-                                    child: Checkbox(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                  SizedBox(
+                                    height: 26,
+                                    width: 26,
+                                    child: Checkbox(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
                                         activeColor: AppColors.mainAccent,
                                         value: _checkboxValue,
                                         onChanged: (_checkboxValue) {
                                           _checkboxValue = !_checkboxValue!;
-                                          print('_checkboxValue $_checkboxValue' );
+                                          print(
+                                              '_checkboxValue $_checkboxValue');
                                         }),
                                   ),
                                   SizedBox(
@@ -305,31 +308,27 @@ class Contact extends StatelessWidget {
                                         text: AppLocalizations.of(context)!
                                             .iAcceptApplicationDataProtectionPolicy,
                                         style: AppTheme
-                                            .themeData.textTheme.labelMedium!
+                                            .themeData.textTheme.labelSmall!
                                             .copyWith(
-                                                fontSize: 14,
-                                                color: AppColors.darkGrey,
-                                                fontWeight: FontWeight.w600),
+                                          color: AppColors.darkGrey,
+                                        ),
                                       ),
                                       TextSpan(
                                           text: AppLocalizations.of(context)!
                                               .dataProtection,
                                           style: AppTheme
-                                              .themeData.textTheme.labelMedium!
+                                              .themeData.textTheme.labelSmall!
                                               .copyWith(
-                                                  fontSize: 14,
-                                                  color: AppColors.mainAccent,
-                                                  fontWeight: FontWeight.w600),
-                                          mouseCursor: SystemMouseCursors.click),
+                                                  color: AppColors.mainAccent),
+                                          mouseCursor:
+                                              SystemMouseCursors.click),
                                       TextSpan(
-                                        text:
-                                            AppLocalizations.of(context)!.policy,
+                                        text: AppLocalizations.of(context)!
+                                            .policy,
                                         style: AppTheme
-                                            .themeData.textTheme.labelMedium!
+                                            .themeData.textTheme.labelSmall!
                                             .copyWith(
-                                                fontSize: 14,
-                                                color: AppColors.darkGrey,
-                                                fontWeight: FontWeight.w600),
+                                                color: AppColors.darkGrey),
                                       ),
                                     ],
                                   ))
@@ -345,6 +344,8 @@ class Contact extends StatelessWidget {
                               child: MouseRegion(
                                 cursor: SystemMouseCursors.click,
                                 child: MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
                                   onPressed: () {},
                                   color: AppColors.mainAccent,
                                   hoverColor: AppColors.mainDarkAccent,
@@ -358,11 +359,10 @@ class Contact extends StatelessWidget {
                                   child: Text(
                                       AppLocalizations.of(context)!.send,
                                       style: AppTheme
-                                          .themeData.textTheme.bodyMedium!
+                                          .themeData.textTheme.labelSmall!
                                           .copyWith(
-                                              color: Colors.white,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w600)),
+                                        color: Colors.white,
+                                      )),
                                 ),
                               ),
                             ),

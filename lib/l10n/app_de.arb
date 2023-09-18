@@ -67,6 +67,30 @@
    "passwordCantBeEmpty":"Passwort darf nicht leer sein",
    "forgotPassword":"PASSWORT VERGESSEN",
    "signIn":"Anmelden",
-   "ifYouDontHaveAccount":"Wenn Sie kein Konto haben, aber ein Mitarbeiter sind,\nklicken Sie hier, um den Administrator zu kontaktieren"
+   "ifYouDontHaveAccount":"Wenn Sie kein Konto haben, aber ein Mitarbeiter sind,\nklicken Sie hier, um den Administrator zu kontaktieren",
+
+
+   "contactUs": "Kontaktieren Sie uns",
+   "wannaContactUs": "Möchten Sie uns kontaktieren? Füllen Sie das Formular aus",
+   "whatWillBeNextStep": "Was wird der nächste Schritt sein?",
+   "youAreOneStepCloseToFind": "Sie sind einen Schritt davon entfernt, Ihren perfekten Job zu finden",
+   "weWillPrepareAPropossal": "1. Wir werden einen Vorschlag vorbereiten",
+   "getListOfRecommendedJobs": "Erhalten Sie eine Liste empfohlener Jobs und eine Analyse jeder freien Stelle.",
+   "togetherWeWillDiscussIt": "2. Gemeinsam werden wir es besprechen",
+   "weWillSetUpAMeetingAtGoogle": "Wir werden ein Meeting bei Google Meet oder Teams einrichten",
+   "summarizing": "3. Zusammenfassung",
+   "basedOnYourSkillsAndDesires": "Basierend auf Ihren Fähigkeiten und Wünschen werden wir Ihnen die besten 3 Stellenangebote vorstellen",
+   "firstname": "Vorname*",
+   "lastname": "Nachname*",
+   "companyName": "Firmenname*",
+   "phoneNumber": "Telefonnummer*",
+   "email": "E-Mail*",
+   "description": "Beschreibung*",
+   "iAcceptApplicationDataProtectionPolicy": "Ich akzeptiere die ",
+   "dataProtection": "Datenschutzrichtlinie ",
+   "policy": "der Anwendung",
+   "send": "Senden"
+
+
 
 }

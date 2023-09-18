@@ -261,8 +261,7 @@ class _ContactState extends State<Contact> {
                                     .themeData.textTheme.headlineLarge!
                                     .copyWith(fontSize: 14),
                                 decoration: InputDecoration(
-                                  contentPadding:
-                                  const EdgeInsets.symmetric(
+                                  contentPadding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 10),
                                   prefixIcon: Icon(Icons.email,
                                       color: AppColors.darkGrey),
@@ -581,6 +580,9 @@ class _ContactState extends State<Contact> {
                                         .themeData.textTheme.headlineLarge!
                                         .copyWith(fontSize: 14),
                                     decoration: InputDecoration(
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10, horizontal: 10),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
                                           color: AppColors.lightGrey,
@@ -615,6 +617,8 @@ class _ContactState extends State<Contact> {
                                     .themeData.textTheme.headlineLarge!
                                     .copyWith(fontSize: 14),
                                 decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
                                   prefixIcon: Icon(Icons.email,
                                       color: AppColors.darkGrey),
                                   enabledBorder: OutlineInputBorder(
@@ -959,6 +963,8 @@ class _ContactState extends State<Contact> {
                                       .themeData.textTheme.headlineLarge!
                                       .copyWith(fontSize: 14),
                                   decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 10),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: const BorderSide(
                                         color: AppColors.lightGrey,
@@ -992,6 +998,8 @@ class _ContactState extends State<Contact> {
                               style: AppTheme.themeData.textTheme.headlineLarge!
                                   .copyWith(fontSize: 14),
                               decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
                                 prefixIcon: Icon(Icons.email,
                                     color: AppColors.darkGrey),
                                 enabledBorder: OutlineInputBorder(

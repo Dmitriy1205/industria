@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:industria/presentation/widgets/steps.dart';
 
@@ -290,17 +291,41 @@ class Contact extends StatelessWidget {
                                 SizedBox(
                                   width: 15,
                                 ),
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .iAcceptApplicationDataProtectionPolicy,
-                                  style: AppTheme
-                                      .themeData.textTheme.labelMedium!
-                                      .copyWith(
-                                      fontSize: 14,
-                                      color: AppColors.darkGrey,
-                                      fontWeight: FontWeight.w600),
-
-                                )
+                                RichText(
+                                    text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!
+                                          .iAcceptApplicationDataProtectionPolicy,
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(
+                                              fontSize: 14,
+                                              color: AppColors.darkGrey,
+                                              fontWeight: FontWeight.w600),
+                                    ),
+                                    TextSpan(
+                                        text: AppLocalizations.of(context)!
+                                            .dataProtection,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelMedium!
+                                            .copyWith(
+                                                fontSize: 14,
+                                                color: AppColors.mainAccent,
+                                                fontWeight: FontWeight.w600),
+                                        mouseCursor: SystemMouseCursors.click),
+                                    TextSpan(
+                                      text:
+                                          AppLocalizations.of(context)!.policy,
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(
+                                              fontSize: 14,
+                                              color: AppColors.darkGrey,
+                                              fontWeight: FontWeight.w600),
+                                    ),
+                                  ],
+                                ))
                               ],
                             ),
                             SizedBox(
@@ -308,22 +333,28 @@ class Contact extends StatelessWidget {
                             ),
                             SizedBox(
                               width: 530,
-                              child: OutlinedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppColors.mainAccent,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 50, vertical: 20),
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(8)))),
-                                child: Text(AppLocalizations.of(context)!.send,
-                                    style: AppTheme
-                                        .themeData.textTheme.bodyMedium!
-                                        .copyWith(
-                                            color: Colors.white,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
+                              child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                child: MaterialButton(
+                                  onPressed: () {},
+                                  color: AppColors.mainAccent,
+                                  hoverColor: AppColors.mainDarkAccent,
+                                  // style: ElevatedButton.styleFrom(
+                                  //     backgroundColor: AppColors.mainAccent,
+                                  //     padding: const EdgeInsets.symmetric(
+                                  //         horizontal: 50, vertical: 20),
+                                  //     shape: const RoundedRectangleBorder(
+                                  //         borderRadius: BorderRadius.all(
+                                  //             Radius.circular(8)))),
+                                  child: Text(
+                                      AppLocalizations.of(context)!.send,
+                                      style: AppTheme
+                                          .themeData.textTheme.bodyMedium!
+                                          .copyWith(
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600)),
+                                ),
                               ),
                             ),
                           ],

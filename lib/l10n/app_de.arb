@@ -86,7 +86,9 @@
    "phoneNumber": "Telefonnummer*",
    "email": "E-Mail*",
    "description": "Beschreibung*",
-   "iAcceptApplicationDataProtectionPolicy": "Ich akzeptiere die Datenschutzrichtlinie der Anwendung",
+   "iAcceptApplicationDataProtectionPolicy": "Ich akzeptiere die ",
+   "dataProtection": "Datenschutzrichtlinie ",
+   "policy": "der Anwendung",
    "send": "Senden"
 
 

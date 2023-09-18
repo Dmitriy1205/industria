@@ -85,6 +85,8 @@
  "phoneNumber": "Phone number*",
  "email": "Email*",
  "description": "Description*",
- "iAcceptApplicationDataProtectionPolicy": "I accept application Data Protection policy",
+ "iAcceptApplicationDataProtectionPolicy": "I accept application ",
+ "dataProtection": "Data Protection ",
+ "policy": "policy",
  "send": "Send"
 }

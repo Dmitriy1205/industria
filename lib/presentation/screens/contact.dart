@@ -816,7 +816,7 @@ class _ContactState extends State<Contact> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 101.0, right: 289, top: 129),
+                      const EdgeInsets.only(left: 101.0, right: 120, top: 129),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -835,15 +835,18 @@ class _ContactState extends State<Contact> {
                               height: 15,
                             ),
                             Text(
-                                AppLocalizations.of(context)!
-                                    .youAreOneStepCloseToFind,
-                                style:
-                                    AppTheme.themeData.textTheme.titleMedium),
+                              AppLocalizations.of(context)!
+                                  .youAreOneStepCloseToFind,
+                              style:
+                                  AppTheme.themeData.textTheme.titleMedium,
+                              overflow: TextOverflow.visible,
+                            ),
                             SizedBox(
                               height: 30,
                             ),
                             Steps()
                           ]),
+                      Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

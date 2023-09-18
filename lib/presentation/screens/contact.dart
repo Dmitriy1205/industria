@@ -7,16 +7,45 @@ import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
 import '../widgets/footer.dart';
 
-class Contact extends StatelessWidget {
+class Contact extends StatefulWidget {
   Contact({super.key});
 
+  @override
+  State<Contact> createState() => _ContactState();
+}
+
+class _ContactState extends State<Contact> {
   TextEditingController _firstNameController = TextEditingController();
+
   TextEditingController _lastNameController = TextEditingController();
+
   TextEditingController _companyNameNameController = TextEditingController();
+
   TextEditingController _phoneNumberController = TextEditingController();
+
   TextEditingController _emailController = TextEditingController();
+
   TextEditingController _descriptionController = TextEditingController();
+
   bool _checkboxValue = true;
+
+  FocusNode _firstNameFocusNode = FocusNode();
+  FocusNode _lastNameFocusNode = FocusNode();
+  FocusNode _companyNameFocusNode = FocusNode();
+  FocusNode _phoneNumberFocusNode = FocusNode();
+  FocusNode _emailFocusNode = FocusNode();
+  FocusNode _descriptionFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _firstNameFocusNode.addListener(() => setState(() {}));
+    _lastNameFocusNode.addListener(() => setState(() {}));
+    _companyNameFocusNode.addListener(() => setState(() {}));
+    _phoneNumberFocusNode.addListener(() => setState(() {}));
+    _emailFocusNode.addListener(() => setState(() {}));
+    _descriptionFocusNode.addListener(() => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +122,7 @@ class Contact extends StatelessWidget {
                                   width: 244,
                                   height: 36,
                                   child: TextFormField(
+                                    focusNode: _firstNameFocusNode,
                                     controller: _firstNameController,
                                     style: AppTheme
                                         .themeData.textTheme.headlineLarge!
@@ -110,8 +140,9 @@ class Contact extends StatelessWidget {
                                       labelStyle: AppTheme
                                           .themeData.textTheme.labelSmall!
                                           .copyWith(
-                                              color: AppColors.darkGrey,
-                                      ),
+                                              color: _firstNameFocusNode.hasFocus
+                                                  ? AppColors.mainDarkAccent
+                                                  : AppColors.darkGrey),
                                       labelText: AppLocalizations.of(context)!
                                           .firstname,
                                     ),
@@ -124,6 +155,8 @@ class Contact extends StatelessWidget {
                                   width: 244,
                                   height: 36,
                                   child: TextFormField(
+                                    focusNode: _lastNameFocusNode,
+                                    controller: _lastNameController,
                                     textAlign: TextAlign.start,
                                     style: AppTheme
                                         .themeData.textTheme.headlineLarge!
@@ -141,8 +174,10 @@ class Contact extends StatelessWidget {
                                       labelStyle: AppTheme
                                           .themeData.textTheme.labelSmall!
                                           .copyWith(
-                                              color: AppColors.darkGrey,
-                                             ),
+                                        color: _lastNameFocusNode.hasFocus
+                                      ? AppColors.mainDarkAccent
+                                          : AppColors.darkGrey
+                                      ),
                                       labelText: AppLocalizations.of(context)!
                                           .lastname,
                                     ),
@@ -160,6 +195,7 @@ class Contact extends StatelessWidget {
                                   height: 36,
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
+                                    focusNode: _companyNameFocusNode,
                                     controller: _companyNameNameController,
                                     style: AppTheme
                                         .themeData.textTheme.headlineLarge!
@@ -177,8 +213,9 @@ class Contact extends StatelessWidget {
                                       labelStyle: AppTheme
                                           .themeData.textTheme.labelSmall!
                                           .copyWith(
-                                              color: AppColors.darkGrey,
-                                        ),
+                                          color: _companyNameFocusNode.hasFocus
+                                              ? AppColors.mainDarkAccent
+                                              : AppColors.darkGrey,                                      ),
                                       labelText: AppLocalizations.of(context)!
                                           .companyName,
                                     ),
@@ -192,6 +229,7 @@ class Contact extends StatelessWidget {
                                   height: 36,
                                   child: TextFormField(
                                     textAlign: TextAlign.start,
+                                    focusNode: _phoneNumberFocusNode,
                                     controller: _phoneNumberController,
                                     style: AppTheme
                                         .themeData.textTheme.headlineLarge!
@@ -206,8 +244,9 @@ class Contact extends StatelessWidget {
                                       labelStyle: AppTheme
                                           .themeData.textTheme.labelSmall!
                                           .copyWith(
-                                              color: AppColors.darkGrey,
-                                      ),
+                                          color: _phoneNumberFocusNode.hasFocus
+                                              ? AppColors.mainDarkAccent
+                                              : AppColors.darkGrey,                                      ),
                                       labelText: AppLocalizations.of(context)!
                                           .phoneNumber,
                                     ),
@@ -223,6 +262,7 @@ class Contact extends StatelessWidget {
                               height: 36,
                               child: TextFormField(
                                 textAlign: TextAlign.start,
+                                focusNode: _emailFocusNode,
                                 controller: _emailController,
                                 style: AppTheme
                                     .themeData.textTheme.headlineLarge!
@@ -239,8 +279,9 @@ class Contact extends StatelessWidget {
                                   labelStyle: AppTheme
                                       .themeData.textTheme.labelSmall!
                                       .copyWith(
-                                          color: AppColors.darkGrey,
-                                  ),
+                                      color: _emailFocusNode.hasFocus
+                                          ? AppColors.mainDarkAccent
+                                          : AppColors.darkGrey                                  ),
                                   labelText:
                                       AppLocalizations.of(context)!.email,
                                 ),
@@ -256,6 +297,7 @@ class Contact extends StatelessWidget {
                                 maxLines: 5,
                                 textAlign: TextAlign.start,
                                 textAlignVertical: TextAlignVertical.top,
+                                focusNode: _descriptionFocusNode,
                                 controller: _descriptionController,
                                 style: AppTheme
                                     .themeData.textTheme.headlineLarge!
@@ -271,8 +313,9 @@ class Contact extends StatelessWidget {
                                   labelStyle: AppTheme
                                       .themeData.textTheme.labelSmall!
                                       .copyWith(
-                                          color: AppColors.darkGrey,
-                                        ),
+                                      color: _descriptionFocusNode.hasFocus
+                                          ? AppColors.mainDarkAccent
+                                          : AppColors.darkGrey                                  ),
                                   labelText:
                                       AppLocalizations.of(context)!.description,
                                 ),

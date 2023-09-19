@@ -17,18 +17,13 @@ class Contact extends StatefulWidget {
 
 class _ContactState extends State<Contact> {
   TextEditingController _firstNameController = TextEditingController();
-
   TextEditingController _lastNameController = TextEditingController();
-
   TextEditingController _companyNameNameController = TextEditingController();
-
   TextEditingController _phoneNumberController = TextEditingController();
-
   TextEditingController _emailController = TextEditingController();
-
   TextEditingController _descriptionController = TextEditingController();
-
   bool _checkboxValue = true;
+  bool isSavePressed = false;
 
   FocusNode _firstNameFocusNode = FocusNode();
   FocusNode _lastNameFocusNode = FocusNode();
@@ -98,20 +93,29 @@ class _ContactState extends State<Contact> {
                             Row(
                               children: [
                                 Expanded(
-                                    child: CustomTextFormField(
-                                        focusNode: _firstNameFocusNode,
-                                        textController: _firstNameController,
-                                        labelText: AppLocalizations.of(context)!
-                                            .firstname)),
+                                  child: CustomTextFormField(
+                                    focusNode: _firstNameFocusNode,
+                                    textController: _firstNameController,
+                                    labelText:
+                                        AppLocalizations.of(context)!.firstname,
+                                    validator: validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                  ),
+                                ),
                                 const SizedBox(
                                   width: 30,
                                 ),
                                 Expanded(
                                   child: CustomTextFormField(
-                                      focusNode: _lastNameFocusNode,
-                                      textController: _lastNameController,
-                                      labelText: AppLocalizations.of(context)!
-                                          .lastname),
+                                    focusNode: _lastNameFocusNode,
+                                    textController: _lastNameController,
+                                    labelText:
+                                        AppLocalizations.of(context)!.lastname,
+                                    validator: validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                  ),
                                 ),
                               ],
                             ),
@@ -122,11 +126,14 @@ class _ContactState extends State<Contact> {
                               children: [
                                 Expanded(
                                   child: CustomTextFormField(
-                                      focusNode: _companyNameFocusNode,
-                                      textController:
-                                          _companyNameNameController,
-                                      labelText: AppLocalizations.of(context)!
-                                          .companyName),
+                                    focusNode: _companyNameFocusNode,
+                                    textController: _companyNameNameController,
+                                    labelText: AppLocalizations.of(context)!
+                                        .companyName,
+                                    validator: validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 30,
@@ -137,6 +144,11 @@ class _ContactState extends State<Contact> {
                                     textController: _phoneNumberController,
                                     labelText: AppLocalizations.of(context)!
                                         .phoneNumber,
+                                    validator: validatePhone,
+                                    inputFormatter:
+                                        FilteringTextInputFormatter.digitsOnly,
+                                    textInputType: TextInputType.phone,
+                                    isSavePressed: isSavePressed,
                                     width: 244,
                                   ),
                                 ),
@@ -149,6 +161,9 @@ class _ContactState extends State<Contact> {
                               focusNode: _emailFocusNode,
                               textController: _emailController,
                               labelText: AppLocalizations.of(context)!.email,
+                              validator: validateEmail,
+                              textInputType: TextInputType.emailAddress,
+                              isSavePressed: isSavePressed,
                               width: 521,
                             ),
                             SizedBox(
@@ -159,6 +174,9 @@ class _ContactState extends State<Contact> {
                               textController: _descriptionController,
                               labelText:
                                   AppLocalizations.of(context)!.description,
+                              validator: validate,
+                              textInputType: TextInputType.text,
+                              isSavePressed: isSavePressed,
                               width: 521,
                               height: 86,
                               maxLines: 5,
@@ -231,7 +249,9 @@ class _ContactState extends State<Contact> {
                                 child: MaterialButton(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {});
+                                  },
                                   color: AppColors.mainAccent,
                                   hoverColor: AppColors.mainDarkAccent,
                                   child: Text(
@@ -307,6 +327,9 @@ class _ContactState extends State<Contact> {
                                     textController: _firstNameController,
                                     labelText:
                                         AppLocalizations.of(context)!.firstname,
+                                    validator: validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
                                     width: 244),
                                 const SizedBox(
                                   width: 30,
@@ -316,6 +339,9 @@ class _ContactState extends State<Contact> {
                                     textController: _lastNameController,
                                     labelText:
                                         AppLocalizations.of(context)!.lastname,
+                                    validator: validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
                                     width: 244),
                               ],
                             ),
@@ -329,6 +355,9 @@ class _ContactState extends State<Contact> {
                                     textController: _companyNameNameController,
                                     labelText: AppLocalizations.of(context)!
                                         .companyName,
+                                    validator: validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
                                     width: 244),
                                 SizedBox(
                                   width: 30,
@@ -338,6 +367,9 @@ class _ContactState extends State<Contact> {
                                     textController: _phoneNumberController,
                                     labelText: AppLocalizations.of(context)!
                                         .phoneNumber,
+                                    validator: validatePhone,
+                                    textInputType: TextInputType.phone,
+                                    isSavePressed: isSavePressed,
                                     width: 244),
                               ],
                             ),
@@ -348,6 +380,9 @@ class _ContactState extends State<Contact> {
                                 focusNode: _emailFocusNode,
                                 textController: _emailController,
                                 labelText: AppLocalizations.of(context)!.email,
+                                validator: validateEmail,
+                                textInputType: TextInputType.emailAddress,
+                                isSavePressed: isSavePressed,
                                 width: 521),
                             SizedBox(
                               height: 35,
@@ -357,6 +392,9 @@ class _ContactState extends State<Contact> {
                               textController: _descriptionController,
                               labelText:
                                   AppLocalizations.of(context)!.description,
+                              validator: validate,
+                              textInputType: TextInputType.text,
+                              isSavePressed: isSavePressed,
                               width: 521,
                               height: 86,
                               maxLines: 5,
@@ -429,7 +467,9 @@ class _ContactState extends State<Contact> {
                                 child: MaterialButton(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {});
+                                  },
                                   color: AppColors.mainAccent,
                                   hoverColor: AppColors.mainDarkAccent,
                                   child: Text(
@@ -538,6 +578,9 @@ class _ContactState extends State<Contact> {
                                   textController: _firstNameController,
                                   labelText:
                                       AppLocalizations.of(context)!.firstname,
+                                  validator: validate,
+                                  textInputType: TextInputType.text,
+                                  isSavePressed: isSavePressed,
                                   width: 244),
                               const SizedBox(
                                 width: 30,
@@ -547,6 +590,9 @@ class _ContactState extends State<Contact> {
                                   textController: _lastNameController,
                                   labelText:
                                       AppLocalizations.of(context)!.lastname,
+                                  validator: validate,
+                                  textInputType: TextInputType.text,
+                                  isSavePressed: isSavePressed,
                                   width: 244),
                             ],
                           ),
@@ -560,6 +606,9 @@ class _ContactState extends State<Contact> {
                                   textController: _companyNameNameController,
                                   labelText:
                                       AppLocalizations.of(context)!.companyName,
+                                  validator: validate,
+                                  textInputType: TextInputType.text,
+                                  isSavePressed: isSavePressed,
                                   width: 244),
                               SizedBox(
                                 width: 30,
@@ -569,6 +618,9 @@ class _ContactState extends State<Contact> {
                                   textController: _phoneNumberController,
                                   labelText:
                                       AppLocalizations.of(context)!.phoneNumber,
+                                  validator: validatePhone,
+                                  textInputType: TextInputType.phone,
+                                  isSavePressed: isSavePressed,
                                   width: 244),
                             ],
                           ),
@@ -579,6 +631,9 @@ class _ContactState extends State<Contact> {
                               focusNode: _emailFocusNode,
                               textController: _emailController,
                               labelText: AppLocalizations.of(context)!.email,
+                              validator: validateEmail,
+                              textInputType: TextInputType.emailAddress,
+                              isSavePressed: isSavePressed,
                               width: 521),
                           SizedBox(
                             height: 35,
@@ -588,6 +643,9 @@ class _ContactState extends State<Contact> {
                             textController: _descriptionController,
                             labelText:
                                 AppLocalizations.of(context)!.description,
+                            validator: validate,
+                            textInputType: TextInputType.text,
+                            isSavePressed: isSavePressed,
                             width: 521,
                             height: 86,
                             maxLines: 5,
@@ -657,7 +715,10 @@ class _ContactState extends State<Contact> {
                               child: MaterialButton(
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8)),
-                                onPressed: () {},
+                                onPressed: () {
+                                  isSavePressed = true;
+                                  setState(() {});
+                                },
                                 color: AppColors.mainAccent,
                                 hoverColor: AppColors.mainDarkAccent,
                                 // style: ElevatedButton.styleFrom(
@@ -691,6 +752,43 @@ class _ContactState extends State<Contact> {
         const Footer(),
       ],
     );
-    ;
+  }
+
+  String? validateEmail(String? value) {
+    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+    final regex = RegExp(pattern);
+
+    return value!.isNotEmpty && !regex.hasMatch(value)
+        ? 'Enter a valid email address'
+        : null;
+  }
+
+  String? validatePhone(String? value) {
+    String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = new RegExp(patttern);
+    FilteringTextInputFormatter.digitsOnly;
+
+    if (value!.isNotEmpty && value!.length < 11) {
+      return 'Phone Number must be more than 11 digit';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Please enter valid mobile number';
+    } else {
+      return null;
+    }
+  }
+
+  static String? validate(String? value) {
+    if (value!.isEmpty){
+      return "Field can't be empty";
+    } else if(value.length<=2){
+      return "Enter valid data";
+
+    }
   }
 }

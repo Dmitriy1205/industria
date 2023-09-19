@@ -19,6 +19,15 @@
    "operationsDirector":"Betriebsleiter",
    "over":"ÜBER 25 UNTERNEHMEN",
 
+   "filter": "Filter",
+     "area": "Bereich",
+     "jobType": "Jobtyp",
+     "permanent": "Festanstellung",
+     "temporary": "Temporär",
+     "applyFilters": "Filter anwenden",
+     "resetFilters": "Filter zurücksetzen",
+     "apply": "Anwenden",
+
    "choosingRightCandidates": "Die richtigen Kandidaten auswählen",
      "findYour": "Finde deinen",
      "dream": "Traum",

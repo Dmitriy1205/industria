@@ -19,6 +19,15 @@
  "operationsDirector":"Operations Director",
  "over":"OVER 25+ BUSINESSES",
 
+ "filter":"Filter",
+ "area":"Area",
+ "jobType":"Job type",
+ "permanent":"Permanent",
+ "temporary":"Temporary",
+ "applyFilters":"Apply filters",
+ "resetFilters":"Reset filters",
+ "apply":"Apply",
+
  "choosingRightCandidates":"Choosing right candidates",
  "findYour":"Find your",
  "dream":"Dream",

@@ -293,6 +293,8 @@ class _FooterState extends State<Footer> {
             cursor: SystemMouseCursors.click,
             child: Text(
               names[i],
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               style: AppTheme.themeData.textTheme.titleLarge!
                   .copyWith(color: AppColors.darkGrey),
             ),

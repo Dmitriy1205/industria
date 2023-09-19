@@ -7,12 +7,14 @@ class AppElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final Color? color;
+  final TextStyle? textStyle;
+  final double? verticalPadding;
 
   const AppElevatedButton({
     required this.text,
     required this.onPressed,
     super.key,
-    this.color,
+    this.color, this.textStyle, this.verticalPadding,
   });
 
   @override
@@ -30,10 +32,10 @@ class AppElevatedButton extends StatelessWidget {
           Flexible(
 
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
+              padding: EdgeInsets.symmetric(vertical: verticalPadding ?? 15),
               child: Text(
                 text,
-                style: AppTheme.themeData.textTheme.headlineLarge!
+                style:textStyle ?? AppTheme.themeData.textTheme.headlineLarge!
                     .copyWith(fontSize: 22,color: Colors.white),
               ),
             ),

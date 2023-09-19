@@ -87,7 +87,7 @@ class AppTheme {
         color: Color(0xFF091312),
       ),
       labelSmall: TextStyle(
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         fontSize: 14,
         color: Color(0xFF8B8B8B),
       ),

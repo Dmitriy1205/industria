@@ -250,35 +250,33 @@ class _JobsState extends State<Jobs> {
                       const SizedBox(
                         width: 75,
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 44.0),
-                          child: Wrap(
-                            spacing: 46.0,
-                            runSpacing: 46.0,
-                            children: [
-                              JobCard(
-                                goToDescription:() {router.go('/job_description');},
-                                icon: AppImages.apple,
-                                date: '22 Jan 2022',
-                                vacancy: 'UI/UX Designer',
-                                address: 'Hamburg, Marseiller Strasse 2',
-                                description:
-                                'We are the Beverly Hills Company!\nOne of the leading companies in the\nUkrainian market, which is engaged...',
-                                salary: '60000\$ / yr',
-                              ),
-                              JobCard(
-                                goToDescription:() {router.go('/job_description');},
-                                icon: AppImages.google,
-                                date: '22 Jan 2022',
-                                vacancy: 'C++ Software Senior Engineer',
-                                address: 'Hamburg, Yell Strasse 5',
-                                description:
-                                'Seeking for talented engineers\nfrom all around the world with\nskills at C++, C#, Scala, PHP and ...',
-                                salary: '80000\$ / yr',
-                              ),
-                            ],
-                          ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 44.0),
+                        child: Wrap(
+                          spacing: 46.0,
+                          runSpacing: 46.0,
+                          children: [
+                            JobCard(
+                              goToDescription:() {router.go('/job_description');},
+                              icon: AppImages.apple,
+                              date: '22 Jan 2022',
+                              vacancy: 'UI/UX Designer',
+                              address: 'Hamburg, Marseiller Strasse 2',
+                              description:
+                              'We are the Beverly Hills Company!\nOne of the leading companies in the\nUkrainian market, which is engaged...',
+                              salary: '60000\$ / yr',
+                            ),
+                            JobCard(
+                              goToDescription:() {router.go('/job_description');},
+                              icon: AppImages.google,
+                              date: '22 Jan 2022',
+                              vacancy: 'C++ Software Senior Engineer',
+                              address: 'Hamburg, Yell Strasse 5',
+                              description:
+                              'Seeking for talented engineers\nfrom all around the world with\nskills at C++, C#, Scala, PHP and ...',
+                              salary: '80000\$ / yr',
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -481,33 +479,31 @@ class _JobsState extends State<Jobs> {
                 mobileFilter(context),
                  Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 44.0),
-                      child: Wrap(
-                        spacing: 46.0,
-                        runSpacing: 46.0,
-                        children: [
-                          JobCard(
-                            icon: AppImages.apple,
-                            date: '22 Jan 2022',
-                            vacancy: 'UI/UX Designer',
-                            address: 'Hamburg, Marseiller Strasse 2',
-                            description:
-                                'We are the Beverly Hills Company!\nOne of the leading companies in the\nUkrainian market, which is engaged...',
-                            salary: '60000\$ / yr', goToDescription: () {  },
-                          ),
-                          JobCard(
-                            icon: AppImages.google,
-                            date: '22 Jan 2022',
-                            vacancy: 'C++ Software Senior Engineer',
-                            address: 'Hamburg, Yell Strasse 5',
-                            description:
-                                'Seeking for talented engineers\nfrom all around the world with\nskills at C++, C#, Scala, PHP and ...',
-                            salary: '80000\$ / yr', goToDescription: () {  },
-                          ),
-                        ],
-                      ),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 44.0),
+                    child: Wrap(
+                      spacing: 46.0,
+                      runSpacing: 46.0,
+                      children: [
+                        JobCard(
+                          icon: AppImages.apple,
+                          date: '22 Jan 2022',
+                          vacancy: 'UI/UX Designer',
+                          address: 'Hamburg, Marseiller Strasse 2',
+                          description:
+                              'We are the Beverly Hills Company!\nOne of the leading companies in the\nUkrainian market, which is engaged...',
+                          salary: '60000\$ / yr', goToDescription: () {  },
+                        ),
+                        JobCard(
+                          icon: AppImages.google,
+                          date: '22 Jan 2022',
+                          vacancy: 'C++ Software Senior Engineer',
+                          address: 'Hamburg, Yell Strasse 5',
+                          description:
+                              'Seeking for talented engineers\nfrom all around the world with\nskills at C++, C#, Scala, PHP and ...',
+                          salary: '80000\$ / yr', goToDescription: () {  },
+                        ),
+                      ],
                     ),
                   ),
                 ),

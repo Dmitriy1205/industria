@@ -88,16 +88,14 @@ class _JobCardState extends State<JobCard> {
                 ),
                 SizedBox(
                   height: 50,
-                  child: Expanded(
-                    child: Text(
-                      widget.vacancy,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTheme.themeData.textTheme.labelSmall!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: Colors.black),
-                    ),
+                  child: Text(
+                    widget.vacancy,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppTheme.themeData.textTheme.labelSmall!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: Colors.black),
                   ),
                 ),
                 const SizedBox(

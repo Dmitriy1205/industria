@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:industria/app/app.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 import 'package:industria/presentation/widgets/steps.dart';
 
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
+import '../../core/validator/field_validator.dart';
 import '../widgets/footer.dart';
 
 class Contact extends StatefulWidget {
@@ -98,7 +100,7 @@ class _ContactState extends State<Contact> {
                                     textController: _firstNameController,
                                     labelText:
                                         AppLocalizations.of(context)!.firstname,
-                                    validator: validate,
+                                    validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
                                   ),
@@ -112,7 +114,7 @@ class _ContactState extends State<Contact> {
                                     textController: _lastNameController,
                                     labelText:
                                         AppLocalizations.of(context)!.lastname,
-                                    validator: validate,
+                                    validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
                                   ),
@@ -130,7 +132,7 @@ class _ContactState extends State<Contact> {
                                     textController: _companyNameNameController,
                                     labelText: AppLocalizations.of(context)!
                                         .companyName,
-                                    validator: validate,
+                                    validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
                                   ),
@@ -144,7 +146,7 @@ class _ContactState extends State<Contact> {
                                     textController: _phoneNumberController,
                                     labelText: AppLocalizations.of(context)!
                                         .phoneNumber,
-                                    validator: validatePhone,
+                                    validator: Validator.validatePhone,
                                     inputFormatter:
                                         FilteringTextInputFormatter.digitsOnly,
                                     textInputType: TextInputType.phone,
@@ -161,7 +163,7 @@ class _ContactState extends State<Contact> {
                               focusNode: _emailFocusNode,
                               textController: _emailController,
                               labelText: AppLocalizations.of(context)!.email,
-                              validator: validateEmail,
+                              validator: Validator.validateEmail,
                               textInputType: TextInputType.emailAddress,
                               isSavePressed: isSavePressed,
                               width: 521,
@@ -174,7 +176,7 @@ class _ContactState extends State<Contact> {
                               textController: _descriptionController,
                               labelText:
                                   AppLocalizations.of(context)!.description,
-                              validator: validate,
+                              validator: Validator.validate,
                               textInputType: TextInputType.text,
                               isSavePressed: isSavePressed,
                               width: 521,
@@ -250,7 +252,35 @@ class _ContactState extends State<Contact> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8)),
                                   onPressed: () {
-                                    setState(() {});
+                                    if (_firstNameController.text == '' ||
+                                        _lastNameController.text == '' ||
+                                        _companyNameNameController.text == '' ||
+                                        _emailController.text == '' ||
+                                        _phoneNumberController.text == '') {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              backgroundColor: AppColors.danger,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(24),
+                                              ),
+                                              margin: EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context)
+                                                          .size
+                                                          .height -
+                                                      200,
+                                                  right: 20,
+                                                  left: 20),
+                                              content: Text(
+                                                  'Enter data to required fields')));
+                                    } else {
+                                      setState(() {
+                                        isSavePressed = true;
+                                        setState(() {});
+                                      });
+                                    }
                                   },
                                   color: AppColors.mainAccent,
                                   hoverColor: AppColors.mainDarkAccent,
@@ -327,7 +357,7 @@ class _ContactState extends State<Contact> {
                                     textController: _firstNameController,
                                     labelText:
                                         AppLocalizations.of(context)!.firstname,
-                                    validator: validate,
+                                    validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
                                     width: 244),
@@ -339,7 +369,7 @@ class _ContactState extends State<Contact> {
                                     textController: _lastNameController,
                                     labelText:
                                         AppLocalizations.of(context)!.lastname,
-                                    validator: validate,
+                                    validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
                                     width: 244),
@@ -355,7 +385,7 @@ class _ContactState extends State<Contact> {
                                     textController: _companyNameNameController,
                                     labelText: AppLocalizations.of(context)!
                                         .companyName,
-                                    validator: validate,
+                                    validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
                                     width: 244),
@@ -367,7 +397,7 @@ class _ContactState extends State<Contact> {
                                     textController: _phoneNumberController,
                                     labelText: AppLocalizations.of(context)!
                                         .phoneNumber,
-                                    validator: validatePhone,
+                                    validator: Validator.validatePhone,
                                     textInputType: TextInputType.phone,
                                     isSavePressed: isSavePressed,
                                     width: 244),
@@ -380,7 +410,7 @@ class _ContactState extends State<Contact> {
                                 focusNode: _emailFocusNode,
                                 textController: _emailController,
                                 labelText: AppLocalizations.of(context)!.email,
-                                validator: validateEmail,
+                                validator: Validator.validateEmail,
                                 textInputType: TextInputType.emailAddress,
                                 isSavePressed: isSavePressed,
                                 width: 521),
@@ -392,7 +422,7 @@ class _ContactState extends State<Contact> {
                               textController: _descriptionController,
                               labelText:
                                   AppLocalizations.of(context)!.description,
-                              validator: validate,
+                              validator: Validator.validate,
                               textInputType: TextInputType.text,
                               isSavePressed: isSavePressed,
                               width: 521,
@@ -468,7 +498,35 @@ class _ContactState extends State<Contact> {
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8)),
                                   onPressed: () {
-                                    setState(() {});
+                                    if (_firstNameController.text == '' ||
+                                        _lastNameController.text == '' ||
+                                        _companyNameNameController.text == '' ||
+                                        _emailController.text == '' ||
+                                        _phoneNumberController.text == '') {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              backgroundColor: AppColors.danger,
+                                              behavior:
+                                                  SnackBarBehavior.floating,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(24),
+                                              ),
+                                              margin: EdgeInsets.only(
+                                                  bottom: MediaQuery.of(context)
+                                                          .size
+                                                          .height -
+                                                      200,
+                                                  right: 20,
+                                                  left: 20),
+                                              content: Text(
+                                                  'Enter data to required fields')));
+                                    } else {
+                                      setState(() {
+                                        isSavePressed = true;
+                                        setState(() {});
+                                      });
+                                    }
                                   },
                                   color: AppColors.mainAccent,
                                   hoverColor: AppColors.mainDarkAccent,
@@ -578,7 +636,7 @@ class _ContactState extends State<Contact> {
                                   textController: _firstNameController,
                                   labelText:
                                       AppLocalizations.of(context)!.firstname,
-                                  validator: validate,
+                                  validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
                                   width: 244),
@@ -590,7 +648,7 @@ class _ContactState extends State<Contact> {
                                   textController: _lastNameController,
                                   labelText:
                                       AppLocalizations.of(context)!.lastname,
-                                  validator: validate,
+                                  validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
                                   width: 244),
@@ -606,7 +664,7 @@ class _ContactState extends State<Contact> {
                                   textController: _companyNameNameController,
                                   labelText:
                                       AppLocalizations.of(context)!.companyName,
-                                  validator: validate,
+                                  validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
                                   width: 244),
@@ -618,7 +676,7 @@ class _ContactState extends State<Contact> {
                                   textController: _phoneNumberController,
                                   labelText:
                                       AppLocalizations.of(context)!.phoneNumber,
-                                  validator: validatePhone,
+                                  validator: Validator.validatePhone,
                                   textInputType: TextInputType.phone,
                                   isSavePressed: isSavePressed,
                                   width: 244),
@@ -631,7 +689,7 @@ class _ContactState extends State<Contact> {
                               focusNode: _emailFocusNode,
                               textController: _emailController,
                               labelText: AppLocalizations.of(context)!.email,
-                              validator: validateEmail,
+                              validator: Validator.validateEmail,
                               textInputType: TextInputType.emailAddress,
                               isSavePressed: isSavePressed,
                               width: 521),
@@ -643,7 +701,7 @@ class _ContactState extends State<Contact> {
                             textController: _descriptionController,
                             labelText:
                                 AppLocalizations.of(context)!.description,
-                            validator: validate,
+                            validator: Validator.validate,
                             textInputType: TextInputType.text,
                             isSavePressed: isSavePressed,
                             width: 521,
@@ -716,8 +774,32 @@ class _ContactState extends State<Contact> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(8)),
                                 onPressed: () {
-                                  isSavePressed = true;
-                                  setState(() {});
+                                  if (_firstNameController.text == '' ||
+                                      _lastNameController.text == '' ||
+                                      _companyNameNameController.text == '' ||
+                                      _emailController.text == '' ||
+                                      _phoneNumberController.text == '') {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            backgroundColor: AppColors.danger,
+                                            behavior: SnackBarBehavior.floating,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(24),
+                                            ),
+                                            margin: EdgeInsets.only(
+                                                bottom: MediaQuery.of(context)
+                                                        .size
+                                                        .height -
+                                                    200,
+                                                right: 20,
+                                                left: 20),
+                                            content: Text(
+                                                'Enter data to required fields')));
+                                  } else {
+                                    isSavePressed = true;
+                                    setState(() {});
+                                  }
                                 },
                                 color: AppColors.mainAccent,
                                 hoverColor: AppColors.mainDarkAccent,
@@ -752,43 +834,5 @@ class _ContactState extends State<Contact> {
         const Footer(),
       ],
     );
-  }
-
-  String? validateEmail(String? value) {
-    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
-        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
-        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
-        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
-        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
-        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
-        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
-    final regex = RegExp(pattern);
-
-    return value!.isNotEmpty && !regex.hasMatch(value)
-        ? 'Enter a valid email address'
-        : null;
-  }
-
-  String? validatePhone(String? value) {
-    String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    RegExp regExp = new RegExp(patttern);
-    FilteringTextInputFormatter.digitsOnly;
-
-    if (value!.isNotEmpty && value!.length < 11) {
-      return 'Phone Number must be more than 11 digit';
-    } else if (!regExp.hasMatch(value)) {
-      return 'Please enter valid mobile number';
-    } else {
-      return null;
-    }
-  }
-
-  static String? validate(String? value) {
-    if (value!.isEmpty){
-      return "Field can't be empty";
-    } else if(value.length<=2){
-      return "Enter valid data";
-
-    }
   }
 }

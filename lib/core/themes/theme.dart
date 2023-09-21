@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:industria/core/constants/colors.dart';
 
 class AppTheme {
   static ThemeData themeData = ThemeData(
@@ -11,6 +12,21 @@ class AppTheme {
     dialogTheme: const DialogTheme(
       backgroundColor: Color(0xFFFFFFFF),
       surfaceTintColor: Color(0xFFFFFFFF),
+    ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: MaterialStateProperty.resolveWith((states){
+        if(states.contains(MaterialState.selected)){
+          return AppColors.mainAccent;
+        }else{
+          return Colors.transparent;
+        }
+      }),
+      shape: RoundedRectangleBorder(
+       borderRadius: BorderRadius.circular(5)
+      ),
+      side: BorderSide(
+        color: AppColors.lightGrey,
+      )
     ),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     textSelectionTheme:

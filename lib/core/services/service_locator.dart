@@ -10,9 +10,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  final sharedPrefs = await SharedPreferences.getInstance();
+  await sharedPrefs.reload();
   final cookieRepository = CookieRepositoryImpl(
       db: CookieServiceImpl(
-          sharedPreferences: await SharedPreferences.getInstance()));
+          sharedPreferences: sharedPrefs));
   final initialCookie = await cookieRepository.fetchCookies();
   sl.registerSingleton<CookieRepository>(cookieRepository);
 

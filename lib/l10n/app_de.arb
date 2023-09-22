@@ -98,8 +98,13 @@
    "iAcceptApplicationDataProtectionPolicy": "Ich akzeptiere die ",
    "dataProtection": "Datenschutzrichtlinie ",
    "policy": "der Anwendung",
-   "send": "Senden"
+   "send": "Senden",
 
-
+   "cookieWindowTitle": "Wir respektieren Ihre Privatsphäre",
+   "cookieWindowSubtitle": "Wir verwenden Cookies, um diese Website zu betreiben und die Anmeldesitzung zu speichern.\nSiehe ",
+   "cookieAuthenticationSession": "Authentifizierungssitzung",
+   "acceptAll": "Alles akzeptieren",
+   "acceptSelected": "Ausgewählte akzeptieren",
+   "rejectAll": "Alles ablehnen"
 
 }

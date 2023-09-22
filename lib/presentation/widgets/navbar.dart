@@ -34,21 +34,19 @@ class _NavbarState extends State<Navbar> {
               children: [
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
+                  child: TextButton(
+                    onPressed: (){
                       router.go('/home');
                     },
-                    child: Text(
-                      AppLocalizations.of(context)!.home,
+                    child: Text(AppLocalizations.of(context)!.home,
                       style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: AppColors.darkGrey),
-                    ),
+                          .copyWith(color: AppColors.darkGrey),),
                   ),
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
+                  child: TextButton(
+                    onPressed: (){
                       router.go('/jobs');
                     },
                     child: Text(
@@ -60,8 +58,8 @@ class _NavbarState extends State<Navbar> {
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
+                  child: TextButton(
+                    onPressed: (){
                       router.go('/employers');
                     },
                     child: Text(
@@ -73,8 +71,8 @@ class _NavbarState extends State<Navbar> {
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
+                  child: TextButton(
+                    onPressed: (){
                       router.go('/employees');
                     },
                     child: Text(
@@ -86,8 +84,8 @@ class _NavbarState extends State<Navbar> {
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
+                  child: TextButton(
+                    onPressed: (){
                       router.go('/ourteam');
                     },
                     child: Text(
@@ -99,8 +97,8 @@ class _NavbarState extends State<Navbar> {
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () {
+                  child: TextButton(
+                    onPressed: (){
                       router.go('/contact');
                     },
                     child: Text(

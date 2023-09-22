@@ -17,7 +17,7 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       body: ResponsiveLayout(
         mobileLayout: TabletLayout(child: child),
-        tabletLayout: TabletLayout(child: child),
+        tabletLayout: SelectionArea(child: TabletLayout(child: child)),
         desktopLayout: SelectionArea(child: DesktopLayout(child: child)),
       ),
     );

@@ -66,8 +66,8 @@ class _TabletLayoutState extends State<TabletLayout> {
               ),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
+                child: TextButton(
+                  onPressed: (){
                     router.go('/home');
                   },
                   child: Text(
@@ -79,8 +79,8 @@ class _TabletLayoutState extends State<TabletLayout> {
               ),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
+                child: TextButton(
+                  onPressed: (){
                     router.go('/jobs');
                   },
                   child: Text(
@@ -92,8 +92,8 @@ class _TabletLayoutState extends State<TabletLayout> {
               ),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
+                child: TextButton(
+                  onPressed: (){
                     router.go('/employers');
                   },
                   child: Text(
@@ -105,8 +105,8 @@ class _TabletLayoutState extends State<TabletLayout> {
               ),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
+                child: TextButton(
+                  onPressed: (){
                     router.go('/employees');
                   },
                   child: Text(
@@ -118,8 +118,8 @@ class _TabletLayoutState extends State<TabletLayout> {
               ),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
+                child: TextButton(
+                  onPressed: (){
                     router.go('/ourteam');
                   },
                   child: Text(
@@ -131,8 +131,8 @@ class _TabletLayoutState extends State<TabletLayout> {
               ),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
+                child: TextButton(
+                  onPressed: (){
                     router.go('/contact');
                   },
                   child: Text(

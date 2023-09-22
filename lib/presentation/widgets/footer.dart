@@ -18,7 +18,6 @@ class Footer extends StatefulWidget {
 }
 
 class _FooterState extends State<Footer> {
-  String dropdownValue = 'English';
   final List<String> routePaths = [
     '/home',
     '/jobs',
@@ -100,9 +99,6 @@ class _FooterState extends State<Footer> {
                                   const LocalizationEvent.changeLang(
                                       locale: Locale('en')));
                             }
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
                           },
                         ),
                       ),

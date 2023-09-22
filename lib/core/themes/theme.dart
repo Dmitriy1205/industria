@@ -63,7 +63,7 @@ class AppTheme {
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
         fontWeight: FontWeight.w700,
-        fontSize: 42,
+        fontSize: 36,
         color: Color(0xFF091312),
       ),
       headlineMedium: TextStyle(

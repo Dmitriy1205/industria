@@ -59,233 +59,233 @@ class _ForEmployeesState extends State<ForEmployees> {
                   const SizedBox(
                     height: 47,
                   ),
-                  SizedBox(
-                    width: 658,
-                    child: Card(
-                      elevation: 10,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 65.0, right: 65, top: 75, bottom: 71),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.login,
-                              style: AppTheme.themeData.textTheme.headlineLarge!
-                                  .copyWith(fontSize: 32),
-                            ),
-                            const SizedBox(
-                              height: 57,
-                            ),
-                            Form(
-                              key: _formKey,
-                              child: Column(
-                                children: [
-                                  MouseRegion(
-                                    onEnter: (_) {
-                                      setState(() {
-                                        isHoveredEmail = !isHoveredEmail;
-                                      });
-                                    },
-                                    onExit: (_) {
-                                      setState(() {
-                                        isHoveredEmail = !isHoveredEmail;
-                                      });
-                                    },
-                                    child: TextFormField(
-                                      controller: _emailController,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelSmall,
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          borderSide: BorderSide(
-                                            color: isHoveredEmail
-                                                ? AppColors.darkGrey
-                                                : AppColors.lightGrey,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width / 11),
+                    child: SizedBox(
+                      width: 658,
+                      child: Card(
+                        elevation: 10,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(32)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 30),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                AppLocalizations.of(context)!.employeeLogin,
+                                style: AppTheme.themeData.textTheme.headlineLarge!
+                                    .copyWith(fontSize: 22),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Form(
+                                key: _formKey,
+                                child: Column(
+                                  children: [
+                                    MouseRegion(
+                                      onEnter: (_) {
+                                        setState(() {
+                                          isHoveredEmail = !isHoveredEmail;
+                                        });
+                                      },
+                                      onExit: (_) {
+                                        setState(() {
+                                          isHoveredEmail = !isHoveredEmail;
+                                        });
+                                      },
+                                      child: TextFormField(
+                                        controller: _emailController,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall?.copyWith(color: Colors.black),
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            borderSide: BorderSide(
+                                              color: isHoveredEmail
+                                                  ? AppColors.darkGrey
+                                                  : AppColors.lightGrey,
+                                            ),
                                           ),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 10),
-                                        hintStyle: AppTheme
-                                            .themeData.textTheme.labelSmall,
-                                        hintText: AppLocalizations.of(context)!
-                                            .userName,
-                                        prefixIcon: const Padding(
-                                          padding: EdgeInsets.only(
-                                            left: 20,
-                                            right: 10,
-                                            bottom: 10,
-                                            top: 13,
-                                          ),
-                                          child: FaIcon(
-                                            FontAwesomeIcons.solidUser,
-                                            size: 17,
-                                            color: AppColors.darkGrey,
-                                          ),
-                                        ),
-                                      ),
-                                      validator: context.validateEmailAddress,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 23,
-                                  ),
-                                  MouseRegion(
-                                    onEnter: (_) {
-                                      setState(() {
-                                        isHoveredPass = !isHoveredPass;
-                                      });
-                                    },
-                                    onExit: (_) {
-                                      setState(() {
-                                        isHoveredPass = !isHoveredPass;
-                                      });
-                                    },
-                                    child: TextFormField(
-                                      controller: _passwordController,
-                                      obscureText: isPassObscure,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelSmall,
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          borderSide: BorderSide(
-                                            color: isHoveredPass
-                                                ? AppColors.darkGrey
-                                                : AppColors.lightGrey,
-                                          ),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 10),
-                                        hintText: AppLocalizations.of(context)!
-                                            .password,
-                                        hintStyle: AppTheme
-                                            .themeData.textTheme.labelSmall,
-                                        prefixIcon: const Padding(
-                                          padding: EdgeInsets.only(
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 10, horizontal: 10),
+                                          hintStyle: AppTheme
+                                              .themeData.textTheme.labelSmall,
+                                          hintText: AppLocalizations.of(context)!
+                                              .userName,
+                                          prefixIcon: const Padding(
+                                            padding: EdgeInsets.only(
                                               left: 20,
                                               right: 10,
                                               bottom: 10,
-                                              top: 12),
-                                          child: FaIcon(
-                                            FontAwesomeIcons.lock,
-                                            size: 17,
-                                            color: AppColors.darkGrey,
+                                              top: 13,
+                                            ),
+                                            child: FaIcon(
+                                              FontAwesomeIcons.solidUser,
+                                              size: 17,
+                                              color: AppColors.darkGrey,
+                                            ),
                                           ),
                                         ),
-                                        suffixIcon: Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 10),
-                                          child: IconButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                isPassObscure = !isPassObscure;
-                                              });
-                                            },
-                                            icon: isPassObscure
-                                                ? const FaIcon(
-                                                    FontAwesomeIcons
-                                                        .solidEyeSlash,
-                                                    size: 15,
-                                                    color: AppColors.darkGrey,
-                                                  )
-                                                : const FaIcon(
-                                                    FontAwesomeIcons.solidEye,
-                                                    size: 15,
-                                                    color: AppColors.darkGrey,
-                                                  ),
-                                          ),
-                                        ),
+                                        validator: context.validateEmailAddress,
                                       ),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return ' ${AppLocalizations.of(context)!.passwordCantBeEmpty}';
-                                        }
-                                        return null;
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    MouseRegion(
+                                      onEnter: (_) {
+                                        setState(() {
+                                          isHoveredPass = !isHoveredPass;
+                                        });
                                       },
+                                      onExit: (_) {
+                                        setState(() {
+                                          isHoveredPass = !isHoveredPass;
+                                        });
+                                      },
+                                      child: TextFormField(
+                                        controller: _passwordController,
+                                        obscureText: isPassObscure,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall?.copyWith(color: Colors.black),
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            borderSide: BorderSide(
+                                              color: isHoveredPass
+                                                  ? AppColors.darkGrey
+                                                  : AppColors.lightGrey,
+                                            ),
+                                          ),
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 10, horizontal: 10),
+                                          hintText: AppLocalizations.of(context)!
+                                              .password,
+                                          hintStyle: AppTheme
+                                              .themeData.textTheme.labelSmall,
+                                          prefixIcon: const Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 20,
+                                                right: 10,
+                                                bottom: 10,
+                                                top: 12),
+                                            child: FaIcon(
+                                              FontAwesomeIcons.lock,
+                                              size: 17,
+                                              color: AppColors.darkGrey,
+                                            ),
+                                          ),
+                                          suffixIcon: Padding(
+                                            padding:
+                                                const EdgeInsets.only(right: 10),
+                                            child: IconButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  isPassObscure = !isPassObscure;
+                                                });
+                                              },
+                                              icon: isPassObscure
+                                                  ? const FaIcon(
+                                                      FontAwesomeIcons
+                                                          .solidEyeSlash,
+                                                      size: 15,
+                                                      color: AppColors.darkGrey,
+                                                    )
+                                                  : const FaIcon(
+                                                      FontAwesomeIcons.solidEye,
+                                                      size: 15,
+                                                      color: AppColors.darkGrey,
+                                                    ),
+                                            ),
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return ' ${AppLocalizations.of(context)!.passwordCantBeEmpty}';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 23,
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      router.go('/contact');
+                                    },
+                                    child: Text(
+                                      '${AppLocalizations.of(context)!.forgotPassword}?',
+                                      style: AppTheme
+                                          .themeData.textTheme.labelSmall,
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 23,
-                            ),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: MouseRegion(
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              MouseRegion(
                                 cursor: SystemMouseCursors.click,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    router.go('/contact');
-                                  },
-                                  child: Text(
-                                    '${AppLocalizations.of(context)!.forgotPassword}?',
-                                    style: AppTheme
-                                        .themeData.textTheme.headlineLarge!
-                                        .copyWith(
-                                            fontSize: 14,
-                                            color: AppColors.darkGrey),
+                                onEnter: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                onExit: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                child: AppElevatedButton(
+                                    verticalPadding: 10,
+                                    text: AppLocalizations.of(context)!.signIn,
+                                    color: isHoveredButton
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    onPressed: () {
+                                      if (!_formKey.currentState!.validate()) {
+                                        return;
+                                      }
+                                      _formKey.currentState!.save();
+                                    }),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Center(
+                                child: MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      router.go('/contact');
+                                    },
+                                    child: Text(
+                                      AppLocalizations.of(context)!
+                                          .ifYouDontHaveAccount,
+                                      textAlign: TextAlign.center,
+                                      style: AppTheme
+                                          .themeData.textTheme.labelSmall,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 57,
-                            ),
-                            MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              onEnter: (_) {
-                                setState(() {
-                                  isHoveredButton = !isHoveredButton;
-                                });
-                              },
-                              onExit: (_) {
-                                setState(() {
-                                  isHoveredButton = !isHoveredButton;
-                                });
-                              },
-                              child: AppElevatedButton(
-                                  text: AppLocalizations.of(context)!.signIn,
-                                  color: isHoveredButton
-                                      ? AppColors.mainDarkAccent
-                                      : AppColors.mainAccent,
-                                  onPressed: () {
-                                    if (!_formKey.currentState!.validate()) {
-                                      return;
-                                    }
-                                    _formKey.currentState!.save();
-                                  }),
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              child: GestureDetector(
-                                onTap: () {
-                                  router.go('/contact');
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)!
-                                      .ifYouDontHaveAccount,
-                                  textAlign: TextAlign.center,
-                                  style: AppTheme
-                                      .themeData.textTheme.headlineLarge!
-                                      .copyWith(
-                                          fontSize: 14,
-                                          color: AppColors.darkGrey),
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

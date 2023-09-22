@@ -77,6 +77,7 @@
  "forgotPassword":"FORGOT PASSWORD",
  "signIn":"Sign in",
  "ifYouDontHaveAccount":"If you do not have an account but you are an employee,\nclick here to contact admin",
+ "employeeLogin": "Employee Login",
 
  "contactUs": "Contact us",
  "wannaContactUs": "Wanna contact us? Fill the form",

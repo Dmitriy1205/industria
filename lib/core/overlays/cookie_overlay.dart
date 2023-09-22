@@ -9,6 +9,7 @@ import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/enums/cookies.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CookiesOverlay extends StatefulWidget {
   final bool show;
@@ -55,7 +56,7 @@ class _CookiesOverlayState extends State<CookiesOverlay> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("We respect your privacy",
+                          Text(AppLocalizations.of(context)!.cookieWindowTitle,
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
@@ -66,14 +67,14 @@ class _CookiesOverlayState extends State<CookiesOverlay> {
                           RichText(
                               text: TextSpan(text: "", children: [
                             TextSpan(
-                                text:
-                                    "We use cookies to operate this website, remember login session.\nSee ",
+                                text: AppLocalizations.of(context)!
+                                    .cookieWindowSubtitle,
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelMedium
                                     ?.copyWith(color: Colors.black)),
                             TextSpan(
-                                text: "Cookies Policy",
+                                text: AppLocalizations.of(context)!.cookie,
                                 mouseCursor: SystemMouseCursors.click,
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
@@ -104,7 +105,8 @@ class _CookiesOverlayState extends State<CookiesOverlay> {
                                 width: 4,
                               ),
                               Text(
-                                "Authentication session",
+                                AppLocalizations.of(context)!
+                                    .cookieAuthenticationSession,
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelSmall
@@ -116,7 +118,7 @@ class _CookiesOverlayState extends State<CookiesOverlay> {
                             height: 24,
                           ),
                           _buildCookieButton(
-                              text: "Accept All",
+                              text: AppLocalizations.of(context)!.acceptAll,
                               onPressed: () {
                                 context
                                     .read<CookieBloc>()
@@ -126,7 +128,8 @@ class _CookiesOverlayState extends State<CookiesOverlay> {
                             height: 18,
                           ),
                           _buildCookieButton(
-                              text: "Accept selected",
+                              text:
+                                  AppLocalizations.of(context)!.acceptSelected,
                               onPressed: () {
                                 context.read<CookieBloc>().add(
                                     CookieEvent.acceptSelected(
@@ -138,7 +141,7 @@ class _CookiesOverlayState extends State<CookiesOverlay> {
                             height: 18,
                           ),
                           _buildCookieButton(
-                              text: "Reject all",
+                              text: AppLocalizations.of(context)!.rejectAll,
                               onPressed: () {
                                 context
                                     .read<CookieBloc>()

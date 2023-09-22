@@ -70,7 +70,7 @@
  "registerCourt":"Register court",
  "cookiesBigText": "To improve your understanding on our site, some of our web pages may use \"cookies\". Cookies are small text files that are placed in your computer's browser to store your preferences. Cookies, alone, do not tell us your email address or other personal information unless you choose to provide this information to us, for example, by sending information via a form on our site. Once you choose to provide a web page with personal information, this information may be linked to the data stored in the cookie. A cookie is like an identification card. It is unique to your computer and can only be read by the server that gave it to you. We use cookies to understand site usage, for example, we may use cookies to personalize your experience on our web pages, to recognize you when you return to our site.\nIf you want to control which cookies you accept. You can organize your browser to accept all cookies or to alert you every time a cookie is offered by a website's server. Most browsers automatically accept cookies. You can set your browser option to not receive cookies and you can also delete existing cookies from your browser. You may find that some parts of the site will not operate correctly if you have denied cookies.\nPlease be aware that if you do not configure your browser you will accept cookies provided by this website.\nHow you can see what cookies you have accepted:\nYou can organize your browser to accept all cookies or to alert you every time a cookie is presented by our website's server. Examples of where cookies may be deployed:\nAny type of registration. Any sort of login. Any type of subscription newsletter or such like. Any type of payment or donation. Any type of tracking code such as Google analytics. Any type of embedded code such as Google maps or YouTube video. Any embedded advertising. Any embedded code of other description. Any links to blogs.\nAny links to social media sites. Links to other external sites that may use tracking code. Links to official sites.",
 
- "conditions":"Bedingungen",
+ "conditions":"Conditions",
  "userName":"Username",
  "password":"Password",
  "passwordCantBeEmpty":"Password cant be empty",
@@ -97,5 +97,12 @@
  "iAcceptApplicationDataProtectionPolicy": "I accept application ",
  "dataProtection": "Data Protection ",
  "policy": "policy",
- "send": "Send"
+ "send": "Send",
+
+ "cookieWindowTitle": "We respect your privacy",
+ "cookieWindowSubtitle": "We use cookies to operate this website, remember login session.\nSee ",
+ "cookieAuthenticationSession": "Authentication session",
+ "acceptAll": "Accept All",
+ "acceptSelected": "Accept Selected",
+ "rejectAll": "Reject All"
 }

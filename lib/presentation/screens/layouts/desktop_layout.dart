@@ -11,7 +11,7 @@ class DesktopLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-        preferredSize: Size(double.infinity, 120),
+        preferredSize: Size(double.infinity, 107),
         child: Navbar(),
       ),
       body: child,

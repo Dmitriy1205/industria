@@ -30,7 +30,9 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     textSelectionTheme:
-    const TextSelectionThemeData(cursorColor: Color(0xFF2976B6)),
+    TextSelectionThemeData(
+        selectionColor: AppColors.mainAccent.withOpacity(0.25),
+        cursorColor: Color(0xFF2976B6)),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: const TextStyle(color:Color(0xFF474D4C) ),
       prefixIconColor:const Color(0xFF474D4C)  ,

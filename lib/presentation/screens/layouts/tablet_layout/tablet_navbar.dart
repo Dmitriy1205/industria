@@ -8,8 +8,10 @@ import '../../../../core/constants/strings.dart';
 import '../../../../core/themes/theme.dart';
 
 class TabletNavbar extends StatefulWidget {
+  final GlobalKey<ScaffoldState> scaffold;
+
   const TabletNavbar({
-    super.key,
+    super.key, required this.scaffold,
   });
 
   @override
@@ -19,49 +21,54 @@ class TabletNavbar extends StatefulWidget {
 class _TabletNavbarState extends State<TabletNavbar> {
   bool isHovered = false;
 
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       surfaceTintColor: Colors.white,
       flexibleSpace: SizedBox(
         child: Stack(
           fit: StackFit.expand,
           children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                  padding: EdgeInsets.only(left: 40),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.reorder,
+                      size: 36,
+                    ),
+                    onPressed: () {
+                      if(widget.scaffold.currentState!.isDrawerOpen){
+                        widget.scaffold.currentState!.closeDrawer();
+                      }else{
+                        widget.scaffold.currentState!.openDrawer();
+                      }
+                    },
+                  )),
+            ),
             Center(
               child: Image.asset(
                 AppImages.logo,
                 scale: 2,
               ),
             ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: ClipPath(
-                clipper: ShapeBlue(context: context),
-                child: Container(
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
                   width: double.infinity,
-                  decoration: const BoxDecoration(
-                    color: AppColors.mainAccent,
-                  ),
+                  height: 3,
+                  color: AppColors.secondaryAccent,
                 ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: ClipPath(
-                clipper: ShapeYellow(),
-                child: Container(
+                Container(
                   width: double.infinity,
-                  height: MediaQuery.of(context).size.height / 6.5,
-                  decoration:
-                      const BoxDecoration(color: AppColors.secondaryAccent),
+                  height: 3,
+                  color: AppColors.mainAccent,
                 ),
-              ),
-            ),
+              ],
+            )
           ],
         ),
       ),

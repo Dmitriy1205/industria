@@ -44,95 +44,61 @@ class _FooterState extends State<Footer> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 26),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Theme(
-                        data: Theme.of(context).copyWith(
-                          hoverColor: Colors.white,
-                        ),
-                        child: DropdownButton<String>(
-                          focusColor: Colors.white,
-                          icon: const Padding(
-                            padding: EdgeInsets.only(left: 10.0),
-                            child: RotatedBox(
-                                quarterTurns: 5,
-                                child: Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 15,
-                                  color: AppColors.mainAccent,
-                                )),
-                          ),
-                          underline: SizedBox(),
-                          value:
-                              context.read<LocalizationBloc>().state.locale ==
-                                      const Locale('en')
-                                  ? 'English'
-                                  : 'Deutsch',
-                          borderRadius: BorderRadius.circular(10),
-                          items: <String>[
-                            'English',
-                            'Deutsch',
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: AppTheme.themeData.textTheme.titleLarge!
-                                    .copyWith(color: AppColors.mainAccent),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            if (context.read<LocalizationBloc>().state.locale ==
-                                const Locale('en')) {
-                              context.read<LocalizationBloc>().add(
-                                  const LocalizationEvent.changeLang(
-                                      locale: Locale('de')));
-                            } else {
-                              context.read<LocalizationBloc>().add(
-                                  const LocalizationEvent.changeLang(
-                                      locale: Locale('en')));
-                            }
-                          },
-                        ),
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                      hoverColor: Colors.white,
+                    ),
+                    child: DropdownButton<String>(
+                      focusColor: Colors.white,
+                      icon: const Padding(
+                        padding: EdgeInsets.only(left: 10.0),
+                        child: RotatedBox(
+                            quarterTurns: 5,
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 15,
+                              color: AppColors.mainAccent,
+                            )),
                       ),
-                      footerParagraphRow(
-                        [
-                          AppLocalizations.of(context)!.home,
-                          AppLocalizations.of(context)!.jobs,
-                          AppLocalizations.of(context)!.forEmployers,
-                          AppLocalizations.of(context)!.forEmployees,
-                          AppLocalizations.of(context)!.ourTeam,
-                          AppLocalizations.of(context)!.contact,
-                          AppLocalizations.of(context)!.dataProtection,
-                          AppLocalizations.of(context)!.admin,
-                          AppLocalizations.of(context)!.companyDetails,
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 17,
-                      ),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () {
-                            router.go('/imprint');
-                          },
+                      underline: SizedBox(),
+                      value:
+                          context.read<LocalizationBloc>().state.locale ==
+                                  const Locale('en')
+                              ? 'English'
+                              : 'Deutsch',
+                      borderRadius: BorderRadius.circular(10),
+                      items: <String>[
+                        'English',
+                        'Deutsch',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
                           child: Text(
-                            'Industry Personnel Services Germany GmbH © 2019',
+                            value,
                             style: AppTheme.themeData.textTheme.titleLarge!
-                                .copyWith(color: AppColors.darkGrey),
+                                .copyWith(color: AppColors.mainAccent),
                           ),
-                        ),
-                      ),
-                    ],
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        if (context.read<LocalizationBloc>().state.locale ==
+                            const Locale('en')) {
+                          context.read<LocalizationBloc>().add(
+                              const LocalizationEvent.changeLang(
+                                  locale: Locale('de')));
+                        } else {
+                          context.read<LocalizationBloc>().add(
+                              const LocalizationEvent.changeLang(
+                                  locale: Locale('en')));
+                        }
+                      },
+                    ),
                   ),
+                  Spacer(),
                   MouseRegion(
                     cursor: SystemMouseCursors.click,
                     onEnter: (_) {
@@ -153,11 +119,11 @@ class _FooterState extends State<Footer> {
                         height: 45,
                         decoration: BoxDecoration(
                             color:
-                                isHovered ? AppColors.mainAccent : Colors.white,
+                            isHovered ? AppColors.mainAccent : Colors.white,
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: AppColors.mainAccent)),
                         child: Padding(
-                          padding: const EdgeInsets.only(right: 14.0, left: 31),
+                          padding: const EdgeInsets.only(right: 10.0, left: 27),
                           child: Row(
                             children: [
                               Text(
@@ -165,9 +131,9 @@ class _FooterState extends State<Footer> {
                                 style: AppTheme
                                     .themeData.textTheme.headlineMedium!
                                     .copyWith(
-                                        color: isHovered
-                                            ? Colors.white
-                                            : AppColors.mainAccent),
+                                    color: isHovered
+                                        ? Colors.white
+                                        : AppColors.mainAccent),
                               ),
                               const SizedBox(
                                 width: 22,
@@ -187,75 +153,109 @@ class _FooterState extends State<Footer> {
                   ),
                 ],
               ),
+              SizedBox(height: 10,),
+              footerParagraphRow(
+                [
+                  AppLocalizations.of(context)!.home,
+                  AppLocalizations.of(context)!.jobs,
+                  AppLocalizations.of(context)!.forEmployers,
+                  AppLocalizations.of(context)!.forEmployees,
+                  AppLocalizations.of(context)!.ourTeam,
+                  AppLocalizations.of(context)!.contact,
+                  AppLocalizations.of(context)!.dataProtection,
+                  AppLocalizations.of(context)!.admin,
+                  AppLocalizations.of(context)!.companyDetails,
+                ],
+              ),
+              const SizedBox(
+                height: 17,
+              ),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    router.go('/imprint');
+                  },
+                  child: Text(
+                    'Industry Personnel Services Germany GmbH © 2019',
+                    style: AppTheme.themeData.textTheme.titleMedium!
+                        .copyWith(color: AppColors.darkGrey),
+                  ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 21.0),
                 child: Divider(
                   color: Colors.grey.shade300,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        html.window.open('https://pandascode.com/', 'pandas');
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: AppLocalizations.of(context)!.poweredBy,
-                              style: AppTheme.themeData.textTheme.titleLarge!
-                                  .copyWith(color: AppColors.darkGrey),
-                            ),
-                            TextSpan(
-                              text: ' PandasCode',
-                              style: AppTheme.themeData.textTheme.titleLarge!
-                                  .copyWith(color: AppColors.mainAccent),
-                            )
-                          ],
+              SizedBox(
+                width: double.infinity,
+                child: Wrap(
+                  alignment: WrapAlignment.spaceBetween,
+                  children: [
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          html.window.open('https://pandascode.com/', 'pandas');
+                        },
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: AppLocalizations.of(context)!.poweredBy,
+                                style: AppTheme.themeData.textTheme.titleMedium!
+                                    .copyWith(color: AppColors.darkGrey),
+                              ),
+                              TextSpan(
+                                text: ' PandasCode',
+                                style: AppTheme.themeData.textTheme.titleMedium!
+                                    .copyWith(color: AppColors.mainAccent),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () {
-                            router.go('/cookie');
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.cookie,
-                            style: AppTheme.themeData.textTheme.titleLarge!
-                                .copyWith(color: AppColors.darkGrey),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              router.go('/cookie');
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)!.cookie,
+                              style: AppTheme.themeData.textTheme.titleMedium!
+                                  .copyWith(color: AppColors.darkGrey),
+                            ),
                           ),
                         ),
-                      ),
-                      Text(
-                        ' • ',
-                        style: AppTheme.themeData.textTheme.titleLarge!
-                            .copyWith(color: AppColors.darkGrey),
-                      ),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () {
-                            router.go('/condition');
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.conditions,
-                            style: AppTheme.themeData.textTheme.titleLarge!
-                                .copyWith(color: AppColors.darkGrey),
+                        Text(
+                          ' • ',
+                          style: AppTheme.themeData.textTheme.titleMedium!
+                              .copyWith(color: AppColors.darkGrey),
+                        ),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              router.go('/condition');
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)!.conditions,
+                              style: AppTheme.themeData.textTheme.titleMedium!
+                                  .copyWith(color: AppColors.darkGrey),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               )
             ],
           ),
@@ -272,7 +272,7 @@ class _FooterState extends State<Footer> {
         widgets.add(
           Text(
             ' • ',
-            style: AppTheme.themeData.textTheme.titleLarge!
+            style: AppTheme.themeData.textTheme.titleMedium!
                 .copyWith(color: AppColors.darkGrey),
           ),
         );
@@ -291,7 +291,7 @@ class _FooterState extends State<Footer> {
               names[i],
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: AppTheme.themeData.textTheme.titleLarge!
+              style: AppTheme.themeData.textTheme.titleMedium!
                   .copyWith(color: AppColors.darkGrey),
             ),
           ),
@@ -299,8 +299,7 @@ class _FooterState extends State<Footer> {
       );
     }
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
       children: widgets,
     );
   }

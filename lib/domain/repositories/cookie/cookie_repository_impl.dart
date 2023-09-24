@@ -1,6 +1,7 @@
 import 'package:industria/core/enums/cookies.dart';
-import 'package:industria/data/cookie/cookie_service_contract.dart';
-import 'package:industria/domain/cookie/cookie_repository_contract.dart';
+
+import '../../../data/local/cookie/cookie_service_contract.dart';
+import 'cookie_repository_contract.dart';
 
 class CookieRepositoryImpl implements CookieRepository{
   final CookieService db;

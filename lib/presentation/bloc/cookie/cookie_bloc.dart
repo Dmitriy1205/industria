@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:industria/core/enums/cookies.dart';
 
-import '../../../domain/cookie/cookie_repository_contract.dart';
+import '../../../domain/repositories/cookie/cookie_repository_contract.dart';
 
 part 'cookie_event.dart';
 

@@ -1,4 +1,4 @@
-import '../../core/enums/cookies.dart';
+import '../../../core/enums/cookies.dart';
 
 abstract class CookieService{
   Future<List<Cookies>?> fetchCookies();

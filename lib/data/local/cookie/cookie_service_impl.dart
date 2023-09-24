@@ -1,6 +1,7 @@
 import 'package:industria/core/enums/cookies.dart';
-import 'package:industria/data/cookie/cookie_service_contract.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'cookie_service_contract.dart';
 
 const String _cookieKey = 'cookies';
 

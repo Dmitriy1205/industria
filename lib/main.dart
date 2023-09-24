@@ -1,18 +1,11 @@
-import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_storage_web/firebase_storage_web.dart';
 import 'package:flutter/material.dart';
 
 import 'app/app.dart';
 import 'app/bloc_observer.dart';
 import 'core/services/service_locator.dart' as sl;
-import 'data/remote/job_application/job_application_service_impl.dart';
-import 'domain/entities/company/company.dart';
-import 'domain/entities/job_application_request/job_application_request.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

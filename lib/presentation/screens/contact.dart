@@ -294,10 +294,9 @@ class _ContactState extends State<Contact> {
                                     color: isHoveredButton
                                         ? AppColors.mainDarkAccent
                                         : AppColors.mainAccent,
-                                    appTheme: AppTheme
+                                    textStyle: AppTheme
                                         .themeData.textTheme.labelSmall!
                                         .copyWith(color: Colors.white),
-                                    isNeedPadding: false,
                                     onPressed: _isClickable
                                         ? () {
                                             isSavePressed = true;
@@ -529,10 +528,9 @@ class _ContactState extends State<Contact> {
                                     color: isHoveredButton
                                         ? AppColors.mainDarkAccent
                                         : AppColors.mainAccent,
-                                    appTheme: AppTheme
+                                    textStyle: AppTheme
                                         .themeData.textTheme.labelSmall!
                                         .copyWith(color: Colors.white),
-                                    isNeedPadding: false,
                                     onPressed: _isClickable
                                         ? () {
                                             isSavePressed = true;
@@ -794,10 +792,9 @@ class _ContactState extends State<Contact> {
                                   color: isHoveredButton
                                       ? AppColors.mainDarkAccent
                                       : AppColors.mainAccent,
-                                  appTheme: AppTheme
+                                  textStyle: AppTheme
                                       .themeData.textTheme.labelSmall!
                                       .copyWith(color: Colors.white),
-                                  isNeedPadding: false,
                                   onPressed: _isClickable
                                       ? () {
                                           isSavePressed = true;

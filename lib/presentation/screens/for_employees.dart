@@ -236,7 +236,7 @@ class _ForEmployeesState extends State<ForEmployees> {
                                   ),
                                 ),
                               ),
-                            ),
+
                             const SizedBox(
                               height: 57,
                             ),
@@ -257,9 +257,8 @@ class _ForEmployeesState extends State<ForEmployees> {
                                   color: isHoveredButton
                                       ? AppColors.mainDarkAccent
                                       : AppColors.mainAccent,
-                                  appTheme: AppTheme.themeData.textTheme.headlineLarge!
+                                  textStyle: AppTheme.themeData.textTheme.headlineLarge!
                                       .copyWith(fontSize: 22,color: Colors.white),
-                                  isNeedPadding: true,
                                   onPressed: () {
                                     if (!_formKey.currentState!.validate()) {
                                       return;
@@ -275,52 +274,54 @@ class _ForEmployeesState extends State<ForEmployees> {
                               child: GestureDetector(
                                 onTap: () {
                                   router.go('/contact');
-                              MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                onEnter: (_) {
-                                  setState(() {
-                                    isHoveredButton = !isHoveredButton;
-                                  });
-                                },
-                                onExit: (_) {
-                                  setState(() {
-                                    isHoveredButton = !isHoveredButton;
-                                  });
-                                },
-                                child: AppElevatedButton(
-                                    verticalPadding: 10,
-                                    text: AppLocalizations.of(context)!.signIn,
-                                    color: isHoveredButton
-                                        ? AppColors.mainDarkAccent
-                                        : AppColors.mainAccent,
-                                    onPressed: () {
-                                      if (!_formKey.currentState!.validate()) {
-                                        return;
-                                      }
-                                      _formKey.currentState!.save();
-                                    }),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Center(
-                                child: MouseRegion(
-                                  cursor: SystemMouseCursors.click,
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      router.go('/contact');
+                                  MouseRegion(
+                                    cursor: SystemMouseCursors.click,
+                                    onEnter: (_) {
+                                      setState(() {
+                                        isHoveredButton = !isHoveredButton;
+                                      });
                                     },
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .ifYouDontHaveAccount,
-                                      textAlign: TextAlign.center,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelSmall,
+                                    onExit: (_) {
+                                      setState(() {
+                                        isHoveredButton = !isHoveredButton;
+                                      });
+                                    },
+                                    child: AppElevatedButton(
+                                        verticalPadding: 10,
+                                        text: AppLocalizations.of(context)!
+                                            .signIn,
+                                        color: isHoveredButton
+                                            ? AppColors.mainDarkAccent
+                                            : AppColors.mainAccent,
+                                        onPressed: () {
+                                          if (!_formKey.currentState!
+                                              .validate()) {
+                                            return;
+                                          }
+                                          _formKey.currentState!.save();
+                                        }),
+                                  );
+                                  const SizedBox(
+                                    height: 16,
+                                  );
+                                  Center(
+                                    child: MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          router.go('/contact');
+                                        },
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .ifYouDontHaveAccount,
+                                          textAlign: TextAlign.center,
+                                          style: AppTheme
+                                              .themeData.textTheme.labelSmall,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                                  );
+                                })) ],
                           ),
                         ),
                       ),

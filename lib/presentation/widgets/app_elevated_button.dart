@@ -7,16 +7,18 @@ class AppElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final Color? color;
-  final TextStyle appTheme;
+
 
   const AppElevatedButton({
     required this.text,
     required this.onPressed,
     super.key,
     this.color,
-    required this.appTheme,
-    required this.isNeedPadding,
+    this.borderColor,
+    this.textStyle,
+    this.verticalPadding,
   });
+
   final Color? borderColor;
   final TextStyle? textStyle;
   final double? verticalPadding;
@@ -28,7 +30,9 @@ class AppElevatedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         elevation: 0,
         surfaceTintColor: AppColors.mainAccent,
-        side: borderColor == null ? BorderSide.none : BorderSide(color: borderColor!),
+        side: borderColor == null
+            ? BorderSide.none
+            : BorderSide(color: borderColor!),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         backgroundColor: color ?? AppColors.mainAccent,
       ),
@@ -40,8 +44,9 @@ class AppElevatedButton extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: verticalPadding ?? 15),
               child: Text(
                 text,
-                style:textStyle ?? AppTheme.themeData.textTheme.headlineLarge!
-                    .copyWith(fontSize: 22,color: Colors.white),
+                style: textStyle ??
+                    AppTheme.themeData.textTheme.headlineLarge!
+                        .copyWith(fontSize: 22, color: Colors.white),
               ),
             ),
           ),
@@ -49,13 +54,4 @@ class AppElevatedButton extends StatelessWidget {
       ),
     );
   }
-
-  const AppElevatedButton({
-    required this.text,
-    required this.onPressed,
-    this.color,
-    this.borderColor,
-    this.textStyle,
-    this.verticalPadding,
-  });
 }

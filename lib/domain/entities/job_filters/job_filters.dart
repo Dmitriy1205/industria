@@ -6,6 +6,10 @@ class JobFilters{
   final int page;
   final int count;
 
+  factory JobFilters.initial(){
+    return JobFilters(keyword: "", page: 0, count: 10);
+  }
+
   JobFilters({
     this.area,
     this.jobTypes = const [],

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:industria/app/app.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 import 'package:industria/presentation/widgets/steps.dart';
 
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
 import '../../core/validator/field_validator.dart';
+import '../widgets/app_elevated_button.dart';
 import '../widgets/footer.dart';
 
 class Contact extends StatefulWidget {
@@ -33,6 +33,33 @@ class _ContactState extends State<Contact> {
   FocusNode _phoneNumberFocusNode = FocusNode();
   FocusNode _emailFocusNode = FocusNode();
   FocusNode _descriptionFocusNode = FocusNode();
+  bool isHoveredButton = false;
+  bool _isClickable = false;
+
+  // (_firstNameController.text.isNotEmpty == '' ||
+  // _lastNameController.text == '' ||
+  // _companyNameNameController.text == '' ||
+  // _emailController.text == '' ||
+  // _phoneNumberController.text == '')
+
+  void _clickable() {
+    if (_firstNameController.text.isEmpty ||
+        _lastNameController.text.isEmpty ||
+        _companyNameNameController.text.isEmpty ||
+        _emailController.text.isEmpty ||
+        _phoneNumberController.text.isEmpty ||
+        _descriptionController.text.isEmpty) {
+      setState(() {
+        _isClickable = false;
+      });
+      print('_isClickable = false ');
+    } else {
+      setState(() {
+        _isClickable = true;
+      });
+      print('_isClickable = true');
+    }
+  }
 
   @override
   void initState() {
@@ -43,6 +70,7 @@ class _ContactState extends State<Contact> {
     _phoneNumberFocusNode.addListener(() => setState(() {}));
     _emailFocusNode.addListener(() => setState(() {}));
     _descriptionFocusNode.addListener(() => setState(() {}));
+    // _clickable().listen((event) {print('event ${event}');});
   }
 
   @override
@@ -102,6 +130,7 @@ class _ContactState extends State<Contact> {
                                         AppLocalizations.of(context)!.firstname,
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
+                                    onChange: _clickable,
                                     isSavePressed: isSavePressed,
                                   ),
                                 ),
@@ -116,6 +145,7 @@ class _ContactState extends State<Contact> {
                                         AppLocalizations.of(context)!.lastname,
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
+                                    onChange: _clickable,
                                     isSavePressed: isSavePressed,
                                   ),
                                 ),
@@ -134,6 +164,7 @@ class _ContactState extends State<Contact> {
                                         .companyName,
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
+                                    onChange: _clickable,
                                     isSavePressed: isSavePressed,
                                   ),
                                 ),
@@ -151,6 +182,7 @@ class _ContactState extends State<Contact> {
                                         FilteringTextInputFormatter.digitsOnly,
                                     textInputType: TextInputType.phone,
                                     isSavePressed: isSavePressed,
+                                    onChange: _clickable,
                                     width: 244,
                                   ),
                                 ),
@@ -166,6 +198,7 @@ class _ContactState extends State<Contact> {
                               validator: Validator.validateEmail,
                               textInputType: TextInputType.emailAddress,
                               isSavePressed: isSavePressed,
+                              onChange: _clickable,
                               width: 521,
                             ),
                             SizedBox(
@@ -179,6 +212,7 @@ class _ContactState extends State<Contact> {
                               validator: Validator.validate,
                               textInputType: TextInputType.text,
                               isSavePressed: isSavePressed,
+                              onChange: _clickable,
                               width: 521,
                               height: 86,
                               maxLines: 5,
@@ -248,50 +282,31 @@ class _ContactState extends State<Contact> {
                               height: 36,
                               child: MouseRegion(
                                 cursor: SystemMouseCursors.click,
-                                child: MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  onPressed: () {
-                                    if (_firstNameController.text == '' ||
-                                        _lastNameController.text == '' ||
-                                        _companyNameNameController.text == '' ||
-                                        _emailController.text == '' ||
-                                        _phoneNumberController.text == '') {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              backgroundColor: AppColors.danger,
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(24),
-                                              ),
-                                              margin: EdgeInsets.only(
-                                                  bottom: MediaQuery.of(context)
-                                                          .size
-                                                          .height -
-                                                      200,
-                                                  right: 20,
-                                                  left: 20),
-                                              content: Text(
-                                                  'Enter data to required fields')));
-                                    } else {
-                                      setState(() {
-                                        isSavePressed = true;
-                                        setState(() {});
-                                      });
-                                    }
-                                  },
-                                  color: AppColors.mainAccent,
-                                  hoverColor: AppColors.mainDarkAccent,
-                                  child: Text(
-                                      AppLocalizations.of(context)!.send,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(
-                                        color: Colors.white,
-                                      )),
-                                ),
+                                onEnter: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                onExit: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                child: AppElevatedButton(
+                                    text: AppLocalizations.of(context)!.send,
+                                    color: isHoveredButton
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    appTheme: AppTheme
+                                        .themeData.textTheme.labelSmall!
+                                        .copyWith(color: Colors.white),
+                                    isNeedPadding: false,
+                                    onPressed: _isClickable
+                                        ? () {
+                                            isSavePressed = true;
+                                            print('pressed');
+                                          }
+                                        : null),
                               ),
                             ),
                           ],
@@ -360,6 +375,7 @@ class _ContactState extends State<Contact> {
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
+                                    onChange: _clickable,
                                     width: 244),
                                 const SizedBox(
                                   width: 30,
@@ -372,6 +388,7 @@ class _ContactState extends State<Contact> {
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
+                                    onChange: _clickable,
                                     width: 244),
                               ],
                             ),
@@ -388,6 +405,7 @@ class _ContactState extends State<Contact> {
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
+                                    onChange: _clickable,
                                     width: 244),
                                 SizedBox(
                                   width: 30,
@@ -400,6 +418,7 @@ class _ContactState extends State<Contact> {
                                     validator: Validator.validatePhone,
                                     textInputType: TextInputType.phone,
                                     isSavePressed: isSavePressed,
+                                    onChange: _clickable,
                                     width: 244),
                               ],
                             ),
@@ -413,6 +432,7 @@ class _ContactState extends State<Contact> {
                                 validator: Validator.validateEmail,
                                 textInputType: TextInputType.emailAddress,
                                 isSavePressed: isSavePressed,
+                                onChange: _clickable,
                                 width: 521),
                             SizedBox(
                               height: 35,
@@ -425,6 +445,7 @@ class _ContactState extends State<Contact> {
                               validator: Validator.validate,
                               textInputType: TextInputType.text,
                               isSavePressed: isSavePressed,
+                              onChange: _clickable,
                               width: 521,
                               height: 86,
                               maxLines: 5,
@@ -443,8 +464,8 @@ class _ContactState extends State<Contact> {
                                                 BorderRadius.circular(5)),
                                         activeColor: AppColors.mainAccent,
                                         value: _checkboxValue,
-                                        onChanged: (_checkboxValue) {
-                                          _checkboxValue = !_checkboxValue!;
+                                        onChanged: (_checkbox) {
+                                          _checkboxValue = _checkbox!;
                                           print(
                                               '_checkboxValue $_checkboxValue');
                                         }),
@@ -494,50 +515,31 @@ class _ContactState extends State<Contact> {
                               height: 36,
                               child: MouseRegion(
                                 cursor: SystemMouseCursors.click,
-                                child: MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  onPressed: () {
-                                    if (_firstNameController.text == '' ||
-                                        _lastNameController.text == '' ||
-                                        _companyNameNameController.text == '' ||
-                                        _emailController.text == '' ||
-                                        _phoneNumberController.text == '') {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
-                                              backgroundColor: AppColors.danger,
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(24),
-                                              ),
-                                              margin: EdgeInsets.only(
-                                                  bottom: MediaQuery.of(context)
-                                                          .size
-                                                          .height -
-                                                      200,
-                                                  right: 20,
-                                                  left: 20),
-                                              content: Text(
-                                                  'Enter data to required fields')));
-                                    } else {
-                                      setState(() {
-                                        isSavePressed = true;
-                                        setState(() {});
-                                      });
-                                    }
-                                  },
-                                  color: AppColors.mainAccent,
-                                  hoverColor: AppColors.mainDarkAccent,
-                                  child: Text(
-                                      AppLocalizations.of(context)!.send,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(
-                                        color: Colors.white,
-                                      )),
-                                ),
+                                onEnter: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                onExit: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                child: AppElevatedButton(
+                                    text: AppLocalizations.of(context)!.send,
+                                    color: isHoveredButton
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    appTheme: AppTheme
+                                        .themeData.textTheme.labelSmall!
+                                        .copyWith(color: Colors.white),
+                                    isNeedPadding: false,
+                                    onPressed: _isClickable
+                                        ? () {
+                                            isSavePressed = true;
+                                            print('pressed');
+                                          }
+                                        : null),
                               ),
                             ),
                           ],
@@ -639,6 +641,7 @@ class _ContactState extends State<Contact> {
                                   validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
+                                  onChange: _clickable,
                                   width: 244),
                               const SizedBox(
                                 width: 30,
@@ -651,6 +654,7 @@ class _ContactState extends State<Contact> {
                                   validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
+                                  onChange: _clickable,
                                   width: 244),
                             ],
                           ),
@@ -667,6 +671,7 @@ class _ContactState extends State<Contact> {
                                   validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
+                                  onChange: _clickable,
                                   width: 244),
                               SizedBox(
                                 width: 30,
@@ -679,6 +684,7 @@ class _ContactState extends State<Contact> {
                                   validator: Validator.validatePhone,
                                   textInputType: TextInputType.phone,
                                   isSavePressed: isSavePressed,
+                                  onChange: _clickable,
                                   width: 244),
                             ],
                           ),
@@ -692,6 +698,7 @@ class _ContactState extends State<Contact> {
                               validator: Validator.validateEmail,
                               textInputType: TextInputType.emailAddress,
                               isSavePressed: isSavePressed,
+                              onChange: _clickable,
                               width: 521),
                           SizedBox(
                             height: 35,
@@ -704,6 +711,7 @@ class _ContactState extends State<Contact> {
                             validator: Validator.validate,
                             textInputType: TextInputType.text,
                             isSavePressed: isSavePressed,
+                            onChange: _clickable,
                             width: 521,
                             height: 86,
                             maxLines: 5,
@@ -762,7 +770,7 @@ class _ContactState extends State<Contact> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 36,
                           ),
                           SizedBox(
@@ -770,53 +778,31 @@ class _ContactState extends State<Contact> {
                             height: 36,
                             child: MouseRegion(
                               cursor: SystemMouseCursors.click,
-                              child: MaterialButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                onPressed: () {
-                                  if (_firstNameController.text == '' ||
-                                      _lastNameController.text == '' ||
-                                      _companyNameNameController.text == '' ||
-                                      _emailController.text == '' ||
-                                      _phoneNumberController.text == '') {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            backgroundColor: AppColors.danger,
-                                            behavior: SnackBarBehavior.floating,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(24),
-                                            ),
-                                            margin: EdgeInsets.only(
-                                                bottom: MediaQuery.of(context)
-                                                        .size
-                                                        .height -
-                                                    200,
-                                                right: 20,
-                                                left: 20),
-                                            content: Text(
-                                                'Enter data to required fields')));
-                                  } else {
-                                    isSavePressed = true;
-                                    setState(() {});
-                                  }
-                                },
-                                color: AppColors.mainAccent,
-                                hoverColor: AppColors.mainDarkAccent,
-                                // style: ElevatedButton.styleFrom(
-                                //     backgroundColor: AppColors.mainAccent,
-                                //     padding: const EdgeInsets.symmetric(
-                                //         horizontal: 50, vertical: 20),
-                                //     shape: const RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.all(
-                                //             Radius.circular(8)))),
-                                child: Text(AppLocalizations.of(context)!.send,
-                                    style: AppTheme
-                                        .themeData.textTheme.labelSmall!
-                                        .copyWith(
-                                      color: Colors.white,
-                                    )),
-                              ),
+                              onEnter: (_) {
+                                setState(() {
+                                  isHoveredButton = !isHoveredButton;
+                                });
+                              },
+                              onExit: (_) {
+                                setState(() {
+                                  isHoveredButton = !isHoveredButton;
+                                });
+                              },
+                              child: AppElevatedButton(
+                                  text: AppLocalizations.of(context)!.send,
+                                  color: isHoveredButton
+                                      ? AppColors.mainDarkAccent
+                                      : AppColors.mainAccent,
+                                  appTheme: AppTheme
+                                      .themeData.textTheme.labelSmall!
+                                      .copyWith(color: Colors.white),
+                                  isNeedPadding: false,
+                                  onPressed: _isClickable
+                                      ? () {
+                                          isSavePressed = true;
+                                          print('pressed');
+                                        }
+                                      : null),
                             ),
                           ),
                         ],

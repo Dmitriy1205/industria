@@ -1,6 +1,6 @@
 import 'package:flutter/services.dart';
 
-class Validator{
+class Validator {
   static String? validateEmail(String? value) {
     const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
         r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
@@ -11,19 +11,17 @@ class Validator{
         r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
     final regex = RegExp(pattern);
 
-    return value!.isNotEmpty && !regex.hasMatch(value)
+    return value!.isNotEmpty || !regex.hasMatch(value)
         ? 'Enter a valid email address'
         : null;
   }
 
   static String? validatePhone(String? value) {
-    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    String pattern = r'^(\+\d{1,3})?\d{8,12}$';
     RegExp regExp = RegExp(pattern);
     FilteringTextInputFormatter.digitsOnly;
 
-    if (value!.isNotEmpty && value!.length < 11) {
-      return 'Phone Number must be more than 11 digits';
-    } else if (!regExp.hasMatch(value)) {
+    if (value!.isNotEmpty && !regExp.hasMatch(value!)) {
       return 'Please enter valid mobile number';
     } else {
       return null;
@@ -31,9 +29,9 @@ class Validator{
   }
 
   static String? validate(String? value) {
-    if (value!.isEmpty){
+    if (value!.isEmpty) {
       return "Field can't be empty";
-    }else {
+    } else {
       return null;
     }
   }

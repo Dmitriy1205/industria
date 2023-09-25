@@ -5,7 +5,8 @@ import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  CustomTextFormField({Key? key,
+  CustomTextFormField({
+    Key? key,
     required this.focusNode,
     required this.textController,
     required this.labelText,
@@ -16,8 +17,8 @@ class CustomTextFormField extends StatelessWidget {
     this.width,
     this.height,
     this.maxLines,
-  })
-      : super(key: key);
+    this.onChange,
+  }) : super(key: key);
 
   final FocusNode focusNode;
   final TextEditingController textController;
@@ -29,6 +30,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   TextInputFormatter? inputFormatter;
   bool isSavePressed;
+  final Function()? onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,12 @@ class CustomTextFormField extends StatelessWidget {
         textAlignVertical: TextAlignVertical.top,
         focusNode: focusNode,
         controller: textController,
+        onChanged: (v) {
+          onChange!();
+        },
         maxLines: maxLines ?? 1,
         style:
-        AppTheme.themeData.textTheme.headlineLarge!.copyWith(fontSize: 14),
+            AppTheme.themeData.textTheme.headlineLarge!.copyWith(fontSize: 14),
         decoration: InputDecoration(
           isDense: true,
           constraints: const BoxConstraints(maxHeight: 70, minHeight: 36),
@@ -67,7 +72,7 @@ class CustomTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           contentPadding:
-          const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           alignLabelWithHint: true,
           labelStyle: AppTheme.themeData.textTheme.labelSmall!.copyWith(
               color: focusNode.hasFocus
@@ -78,4 +83,6 @@ class CustomTextFormField extends StatelessWidget {
       ),
     );
   }
+
+
 }

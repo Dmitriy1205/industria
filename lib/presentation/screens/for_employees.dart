@@ -257,6 +257,9 @@ class _ForEmployeesState extends State<ForEmployees> {
                                   color: isHoveredButton
                                       ? AppColors.mainDarkAccent
                                       : AppColors.mainAccent,
+                                  appTheme: AppTheme.themeData.textTheme.headlineLarge!
+                                      .copyWith(fontSize: 22,color: Colors.white),
+                                  isNeedPadding: true,
                                   onPressed: () {
                                     if (!_formKey.currentState!.validate()) {
                                       return;

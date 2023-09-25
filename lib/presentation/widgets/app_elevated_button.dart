@@ -5,14 +5,18 @@ import '../../core/themes/theme.dart';
 
 class AppElevatedButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? color;
+  final TextStyle appTheme;
+  final bool isNeedPadding;
 
   const AppElevatedButton({
     required this.text,
     required this.onPressed,
     super.key,
     this.color,
+    required this.appTheme,
+    required this.isNeedPadding,
   });
 
   @override
@@ -28,16 +32,13 @@ class AppElevatedButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
-
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Text(
-                text,
-                style: AppTheme.themeData.textTheme.headlineLarge!
-                    .copyWith(fontSize: 22,color: Colors.white),
-              ),
-            ),
-          ),
+            child: isNeedPadding
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: Text(text, style: appTheme),
+                  )
+                : Text(text, style: appTheme),
+          )
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/enums/job_areas.dart';
 import 'package:industria/core/enums/job_types.dart';
@@ -302,7 +303,9 @@ class _JobsState extends State<Jobs> {
                                         address: e.location,
                                         description: e.description,
                                         salary: e.salary,
-                                        goToDescription: () {}),
+                                        goToDescription: () {
+                                          context.push('/job_description', extra: e);
+                                        }),
                                   );
                                 },
                               );
@@ -518,7 +521,9 @@ class _JobsState extends State<Jobs> {
                                       address: e.location,
                                       description: e.description,
                                       salary: e.salary,
-                                      goToDescription: () {}),
+                                      goToDescription: () {
+                                        context.push('/job_description', extra: e);
+                                      }),
                                 );
                               },
                             );

@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class BoldTextWidget extends StatelessWidget {
   final String text;
@@ -12,12 +14,14 @@ class BoldTextWidget extends StatelessWidget {
 
     RegExp exp = RegExp(r'<bold>(.*?)<bold>');
 
-    List<RegExpMatch> matches = exp.allMatches(text).toList();
+    final newLineText = text.replaceAll(r"\\n", "\n");
+
+    List<RegExpMatch> matches = exp.allMatches(newLineText).toList();
 
     int currentIndex = 0;
 
     for (RegExpMatch match in matches) {
-      String normalText = text.substring(currentIndex, match.start);
+      String normalText = newLineText.substring(currentIndex, match.start);
       if (normalText.isNotEmpty) {
         textSpans.add(TextSpan(text: normalText, style: style));
       }
@@ -28,12 +32,12 @@ class BoldTextWidget extends StatelessWidget {
       currentIndex = match.end;
     }
 
-    if (currentIndex < text.length) {
+    if (currentIndex < newLineText.length) {
       textSpans.add(TextSpan(
-          text: text.substring(currentIndex),
+          text: newLineText.substring(currentIndex),
           style: style.copyWith(fontWeight: FontWeight.normal),));
     }
 
-    return RichText(text: TextSpan(children: textSpans));
+    return SelectableText.rich(TextSpan(children: textSpans));
   }
 }

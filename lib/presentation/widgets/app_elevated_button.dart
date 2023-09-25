@@ -7,15 +7,15 @@ class AppElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
   final Color? color;
-  final TextStyle appTheme;
 
   const AppElevatedButton({
     required this.text,
     required this.onPressed,
     super.key,
     this.color,
-    required this.appTheme,
-    required this.isNeedPadding,
+    this.borderColor,
+    this.textStyle,
+    this.verticalPadding
   });
   final Color? borderColor;
   final TextStyle? textStyle;
@@ -40,7 +40,7 @@ class AppElevatedButton extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: verticalPadding ?? 15),
               child: Text(
                 text,
-                style:textStyle ?? AppTheme.themeData.textTheme.headlineLarge!
+                style: textStyle ?? AppTheme.themeData.textTheme.headlineLarge!
                     .copyWith(fontSize: 22,color: Colors.white),
               ),
             ),
@@ -49,13 +49,4 @@ class AppElevatedButton extends StatelessWidget {
       ),
     );
   }
-
-  const AppElevatedButton({
-    required this.text,
-    required this.onPressed,
-    this.color,
-    this.borderColor,
-    this.textStyle,
-    this.verticalPadding,
-  });
 }

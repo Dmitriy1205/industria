@@ -294,10 +294,9 @@ class _ContactState extends State<Contact> {
                                     color: isHoveredButton
                                         ? AppColors.mainDarkAccent
                                         : AppColors.mainAccent,
-                                    appTheme: AppTheme
+                                    textStyle: AppTheme
                                         .themeData.textTheme.labelSmall!
                                         .copyWith(color: Colors.white),
-                                    isNeedPadding: false,
                                     onPressed: _isClickable
                                         ? () {
                                             isSavePressed = true;
@@ -529,10 +528,9 @@ class _ContactState extends State<Contact> {
                                     color: isHoveredButton
                                         ? AppColors.mainDarkAccent
                                         : AppColors.mainAccent,
-                                    appTheme: AppTheme
+                                    textStyle: AppTheme
                                         .themeData.textTheme.labelSmall!
                                         .copyWith(color: Colors.white),
-                                    isNeedPadding: false,
                                     onPressed: _isClickable
                                         ? () {
                                             isSavePressed = true;
@@ -776,7 +774,6 @@ class _ContactState extends State<Contact> {
                           ),
                           SizedBox(
                             width: 521,
-                            height: 36,
                             child: MouseRegion(
                               cursor: SystemMouseCursors.click,
                               onEnter: (_) {
@@ -791,13 +788,12 @@ class _ContactState extends State<Contact> {
                               },
                               child: AppElevatedButton(
                                   text: AppLocalizations.of(context)!.send,
+                                  verticalPadding: 10,
                                   color: isHoveredButton
                                       ? AppColors.mainDarkAccent
                                       : AppColors.mainAccent,
-                                  appTheme: AppTheme
-                                      .themeData.textTheme.labelSmall!
+                                  textStyle: Theme.of(context).textTheme.labelSmall!
                                       .copyWith(color: Colors.white),
-                                  isNeedPadding: false,
                                   onPressed: _isClickable
                                       ? () {
                                           isSavePressed = true;

@@ -15,8 +15,9 @@ class JobServiceImpl implements JobService {
     final areaFacet = filter.area == null ? null : "area:${filter.area}";
     final facet = _facetFromArrayOfParams(
         [jobTypesFacet, cityFacet, areaFacet].where((e) => e != null).toList());
-    print(facet);
-    currentQuery = currentQuery.filters(facet);
+    if(facet.isNotEmpty){
+      currentQuery = currentQuery.filters(facet);
+    }
     currentQuery =
         currentQuery.setHitsPerPage(filter.count).setPage(filter.page);
     final results = await currentQuery.getObjects();
@@ -28,7 +29,7 @@ class JobServiceImpl implements JobService {
     for (var value in values) {
       if (value is List && value.isNotEmpty) {
         if(value.length == 1){
-          andParts.add("${value.join(" OR ")}");
+          andParts.add(value.join(" OR "));
         }else{
           andParts.add("(${value.join(" OR ")})");
         }

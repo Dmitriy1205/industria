@@ -5,6 +5,7 @@ import 'package:industria/data/remote/job/job_service_impl.dart';
 import 'package:industria/domain/repositories/job/job_repository_contract.dart';
 import 'package:industria/domain/repositories/job/job_repository_impl.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
+import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,7 +16,7 @@ import '../../domain/repositories/cookie/cookie_repository_impl.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  final Algolia algolia = Algolia.init(
+  const Algolia algolia = Algolia.init(
     applicationId: 'B0THJNHAYO',
     apiKey: '395d64ccee025643177da71d694c34ec',
   );
@@ -24,7 +25,7 @@ Future<void> init() async {
   final cookieRepository = CookieRepositoryImpl(
       db: CookieServiceImpl(
           sharedPreferences: sharedPrefs));
-  final jobRepository = JobRepositoryImpl(db: JobServiceImpl(algolia: algolia));
+  const jobRepository = JobRepositoryImpl(db: JobServiceImpl(algolia: algolia));
   final initialCookie = await cookieRepository.fetchCookies();
 
   sl.registerSingleton<CookieRepository>(cookieRepository);
@@ -32,4 +33,5 @@ Future<void> init() async {
 
   sl.registerLazySingleton(() => LocalizationBloc());
   sl.registerLazySingleton(() => CookieBloc(cookieRepository: sl<CookieRepository>(), initialValue: initialCookie));
+  sl.registerLazySingleton(() => JobsBloc(jobRepository: jobRepository));
 }

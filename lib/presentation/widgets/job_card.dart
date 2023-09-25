@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:industria/presentation/widgets/bold_text_widget.dart';
+import 'package:industria/presentation/widgets/firebase_image.dart';
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
 import 'app_elevated_button.dart';
@@ -35,33 +37,39 @@ class _JobCardState extends State<JobCard> {
   Widget build(BuildContext context) {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
+      onEnter: (_){
+        setState(() {
+          isHoveredButton = true;
+        });
+      },
+      onExit: (_){
+        setState(() {
+          isHoveredButton = false;
+        });
+      },
       child: GestureDetector(
         onTap: () {
           widget.goToDescription();
         },
         child: Container(
-          width: 289,
+          width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isHoveredButton ? Color.lerp(Colors.white, Colors.black, 0.01) : Colors.white,
             borderRadius: BorderRadius.circular(16),
-            boxShadow: const [
+            border: Border.all(
+              color: Color(0xFFEDEDED).withOpacity(0.6)
+            ),
+            boxShadow: [
               BoxShadow(
-                offset: Offset(6, 6),
-                color: AppColors.lightGrey,
-                spreadRadius: 4,
-                blurRadius: 7,
+                offset: Offset(1, 1),
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 2,
               ),
-              BoxShadow(
-                offset: Offset(-3, -3),
-                blurRadius: 4,
-                spreadRadius: 2,
-                color: AppColors.lightGrey,
-              )
             ],
           ),
           child: Padding(
             padding: const EdgeInsets.only(
-                top: 22.0, left: 27, right: 21, bottom: 17),
+                top: 22.0, left: 27, right: 27, bottom: 17),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -70,10 +78,7 @@ class _JobCardState extends State<JobCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //TODO: change to Image.network when use real data from api
-                    Image.asset(
-                      widget.icon,
-                      scale: 1.5,
-                    ),
+                    FirebaseImage(widget.icon),
                     Text(
                       widget.date,
                       style: AppTheme.themeData.textTheme.labelSmall!.copyWith(
@@ -84,22 +89,16 @@ class _JobCardState extends State<JobCard> {
                   ],
                 ),
                 const SizedBox(
-                  height: 34,
+                  height: 18,
                 ),
-                SizedBox(
-                  height: 50,
-                  child: Text(
-                    widget.vacancy,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTheme.themeData.textTheme.labelSmall!.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: Colors.black),
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
+                Text(
+                  widget.vacancy,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTheme.themeData.textTheme.labelSmall!.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: Colors.black),
                 ),
                 Text(
                   widget.address,
@@ -108,19 +107,14 @@ class _JobCardState extends State<JobCard> {
                       fontSize: 14,
                       color: Colors.black),
                 ),
-                const SizedBox(
-                  height: 6,
-                ),
                 SizedBox(
                   height: 58,
-                  child: Text(
-                    widget.description,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
+                  child: BoldTextWidget(
+                    text: widget.description,
                     style: AppTheme.themeData.textTheme.labelSmall!.copyWith(
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w300,
                         fontSize: 14,
-                        color: AppColors.darkGrey),
+                        color: Colors.black),
                   ),
                 ),
                 const SizedBox(
@@ -132,35 +126,6 @@ class _JobCardState extends State<JobCard> {
                       fontWeight: FontWeight.w600,
                       fontSize: 14,
                       color: AppColors.mainDarkAccent),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  onEnter: (_) {
-                    setState(() {
-                      isHoveredButton = !isHoveredButton;
-                    });
-                  },
-                  onExit: (_) {
-                    setState(() {
-                      isHoveredButton = !isHoveredButton;
-                    });
-                  },
-                  child: AppElevatedButton(
-                    text: AppLocalizations.of(context)!.apply,
-                    color: isHoveredButton
-                        ? AppColors.mainDarkAccent
-                        : AppColors.mainAccent,
-                    textStyle: AppTheme.themeData.textTheme.labelSmall!
-                        .copyWith(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 12,
-                            color: Colors.white),
-                    onPressed: () {},
-                    verticalPadding: 8,
-                  ),
                 ),
               ],
             ),

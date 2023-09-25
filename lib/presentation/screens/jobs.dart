@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/images.dart';
+import 'package:industria/core/extensions/time.dart';
+import 'package:industria/core/utils/debounce.dart';
+import 'package:industria/domain/entities/job_filters/job_filters.dart';
+import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_checkbox.dart';
 
 import '../../app/router.dart';
 import '../../core/constants/colors.dart';
+import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 import '../bloc/localization/localization_bloc.dart';
 import '../widgets/footer.dart';
@@ -29,6 +36,24 @@ class _JobsState extends State<Jobs> {
   bool _checkboxValue1 = false;
   bool _checkboxValue2 = false;
 
+  final Debouncer _debouncer = Debouncer(milliseconds: 600);
+
+
+  @override
+  void initState() {
+    super.initState();
+    sl<JobsBloc>().state.maybeMap(
+        initial: (_){
+          sl<JobsBloc>().add(JobsEvent.fetchJobs(filter: JobFilters(count: 10, keyword: "", page: 0)));
+        },
+        orElse: (){});
+
+    textController.addListener(() {
+      _debouncer.run(() {
+        sl<JobsBloc>().add(JobsEvent.changeSearchQuery(query: textController.text));
+      });
+    });
+  }
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -66,38 +91,35 @@ class _JobsState extends State<Jobs> {
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width / 4),
+                      horizontal: MediaQuery.of(context).size.width / 5),
                   child: Container(
+                    height: 84,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
-                      color: const Color(0xFFfafafa),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
-                      boxShadow: const [
+                      boxShadow: [
                         BoxShadow(
-                            offset: Offset(2, 4),
-                            color: AppColors.lightGrey,
-                            blurRadius: 2),
-                        BoxShadow(
-                          offset: Offset(0, 0),
-                          color: AppColors.lightGrey,
-                        )
+                            offset: Offset(1, 2),
+                            color: Colors.black.withOpacity(0.25),
+                            blurRadius: 6),
                       ],
                     ),
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          left: 23, right: 8, bottom: 8, top: 8),
+                          left: 34),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           SizedBox(
-                            width: 180,
+                            width: 200,
                             child: TextField(
                               controller: textController,
                               style: AppTheme.themeData.textTheme.labelMedium!
                                   .copyWith(
                                       fontWeight: FontWeight.w400,
-                                      color: AppColors.darkGrey,
-                                      fontSize: 10),
+                                      color: Colors.black,
+                                      fontSize: 14),
                               decoration: InputDecoration(
                                 enabledBorder: const OutlineInputBorder(
                                     borderSide: BorderSide.none),
@@ -110,13 +132,13 @@ class _JobsState extends State<Jobs> {
                                     .copyWith(
                                         fontWeight: FontWeight.w400,
                                         color: AppColors.darkGrey,
-                                        fontSize: 12),
+                                        fontSize: 14),
                                 prefixIcon: const Padding(
-                                  padding: EdgeInsets.only(right: 18.0, top: 2),
+                                  padding: EdgeInsets.only(right: 28.5, top: 2),
                                   child: FaIcon(
                                     FontAwesomeIcons.solidBuilding,
                                     color: AppColors.darkGrey,
-                                    size: 15,
+                                    size: 20,
                                   ),
                                 ),
                                 prefixIconConstraints: const BoxConstraints(
@@ -124,20 +146,14 @@ class _JobsState extends State<Jobs> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            width:
-                                context.read<LocalizationBloc>().state.locale ==
-                                        const Locale('de')
-                                    ? 40
-                                    : 25,
-                          ),
+                          Spacer(),
                           Container(
                             height: 39,
                             width: 2,
                             color: AppColors.lightGrey, // Color of the divider
                           ),
                           const SizedBox(
-                            width: 32,
+                            width: 42,
                           ),
                           Theme(
                             data: Theme.of(context).copyWith(
@@ -170,7 +186,7 @@ class _JobsState extends State<Jobs> {
                                         .copyWith(
                                             fontWeight: FontWeight.w400,
                                             color: AppColors.darkGrey,
-                                            fontSize: 10),
+                                            fontSize: 14),
                                   ),
                                 );
                               }).toList(),
@@ -199,22 +215,17 @@ class _JobsState extends State<Jobs> {
                             child: GestureDetector(
                               onTap: () {},
                               child: Container(
-                                height: 48,
+                                height: double.infinity,
                                 decoration: BoxDecoration(
                                     color: isHovered
                                         ? AppColors.mainDarkAccent
                                         : AppColors.mainAccent,
-                                    borderRadius: BorderRadius.circular(8)),
+                                    borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12))),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 22, right: 43),
+                                  padding: EdgeInsets.symmetric(horizontal: 40),
                                   child: Row(
                                     children: [
-                                      const FaIcon(
-                                        FontAwesomeIcons.magnifyingGlass,
-                                        color: Colors.white,
-                                        size: 13,
-                                      ),
+                                      SvgPicture.asset(AppImages.search, width: 21, height: 21, color: Colors.white,),
                                       const SizedBox(
                                         width: 16,
                                       ),
@@ -225,7 +236,7 @@ class _JobsState extends State<Jobs> {
                                             .copyWith(
                                                 fontWeight: FontWeight.w400,
                                                 color: Colors.white,
-                                                fontSize: 10),
+                                                fontSize: 14),
                                       ),
                                     ],
                                   ),
@@ -250,33 +261,24 @@ class _JobsState extends State<Jobs> {
                       const SizedBox(
                         width: 75,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 44.0),
-                        child: Wrap(
-                          spacing: 46.0,
-                          runSpacing: 46.0,
-                          children: [
-                            JobCard(
-                              goToDescription:() {router.go('/job_description');},
-                              icon: AppImages.apple,
-                              date: '22 Jan 2022',
-                              vacancy: 'UI/UX Designer',
-                              address: 'Hamburg, Marseiller Strasse 2',
-                              description:
-                              'We are the Beverly Hills Company!\nOne of the leading companies in the\nUkrainian market, which is engaged...',
-                              salary: '60000\$ / yr',
-                            ),
-                            JobCard(
-                              goToDescription:() {router.go('/job_description');},
-                              icon: AppImages.google,
-                              date: '22 Jan 2022',
-                              vacancy: 'C++ Software Senior Engineer',
-                              address: 'Hamburg, Yell Strasse 5',
-                              description:
-                              'Seeking for talented engineers\nfrom all around the world with\nskills at C++, C#, Scala, PHP and ...',
-                              salary: '80000\$ / yr',
-                            ),
-                          ],
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 44.0),
+                          child: BlocBuilder<JobsBloc,JobsState>(
+                            bloc: sl<JobsBloc>(),
+                            builder: (context,state) => state.map(initial: (state){
+                              return Center(child: CircularProgressIndicator(),);
+                            }, loaded: (state){
+                              return Column(
+                                children: state.jobs.map((e) => Container(
+                                  margin: EdgeInsets.only(bottom: 30),
+                                  child: JobCard(icon: e.company.logo, date: getTimeAgo(e.createdAt), vacancy: e.title, address: e.location, description: e.description, salary: e.salary, goToDescription: (){
+
+                                  }),
+                                )).toList(),
+                              );
+                            }),
+                          ),
                         ),
                       ),
                     ],
@@ -642,7 +644,7 @@ class _JobsState extends State<Jobs> {
                   Text(
                     AppLocalizations.of(context)!.permanent,
                     style: AppTheme.themeData.textTheme.labelMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         color: Colors.black,
                         fontSize: 14),
                   ),
@@ -671,7 +673,7 @@ class _JobsState extends State<Jobs> {
                   Text(
                     AppLocalizations.of(context)!.temporary,
                     style: AppTheme.themeData.textTheme.labelMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         color: Colors.black,
                         fontSize: 14),
                   ),
@@ -698,7 +700,7 @@ class _JobsState extends State<Jobs> {
                       ? AppColors.mainDarkAccent
                       : AppColors.mainAccent,
                   textStyle: AppTheme.themeData.textTheme.labelSmall!.copyWith(
-                      fontWeight: FontWeight.w600, color: Colors.white),
+                      fontWeight: FontWeight.w400, color: Colors.white),
                   onPressed: () {},
                   verticalPadding: 8,
                 ),
@@ -730,10 +732,7 @@ class _JobsState extends State<Jobs> {
           Text(
             AppLocalizations.of(context)!.filter,
             style: AppTheme.themeData.textTheme.headlineLarge!
-                .copyWith(fontSize: 22),
-          ),
-          const SizedBox(
-            height: 13,
+                .copyWith(fontSize: 18),
           ),
           const Divider(
             color: AppColors.lightGrey,
@@ -768,13 +767,10 @@ class _JobsState extends State<Jobs> {
                   isDense: true,
                   isExpanded: true,
                   focusColor: Colors.white,
-                  icon: const Padding(
-                    padding: EdgeInsets.only(left: 8.0, top: 2),
-                    child: Icon(
-                      Icons.arrow_drop_down,
-                      size: 25,
-                      color: AppColors.darkGrey,
-                    ),
+                  icon: Icon(
+                    Icons.arrow_drop_down_rounded,
+                    size: 30,
+                    color: AppColors.darkGrey,
                   ),
                   underline: SizedBox(),
                   value: dropdownValueFilter,
@@ -791,7 +787,7 @@ class _JobsState extends State<Jobs> {
                         value,
                         style: AppTheme.themeData.textTheme.labelMedium!
                             .copyWith(
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w400,
                                 color: Colors.black,
                                 fontSize: 14),
                       ),
@@ -837,7 +833,7 @@ class _JobsState extends State<Jobs> {
               Text(
                 AppLocalizations.of(context)!.permanent,
                 style: AppTheme.themeData.textTheme.labelMedium!.copyWith(
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w400,
                     color: Colors.black,
                     fontSize: 14),
               ),
@@ -866,7 +862,7 @@ class _JobsState extends State<Jobs> {
               Text(
                 AppLocalizations.of(context)!.temporary,
                 style: AppTheme.themeData.textTheme.labelMedium!.copyWith(
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.w400,
                     color: Colors.black,
                     fontSize: 14),
               ),
@@ -888,14 +884,14 @@ class _JobsState extends State<Jobs> {
               });
             },
             child: AppElevatedButton(
-              text: AppLocalizations.of(context)!.applyFilters,
+              text: AppLocalizations.of(context)!.apply,
               color: isHoveredButton
                   ? AppColors.mainDarkAccent
                   : AppColors.mainAccent,
               textStyle: AppTheme.themeData.textTheme.labelSmall!
                   .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
               onPressed: () {},
-              verticalPadding: 8,
+              verticalPadding: 10,
             ),
           ),
           const SizedBox(
@@ -904,10 +900,11 @@ class _JobsState extends State<Jobs> {
           AppElevatedButton(
             text: AppLocalizations.of(context)!.resetFilters,
             textStyle: AppTheme.themeData.textTheme.labelSmall!
-                .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+                .copyWith(fontWeight: FontWeight.w600, color: AppColors.mainAccent),
+            borderColor: AppColors.mainAccent,
             onPressed: () {},
-            verticalPadding: 8,
-            color: AppColors.danger,
+            verticalPadding: 10,
+            color: Colors.white,
           ),
         ],
       ),

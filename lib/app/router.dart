@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
 import 'package:industria/presentation/screens/data_protection.dart';
@@ -113,7 +114,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: const JobDescription(),
+              child: JobDescription(job: state.extra as JobOffer,),
             ),
           ),
         ],

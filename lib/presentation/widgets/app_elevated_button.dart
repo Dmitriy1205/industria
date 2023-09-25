@@ -5,8 +5,18 @@ import '../../core/themes/theme.dart';
 
 class AppElevatedButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? color;
+  final TextStyle appTheme;
+
+  const AppElevatedButton({
+    required this.text,
+    required this.onPressed,
+    super.key,
+    this.color,
+    required this.appTheme,
+    required this.isNeedPadding,
+  });
   final Color? borderColor;
   final TextStyle? textStyle;
   final double? verticalPadding;

@@ -37,6 +37,7 @@ dependencies:
   youtube_player_iframe: ^4.0.4
   intl: any
   float_column: ^2.1.1
+  algolia: ^1.1.2
 
 dev_dependencies:
   flutter_test:

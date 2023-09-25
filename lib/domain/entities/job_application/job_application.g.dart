@@ -11,17 +11,15 @@ _$_JobApplication _$$_JobApplicationFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       firstname: json['firstname'] as String,
       lastname: json['lastname'] as String,
-      birthday: FirebaseTimestampConverters.fromTimestamp(
-          json['birthday'] as Timestamp),
+      birthday: FirebaseTimestampConverters.fromTimestamp(json['birthday']),
       citizenship: json['citizenship'] as String,
       gender: json['gender'] as String,
       address: json['address'] as String,
-      availableDate: FirebaseTimestampConverters.fromTimestamp(
-          json['availableDate'] as Timestamp),
+      availableDate:
+          FirebaseTimestampConverters.fromTimestamp(json['availableDate']),
       documents: JobApplicationDocuments.fromJson(
           json['documents'] as Map<String, dynamic>),
-      createdAt: FirebaseTimestampConverters.fromTimestamp(
-          json['createdAt'] as Timestamp),
+      createdAt: FirebaseTimestampConverters.fromTimestamp(json['createdAt']),
       companyId: json['companyId'] as String,
       company: Company.fromJson(json['company'] as Map<String, dynamic>),
     );

@@ -15,7 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../presentation/bloc/localization/localization_bloc.dart';
 
 class App extends StatelessWidget {
-  App({Key? key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

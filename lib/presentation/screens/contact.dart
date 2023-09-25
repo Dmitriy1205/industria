@@ -36,11 +36,6 @@ class _ContactState extends State<Contact> {
   bool isHoveredButton = false;
   bool _isClickable = false;
 
-  // (_firstNameController.text.isNotEmpty == '' ||
-  // _lastNameController.text == '' ||
-  // _companyNameNameController.text == '' ||
-  // _emailController.text == '' ||
-  // _phoneNumberController.text == '')
 
   void _clickable() {
     if (_firstNameController.text.isEmpty ||
@@ -151,7 +146,7 @@ class _ContactState extends State<Contact> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Row(
@@ -168,7 +163,7 @@ class _ContactState extends State<Contact> {
                                     isSavePressed: isSavePressed,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 30,
                                 ),
                                 Expanded(
@@ -188,7 +183,7 @@ class _ContactState extends State<Contact> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 26,
                             ),
                             CustomTextFormField(
@@ -201,7 +196,7 @@ class _ContactState extends State<Contact> {
                               onChange: _clickable,
                               width: 521,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 35,
                             ),
                             CustomTextFormField(
@@ -231,13 +226,15 @@ class _ContactState extends State<Contact> {
                                                 BorderRadius.circular(5)),
                                         activeColor: AppColors.mainAccent,
                                         value: _checkboxValue,
-                                        onChanged: (_checkboxValue) {
-                                          _checkboxValue = !_checkboxValue!;
+                                        onChanged: (_checkbox) {
+                                          setState(() {
+                                            _checkboxValue = _checkbox!;
+                                          });
                                           print(
                                               '_checkboxValue $_checkboxValue');
                                         }),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 19,
                                   ),
                                   RichText(
@@ -274,7 +271,7 @@ class _ContactState extends State<Contact> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 36,
                             ),
                             SizedBox(
@@ -392,7 +389,7 @@ class _ContactState extends State<Contact> {
                                     width: 244),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Row(
@@ -407,7 +404,7 @@ class _ContactState extends State<Contact> {
                                     isSavePressed: isSavePressed,
                                     onChange: _clickable,
                                     width: 244),
-                                SizedBox(
+                                const SizedBox(
                                   width: 30,
                                 ),
                                 CustomTextFormField(
@@ -422,7 +419,7 @@ class _ContactState extends State<Contact> {
                                     width: 244),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 26,
                             ),
                             CustomTextFormField(
@@ -434,7 +431,7 @@ class _ContactState extends State<Contact> {
                                 isSavePressed: isSavePressed,
                                 onChange: _clickable,
                                 width: 521),
-                            SizedBox(
+                            const SizedBox(
                               height: 35,
                             ),
                             CustomTextFormField(
@@ -465,12 +462,14 @@ class _ContactState extends State<Contact> {
                                         activeColor: AppColors.mainAccent,
                                         value: _checkboxValue,
                                         onChanged: (_checkbox) {
-                                          _checkboxValue = _checkbox!;
+                                          setState(() {
+                                            _checkboxValue = _checkbox!;
+                                          });
                                           print(
                                               '_checkboxValue $_checkboxValue');
                                         }),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 19,
                                   ),
                                   RichText(
@@ -507,7 +506,7 @@ class _ContactState extends State<Contact> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 36,
                             ),
                             SizedBox(
@@ -613,7 +612,7 @@ class _ContactState extends State<Contact> {
                                     .themeData.textTheme.headlineMedium!
                                     .copyWith(
                                         color: Colors.black, fontSize: 24)),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Text(
@@ -622,12 +621,12 @@ class _ContactState extends State<Contact> {
                               style: AppTheme.themeData.textTheme.titleMedium,
                               overflow: TextOverflow.visible,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 30,
                             ),
-                            Steps()
+                            const Steps()
                           ]),
-                      Spacer(),
+                      const Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -658,7 +657,7 @@ class _ContactState extends State<Contact> {
                                   width: 244),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(
@@ -673,7 +672,7 @@ class _ContactState extends State<Contact> {
                                   isSavePressed: isSavePressed,
                                   onChange: _clickable,
                                   width: 244),
-                              SizedBox(
+                              const SizedBox(
                                 width: 30,
                               ),
                               CustomTextFormField(
@@ -688,7 +687,7 @@ class _ContactState extends State<Contact> {
                                   width: 244),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 26,
                           ),
                           CustomTextFormField(
@@ -700,7 +699,7 @@ class _ContactState extends State<Contact> {
                               isSavePressed: isSavePressed,
                               onChange: _clickable,
                               width: 521),
-                          SizedBox(
+                          const SizedBox(
                             height: 35,
                           ),
                           CustomTextFormField(
@@ -730,12 +729,14 @@ class _ContactState extends State<Contact> {
                                               BorderRadius.circular(5)),
                                       activeColor: AppColors.mainAccent,
                                       value: _checkboxValue,
-                                      onChanged: (_checkboxValue) {
-                                        _checkboxValue = !_checkboxValue!;
+                                      onChanged: (_checkbox) {
                                         print('_checkboxValue $_checkboxValue');
+                                        setState(() {
+                                          _checkboxValue = _checkbox!;
+                                        });
                                       }),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 19,
                                 ),
                                 RichText(

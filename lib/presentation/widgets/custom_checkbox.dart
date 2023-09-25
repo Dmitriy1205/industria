@@ -22,10 +22,10 @@ class CustomCheckbox extends StatelessWidget {
         width: 26.0,
         height: 26.0,
         decoration: BoxDecoration(
-          color: value ? AppColors.mainAccent :Colors.white,
+          color: value ? AppColors.darkGrey : Colors.white,
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(
-            color: value ?AppColors.mainAccent : AppColors.lightGrey,
+            color: value ? AppColors.darkGrey : AppColors.lightGrey,
             width: 1.5,
           ),
         ),

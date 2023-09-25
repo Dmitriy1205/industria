@@ -14,4 +14,22 @@ class JobFilters{
     required this.page,
     required this.count,
   });
+
+  JobFilters copyWith({
+    String? area,
+    List<String>? jobTypes,
+    String? city,
+    String? keyword,
+    int? page,
+    int? count,
+  }) {
+    return JobFilters(
+      area: area ?? this.area,
+      jobTypes: jobTypes ?? this.jobTypes,
+      city: city ?? this.city,
+      keyword: keyword ?? this.keyword,
+      page: page ?? this.page,
+      count: count ?? this.count,
+    );
+  }
 }

@@ -10,12 +10,13 @@ class JobServiceImpl implements JobService {
   Future<List<JobOffer>> findJobOffers({required JobFilters filter}) async {
     final index = algolia.index("dev_jobs");
     AlgoliaQuery currentQuery = index.query(filter.keyword);
-    final jobTypesFacet = filter.jobTypes.map((e) => "jobType:$e").toList();
-    final cityFacet = filter.city == null ? null : "city:${filter.city}";
-    final areaFacet = filter.area == null ? null : "area:${filter.area}";
+    final jobTypesFacet = filter.jobTypes.map((e) => 'jobType:"$e"').toList();
+    final cityFacet = filter.city == null ? null : 'city:"${filter.city}"';
+    final areaFacet = filter.area == null ? null : 'area:"${filter.area}"';
     final facet = _facetFromArrayOfParams(
         [jobTypesFacet, cityFacet, areaFacet].where((e) => e != null).toList());
     if(facet.isNotEmpty){
+      print(facet);
       currentQuery = currentQuery.filters(facet);
     }
     currentQuery =

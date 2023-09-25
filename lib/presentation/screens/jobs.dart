@@ -3,16 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/images.dart';
+import 'package:industria/core/enums/job_areas.dart';
+import 'package:industria/core/enums/job_types.dart';
 import 'package:industria/core/extensions/time.dart';
-import 'package:industria/core/utils/debounce.dart';
 import 'package:industria/domain/entities/job_filters/job_filters.dart';
 import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_checkbox.dart';
 
-import '../../app/router.dart';
 import '../../core/constants/colors.dart';
 import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
@@ -30,30 +29,41 @@ class Jobs extends StatefulWidget {
 class _JobsState extends State<Jobs> {
   final textController = TextEditingController();
   String dropdownValue = '';
-  String dropdownValueFilter = 'Software engineering';
+  JobAreas dropdownValueFilter = JobAreas.all;
   bool isHovered = false;
   bool isHoveredButton = false;
-  bool _checkboxValue1 = false;
-  bool _checkboxValue2 = false;
-
-  final Debouncer _debouncer = Debouncer(milliseconds: 600);
-
+  List<JobTypes> _jobTypes = [];
 
   @override
   void initState() {
     super.initState();
     sl<JobsBloc>().state.maybeMap(
-        initial: (_){
-          sl<JobsBloc>().add(JobsEvent.fetchJobs(filter: JobFilters(count: 10, keyword: "", page: 0)));
+        initial: (_) {
+          sl<JobsBloc>().add(JobsEvent.fetchJobs(
+              filter: JobFilters(count: 10, keyword: "", page: 0)));
         },
-        orElse: (){});
+        orElse: () {});
+  }
 
-    textController.addListener(() {
-      _debouncer.run(() {
-        sl<JobsBloc>().add(JobsEvent.changeSearchQuery(query: textController.text));
-      });
+  void _onSearchClicked() {
+    sl<JobsBloc>().add(JobsEvent.search(
+        query: textController.text,
+        city: dropdownValue.isEmpty ||
+                dropdownValue == AppLocalizations.of(context)!.allGermany
+            ? null
+            : dropdownValue));
+  }
+
+  void _resetFilters(){
+    sl<JobsBloc>().add(JobsEvent.resetFilters());
+    setState(() {
+      _jobTypes.clear();
+      textController.clear();
+      dropdownValue = AppLocalizations.of(context)!.allGermany;
+      dropdownValueFilter = JobAreas.all;
     });
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -100,14 +110,13 @@ class _JobsState extends State<Jobs> {
                       borderRadius: BorderRadius.circular(12),
                       boxShadow: [
                         BoxShadow(
-                            offset: Offset(1, 2),
+                            offset: const Offset(1, 2),
                             color: Colors.black.withOpacity(0.25),
                             blurRadius: 6),
                       ],
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 34),
+                      padding: const EdgeInsets.only(left: 34),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -146,7 +155,7 @@ class _JobsState extends State<Jobs> {
                               ),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Container(
                             height: 39,
                             width: 2,
@@ -169,7 +178,7 @@ class _JobsState extends State<Jobs> {
                                   color: AppColors.darkGrey,
                                 ),
                               ),
-                              underline: SizedBox(),
+                              underline: const SizedBox(),
                               value: dropdownValue,
                               borderRadius: BorderRadius.circular(10),
                               items: <String>[
@@ -213,19 +222,26 @@ class _JobsState extends State<Jobs> {
                               });
                             },
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: _onSearchClicked,
                               child: Container(
                                 height: double.infinity,
                                 decoration: BoxDecoration(
                                     color: isHovered
                                         ? AppColors.mainDarkAccent
                                         : AppColors.mainAccent,
-                                    borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomRight: Radius.circular(12))),
+                                    borderRadius: const BorderRadius.only(
+                                        topRight: Radius.circular(12),
+                                        bottomRight: Radius.circular(12))),
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 40),
+                                  padding: const EdgeInsets.symmetric(horizontal: 40),
                                   child: Row(
                                     children: [
-                                      SvgPicture.asset(AppImages.search, width: 21, height: 21, color: Colors.white,),
+                                      SvgPicture.asset(
+                                        AppImages.search,
+                                        width: 21,
+                                        height: 21,
+                                        color: Colors.white,
+                                      ),
                                       const SizedBox(
                                         width: 16,
                                       ),
@@ -264,18 +280,31 @@ class _JobsState extends State<Jobs> {
                       Expanded(
                         child: Padding(
                           padding: const EdgeInsets.only(top: 44.0),
-                          child: BlocBuilder<JobsBloc,JobsState>(
+                          child: BlocBuilder<JobsBloc, JobsState>(
                             bloc: sl<JobsBloc>(),
-                            builder: (context,state) => state.map(initial: (state){
-                              return Center(child: CircularProgressIndicator(),);
-                            }, loaded: (state){
-                              return Column(
-                                children: state.jobs.map((e) => Container(
-                                  margin: EdgeInsets.only(bottom: 30),
-                                  child: JobCard(icon: e.company.logo, date: getTimeAgo(e.createdAt), vacancy: e.title, address: e.location, description: e.description, salary: e.salary, goToDescription: (){
-
-                                  }),
-                                )).toList(),
+                            builder: (context, state) =>
+                                state.map(initial: (state) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }, loaded: (state) {
+                              return ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: state.jobs.length,
+                                itemBuilder: (context, i) {
+                                  final e = state.jobs[i];
+                                  return Container(
+                                    margin: const EdgeInsets.only(bottom: 30),
+                                    child: JobCard(
+                                        icon: e.company.logo,
+                                        date: getTimeAgo(e.createdAt),
+                                        vacancy: e.title,
+                                        address: e.location,
+                                        description: e.description,
+                                        salary: e.salary,
+                                        goToDescription: () {}),
+                                  );
+                                },
                               );
                             }),
                           ),
@@ -302,126 +331,65 @@ class _JobsState extends State<Jobs> {
         SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 11,
+                horizontal: MediaQuery.of(context).size.width / 20,
                 vertical: 43),
             child: Column(
               children: [
                 Container(
+                  height: 70,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFfafafa),
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(12),
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                          offset: Offset(2, 4),
-                          color: AppColors.lightGrey,
-                          blurRadius: 2),
-                      BoxShadow(
-                        offset: Offset(0, 0),
-                        color: AppColors.lightGrey,
-                      )
+                          offset: const Offset(1, 2),
+                          color: Colors.black.withOpacity(0.25),
+                          blurRadius: 6),
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 23, right: 8, bottom: 8, top: 8),
+                    padding: const EdgeInsets.only(left: 34),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SizedBox(
-                          width: 180,
-                          child: TextField(
-                            controller: textController,
-                            style: AppTheme.themeData.textTheme.labelMedium!
-                                .copyWith(
+                        Expanded(
+                          child: SizedBox(
+                            child: TextField(
+                              controller: textController,
+                              style: AppTheme.themeData.textTheme.labelMedium!
+                                  .copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                  fontSize: 14),
+                              decoration: InputDecoration(
+                                enabledBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide.none),
+                                focusedBorder: const OutlineInputBorder(
+                                    borderSide: BorderSide.none),
+                                hintText:
+                                AppLocalizations.of(context)!.jobTitle,
+                                hintStyle: AppTheme
+                                    .themeData.textTheme.labelMedium!
+                                    .copyWith(
                                     fontWeight: FontWeight.w400,
                                     color: AppColors.darkGrey,
-                                    fontSize: 10),
-                            decoration: InputDecoration(
-                              enabledBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide.none),
-                              focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide.none),
-                              hintText: AppLocalizations.of(context)!.jobTitle,
-                              hintStyle: AppTheme
-                                  .themeData.textTheme.labelMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.darkGrey,
-                                      fontSize: 12),
-                              prefixIcon: const Padding(
-                                padding: EdgeInsets.only(right: 18.0, top: 2),
-                                child: FaIcon(
-                                  FontAwesomeIcons.solidBuilding,
-                                  color: AppColors.darkGrey,
-                                  size: 15,
+                                    fontSize: 14),
+                                prefixIcon: const Padding(
+                                  padding: EdgeInsets.only(right: 28.5, top: 2),
+                                  child: FaIcon(
+                                    FontAwesomeIcons.solidBuilding,
+                                    color: AppColors.darkGrey,
+                                    size: 20,
+                                  ),
                                 ),
-                              ),
-                              prefixIconConstraints: const BoxConstraints(
-                                  maxWidth: 50, minHeight: 0),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width:
-                              context.read<LocalizationBloc>().state.locale ==
-                                      const Locale('de')
-                                  ? 40
-                                  : 25,
-                        ),
-                        Container(
-                          height: 39,
-                          width: 2,
-                          color: AppColors.lightGrey, // Color of the divider
-                        ),
-                        const SizedBox(
-                          width: 32,
-                        ),
-                        Theme(
-                          data: Theme.of(context).copyWith(
-                            hoverColor: Colors.white,
-                          ),
-                          child: DropdownButton<String>(
-                            focusColor: Colors.white,
-                            icon: const Padding(
-                              padding: EdgeInsets.only(left: 8.0, top: 2),
-                              child: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                size: 17,
-                                color: AppColors.darkGrey,
+                                prefixIconConstraints: const BoxConstraints(
+                                    maxWidth: 50, minHeight: 0),
                               ),
                             ),
-                            underline: SizedBox(),
-                            value: dropdownValue,
-                            borderRadius: BorderRadius.circular(10),
-                            items: <String>[
-                              AppLocalizations.of(context)!.allGermany,
-                              'Berlin',
-                              'Munich'
-                            ].map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(
-                                  value,
-                                  style: AppTheme
-                                      .themeData.textTheme.labelMedium!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: AppColors.darkGrey,
-                                          fontSize: 10),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownValue = newValue!;
-                              });
-                            },
                           ),
                         ),
-                        const SizedBox(
-                          width: 42,
-                        ),
+                        SizedBox(width: 16,),
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
                           onEnter: (_) {
@@ -435,23 +403,25 @@ class _JobsState extends State<Jobs> {
                             });
                           },
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: _onSearchClicked,
                             child: Container(
-                              height: 48,
+                              height: double.infinity,
                               decoration: BoxDecoration(
                                   color: isHovered
                                       ? AppColors.mainDarkAccent
                                       : AppColors.mainAccent,
-                                  borderRadius: BorderRadius.circular(8)),
+                                  borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(12),
+                                      bottomRight: Radius.circular(12))),
                               child: Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 22, right: 43),
+                                padding: const EdgeInsets.symmetric(horizontal: 30),
                                 child: Row(
                                   children: [
-                                    const FaIcon(
-                                      FontAwesomeIcons.magnifyingGlass,
+                                    SvgPicture.asset(
+                                      AppImages.search,
+                                      width: 21,
+                                      height: 21,
                                       color: Colors.white,
-                                      size: 13,
                                     ),
                                     const SizedBox(
                                       width: 16,
@@ -461,9 +431,9 @@ class _JobsState extends State<Jobs> {
                                       style: AppTheme
                                           .themeData.textTheme.labelMedium!
                                           .copyWith(
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.white,
-                                              fontSize: 10),
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white,
+                                          fontSize: 14),
                                     ),
                                   ],
                                 ),
@@ -475,37 +445,84 @@ class _JobsState extends State<Jobs> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 15,),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    hoverColor: Colors.white,
+                  ),
+                  child: DropdownButton<String>(
+                    focusColor: Colors.white,
+                    icon: const Padding(
+                      padding: EdgeInsets.only(left: 8.0, top: 2),
+                      child: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 17,
+                        color: AppColors.darkGrey,
+                      ),
+                    ),
+                    underline: const SizedBox(),
+                    value: dropdownValue,
+                    borderRadius: BorderRadius.circular(10),
+                    items: <String>[
+                      AppLocalizations.of(context)!.allGermany,
+                      'Berlin',
+                      'Munich'
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(
+                          value,
+                          style: AppTheme
+                              .themeData.textTheme.labelMedium!
+                              .copyWith(
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.darkGrey,
+                              fontSize: 14),
+                        ),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
+                    },
+                  ),
+                ),
                 const SizedBox(
                   height: 53,
                 ),
                 mobileFilter(context),
-                 Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Padding(
-                    padding: EdgeInsets.only(top: 44.0),
-                    child: Wrap(
-                      spacing: 46.0,
-                      runSpacing: 46.0,
-                      children: [
-                        JobCard(
-                          icon: AppImages.apple,
-                          date: '22 Jan 2022',
-                          vacancy: 'UI/UX Designer',
-                          address: 'Hamburg, Marseiller Strasse 2',
-                          description:
-                              'We are the Beverly Hills Company!\nOne of the leading companies in the\nUkrainian market, which is engaged...',
-                          salary: '60000\$ / yr', goToDescription: () {  },
-                        ),
-                        JobCard(
-                          icon: AppImages.google,
-                          date: '22 Jan 2022',
-                          vacancy: 'C++ Software Senior Engineer',
-                          address: 'Hamburg, Yell Strasse 5',
-                          description:
-                              'Seeking for talented engineers\nfrom all around the world with\nskills at C++, C#, Scala, PHP and ...',
-                          salary: '80000\$ / yr', goToDescription: () {  },
-                        ),
-                      ],
+                    padding: const EdgeInsets.only(top: 44.0),
+                    child: BlocBuilder<JobsBloc, JobsState>(
+                      bloc: sl<JobsBloc>(),
+                      builder: (context, state) =>
+                          state.map(initial: (state) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }, loaded: (state) {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: state.jobs.length,
+                              itemBuilder: (context, i) {
+                                final e = state.jobs[i];
+                                return Container(
+                                  margin: const EdgeInsets.only(bottom: 30),
+                                  child: JobCard(
+                                      icon: e.company.logo,
+                                      date: getTimeAgo(e.createdAt),
+                                      vacancy: e.title,
+                                      address: e.location,
+                                      description: e.description,
+                                      salary: e.salary,
+                                      goToDescription: () {}),
+                                );
+                              },
+                            );
+                          }),
                     ),
                   ),
                 ),
@@ -561,17 +578,17 @@ class _JobsState extends State<Jobs> {
                   border: Border.all(color: AppColors.lightGrey),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                width: MediaQuery.of(context).size.width / 3,
+                width: MediaQuery.of(context).size.width,
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 9),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 9),
                   child: Theme(
                     data: Theme.of(context).copyWith(
                       hoverColor: Colors.white,
                       splashColor: Colors.white,
                       highlightColor: Colors.white,
                     ),
-                    child: DropdownButton<String>(
+                    child: DropdownButton<JobAreas>(
                       isDense: true,
                       isExpanded: true,
                       focusColor: Colors.white,
@@ -586,25 +603,20 @@ class _JobsState extends State<Jobs> {
                       underline: const SizedBox(),
                       value: dropdownValueFilter,
                       borderRadius: BorderRadius.circular(10),
-                      items: <String>[
-                        'Software engineering',
-                        'Development',
-                        'Marketing',
-                        'Education',
-                      ].map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
+                      items: JobAreas.values.map<DropdownMenuItem<JobAreas>>((JobAreas value) {
+                        return DropdownMenuItem<JobAreas>(
                           value: value,
                           child: Text(
-                            value,
+                            value.text,
                             style: AppTheme.themeData.textTheme.labelMedium!
                                 .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black,
-                                    fontSize: 14),
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
+                                fontSize: 14),
                           ),
                         );
                       }).toList(),
-                      onChanged: (String? newValue) {
+                      onChanged: (JobAreas? newValue) {
                         setState(() {
                           dropdownValueFilter = newValue!;
                         });
@@ -624,61 +636,42 @@ class _JobsState extends State<Jobs> {
               const SizedBox(
                 height: 19,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: CustomCheckbox(
-                      value: _checkboxValue1,
-                      onChanged: (v) {
-                        setState(() {
-                          _checkboxValue1 = v!;
-                        });
-                      },
+              ...JobTypes.values
+                  .map((e) => Container(
+                margin: const EdgeInsets.only(top: 22),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: CustomCheckbox(
+                        value: _jobTypes.contains(e),
+                        onChanged: (v) {
+                          setState(() {
+                            if (_jobTypes.contains(e)) {
+                              _jobTypes.remove(e);
+                            } else {
+                              _jobTypes.add(e);
+                            }
+                          });
+                        },
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.permanent,
-                    style: AppTheme.themeData.textTheme.labelMedium!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 14),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 22,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: CustomCheckbox(
-                      value: _checkboxValue2,
-                      onChanged: (v) {
-                        setState(() {
-                          _checkboxValue2 = v!;
-                        });
-                      },
+                    const SizedBox(
+                      width: 15,
                     ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.temporary,
-                    style: AppTheme.themeData.textTheme.labelMedium!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black,
-                        fontSize: 14),
-                  ),
-                ],
-              ),
+                    Text(
+                      e.value,
+                      style: AppTheme.themeData.textTheme.labelMedium!
+                          .copyWith(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          fontSize: 14),
+                    ),
+                  ],
+                ),
+              ))
+                  .toList(),
               const SizedBox(
                 height: 30,
               ),
@@ -695,14 +688,17 @@ class _JobsState extends State<Jobs> {
                   });
                 },
                 child: AppElevatedButton(
-                  text: AppLocalizations.of(context)!.applyFilters,
+                  text: AppLocalizations.of(context)!.apply,
                   color: isHoveredButton
                       ? AppColors.mainDarkAccent
                       : AppColors.mainAccent,
-                  textStyle: AppTheme.themeData.textTheme.labelSmall!.copyWith(
-                      fontWeight: FontWeight.w400, color: Colors.white),
-                  onPressed: () {},
-                  verticalPadding: 8,
+                  textStyle: AppTheme.themeData.textTheme.labelSmall!
+                      .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+                  onPressed: () {
+                    sl<JobsBloc>().add(JobsEvent.applyFilters(
+                        types: _jobTypes.map((e) => e.value).toList(), area: dropdownValueFilter == JobAreas.all ? null : dropdownValueFilter.text));
+                  },
+                  verticalPadding: 10,
                 ),
               ),
               const SizedBox(
@@ -710,11 +706,12 @@ class _JobsState extends State<Jobs> {
               ),
               AppElevatedButton(
                 text: AppLocalizations.of(context)!.resetFilters,
-                textStyle: AppTheme.themeData.textTheme.labelSmall!
-                    .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
-                onPressed: () {},
-                verticalPadding: 8,
-                color: AppColors.danger,
+                textStyle: AppTheme.themeData.textTheme.labelSmall!.copyWith(
+                    fontWeight: FontWeight.w600, color: AppColors.mainAccent),
+                borderColor: AppColors.mainAccent,
+                onPressed: _resetFilters,
+                verticalPadding: 10,
+                color: Colors.white,
               ),
             ],
           ),
@@ -763,37 +760,35 @@ class _JobsState extends State<Jobs> {
                   splashColor: Colors.white,
                   highlightColor: Colors.white,
                 ),
-                child: DropdownButton<String>(
+                child: DropdownButton<JobAreas>(
                   isDense: true,
                   isExpanded: true,
                   focusColor: Colors.white,
-                  icon: Icon(
-                    Icons.arrow_drop_down_rounded,
-                    size: 30,
-                    color: AppColors.darkGrey,
+                  icon: const Padding(
+                    padding: EdgeInsets.only(left: 8.0, top: 2),
+                    child: Icon(
+                      Icons.arrow_drop_down,
+                      size: 25,
+                      color: AppColors.darkGrey,
+                    ),
                   ),
-                  underline: SizedBox(),
+                  underline: const SizedBox(),
                   value: dropdownValueFilter,
                   borderRadius: BorderRadius.circular(10),
-                  items: <String>[
-                    'Software engineering',
-                    'Development',
-                    'Marketing',
-                    'Education',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
+                  items: JobAreas.values.map<DropdownMenuItem<JobAreas>>((JobAreas value) {
+                    return DropdownMenuItem<JobAreas>(
                       value: value,
                       child: Text(
-                        value,
+                        value.text,
                         style: AppTheme.themeData.textTheme.labelMedium!
                             .copyWith(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black,
-                                fontSize: 14),
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black,
+                            fontSize: 14),
                       ),
                     );
                   }).toList(),
-                  onChanged: (String? newValue) {
+                  onChanged: (JobAreas? newValue) {
                     setState(() {
                       dropdownValueFilter = newValue!;
                     });
@@ -813,61 +808,42 @@ class _JobsState extends State<Jobs> {
           const SizedBox(
             height: 19,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: CustomCheckbox(
-                  value: _checkboxValue1,
-                  onChanged: (v) {
-                    setState(() {
-                      _checkboxValue1 = v!;
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              Text(
-                AppLocalizations.of(context)!.permanent,
-                style: AppTheme.themeData.textTheme.labelMedium!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                    fontSize: 14),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 22,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: CustomCheckbox(
-                  value: _checkboxValue2,
-                  onChanged: (v) {
-                    setState(() {
-                      _checkboxValue2 = v!;
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              Text(
-                AppLocalizations.of(context)!.temporary,
-                style: AppTheme.themeData.textTheme.labelMedium!.copyWith(
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black,
-                    fontSize: 14),
-              ),
-            ],
-          ),
+          ...JobTypes.values
+              .map((e) => Container(
+                    margin: const EdgeInsets.only(top: 22),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: CustomCheckbox(
+                            value: _jobTypes.contains(e),
+                            onChanged: (v) {
+                              setState(() {
+                                if (_jobTypes.contains(e)) {
+                                  _jobTypes.remove(e);
+                                } else {
+                                  _jobTypes.add(e);
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          e.value,
+                          style: AppTheme.themeData.textTheme.labelMedium!
+                              .copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black,
+                                  fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ))
+              .toList(),
           const SizedBox(
             height: 30,
           ),
@@ -890,7 +866,10 @@ class _JobsState extends State<Jobs> {
                   : AppColors.mainAccent,
               textStyle: AppTheme.themeData.textTheme.labelSmall!
                   .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
-              onPressed: () {},
+              onPressed: () {
+                sl<JobsBloc>().add(JobsEvent.applyFilters(
+                    types: _jobTypes.map((e) => e.value).toList(), area: dropdownValueFilter == JobAreas.all ? null : dropdownValueFilter.text));
+              },
               verticalPadding: 10,
             ),
           ),
@@ -899,10 +878,10 @@ class _JobsState extends State<Jobs> {
           ),
           AppElevatedButton(
             text: AppLocalizations.of(context)!.resetFilters,
-            textStyle: AppTheme.themeData.textTheme.labelSmall!
-                .copyWith(fontWeight: FontWeight.w600, color: AppColors.mainAccent),
+            textStyle: AppTheme.themeData.textTheme.labelSmall!.copyWith(
+                fontWeight: FontWeight.w600, color: AppColors.mainAccent),
             borderColor: AppColors.mainAccent,
-            onPressed: () {},
+            onPressed: _resetFilters,
             verticalPadding: 10,
             color: Colors.white,
           ),

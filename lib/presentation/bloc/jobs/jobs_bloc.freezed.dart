@@ -19,38 +19,50 @@ mixin _$JobsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(JobFilters filter) fetchJobs,
-    required TResult Function(String query) changeSearchQuery,
+    required TResult Function(String query, String? city) search,
+    required TResult Function(List<String>? types, String? area) applyFilters,
+    required TResult Function() resetFilters,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(JobFilters filter)? fetchJobs,
-    TResult? Function(String query)? changeSearchQuery,
+    TResult? Function(String query, String? city)? search,
+    TResult? Function(List<String>? types, String? area)? applyFilters,
+    TResult? Function()? resetFilters,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(JobFilters filter)? fetchJobs,
-    TResult Function(String query)? changeSearchQuery,
+    TResult Function(String query, String? city)? search,
+    TResult Function(List<String>? types, String? area)? applyFilters,
+    TResult Function()? resetFilters,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchJobsEvent value) fetchJobs,
-    required TResult Function(_ChangeSearchQueryEvent value) changeSearchQuery,
+    required TResult Function(_SearchEvent value) search,
+    required TResult Function(_ApplyFiltersEvent value) applyFilters,
+    required TResult Function(_ResetFiltersEvent value) resetFilters,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FetchJobsEvent value)? fetchJobs,
-    TResult? Function(_ChangeSearchQueryEvent value)? changeSearchQuery,
+    TResult? Function(_SearchEvent value)? search,
+    TResult? Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult? Function(_ResetFiltersEvent value)? resetFilters,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchJobsEvent value)? fetchJobs,
-    TResult Function(_ChangeSearchQueryEvent value)? changeSearchQuery,
+    TResult Function(_SearchEvent value)? search,
+    TResult Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult Function(_ResetFiltersEvent value)? resetFilters,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -138,7 +150,9 @@ class _$_FetchJobsEvent implements _FetchJobsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(JobFilters filter) fetchJobs,
-    required TResult Function(String query) changeSearchQuery,
+    required TResult Function(String query, String? city) search,
+    required TResult Function(List<String>? types, String? area) applyFilters,
+    required TResult Function() resetFilters,
   }) {
     return fetchJobs(filter);
   }
@@ -147,7 +161,9 @@ class _$_FetchJobsEvent implements _FetchJobsEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(JobFilters filter)? fetchJobs,
-    TResult? Function(String query)? changeSearchQuery,
+    TResult? Function(String query, String? city)? search,
+    TResult? Function(List<String>? types, String? area)? applyFilters,
+    TResult? Function()? resetFilters,
   }) {
     return fetchJobs?.call(filter);
   }
@@ -156,7 +172,9 @@ class _$_FetchJobsEvent implements _FetchJobsEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(JobFilters filter)? fetchJobs,
-    TResult Function(String query)? changeSearchQuery,
+    TResult Function(String query, String? city)? search,
+    TResult Function(List<String>? types, String? area)? applyFilters,
+    TResult Function()? resetFilters,
     required TResult orElse(),
   }) {
     if (fetchJobs != null) {
@@ -169,7 +187,9 @@ class _$_FetchJobsEvent implements _FetchJobsEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchJobsEvent value) fetchJobs,
-    required TResult Function(_ChangeSearchQueryEvent value) changeSearchQuery,
+    required TResult Function(_SearchEvent value) search,
+    required TResult Function(_ApplyFiltersEvent value) applyFilters,
+    required TResult Function(_ResetFiltersEvent value) resetFilters,
   }) {
     return fetchJobs(this);
   }
@@ -178,7 +198,9 @@ class _$_FetchJobsEvent implements _FetchJobsEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FetchJobsEvent value)? fetchJobs,
-    TResult? Function(_ChangeSearchQueryEvent value)? changeSearchQuery,
+    TResult? Function(_SearchEvent value)? search,
+    TResult? Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult? Function(_ResetFiltersEvent value)? resetFilters,
   }) {
     return fetchJobs?.call(this);
   }
@@ -187,7 +209,9 @@ class _$_FetchJobsEvent implements _FetchJobsEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchJobsEvent value)? fetchJobs,
-    TResult Function(_ChangeSearchQueryEvent value)? changeSearchQuery,
+    TResult Function(_SearchEvent value)? search,
+    TResult Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult Function(_ResetFiltersEvent value)? resetFilters,
     required TResult orElse(),
   }) {
     if (fetchJobs != null) {
@@ -208,94 +232,107 @@ abstract class _FetchJobsEvent implements JobsEvent {
 }
 
 /// @nodoc
-abstract class _$$_ChangeSearchQueryEventCopyWith<$Res> {
-  factory _$$_ChangeSearchQueryEventCopyWith(_$_ChangeSearchQueryEvent value,
-          $Res Function(_$_ChangeSearchQueryEvent) then) =
-      __$$_ChangeSearchQueryEventCopyWithImpl<$Res>;
+abstract class _$$_SearchEventCopyWith<$Res> {
+  factory _$$_SearchEventCopyWith(
+          _$_SearchEvent value, $Res Function(_$_SearchEvent) then) =
+      __$$_SearchEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({String query});
+  $Res call({String query, String? city});
 }
 
 /// @nodoc
-class __$$_ChangeSearchQueryEventCopyWithImpl<$Res>
-    extends _$JobsEventCopyWithImpl<$Res, _$_ChangeSearchQueryEvent>
-    implements _$$_ChangeSearchQueryEventCopyWith<$Res> {
-  __$$_ChangeSearchQueryEventCopyWithImpl(_$_ChangeSearchQueryEvent _value,
-      $Res Function(_$_ChangeSearchQueryEvent) _then)
+class __$$_SearchEventCopyWithImpl<$Res>
+    extends _$JobsEventCopyWithImpl<$Res, _$_SearchEvent>
+    implements _$$_SearchEventCopyWith<$Res> {
+  __$$_SearchEventCopyWithImpl(
+      _$_SearchEvent _value, $Res Function(_$_SearchEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? query = null,
+    Object? city = freezed,
   }) {
-    return _then(_$_ChangeSearchQueryEvent(
+    return _then(_$_SearchEvent(
       query: null == query
           ? _value.query
           : query // ignore: cast_nullable_to_non_nullable
               as String,
+      city: freezed == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_ChangeSearchQueryEvent implements _ChangeSearchQueryEvent {
-  const _$_ChangeSearchQueryEvent({required this.query});
+class _$_SearchEvent implements _SearchEvent {
+  const _$_SearchEvent({required this.query, required this.city});
 
   @override
   final String query;
+  @override
+  final String? city;
 
   @override
   String toString() {
-    return 'JobsEvent.changeSearchQuery(query: $query)';
+    return 'JobsEvent.search(query: $query, city: $city)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ChangeSearchQueryEvent &&
-            (identical(other.query, query) || other.query == query));
+            other is _$_SearchEvent &&
+            (identical(other.query, query) || other.query == query) &&
+            (identical(other.city, city) || other.city == city));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, query);
+  int get hashCode => Object.hash(runtimeType, query, city);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ChangeSearchQueryEventCopyWith<_$_ChangeSearchQueryEvent> get copyWith =>
-      __$$_ChangeSearchQueryEventCopyWithImpl<_$_ChangeSearchQueryEvent>(
-          this, _$identity);
+  _$$_SearchEventCopyWith<_$_SearchEvent> get copyWith =>
+      __$$_SearchEventCopyWithImpl<_$_SearchEvent>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(JobFilters filter) fetchJobs,
-    required TResult Function(String query) changeSearchQuery,
+    required TResult Function(String query, String? city) search,
+    required TResult Function(List<String>? types, String? area) applyFilters,
+    required TResult Function() resetFilters,
   }) {
-    return changeSearchQuery(query);
+    return search(query, city);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(JobFilters filter)? fetchJobs,
-    TResult? Function(String query)? changeSearchQuery,
+    TResult? Function(String query, String? city)? search,
+    TResult? Function(List<String>? types, String? area)? applyFilters,
+    TResult? Function()? resetFilters,
   }) {
-    return changeSearchQuery?.call(query);
+    return search?.call(query, city);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(JobFilters filter)? fetchJobs,
-    TResult Function(String query)? changeSearchQuery,
+    TResult Function(String query, String? city)? search,
+    TResult Function(List<String>? types, String? area)? applyFilters,
+    TResult Function()? resetFilters,
     required TResult orElse(),
   }) {
-    if (changeSearchQuery != null) {
-      return changeSearchQuery(query);
+    if (search != null) {
+      return search(query, city);
     }
     return orElse();
   }
@@ -304,42 +341,332 @@ class _$_ChangeSearchQueryEvent implements _ChangeSearchQueryEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_FetchJobsEvent value) fetchJobs,
-    required TResult Function(_ChangeSearchQueryEvent value) changeSearchQuery,
+    required TResult Function(_SearchEvent value) search,
+    required TResult Function(_ApplyFiltersEvent value) applyFilters,
+    required TResult Function(_ResetFiltersEvent value) resetFilters,
   }) {
-    return changeSearchQuery(this);
+    return search(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_FetchJobsEvent value)? fetchJobs,
-    TResult? Function(_ChangeSearchQueryEvent value)? changeSearchQuery,
+    TResult? Function(_SearchEvent value)? search,
+    TResult? Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult? Function(_ResetFiltersEvent value)? resetFilters,
   }) {
-    return changeSearchQuery?.call(this);
+    return search?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_FetchJobsEvent value)? fetchJobs,
-    TResult Function(_ChangeSearchQueryEvent value)? changeSearchQuery,
+    TResult Function(_SearchEvent value)? search,
+    TResult Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult Function(_ResetFiltersEvent value)? resetFilters,
     required TResult orElse(),
   }) {
-    if (changeSearchQuery != null) {
-      return changeSearchQuery(this);
+    if (search != null) {
+      return search(this);
     }
     return orElse();
   }
 }
 
-abstract class _ChangeSearchQueryEvent implements JobsEvent {
-  const factory _ChangeSearchQueryEvent({required final String query}) =
-      _$_ChangeSearchQueryEvent;
+abstract class _SearchEvent implements JobsEvent {
+  const factory _SearchEvent(
+      {required final String query,
+      required final String? city}) = _$_SearchEvent;
 
   String get query;
+  String? get city;
   @JsonKey(ignore: true)
-  _$$_ChangeSearchQueryEventCopyWith<_$_ChangeSearchQueryEvent> get copyWith =>
+  _$$_SearchEventCopyWith<_$_SearchEvent> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ApplyFiltersEventCopyWith<$Res> {
+  factory _$$_ApplyFiltersEventCopyWith(_$_ApplyFiltersEvent value,
+          $Res Function(_$_ApplyFiltersEvent) then) =
+      __$$_ApplyFiltersEventCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<String>? types, String? area});
+}
+
+/// @nodoc
+class __$$_ApplyFiltersEventCopyWithImpl<$Res>
+    extends _$JobsEventCopyWithImpl<$Res, _$_ApplyFiltersEvent>
+    implements _$$_ApplyFiltersEventCopyWith<$Res> {
+  __$$_ApplyFiltersEventCopyWithImpl(
+      _$_ApplyFiltersEvent _value, $Res Function(_$_ApplyFiltersEvent) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? types = freezed,
+    Object? area = freezed,
+  }) {
+    return _then(_$_ApplyFiltersEvent(
+      types: freezed == types
+          ? _value._types
+          : types // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      area: freezed == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_ApplyFiltersEvent implements _ApplyFiltersEvent {
+  const _$_ApplyFiltersEvent(
+      {required final List<String>? types, required this.area})
+      : _types = types;
+
+  final List<String>? _types;
+  @override
+  List<String>? get types {
+    final value = _types;
+    if (value == null) return null;
+    if (_types is EqualUnmodifiableListView) return _types;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? area;
+
+  @override
+  String toString() {
+    return 'JobsEvent.applyFilters(types: $types, area: $area)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ApplyFiltersEvent &&
+            const DeepCollectionEquality().equals(other._types, _types) &&
+            (identical(other.area, area) || other.area == area));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_types), area);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ApplyFiltersEventCopyWith<_$_ApplyFiltersEvent> get copyWith =>
+      __$$_ApplyFiltersEventCopyWithImpl<_$_ApplyFiltersEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(JobFilters filter) fetchJobs,
+    required TResult Function(String query, String? city) search,
+    required TResult Function(List<String>? types, String? area) applyFilters,
+    required TResult Function() resetFilters,
+  }) {
+    return applyFilters(types, area);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(JobFilters filter)? fetchJobs,
+    TResult? Function(String query, String? city)? search,
+    TResult? Function(List<String>? types, String? area)? applyFilters,
+    TResult? Function()? resetFilters,
+  }) {
+    return applyFilters?.call(types, area);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(JobFilters filter)? fetchJobs,
+    TResult Function(String query, String? city)? search,
+    TResult Function(List<String>? types, String? area)? applyFilters,
+    TResult Function()? resetFilters,
+    required TResult orElse(),
+  }) {
+    if (applyFilters != null) {
+      return applyFilters(types, area);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FetchJobsEvent value) fetchJobs,
+    required TResult Function(_SearchEvent value) search,
+    required TResult Function(_ApplyFiltersEvent value) applyFilters,
+    required TResult Function(_ResetFiltersEvent value) resetFilters,
+  }) {
+    return applyFilters(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FetchJobsEvent value)? fetchJobs,
+    TResult? Function(_SearchEvent value)? search,
+    TResult? Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult? Function(_ResetFiltersEvent value)? resetFilters,
+  }) {
+    return applyFilters?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FetchJobsEvent value)? fetchJobs,
+    TResult Function(_SearchEvent value)? search,
+    TResult Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult Function(_ResetFiltersEvent value)? resetFilters,
+    required TResult orElse(),
+  }) {
+    if (applyFilters != null) {
+      return applyFilters(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ApplyFiltersEvent implements JobsEvent {
+  const factory _ApplyFiltersEvent(
+      {required final List<String>? types,
+      required final String? area}) = _$_ApplyFiltersEvent;
+
+  List<String>? get types;
+  String? get area;
+  @JsonKey(ignore: true)
+  _$$_ApplyFiltersEventCopyWith<_$_ApplyFiltersEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_ResetFiltersEventCopyWith<$Res> {
+  factory _$$_ResetFiltersEventCopyWith(_$_ResetFiltersEvent value,
+          $Res Function(_$_ResetFiltersEvent) then) =
+      __$$_ResetFiltersEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_ResetFiltersEventCopyWithImpl<$Res>
+    extends _$JobsEventCopyWithImpl<$Res, _$_ResetFiltersEvent>
+    implements _$$_ResetFiltersEventCopyWith<$Res> {
+  __$$_ResetFiltersEventCopyWithImpl(
+      _$_ResetFiltersEvent _value, $Res Function(_$_ResetFiltersEvent) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$_ResetFiltersEvent implements _ResetFiltersEvent {
+  const _$_ResetFiltersEvent();
+
+  @override
+  String toString() {
+    return 'JobsEvent.resetFilters()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_ResetFiltersEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(JobFilters filter) fetchJobs,
+    required TResult Function(String query, String? city) search,
+    required TResult Function(List<String>? types, String? area) applyFilters,
+    required TResult Function() resetFilters,
+  }) {
+    return resetFilters();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(JobFilters filter)? fetchJobs,
+    TResult? Function(String query, String? city)? search,
+    TResult? Function(List<String>? types, String? area)? applyFilters,
+    TResult? Function()? resetFilters,
+  }) {
+    return resetFilters?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(JobFilters filter)? fetchJobs,
+    TResult Function(String query, String? city)? search,
+    TResult Function(List<String>? types, String? area)? applyFilters,
+    TResult Function()? resetFilters,
+    required TResult orElse(),
+  }) {
+    if (resetFilters != null) {
+      return resetFilters();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_FetchJobsEvent value) fetchJobs,
+    required TResult Function(_SearchEvent value) search,
+    required TResult Function(_ApplyFiltersEvent value) applyFilters,
+    required TResult Function(_ResetFiltersEvent value) resetFilters,
+  }) {
+    return resetFilters(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_FetchJobsEvent value)? fetchJobs,
+    TResult? Function(_SearchEvent value)? search,
+    TResult? Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult? Function(_ResetFiltersEvent value)? resetFilters,
+  }) {
+    return resetFilters?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_FetchJobsEvent value)? fetchJobs,
+    TResult Function(_SearchEvent value)? search,
+    TResult Function(_ApplyFiltersEvent value)? applyFilters,
+    TResult Function(_ResetFiltersEvent value)? resetFilters,
+    required TResult orElse(),
+  }) {
+    if (resetFilters != null) {
+      return resetFilters(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ResetFiltersEvent implements JobsEvent {
+  const factory _ResetFiltersEvent() = _$_ResetFiltersEvent;
 }
 
 /// @nodoc

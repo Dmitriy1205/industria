@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:industria/core/constants/colors.dart';
 
 class AppTheme {
   static ThemeData themeData = ThemeData(
@@ -12,9 +13,26 @@ class AppTheme {
       backgroundColor: Color(0xFFFFFFFF),
       surfaceTintColor: Color(0xFFFFFFFF),
     ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: MaterialStateProperty.resolveWith((states){
+        if(states.contains(MaterialState.selected)){
+          return AppColors.mainAccent;
+        }else{
+          return Colors.transparent;
+        }
+      }),
+      shape: RoundedRectangleBorder(
+       borderRadius: BorderRadius.circular(5)
+      ),
+      side: BorderSide(
+        color: AppColors.lightGrey,
+      )
+    ),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
     textSelectionTheme:
-    const TextSelectionThemeData(cursorColor: Color(0xFF2976B6)),
+    TextSelectionThemeData(
+        selectionColor: AppColors.mainAccent.withOpacity(0.25),
+        cursorColor: Color(0xFF2976B6)),
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: const TextStyle(color:Color(0xFF474D4C) ),
       prefixIconColor:const Color(0xFF474D4C)  ,
@@ -47,7 +65,7 @@ class AppTheme {
     textTheme: const TextTheme(
       headlineLarge: TextStyle(
         fontWeight: FontWeight.w700,
-        fontSize: 42,
+        fontSize: 36,
         color: Color(0xFF091312),
       ),
       headlineMedium: TextStyle(

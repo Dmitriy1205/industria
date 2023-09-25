@@ -5,10 +5,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/animations/fade_in_animation.dart';
-import 'package:selectable/selectable.dart';
+import 'package:industria/domain/entities/job_filters/job_filters.dart';
+import 'package:industria/domain/repositories/job/job_repository_contract.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../../app/router.dart';
 import '../../core/constants/colors.dart';
+import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 import '../bloc/localization/localization_bloc.dart';
 import '../widgets/footer.dart';
@@ -68,10 +70,7 @@ class _HomeState extends State<Home> {
                   padding: EdgeInsets.only(
                     top: 68.0,
                   ),
-                  child: Selectable(
-                    selectWordOnDoubleTap: true,
-                    selectionColor: AppColors.mainAccent.withOpacity(0.2),
-                    child: Column(
+                  child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
@@ -386,11 +385,7 @@ class _HomeState extends State<Home> {
                                 revealOffset: 700,
                                 slideBegin: const Offset(0.0, 1.0),
                                 slideEnd: Offset.zero,
-                                child: Selectable(
-                                  selectWordOnDoubleTap: true,
-                                  selectionColor:
-                                      AppColors.mainAccent.withOpacity(0.2),
-                                  child: SizedBox(
+                                child: SizedBox(
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -473,7 +468,6 @@ class _HomeState extends State<Home> {
                                       ],
                                     ),
                                   ),
-                                ),
                               ),
                               const SizedBox(
                                 height: 60,
@@ -985,7 +979,6 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
-                  ),
                 ),
               ),
               const Footer(),
@@ -1005,10 +998,7 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.only(top: 45.0),
-            child: Selectable(
-              selectWordOnDoubleTap: true,
-              selectionColor: AppColors.mainAccent.withOpacity(0.2),
-              child: Column(
+            child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: 92, top: 26),
@@ -1297,10 +1287,7 @@ class _HomeState extends State<Home> {
                         top: 155,
                         left: 90,
                       ),
-                      child: Selectable(
-                        selectWordOnDoubleTap: true,
-                        selectionColor: AppColors.mainAccent.withOpacity(0.2),
-                        child: Row(
+                      child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
@@ -1369,7 +1356,6 @@ class _HomeState extends State<Home> {
                             ),
                           ],
                         ),
-                      ),
                     ),
                   ),
                   FadeIn(
@@ -1835,7 +1821,6 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-            ),
           ),
         ),
         const Footer(),

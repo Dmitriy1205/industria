@@ -16,9 +16,9 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ResponsiveLayout(
-        mobileLayout: MobileLayout(child: child),
-        tabletLayout: TabletLayout(child: child),
-        desktopLayout: DesktopLayout(child: child),
+        mobileLayout: TabletLayout(child: child),
+        tabletLayout: SelectionArea(child: TabletLayout(child: child)),
+        desktopLayout: SelectionArea(child: DesktopLayout(child: child)),
       ),
     );
   }

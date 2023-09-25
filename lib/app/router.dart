@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
 import 'package:industria/presentation/screens/data_protection.dart';
 import 'package:industria/presentation/screens/for_employees.dart';
 import 'package:industria/presentation/screens/for_employers.dart';
+import 'package:industria/presentation/screens/job_description.dart';
 import 'package:industria/presentation/screens/jobs.dart';
 import 'package:industria/presentation/screens/main_screen.dart';
 import 'package:industria/presentation/screens/our_team.dart';
@@ -105,6 +107,14 @@ final GoRouter router = GoRouter(
               context: context,
               state: state,
               child: const Condition(),
+            ),
+          ),
+          GoRoute(
+            path: '/job_description',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: JobDescription(job: state.extra as JobOffer,),
             ),
           ),
         ],

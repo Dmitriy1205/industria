@@ -2,8 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:industria/app/overlays.dart';
 import 'package:industria/app/providers.dart';
 import 'package:industria/app/router.dart';
+import 'package:industria/core/overlays/cookie_overlay.dart';
+import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 
 import '../core/themes/theme.dart';
 import '../l10n/l10n.dart';
@@ -12,7 +15,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../presentation/bloc/localization/localization_bloc.dart';
 
 class App extends StatelessWidget {
-  App({Key? key}) : super(key: key);
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,14 @@ class App extends StatelessWidget {
             backButtonDispatcher: RootBackButtonDispatcher(),
             theme: AppTheme.themeData,
             debugShowCheckedModeBanner: false,
+            builder: (context,child){
+              final showCookieDialog = context.watch<CookieBloc>().state.showCookieDialog;
+              return Overlays(
+                  overlays: [
+                    CookiesOverlay(show: showCookieDialog,)
+                  ],
+                  child: child!);
+            },
           );
         },
       ),

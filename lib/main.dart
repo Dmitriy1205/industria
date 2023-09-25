@@ -1,3 +1,4 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ void main() async {
         appId: "1:83800078572:web:6a194e4d7ac4d5952dcdc9",
         messagingSenderId: "83800078572",
         projectId: "industria-a338a",
-        storageBucket: 'industria-a338a.appspot.comT'),
+        storageBucket: 'industria-a338a.appspot.com'),
   );
   await sl.init();
   runApp(App());

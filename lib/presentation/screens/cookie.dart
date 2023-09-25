@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
 import '../widgets/footer.dart';
 
-class Cookie extends StatelessWidget {
+class Cookie extends StatefulWidget {
   const Cookie({super.key});
 
+  @override
+  State<Cookie> createState() => _CookieState();
+}
+
+class _CookieState extends State<Cookie> {
+
+  late CookieBloc cookieBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    cookieBloc = context.read<CookieBloc>();
+    cookieBloc.add(CookieEvent.hide());
+  }
+
+  @override
+  void dispose() {
+    cookieBloc.add(CookieEvent.show());
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

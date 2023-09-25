@@ -34,12 +34,12 @@ class Imprint extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'Industry Personnel Services Germany GmbH',
-                    style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black),
+                    style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 16), // Add spacing between text sections
                   Text(
                       AppLocalizations.of(context)!.address,
-                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black)
+                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
                   ),
                   Text(
                     'Gaustr. 21\n55411 Bingen am Rhein\nGermany',
@@ -48,7 +48,7 @@ class Imprint extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     '${AppLocalizations.of(context)!.managingDirector}:',
-                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black)
+                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
                   ),
                   Text(
                     'Michael Walker',
@@ -57,7 +57,7 @@ class Imprint extends StatelessWidget {
                   const SizedBox(height: 16),
                   Text(
                     '${AppLocalizations.of(context)!.registerCourt}:',
-                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black)
+                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
                   ),
                   Text(
                     'Mainz, HRB 47850',
@@ -68,7 +68,7 @@ class Imprint extends StatelessWidget {
                     children: [
                       Text(
                         'Email: ',
-                          style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black)
+                          style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
                       ),
                       Text(
                         'team@industria-jobs.de',

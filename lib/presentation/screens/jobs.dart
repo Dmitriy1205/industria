@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/enums/job_areas.dart';
 import 'package:industria/core/enums/job_types.dart';
-import 'package:industria/core/extensions/time.dart';
+import 'package:industria/core/utils/time.dart';
 import 'package:industria/domain/entities/job_filters/job_filters.dart';
 import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
@@ -298,7 +298,7 @@ class _JobsState extends State<Jobs> {
                                     margin: const EdgeInsets.only(bottom: 30),
                                     child: JobCard(
                                         icon: e.company.logo,
-                                        date: getTimeAgo(e.createdAt),
+                                        date: getTimeAgo(e.createdAt ,context.watch<LocalizationBloc>().state.locale.languageCode),
                                         vacancy: e.title,
                                         address: e.location,
                                         description: e.description,
@@ -516,7 +516,7 @@ class _JobsState extends State<Jobs> {
                                   margin: const EdgeInsets.only(bottom: 30),
                                   child: JobCard(
                                       icon: e.company.logo,
-                                      date: getTimeAgo(e.createdAt),
+                                      date: getTimeAgo(e.createdAt, context.watch<LocalizationBloc>().state.locale.languageCode),
                                       vacancy: e.title,
                                       address: e.location,
                                       description: e.description,

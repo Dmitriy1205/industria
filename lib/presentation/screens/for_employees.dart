@@ -236,7 +236,6 @@ class _ForEmployeesState extends State<ForEmployees> {
                                   ),
                                 ),
                               ),
-
                             const SizedBox(
                               height: 57,
                             ),
@@ -267,19 +266,48 @@ class _ForEmployeesState extends State<ForEmployees> {
                                   }),
                             ),
                             const SizedBox(
-                              height: 16,
+                              height: 30,
                             ),
                             MouseRegion(
                               cursor: SystemMouseCursors.click,
                               child: GestureDetector(
                                 onTap: () {
                                   router.go('/contact');
-                                  MouseRegion(
-                                    cursor: SystemMouseCursors.click,
-                                    onEnter: (_) {
-                                      setState(() {
-                                        isHoveredButton = !isHoveredButton;
-                                      });
+                                },
+                              child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                onEnter: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                onExit: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                child: AppElevatedButton(
+                                    verticalPadding: 10,
+                                    text: AppLocalizations.of(context)!.signIn,
+                                    color: isHoveredButton
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    onPressed: () {
+                                      if (!_formKey.currentState!.validate()) {
+                                        return;
+                                      }
+                                      _formKey.currentState!.save();
+                                    }),
+                              ))),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Center(
+                                child: MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      router.go('/contact');
                                     },
                                     onExit: (_) {
                                       setState(() {

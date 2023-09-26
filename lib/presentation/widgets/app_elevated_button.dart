@@ -8,7 +8,6 @@ class AppElevatedButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Color? color;
 
-
   const AppElevatedButton({
     required this.text,
     required this.onPressed,

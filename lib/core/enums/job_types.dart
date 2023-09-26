@@ -5,6 +5,10 @@ enum JobTypes{
   permanent("Permanent"),
   temporary("Temporary");
 
+  static JobTypes? fromString(String str){
+    return JobTypes.values.firstWhere((element) => str == element.value, orElse: () => JobTypes.permanent);
+  }
+
   String localizedString(BuildContext context){
     return switch(this){
       JobTypes.permanent => AppLocalizations.of(context)!.permanent,

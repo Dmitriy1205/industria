@@ -38,6 +38,6 @@ class BoldTextWidget extends StatelessWidget {
           style: style.copyWith(fontWeight: FontWeight.normal),));
     }
 
-    return SelectableText.rich(TextSpan(children: textSpans));
+    return SelectableText.rich(TextSpan(children: textSpans), scrollPhysics: NeverScrollableScrollPhysics(),);
   }
 }

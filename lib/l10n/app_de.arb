@@ -13,7 +13,7 @@
   "cookie":"Cookie-Richtlinie",
   "cookies":"Cookies",
   "imprint":"Impressum",
-  "address":"Adresse",
+  "address":"Adresse*",
   "managingDirector":"Geschäftsführer",
   "salesDirector":"Verkaufsleiter",
    "operationsDirector":"Betriebsleiter",
@@ -106,6 +106,16 @@
    "cookieAuthenticationSession": "Authentifizierungssitzung",
    "acceptAll": "Alles akzeptieren",
    "acceptSelected": "Ausgewählte akzeptieren",
-   "rejectAll": "Alles ablehnen"
+   "rejectAll": "Alles ablehnen",
 
+   "dateOfBirth": "Geburtsdatum*",
+   "citizenship": "Staatsbürgerschaft*",
+   "gender": "Geschlecht*",
+   "availabilityDate": "Verfügbarkeitsdatum*",
+   "mandatoryFields": "* - benötigte felder",
+   "dragCertificates": "Ziehen Sie Ihre Zertifikate hierher",
+   "dragCv": "Ziehen Sie Ihren Lebenslauf hierher *",
+   "dragPicture": "Ziehen Sie Ihr Bild hierher *",
+   "backToJobs": "Zurück zu den Jobs",
+   "jobDescription": "Arbeitsbeschreibung"
 }

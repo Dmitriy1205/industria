@@ -253,6 +253,77 @@ class _JobDescriptionState extends State<JobDescription> {
                         ),
                         LayoutBuilder(
                           builder: (context,constraints) {
+                            if(constraints.maxWidth < 1000){
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      CustomTextFormField(
+                                        width: constraints.maxWidth / 2 - 8,
+                                        focusNode: _dateOfBirthFocus,
+                                        textController: _dateOfBirthController,
+                                        type: CustomTextFormFieldType.date,
+                                        labelText:
+                                        AppLocalizations.of(context)!.dateOfBirth,
+                                        validator: Validator.validate,
+                                        textInputType: TextInputType.text,
+                                        isSavePressed: isSavePressed,
+                                        onChange: (v) {
+                                          setState(() {
+                                            _dateOfBirthController.text =
+                                                (v as DateTime).formatted;
+                                          });
+                                          _clickable(v);
+                                        },
+                                        maxLines: 1,
+                                      ),
+                                      SizedBox(
+                                        width: 16,
+                                      ),
+                                      DropdownTextFormField(
+                                        validator: (val){
+                                          final error = Validator.validate(val);
+                                          if(error != null){
+                                            return error;
+                                          }
+
+                                          if(!["Male","Female"].contains(val)){
+                                            return "Doesn't match proposed ones";
+                                          }
+                                        },
+                                        isSavePressed: isSavePressed,
+                                        controller: _genderController,
+                                        variants: ["Male", "Female"],
+                                        onChanged: _clickable,
+                                        hintText: AppLocalizations.of(context)!.gender,
+                                        width: constraints.maxWidth / 2 - 8,
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  DropdownTextFormField(
+                                    validator: (val){
+                                      final error = Validator.validate(val);
+                                      if(error != null){
+                                        return error;
+                                      }
+
+                                      if(!Nationalities.list.contains(val)){
+                                        return "Doesn't match proposed ones";
+                                      }
+                                    },
+                                    isSavePressed: isSavePressed,
+                                    onChanged: _clickable,
+                                    controller: _citizenshipController,
+                                    variants: Nationalities.list,
+                                    hintText: AppLocalizations.of(context)!.citizenship,
+                                    width: constraints.maxWidth,
+                                  ),
+                                ],
+                              );
+                            }
                             return Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

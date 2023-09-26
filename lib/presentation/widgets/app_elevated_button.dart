@@ -5,8 +5,18 @@ import '../../core/themes/theme.dart';
 
 class AppElevatedButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Color? color;
+
+  const AppElevatedButton({
+    required this.text,
+    required this.onPressed,
+    super.key,
+    this.color,
+    this.borderColor,
+    this.textStyle,
+    this.verticalPadding
+  });
   final Color? borderColor;
   final TextStyle? textStyle;
   final double? verticalPadding;
@@ -30,7 +40,7 @@ class AppElevatedButton extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: verticalPadding ?? 15),
               child: Text(
                 text,
-                style:textStyle ?? AppTheme.themeData.textTheme.headlineLarge!
+                style: textStyle ?? AppTheme.themeData.textTheme.headlineLarge!
                     .copyWith(fontSize: 22,color: Colors.white),
               ),
             ),
@@ -39,13 +49,4 @@ class AppElevatedButton extends StatelessWidget {
       ),
     );
   }
-
-  const AppElevatedButton({
-    required this.text,
-    required this.onPressed,
-    this.color,
-    this.borderColor,
-    this.textStyle,
-    this.verticalPadding,
-  });
 }

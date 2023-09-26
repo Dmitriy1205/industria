@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 import 'package:industria/presentation/widgets/steps.dart';
 
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
+import '../../core/validator/field_validator.dart';
+import '../widgets/app_elevated_button.dart';
 import '../widgets/footer.dart';
 
 class Contact extends StatefulWidget {
@@ -16,18 +19,13 @@ class Contact extends StatefulWidget {
 
 class _ContactState extends State<Contact> {
   TextEditingController _firstNameController = TextEditingController();
-
   TextEditingController _lastNameController = TextEditingController();
-
   TextEditingController _companyNameNameController = TextEditingController();
-
   TextEditingController _phoneNumberController = TextEditingController();
-
   TextEditingController _emailController = TextEditingController();
-
   TextEditingController _descriptionController = TextEditingController();
-
   bool _checkboxValue = true;
+  bool isSavePressed = false;
 
   FocusNode _firstNameFocusNode = FocusNode();
   FocusNode _lastNameFocusNode = FocusNode();
@@ -35,8 +33,7 @@ class _ContactState extends State<Contact> {
   FocusNode _phoneNumberFocusNode = FocusNode();
   FocusNode _emailFocusNode = FocusNode();
   FocusNode _descriptionFocusNode = FocusNode();
-<<<<<<< Updated upstream
-=======
+
   bool isHoveredButton = false;
   bool _isClickable = false;
 
@@ -59,7 +56,6 @@ class _ContactState extends State<Contact> {
       print('_isClickable = true');
     }
   }
->>>>>>> Stashed changes
 
   @override
   void initState() {
@@ -70,6 +66,7 @@ class _ContactState extends State<Contact> {
     _phoneNumberFocusNode.addListener(() => setState(() {}));
     _emailFocusNode.addListener(() => setState(() {}));
     _descriptionFocusNode.addListener(() => setState(() {}));
+    // _clickable().listen((event) {print('event ${event}');});
   }
 
   @override
@@ -122,224 +119,99 @@ class _ContactState extends State<Contact> {
                             Row(
                               children: [
                                 Expanded(
-                                  child: SizedBox(
-                                    height: 36,
-                                    child: TextFormField(
-                                      focusNode: _firstNameFocusNode,
-                                      controller: _firstNameController,
-                                      style: AppTheme
-                                          .themeData.textTheme.headlineLarge!
-                                          .copyWith(fontSize: 14),
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: AppColors.lightGrey,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 10),
-                                        labelStyle: AppTheme
-                                            .themeData.textTheme.labelSmall!
-                                            .copyWith(
-                                                color: _firstNameFocusNode
-                                                        .hasFocus
-                                                    ? AppColors.mainDarkAccent
-                                                    : AppColors.darkGrey),
-                                        labelText: AppLocalizations.of(context)!
-                                            .firstname,
-                                      ),
-                                    ),
+                                  child: CustomTextFormField(
+                                    focusNode: _firstNameFocusNode,
+                                    textController: _firstNameController,
+                                    labelText:
+                                        AppLocalizations.of(context)!.firstname,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    onChange: _clickable,
+                                    isSavePressed: isSavePressed,
                                   ),
                                 ),
                                 const SizedBox(
                                   width: 30,
                                 ),
                                 Expanded(
-                                  child: SizedBox(
-                                    height: 36,
-                                    child: TextFormField(
-                                      focusNode: _lastNameFocusNode,
-                                      controller: _lastNameController,
-                                      textAlign: TextAlign.start,
-                                      style: AppTheme
-                                          .themeData.textTheme.headlineLarge!
-                                          .copyWith(fontSize: 14),
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: AppColors.lightGrey,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 10),
-                                        labelStyle: AppTheme
-                                            .themeData.textTheme.labelSmall!
-                                            .copyWith(
-                                                color: _lastNameFocusNode
-                                                        .hasFocus
-                                                    ? AppColors.mainDarkAccent
-                                                    : AppColors.darkGrey),
-                                        labelText: AppLocalizations.of(context)!
-                                            .lastname,
-                                      ),
-                                    ),
+                                  child: CustomTextFormField(
+                                    focusNode: _lastNameFocusNode,
+                                    textController: _lastNameController,
+                                    labelText:
+                                        AppLocalizations.of(context)!.lastname,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    onChange: _clickable,
+                                    isSavePressed: isSavePressed,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Row(
                               children: [
                                 Expanded(
-                                  child: SizedBox(
-                                    height: 36,
-                                    child: TextFormField(
-                                      textAlign: TextAlign.start,
-                                      focusNode: _companyNameFocusNode,
-                                      controller: _companyNameNameController,
-                                      style: AppTheme
-                                          .themeData.textTheme.headlineLarge!
-                                          .copyWith(fontSize: 14),
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: AppColors.lightGrey,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 10),
-                                        labelStyle: AppTheme
-                                            .themeData.textTheme.labelSmall!
-                                            .copyWith(
-                                          color: _companyNameFocusNode.hasFocus
-                                              ? AppColors.mainDarkAccent
-                                              : AppColors.darkGrey,
-                                        ),
-                                        labelText: AppLocalizations.of(context)!
-                                            .companyName,
-                                      ),
-                                    ),
+                                  child: CustomTextFormField(
+                                    focusNode: _companyNameFocusNode,
+                                    textController: _companyNameNameController,
+                                    labelText: AppLocalizations.of(context)!
+                                        .companyName,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    onChange: _clickable,
+                                    isSavePressed: isSavePressed,
                                   ),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 30,
                                 ),
                                 Expanded(
-                                  child: SizedBox(
+                                  child: CustomTextFormField(
+                                    focusNode: _phoneNumberFocusNode,
+                                    textController: _phoneNumberController,
+                                    labelText: AppLocalizations.of(context)!
+                                        .phoneNumber,
+                                    validator: Validator.validatePhone,
+                                    inputFormatter:
+                                        FilteringTextInputFormatter.digitsOnly,
+                                    textInputType: TextInputType.phone,
+                                    isSavePressed: isSavePressed,
+                                    onChange: _clickable,
                                     width: 244,
-                                    height: 36,
-                                    child: TextFormField(
-                                      textAlign: TextAlign.start,
-                                      focusNode: _phoneNumberFocusNode,
-                                      controller: _phoneNumberController,
-                                      style: AppTheme
-                                          .themeData.textTheme.headlineLarge!
-                                          .copyWith(fontSize: 14),
-                                      decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10, horizontal: 10),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: const BorderSide(
-                                            color: AppColors.lightGrey,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        labelStyle: AppTheme
-                                            .themeData.textTheme.labelSmall!
-                                            .copyWith(
-                                          color: _phoneNumberFocusNode.hasFocus
-                                              ? AppColors.mainDarkAccent
-                                              : AppColors.darkGrey,
-                                        ),
-                                        labelText: AppLocalizations.of(context)!
-                                            .phoneNumber,
-                                      ),
-                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 26,
                             ),
-                            SizedBox(
+                            CustomTextFormField(
+                              focusNode: _emailFocusNode,
+                              textController: _emailController,
+                              labelText: AppLocalizations.of(context)!.email,
+                              validator: Validator.validateEmail,
+                              textInputType: TextInputType.emailAddress,
+                              isSavePressed: isSavePressed,
+                              onChange: _clickable,
                               width: 521,
-                              height: 36,
-                              child: TextFormField(
-                                textAlign: TextAlign.start,
-                                focusNode: _emailFocusNode,
-                                controller: _emailController,
-                                style: AppTheme
-                                    .themeData.textTheme.headlineLarge!
-                                    .copyWith(fontSize: 14),
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 10),
-                                  prefixIcon: Icon(Icons.email,
-                                      color: AppColors.darkGrey),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: AppColors.lightGrey,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  labelStyle: AppTheme
-                                      .themeData.textTheme.labelSmall!
-                                      .copyWith(
-                                          color: _emailFocusNode.hasFocus
-                                              ? AppColors.mainDarkAccent
-                                              : AppColors.darkGrey),
-                                  labelText:
-                                      AppLocalizations.of(context)!.email,
-                                ),
-                              ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 35,
                             ),
-                            SizedBox(
+                            CustomTextFormField(
+                              focusNode: _descriptionFocusNode,
+                              textController: _descriptionController,
+                              labelText:
+                                  AppLocalizations.of(context)!.description,
+                              validator: Validator.validate,
+                              textInputType: TextInputType.text,
+                              isSavePressed: isSavePressed,
+                              onChange: _clickable,
                               width: 521,
                               height: 86,
-                              child: TextFormField(
-                                maxLines: 5,
-                                textAlign: TextAlign.start,
-                                textAlignVertical: TextAlignVertical.top,
-                                focusNode: _descriptionFocusNode,
-                                controller: _descriptionController,
-                                style: AppTheme
-                                    .themeData.textTheme.headlineLarge!
-                                    .copyWith(fontSize: 14),
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: AppColors.lightGrey,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  alignLabelWithHint: true,
-                                  labelStyle: AppTheme
-                                      .themeData.textTheme.labelSmall!
-                                      .copyWith(
-                                          color: _descriptionFocusNode.hasFocus
-                                              ? AppColors.mainDarkAccent
-                                              : AppColors.darkGrey),
-                                  labelText:
-                                      AppLocalizations.of(context)!.description,
-                                ),
-                              ),
+                              maxLines: 5,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 18),
@@ -355,13 +227,15 @@ class _ContactState extends State<Contact> {
                                                 BorderRadius.circular(5)),
                                         activeColor: AppColors.mainAccent,
                                         value: _checkboxValue,
-                                        onChanged: (_checkboxValue) {
-                                          _checkboxValue = !_checkboxValue!;
+                                        onChanged: (_checkbox) {
+                                          setState(() {
+                                            _checkboxValue = _checkbox!;
+                                          });
                                           print(
                                               '_checkboxValue $_checkboxValue');
                                         }),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 19,
                                   ),
                                   RichText(
@@ -398,7 +272,7 @@ class _ContactState extends State<Contact> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 36,
                             ),
                             SizedBox(
@@ -406,27 +280,30 @@ class _ContactState extends State<Contact> {
                               height: 36,
                               child: MouseRegion(
                                 cursor: SystemMouseCursors.click,
-                                child: MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  onPressed: () {},
-                                  color: AppColors.mainAccent,
-                                  hoverColor: AppColors.mainDarkAccent,
-                                  // style: ElevatedButton.styleFrom(
-                                  //     backgroundColor: AppColors.mainAccent,
-                                  //     padding: const EdgeInsets.symmetric(
-                                  //         horizontal: 50, vertical: 20),
-                                  //     shape: const RoundedRectangleBorder(
-                                  //         borderRadius: BorderRadius.all(
-                                  //             Radius.circular(8)))),
-                                  child: Text(
-                                      AppLocalizations.of(context)!.send,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(
-                                        color: Colors.white,
-                                      )),
-                                ),
+                                onEnter: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                onExit: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                child: AppElevatedButton(
+                                    text: AppLocalizations.of(context)!.send,
+                                    color: isHoveredButton
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    textStyle: AppTheme
+                                        .themeData.textTheme.labelSmall!
+                                        .copyWith(color: Colors.white),
+                                    onPressed: _isClickable
+                                        ? () {
+                                            isSavePressed = true;
+                                            print('pressed');
+                                          }
+                                        : null),
                               ),
                             ),
                           ],
@@ -487,215 +364,88 @@ class _ContactState extends State<Contact> {
                           children: [
                             Row(
                               children: [
-                                SizedBox(
-                                  width: 244,
-                                  height: 36,
-                                  child: TextFormField(
+                                CustomTextFormField(
                                     focusNode: _firstNameFocusNode,
-                                    controller: _firstNameController,
-                                    style: AppTheme
-                                        .themeData.textTheme.headlineLarge!
-                                        .copyWith(fontSize: 14),
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: AppColors.lightGrey,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 10, horizontal: 10),
-                                      labelStyle: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(
-                                              color:
-                                                  _firstNameFocusNode.hasFocus
-                                                      ? AppColors.mainDarkAccent
-                                                      : AppColors.darkGrey),
-                                      labelText: AppLocalizations.of(context)!
-                                          .firstname,
-                                    ),
-                                  ),
-                                ),
+                                    textController: _firstNameController,
+                                    labelText:
+                                        AppLocalizations.of(context)!.firstname,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                    onChange: _clickable,
+                                    width: 244),
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                SizedBox(
-                                  width: 244,
-                                  height: 36,
-                                  child: TextFormField(
+                                CustomTextFormField(
                                     focusNode: _lastNameFocusNode,
-                                    controller: _lastNameController,
-                                    textAlign: TextAlign.start,
-                                    style: AppTheme
-                                        .themeData.textTheme.headlineLarge!
-                                        .copyWith(fontSize: 14),
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: AppColors.lightGrey,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 10, horizontal: 10),
-                                      labelStyle: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(
-                                              color: _lastNameFocusNode.hasFocus
-                                                  ? AppColors.mainDarkAccent
-                                                  : AppColors.darkGrey),
-                                      labelText: AppLocalizations.of(context)!
-                                          .lastname,
-                                    ),
-                                  ),
-                                ),
+                                    textController: _lastNameController,
+                                    labelText:
+                                        AppLocalizations.of(context)!.lastname,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                    onChange: _clickable,
+                                    width: 244),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Row(
                               children: [
-                                SizedBox(
-                                  width: 244,
-                                  height: 36,
-                                  child: TextFormField(
-                                    textAlign: TextAlign.start,
+                                CustomTextFormField(
                                     focusNode: _companyNameFocusNode,
-                                    controller: _companyNameNameController,
-                                    style: AppTheme
-                                        .themeData.textTheme.headlineLarge!
-                                        .copyWith(fontSize: 14),
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: AppColors.lightGrey,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 10, horizontal: 10),
-                                      labelStyle: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(
-                                        color: _companyNameFocusNode.hasFocus
-                                            ? AppColors.mainDarkAccent
-                                            : AppColors.darkGrey,
-                                      ),
-                                      labelText: AppLocalizations.of(context)!
-                                          .companyName,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
+                                    textController: _companyNameNameController,
+                                    labelText: AppLocalizations.of(context)!
+                                        .companyName,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                    onChange: _clickable,
+                                    width: 244),
+                                const SizedBox(
                                   width: 30,
                                 ),
-                                SizedBox(
-                                  width: 244,
-                                  height: 36,
-                                  child: TextFormField(
-                                    textAlign: TextAlign.start,
+                                CustomTextFormField(
                                     focusNode: _phoneNumberFocusNode,
-                                    controller: _phoneNumberController,
-                                    style: AppTheme
-                                        .themeData.textTheme.headlineLarge!
-                                        .copyWith(fontSize: 14),
-                                    decoration: InputDecoration(
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 10, horizontal: 10),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: AppColors.lightGrey,
-                                        ),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      labelStyle: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(
-                                        color: _phoneNumberFocusNode.hasFocus
-                                            ? AppColors.mainDarkAccent
-                                            : AppColors.darkGrey,
-                                      ),
-                                      labelText: AppLocalizations.of(context)!
-                                          .phoneNumber,
-                                    ),
-                                  ),
-                                ),
+                                    textController: _phoneNumberController,
+                                    labelText: AppLocalizations.of(context)!
+                                        .phoneNumber,
+                                    validator: Validator.validatePhone,
+                                    textInputType: TextInputType.phone,
+                                    isSavePressed: isSavePressed,
+                                    onChange: _clickable,
+                                    width: 244),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 26,
                             ),
-                            SizedBox(
-                              width: 521,
-                              height: 36,
-                              child: TextFormField(
-                                textAlign: TextAlign.start,
+                            CustomTextFormField(
                                 focusNode: _emailFocusNode,
-                                controller: _emailController,
-                                style: AppTheme
-                                    .themeData.textTheme.headlineLarge!
-                                    .copyWith(fontSize: 14),
-                                decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 10),
-                                  prefixIcon: Icon(Icons.email,
-                                      color: AppColors.darkGrey),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: AppColors.lightGrey,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  labelStyle: AppTheme
-                                      .themeData.textTheme.labelSmall!
-                                      .copyWith(
-                                          color: _emailFocusNode.hasFocus
-                                              ? AppColors.mainDarkAccent
-                                              : AppColors.darkGrey),
-                                  labelText:
-                                      AppLocalizations.of(context)!.email,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
+                                textController: _emailController,
+                                labelText: AppLocalizations.of(context)!.email,
+                                validator: Validator.validateEmail,
+                                textInputType: TextInputType.emailAddress,
+                                isSavePressed: isSavePressed,
+                                onChange: _clickable,
+                                width: 521),
+                            const SizedBox(
                               height: 35,
                             ),
-                            SizedBox(
+                            CustomTextFormField(
+                              focusNode: _descriptionFocusNode,
+                              textController: _descriptionController,
+                              labelText:
+                                  AppLocalizations.of(context)!.description,
+                              validator: Validator.validate,
+                              textInputType: TextInputType.text,
+                              isSavePressed: isSavePressed,
+                              onChange: _clickable,
                               width: 521,
                               height: 86,
-                              child: TextFormField(
-                                maxLines: 5,
-                                textAlign: TextAlign.start,
-                                textAlignVertical: TextAlignVertical.top,
-                                focusNode: _descriptionFocusNode,
-                                controller: _descriptionController,
-                                style: AppTheme
-                                    .themeData.textTheme.headlineLarge!
-                                    .copyWith(fontSize: 14),
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: AppColors.lightGrey,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  alignLabelWithHint: true,
-                                  labelStyle: AppTheme
-                                      .themeData.textTheme.labelSmall!
-                                      .copyWith(
-                                          color: _descriptionFocusNode.hasFocus
-                                              ? AppColors.mainDarkAccent
-                                              : AppColors.darkGrey),
-                                  labelText:
-                                      AppLocalizations.of(context)!.description,
-                                ),
-                              ),
+                              maxLines: 5,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 18),
@@ -711,13 +461,15 @@ class _ContactState extends State<Contact> {
                                                 BorderRadius.circular(5)),
                                         activeColor: AppColors.mainAccent,
                                         value: _checkboxValue,
-                                        onChanged: (_checkboxValue) {
-                                          _checkboxValue = !_checkboxValue!;
+                                        onChanged: (_checkbox) {
+                                          setState(() {
+                                            _checkboxValue = _checkbox!;
+                                          });
                                           print(
                                               '_checkboxValue $_checkboxValue');
                                         }),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 19,
                                   ),
                                   RichText(
@@ -754,7 +506,7 @@ class _ContactState extends State<Contact> {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 36,
                             ),
                             SizedBox(
@@ -762,27 +514,30 @@ class _ContactState extends State<Contact> {
                               height: 36,
                               child: MouseRegion(
                                 cursor: SystemMouseCursors.click,
-                                child: MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  onPressed: () {},
-                                  color: AppColors.mainAccent,
-                                  hoverColor: AppColors.mainDarkAccent,
-                                  // style: ElevatedButton.styleFrom(
-                                  //     backgroundColor: AppColors.mainAccent,
-                                  //     padding: const EdgeInsets.symmetric(
-                                  //         horizontal: 50, vertical: 20),
-                                  //     shape: const RoundedRectangleBorder(
-                                  //         borderRadius: BorderRadius.all(
-                                  //             Radius.circular(8)))),
-                                  child: Text(
-                                      AppLocalizations.of(context)!.send,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(
-                                        color: Colors.white,
-                                      )),
-                                ),
+                                onEnter: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                onExit: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                child: AppElevatedButton(
+                                    text: AppLocalizations.of(context)!.send,
+                                    color: isHoveredButton
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    textStyle: AppTheme
+                                        .themeData.textTheme.labelSmall!
+                                        .copyWith(color: Colors.white),
+                                    onPressed: _isClickable
+                                        ? () {
+                                            isSavePressed = true;
+                                            print('pressed');
+                                          }
+                                        : null),
                               ),
                             ),
                           ],
@@ -856,228 +611,108 @@ class _ContactState extends State<Contact> {
                                     .themeData.textTheme.headlineMedium!
                                     .copyWith(
                                         color: Colors.black, fontSize: 24)),
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Text(
                               AppLocalizations.of(context)!
                                   .youAreOneStepCloseToFind,
-                              style:
-                                  AppTheme.themeData.textTheme.titleMedium,
+                              style: AppTheme.themeData.textTheme.titleMedium,
                               overflow: TextOverflow.visible,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 30,
                             ),
-                            Steps()
+                            const Steps()
                           ]),
-                      Spacer(),
+                      const Spacer(),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              SizedBox(
-                                width: 244,
-                                height: 36,
-                                child: TextFormField(
+                              CustomTextFormField(
                                   focusNode: _firstNameFocusNode,
-                                  controller: _firstNameController,
-                                  style: AppTheme
-                                      .themeData.textTheme.headlineLarge!
-                                      .copyWith(fontSize: 14),
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: AppColors.lightGrey,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 10),
-                                    labelStyle: AppTheme
-                                        .themeData.textTheme.labelSmall!
-                                        .copyWith(
-                                            color: _firstNameFocusNode.hasFocus
-                                                ? AppColors.mainDarkAccent
-                                                : AppColors.darkGrey),
-                                    labelText:
-                                        AppLocalizations.of(context)!.firstname,
-                                  ),
-                                ),
-                              ),
+                                  textController: _firstNameController,
+                                  labelText:
+                                      AppLocalizations.of(context)!.firstname,
+                                  validator: Validator.validate,
+                                  textInputType: TextInputType.text,
+                                  isSavePressed: isSavePressed,
+                                  onChange: _clickable,
+                                  width: 244),
                               const SizedBox(
                                 width: 30,
                               ),
-                              SizedBox(
-                                width: 244,
-                                height: 36,
-                                child: TextFormField(
+                              CustomTextFormField(
                                   focusNode: _lastNameFocusNode,
-                                  controller: _lastNameController,
-                                  textAlign: TextAlign.start,
-                                  style: AppTheme
-                                      .themeData.textTheme.headlineLarge!
-                                      .copyWith(fontSize: 14),
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: AppColors.lightGrey,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 10),
-                                    labelStyle: AppTheme
-                                        .themeData.textTheme.labelSmall!
-                                        .copyWith(
-                                            color: _lastNameFocusNode.hasFocus
-                                                ? AppColors.mainDarkAccent
-                                                : AppColors.darkGrey),
-                                    labelText:
-                                        AppLocalizations.of(context)!.lastname,
-                                  ),
-                                ),
-                              ),
+                                  textController: _lastNameController,
+                                  labelText:
+                                      AppLocalizations.of(context)!.lastname,
+                                  validator: Validator.validate,
+                                  textInputType: TextInputType.text,
+                                  isSavePressed: isSavePressed,
+                                  onChange: _clickable,
+                                  width: 244),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(
                             children: [
-                              SizedBox(
-                                width: 244,
-                                height: 36,
-                                child: TextFormField(
-                                  textAlign: TextAlign.start,
+                              CustomTextFormField(
                                   focusNode: _companyNameFocusNode,
-                                  controller: _companyNameNameController,
-                                  style: AppTheme
-                                      .themeData.textTheme.headlineLarge!
-                                      .copyWith(fontSize: 14),
-                                  decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: AppColors.lightGrey,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 10),
-                                    labelStyle: AppTheme
-                                        .themeData.textTheme.labelSmall!
-                                        .copyWith(
-                                      color: _companyNameFocusNode.hasFocus
-                                          ? AppColors.mainDarkAccent
-                                          : AppColors.darkGrey,
-                                    ),
-                                    labelText: AppLocalizations.of(context)!
-                                        .companyName,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
+                                  textController: _companyNameNameController,
+                                  labelText:
+                                      AppLocalizations.of(context)!.companyName,
+                                  validator: Validator.validate,
+                                  textInputType: TextInputType.text,
+                                  isSavePressed: isSavePressed,
+                                  onChange: _clickable,
+                                  width: 244),
+                              const SizedBox(
                                 width: 30,
                               ),
-                              SizedBox(
-                                width: 244,
-                                height: 36,
-                                child: TextFormField(
-                                  textAlign: TextAlign.start,
+                              CustomTextFormField(
                                   focusNode: _phoneNumberFocusNode,
-                                  controller: _phoneNumberController,
-                                  style: AppTheme
-                                      .themeData.textTheme.headlineLarge!
-                                      .copyWith(fontSize: 14),
-                                  decoration: InputDecoration(
-                                    contentPadding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 10),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: AppColors.lightGrey,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    labelStyle: AppTheme
-                                        .themeData.textTheme.labelSmall!
-                                        .copyWith(
-                                      color: _phoneNumberFocusNode.hasFocus
-                                          ? AppColors.mainDarkAccent
-                                          : AppColors.darkGrey,
-                                    ),
-                                    labelText: AppLocalizations.of(context)!
-                                        .phoneNumber,
-                                  ),
-                                ),
-                              ),
+                                  textController: _phoneNumberController,
+                                  labelText:
+                                      AppLocalizations.of(context)!.phoneNumber,
+                                  validator: Validator.validatePhone,
+                                  textInputType: TextInputType.phone,
+                                  isSavePressed: isSavePressed,
+                                  onChange: _clickable,
+                                  width: 244),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 26,
                           ),
-                          SizedBox(
-                            width: 521,
-                            height: 36,
-                            child: TextFormField(
-                              textAlign: TextAlign.start,
+                          CustomTextFormField(
                               focusNode: _emailFocusNode,
-                              controller: _emailController,
-                              style: AppTheme.themeData.textTheme.headlineLarge!
-                                  .copyWith(fontSize: 14),
-                              decoration: InputDecoration(
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
-                                prefixIcon: Icon(Icons.email,
-                                    color: AppColors.darkGrey),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.lightGrey,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                labelStyle: AppTheme
-                                    .themeData.textTheme.labelSmall!
-                                    .copyWith(
-                                        color: _emailFocusNode.hasFocus
-                                            ? AppColors.mainDarkAccent
-                                            : AppColors.darkGrey),
-                                labelText: AppLocalizations.of(context)!.email,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
+                              textController: _emailController,
+                              labelText: AppLocalizations.of(context)!.email,
+                              validator: Validator.validateEmail,
+                              textInputType: TextInputType.emailAddress,
+                              isSavePressed: isSavePressed,
+                              onChange: _clickable,
+                              width: 521),
+                          const SizedBox(
                             height: 35,
                           ),
-                          SizedBox(
+                          CustomTextFormField(
+                            focusNode: _descriptionFocusNode,
+                            textController: _descriptionController,
+                            labelText:
+                                AppLocalizations.of(context)!.description,
+                            validator: Validator.validate,
+                            textInputType: TextInputType.text,
+                            isSavePressed: isSavePressed,
+                            onChange: _clickable,
                             width: 521,
                             height: 86,
-                            child: TextFormField(
-                              maxLines: 5,
-                              textAlign: TextAlign.start,
-                              textAlignVertical: TextAlignVertical.top,
-                              focusNode: _descriptionFocusNode,
-                              controller: _descriptionController,
-                              style: AppTheme.themeData.textTheme.headlineLarge!
-                                  .copyWith(fontSize: 14),
-                              decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: AppColors.lightGrey,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                alignLabelWithHint: true,
-                                labelStyle: AppTheme
-                                    .themeData.textTheme.labelSmall!
-                                    .copyWith(
-                                        color: _descriptionFocusNode.hasFocus
-                                            ? AppColors.mainDarkAccent
-                                            : AppColors.darkGrey),
-                                labelText:
-                                    AppLocalizations.of(context)!.description,
-                              ),
-                            ),
+                            maxLines: 5,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 18),
@@ -1093,12 +728,14 @@ class _ContactState extends State<Contact> {
                                               BorderRadius.circular(5)),
                                       activeColor: AppColors.mainAccent,
                                       value: _checkboxValue,
-                                      onChanged: (_checkboxValue) {
-                                        _checkboxValue = !_checkboxValue!;
+                                      onChanged: (_checkbox) {
                                         print('_checkboxValue $_checkboxValue');
+                                        setState(() {
+                                          _checkboxValue = _checkbox!;
+                                        });
                                       }),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 19,
                                 ),
                                 RichText(
@@ -1133,34 +770,37 @@ class _ContactState extends State<Contact> {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 36,
                           ),
                           SizedBox(
                             width: 521,
-                            height: 36,
                             child: MouseRegion(
                               cursor: SystemMouseCursors.click,
-                              child: MaterialButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                onPressed: () {},
-                                color: AppColors.mainAccent,
-                                hoverColor: AppColors.mainDarkAccent,
-                                // style: ElevatedButton.styleFrom(
-                                //     backgroundColor: AppColors.mainAccent,
-                                //     padding: const EdgeInsets.symmetric(
-                                //         horizontal: 50, vertical: 20),
-                                //     shape: const RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.all(
-                                //             Radius.circular(8)))),
-                                child: Text(AppLocalizations.of(context)!.send,
-                                    style: AppTheme
-                                        .themeData.textTheme.labelSmall!
-                                        .copyWith(
-                                      color: Colors.white,
-                                    )),
-                              ),
+                              onEnter: (_) {
+                                setState(() {
+                                  isHoveredButton = !isHoveredButton;
+                                });
+                              },
+                              onExit: (_) {
+                                setState(() {
+                                  isHoveredButton = !isHoveredButton;
+                                });
+                              },
+                              child: AppElevatedButton(
+                                  text: AppLocalizations.of(context)!.send,
+                                  verticalPadding: 10,
+                                  color: isHoveredButton
+                                      ? AppColors.mainDarkAccent
+                                      : AppColors.mainAccent,
+                                  textStyle: Theme.of(context).textTheme.labelSmall!
+                                      .copyWith(color: Colors.white),
+                                  onPressed: _isClickable
+                                      ? () {
+                                          isSavePressed = true;
+                                          print('pressed');
+                                        }
+                                      : null),
                             ),
                           ),
                         ],
@@ -1178,6 +818,5 @@ class _ContactState extends State<Contact> {
         const Footer(),
       ],
     );
-    ;
   }
 }

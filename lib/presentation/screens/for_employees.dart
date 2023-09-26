@@ -236,10 +236,16 @@ class _ForEmployeesState extends State<ForEmployees> {
                                   ),
                                 ),
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              MouseRegion(
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                onTap: () {
+                                  router.go('/contact');
+                                },
+                              child: MouseRegion(
                                 cursor: SystemMouseCursors.click,
                                 onEnter: (_) {
                                   setState(() {
@@ -263,7 +269,7 @@ class _ForEmployeesState extends State<ForEmployees> {
                                       }
                                       _formKey.currentState!.save();
                                     }),
-                              ),
+                              ))),
                               const SizedBox(
                                 height: 16,
                               ),

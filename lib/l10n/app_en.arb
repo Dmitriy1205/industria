@@ -105,5 +105,10 @@
  "cookieAuthenticationSession": "Authentication session",
  "acceptAll": "Accept All",
  "acceptSelected": "Accept Selected",
- "rejectAll": "Reject All"
+ "rejectAll": "Reject All",
+
+ "dateOfBirth": "Date of birth",
+ "citizenship": "Citizenship",
+ "gender": "Gender",
+ "availabilityDate": "Availability date"
 }

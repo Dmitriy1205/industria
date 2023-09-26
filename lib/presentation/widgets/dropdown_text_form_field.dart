@@ -98,13 +98,18 @@ class _DropdownTextFieldState extends State<DropdownTextField> {
       errorText: widget.errorText,
       width: widget.width,
       inputDecorationTheme: InputDecorationTheme(
-        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 14),
         constraints:
             BoxConstraints(maxHeight: 40 + (widget.errorText != null ? 24 : 0)),
         labelStyle: Theme.of(context)
             .textTheme
             .labelSmall!
             .copyWith(color: AppColors.darkGrey),
+      ),
+      selectedTrailingIcon: const Icon(
+        FontAwesomeIcons.caretUp,
+        size: 15,
+        color: AppColors.darkGrey,
       ),
       trailingIcon: const Icon(
         FontAwesomeIcons.caretDown,

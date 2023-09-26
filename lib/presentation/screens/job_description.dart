@@ -3,7 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/nationalities.dart';
+import 'package:industria/core/enums/job_types.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:industria/core/extensions/time.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
@@ -137,7 +139,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                   width: 18,
                                 ),
                                 Text(
-                                  'Back to jobs',
+                                  AppLocalizations.of(context)!.backToJobs,
                                   style: AppTheme.themeData.textTheme.titleMedium!
                                       .copyWith(color: AppColors.mainAccent),
                                 ),
@@ -162,7 +164,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                       fontWeight: FontWeight.w600, fontSize: 32),
                                 ),
                                 Text(
-                                  widget.job.jobType,
+                                  JobTypes.fromString(widget.job.jobType)!.localizedString(context),
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineLarge
@@ -199,7 +201,7 @@ class _JobDescriptionState extends State<JobDescription> {
                           height: 30,
                         ),
                         Text(
-                          "Job description",
+                          AppLocalizations.of(context)!.jobDescription,
                           style: Theme.of(context)
                               .textTheme
                               .headlineLarge
@@ -440,7 +442,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                 allowedTypes: ["png","jpg","jpeg"],
                                 singlePick: true,
                                 validationError: "Missing picture",
-                                icon: FontAwesomeIcons.solidUser, hint: "Drag your picture here *", pickedFilesNames: photo == null ? [] : [photo!.filename], onPick: (file){
+                                icon: FontAwesomeIcons.solidUser, hint: AppLocalizations.of(context)!.dragPicture, pickedFilesNames: photo == null ? [] : [photo!.filename], onPick: (file){
                               setState(() {
                                 photo = file.first;
                               });
@@ -454,7 +456,7 @@ class _JobDescriptionState extends State<JobDescription> {
                               mandatory: true,
                                 validationError: "Missing cv",
                                 singlePick: true,
-                                icon: FontAwesomeIcons.solidFile, hint: "Drag your CV here *", pickedFilesNames: cv == null ? [] : [cv!.filename], onPick: (file){
+                                icon: FontAwesomeIcons.solidFile, hint: AppLocalizations.of(context)!.dragCv, pickedFilesNames: cv == null ? [] : [cv!.filename], onPick: (file){
                               setState(() {
                                 cv = file.first;
                               });
@@ -467,7 +469,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                 allowedTypes: ["pdf","png","jpeg","jpg"],
                                 singlePick: false,
                                 mandatory: false,
-                                icon: FontAwesomeIcons.solidFile, hint: "Drag your certificates here", pickedFilesNames: certificates.map((e) => e.filename).toList(), onPick: (files){
+                                icon: FontAwesomeIcons.solidFile, hint: AppLocalizations.of(context)!.dragCv, pickedFilesNames: certificates.map((e) => e.filename).toList(), onPick: (files){
                               setState(() {
                                 certificates = files;
                               });
@@ -475,7 +477,7 @@ class _JobDescriptionState extends State<JobDescription> {
                           ),
                         ].map((e) => e).toList(),),
                         SizedBox(height: 15,),
-                        Text("*  - mandatory fields", style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: 12),),
+                        Text(AppLocalizations.of(context)!.mandatoryFields, style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: 12),),
                         SizedBox(height: 15,),
                         Row(
                           children: [
@@ -486,26 +488,28 @@ class _JobDescriptionState extends State<JobDescription> {
                               _clickable(val);
                             }),
                             SizedBox(width: 19,),
-                            RichText(
-                              text: TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: 'I accept application ',
-                                    style: Theme.of(context).textTheme.labelSmall,
-                                  ),
-                                  TextSpan(
-                                    text: 'Data Protection',
-                                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: AppColors.mainDarkAccent),
-                                    recognizer: TapGestureRecognizer()
-                                      ..onTap = () {
-
-                                      },
-                                  ),
-                                  TextSpan(
-                                    text: ' policy',
-                                    style: Theme.of(context).textTheme.labelSmall,
-                                  ),
-                                ],
+                            Expanded(
+                              child: RichText(
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.iAcceptApplicationDataProtectionPolicy,
+                                      style: Theme.of(context).textTheme.labelSmall,
+                                    ),
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.dataProtection.trim(),
+                                      style: Theme.of(context).textTheme.labelSmall?.copyWith(color: AppColors.mainDarkAccent),
+                                      recognizer: TapGestureRecognizer()
+                                        ..onTap = () {
+                                          context.push('/dataprotection');
+                                        },
+                                    ),
+                                    TextSpan(
+                                      text: ' ${AppLocalizations.of(context)!.iAcceptApplicationDataProtectionPolicy}',
+                                      style: Theme.of(context).textTheme.labelSmall,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],

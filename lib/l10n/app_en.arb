@@ -110,5 +110,11 @@
  "dateOfBirth": "Date of birth*",
  "citizenship": "Citizenship*",
  "gender": "Gender*",
- "availabilityDate": "Availability date*"
+ "availabilityDate": "Availability date*",
+ "mandatoryFields": "*  - mandatory fields",
+ "dragCertificates": "Drag your certificates here",
+ "dragCv": "Drag your CV here *",
+ "dragPicture": "Drag your picture here *",
+ "backToJobs": "Back to jobs",
+ "jobDescription": "Job description"
 }

@@ -111,6 +111,11 @@
    "dateOfBirth": "Geburtsdatum*",
    "citizenship": "Staatsbürgerschaft*",
    "gender": "Geschlecht*",
-   "availabilityDate": "Verfügbarkeitsdatum*"
-
+   "availabilityDate": "Verfügbarkeitsdatum*",
+   "mandatoryFields": "* - benötigte felder",
+   "dragCertificates": "Ziehen Sie Ihre Zertifikate hierher",
+   "dragCv": "Ziehen Sie Ihren Lebenslauf hierher *",
+   "dragPicture": "Ziehen Sie Ihr Bild hierher *",
+   "backToJobs": "Zurück zu den Jobs",
+   "jobDescription": "Arbeitsbeschreibung"
 }

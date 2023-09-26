@@ -13,7 +13,7 @@
  "cookie":"Cookies policy",
  "cookies":"Cookies",
  "imprint":"Imprint",
- "address":"Address",
+ "address":"Address*",
  "managingDirector":"Managing Director",
  "salesDirector":"Sales Director",
  "operationsDirector":"Operations Director",
@@ -107,8 +107,8 @@
  "acceptSelected": "Accept Selected",
  "rejectAll": "Reject All",
 
- "dateOfBirth": "Date of birth",
- "citizenship": "Citizenship",
- "gender": "Gender",
- "availabilityDate": "Availability date"
+ "dateOfBirth": "Date of birth*",
+ "citizenship": "Citizenship*",
+ "gender": "Gender*",
+ "availabilityDate": "Availability date*"
 }

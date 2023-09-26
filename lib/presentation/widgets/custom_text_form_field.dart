@@ -90,7 +90,7 @@ class CustomTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+              const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
           alignLabelWithHint: true,
           labelStyle: AppTheme.themeData.textTheme.labelSmall!.copyWith(
               color: focusNode.hasFocus

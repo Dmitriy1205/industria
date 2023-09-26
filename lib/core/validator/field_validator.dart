@@ -15,7 +15,7 @@ class Validator {
     RegExp regExp = RegExp(pattern);
     FilteringTextInputFormatter.digitsOnly;
 
-    if (value!.isNotEmpty && !regExp.hasMatch(value!)) {
+    if (value!.isNotEmpty && !regExp.hasMatch(value)) {
       return 'Please enter valid mobile number';
     } else {
       return null;
@@ -23,7 +23,7 @@ class Validator {
   }
 
   static String? validate(String? value) {
-    if (value!.isEmpty) {
+    if (value == null || value.isEmpty) {
       return "Field can't be empty";
     } else {
       return null;

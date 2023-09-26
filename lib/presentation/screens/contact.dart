@@ -1,9 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 import 'package:industria/presentation/widgets/steps.dart';
 
+import '../../app/router.dart';
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
 import '../../core/validator/field_validator.dart';
@@ -21,7 +23,7 @@ class _ContactState extends State<Contact> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _companyNameNameController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -39,7 +41,7 @@ class _ContactState extends State<Contact> {
   bool isHoveredButton = false;
   bool _isClickable = false;
   final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
-  GlobalKey<ScaffoldMessengerState>();
+      GlobalKey<ScaffoldMessengerState>();
 
   void _clickable(_) {
     if (_firstNameController.text.isEmpty ||
@@ -108,10 +110,10 @@ class _ContactState extends State<Contact> {
                               textAlign: TextAlign.center,
                               style: AppTheme.themeData.textTheme.titleMedium!
                                   .copyWith(
-                                  fontSize: 18,
-                                  color: AppColors.darkGrey,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.w400),
+                                      fontSize: 18,
+                                      color: AppColors.darkGrey,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.w400),
                             ),
                           ),
                           Padding(
@@ -162,7 +164,7 @@ class _ContactState extends State<Contact> {
                                       child: CustomTextFormField(
                                         focusNode: _companyNameFocusNode,
                                         textController:
-                                        _companyNameNameController,
+                                            _companyNameNameController,
                                         labelText: AppLocalizations.of(context)!
                                             .companyName,
                                         validator: Validator.validate,
@@ -182,8 +184,8 @@ class _ContactState extends State<Contact> {
                                             .phoneNumber,
                                         validator: Validator.validatePhone,
                                         inputFormatter:
-                                        FilteringTextInputFormatter
-                                            .digitsOnly,
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
                                         textInputType: TextInputType.phone,
                                         isSavePressed: isSavePressed,
                                         onChange: _clickable,
@@ -199,7 +201,7 @@ class _ContactState extends State<Contact> {
                                   focusNode: _emailFocusNode,
                                   textController: _emailController,
                                   labelText:
-                                  AppLocalizations.of(context)!.email,
+                                      AppLocalizations.of(context)!.email,
                                   validator: Validator.validateEmail,
                                   textInputType: TextInputType.emailAddress,
                                   isSavePressed: isSavePressed,
@@ -213,7 +215,7 @@ class _ContactState extends State<Contact> {
                                   focusNode: _descriptionFocusNode,
                                   textController: _descriptionController,
                                   labelText:
-                                  AppLocalizations.of(context)!.description,
+                                      AppLocalizations.of(context)!.description,
                                   validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
@@ -233,7 +235,7 @@ class _ContactState extends State<Contact> {
                                         child: Checkbox(
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                BorderRadius.circular(5)),
+                                                    BorderRadius.circular(5)),
                                             activeColor: AppColors.mainAccent,
                                             value: _checkboxValue,
                                             onChanged: (checkbox) {
@@ -249,37 +251,37 @@ class _ContactState extends State<Contact> {
                                       ),
                                       RichText(
                                           text: TextSpan(
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: AppLocalizations.of(context)!
-                                                    .iAcceptApplicationDataProtectionPolicy,
-                                                style: AppTheme
-                                                    .themeData.textTheme.labelSmall!
-                                                    .copyWith(
-                                                  color: AppColors.darkGrey,
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                  text:
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: AppLocalizations.of(context)!
+                                                .iAcceptApplicationDataProtectionPolicy,
+                                            style: AppTheme
+                                                .themeData.textTheme.labelSmall!
+                                                .copyWith(
+                                              color: AppColors.darkGrey,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                              text:
                                                   AppLocalizations.of(context)!
                                                       .dataProtection,
-                                                  style: AppTheme.themeData
-                                                      .textTheme.labelSmall!
-                                                      .copyWith(
+                                              style: AppTheme.themeData
+                                                  .textTheme.labelSmall!
+                                                  .copyWith(
                                                       color:
-                                                      AppColors.mainAccent),
-                                                  mouseCursor:
+                                                          AppColors.mainAccent),
+                                              mouseCursor:
                                                   SystemMouseCursors.click),
-                                              TextSpan(
-                                                text: AppLocalizations.of(context)!
-                                                    .policy,
-                                                style: AppTheme
-                                                    .themeData.textTheme.labelSmall!
-                                                    .copyWith(
+                                          TextSpan(
+                                            text: AppLocalizations.of(context)!
+                                                .policy,
+                                            style: AppTheme
+                                                .themeData.textTheme.labelSmall!
+                                                .copyWith(
                                                     color: AppColors.darkGrey),
-                                              ),
-                                            ],
-                                          ))
+                                          ),
+                                        ],
+                                      ))
                                     ],
                                   ),
                                 ),
@@ -302,24 +304,25 @@ class _ContactState extends State<Contact> {
                                     },
                                     child: AppElevatedButton(
                                         text:
-                                        AppLocalizations.of(context)!.send,
+                                            AppLocalizations.of(context)!.send,
                                         color: isHoveredButton
                                             ? AppColors.mainDarkAccent
                                             : AppColors.mainAccent,
                                         textStyle: AppTheme
                                             .themeData.textTheme.labelSmall!
                                             .copyWith(color: Colors.white),
-                                        onPressed: _isClickable
-                                            ? () {
-                                          isSavePressed = true;
-                                          print('pressed');
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            _showProgressSnackBar();
-                                            _showSuccessSnackBar();
-                                          }
-                                        }
-                                            : null),
+                                        onPressed:
+                                            _isClickable && _checkboxValue
+                                                ? () {
+                                                    isSavePressed = true;
+                                                    print('pressed');
+                                                    if (_formKey.currentState!
+                                                        .validate()) {
+                                                      _showProgressSnackBar();
+                                                      _showSuccessSnackBar();
+                                                    }
+                                                  }
+                                                : null),
                                   ),
                                 ),
                               ],
@@ -365,10 +368,10 @@ class _ContactState extends State<Contact> {
                             textAlign: TextAlign.center,
                             style: AppTheme.themeData.textTheme.titleMedium!
                                 .copyWith(
-                                fontSize: 18,
-                                color: AppColors.darkGrey,
-                                fontStyle: FontStyle.italic,
-                                fontWeight: FontWeight.w400),
+                                    fontSize: 18,
+                                    color: AppColors.darkGrey,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.w400),
                           ),
                         ),
                         Padding(
@@ -416,7 +419,7 @@ class _ContactState extends State<Contact> {
                                     CustomTextFormField(
                                         focusNode: _companyNameFocusNode,
                                         textController:
-                                        _companyNameNameController,
+                                            _companyNameNameController,
                                         labelText: AppLocalizations.of(context)!
                                             .companyName,
                                         validator: Validator.validate,
@@ -446,7 +449,7 @@ class _ContactState extends State<Contact> {
                                     focusNode: _emailFocusNode,
                                     textController: _emailController,
                                     labelText:
-                                    AppLocalizations.of(context)!.email,
+                                        AppLocalizations.of(context)!.email,
                                     validator: Validator.validateEmail,
                                     textInputType: TextInputType.emailAddress,
                                     isSavePressed: isSavePressed,
@@ -459,7 +462,7 @@ class _ContactState extends State<Contact> {
                                   focusNode: _descriptionFocusNode,
                                   textController: _descriptionController,
                                   labelText:
-                                  AppLocalizations.of(context)!.description,
+                                      AppLocalizations.of(context)!.description,
                                   validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
@@ -479,7 +482,7 @@ class _ContactState extends State<Contact> {
                                         child: Checkbox(
                                             shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                BorderRadius.circular(5)),
+                                                    BorderRadius.circular(5)),
                                             activeColor: AppColors.mainAccent,
                                             value: _checkboxValue,
                                             onChanged: (checkbox) {
@@ -495,37 +498,37 @@ class _ContactState extends State<Contact> {
                                       ),
                                       RichText(
                                           text: TextSpan(
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                text: AppLocalizations.of(context)!
-                                                    .iAcceptApplicationDataProtectionPolicy,
-                                                style: AppTheme
-                                                    .themeData.textTheme.labelSmall!
-                                                    .copyWith(
-                                                  color: AppColors.darkGrey,
-                                                ),
-                                              ),
-                                              TextSpan(
-                                                  text:
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: AppLocalizations.of(context)!
+                                                .iAcceptApplicationDataProtectionPolicy,
+                                            style: AppTheme
+                                                .themeData.textTheme.labelSmall!
+                                                .copyWith(
+                                              color: AppColors.darkGrey,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                              text:
                                                   AppLocalizations.of(context)!
                                                       .dataProtection,
-                                                  style: AppTheme.themeData
-                                                      .textTheme.labelSmall!
-                                                      .copyWith(
+                                              style: AppTheme.themeData
+                                                  .textTheme.labelSmall!
+                                                  .copyWith(
                                                       color:
-                                                      AppColors.mainAccent),
-                                                  mouseCursor:
+                                                          AppColors.mainAccent),
+                                              mouseCursor:
                                                   SystemMouseCursors.click),
-                                              TextSpan(
-                                                text: AppLocalizations.of(context)!
-                                                    .policy,
-                                                style: AppTheme
-                                                    .themeData.textTheme.labelSmall!
-                                                    .copyWith(
+                                          TextSpan(
+                                            text: AppLocalizations.of(context)!
+                                                .policy,
+                                            style: AppTheme
+                                                .themeData.textTheme.labelSmall!
+                                                .copyWith(
                                                     color: AppColors.darkGrey),
-                                              ),
-                                            ],
-                                          ))
+                                          ),
+                                        ],
+                                      ))
                                     ],
                                   ),
                                 ),
@@ -548,24 +551,25 @@ class _ContactState extends State<Contact> {
                                     },
                                     child: AppElevatedButton(
                                         text:
-                                        AppLocalizations.of(context)!.send,
+                                            AppLocalizations.of(context)!.send,
                                         color: isHoveredButton
                                             ? AppColors.mainDarkAccent
                                             : AppColors.mainAccent,
                                         textStyle: AppTheme
                                             .themeData.textTheme.labelSmall!
                                             .copyWith(color: Colors.white),
-                                        onPressed: _isClickable
-                                            ? () {
-                                          isSavePressed = true;
-                                          print('pressed');
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            _showProgressSnackBar();
-                                            _showSuccessSnackBar();
-                                          }
-                                        }
-                                            : null),
+                                        onPressed:
+                                            _isClickable && _checkboxValue
+                                                ? () {
+                                                    isSavePressed = true;
+                                                    print('pressed');
+                                                    if (_formKey.currentState!
+                                                        .validate()) {
+                                                      _showProgressSnackBar();
+                                                      _showSuccessSnackBar();
+                                                    }
+                                                  }
+                                                : null),
                                   ),
                                 ),
                               ],
@@ -626,7 +630,7 @@ class _ContactState extends State<Contact> {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.only(left: 101.0, right: 120, top: 129),
+                      const EdgeInsets.only(left: 101.0, right: 120, top: 129),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -640,7 +644,7 @@ class _ContactState extends State<Contact> {
                                 style: AppTheme
                                     .themeData.textTheme.headlineMedium!
                                     .copyWith(
-                                    color: Colors.black, fontSize: 24)),
+                                        color: Colors.black, fontSize: 24)),
                             const SizedBox(
                               height: 15,
                             ),
@@ -665,7 +669,7 @@ class _ContactState extends State<Contact> {
                                   focusNode: _firstNameFocusNode,
                                   textController: _firstNameController,
                                   labelText:
-                                  AppLocalizations.of(context)!.firstname,
+                                      AppLocalizations.of(context)!.firstname,
                                   validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
@@ -678,7 +682,7 @@ class _ContactState extends State<Contact> {
                                   focusNode: _lastNameFocusNode,
                                   textController: _lastNameController,
                                   labelText:
-                                  AppLocalizations.of(context)!.lastname,
+                                      AppLocalizations.of(context)!.lastname,
                                   validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
@@ -695,7 +699,7 @@ class _ContactState extends State<Contact> {
                                   focusNode: _companyNameFocusNode,
                                   textController: _companyNameNameController,
                                   labelText:
-                                  AppLocalizations.of(context)!.companyName,
+                                      AppLocalizations.of(context)!.companyName,
                                   validator: Validator.validate,
                                   textInputType: TextInputType.text,
                                   isSavePressed: isSavePressed,
@@ -708,7 +712,7 @@ class _ContactState extends State<Contact> {
                                   focusNode: _phoneNumberFocusNode,
                                   textController: _phoneNumberController,
                                   labelText:
-                                  AppLocalizations.of(context)!.phoneNumber,
+                                      AppLocalizations.of(context)!.phoneNumber,
                                   validator: Validator.validatePhone,
                                   textInputType: TextInputType.phone,
                                   isSavePressed: isSavePressed,
@@ -735,7 +739,7 @@ class _ContactState extends State<Contact> {
                             focusNode: _descriptionFocusNode,
                             textController: _descriptionController,
                             labelText:
-                            AppLocalizations.of(context)!.description,
+                                AppLocalizations.of(context)!.description,
                             validator: Validator.validate,
                             textInputType: TextInputType.text,
                             isSavePressed: isSavePressed,
@@ -755,7 +759,7 @@ class _ContactState extends State<Contact> {
                                   child: Checkbox(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(5)),
+                                              BorderRadius.circular(5)),
                                       activeColor: AppColors.mainAccent,
                                       value: _checkboxValue,
                                       onChanged: (_checkbox) {
@@ -770,33 +774,37 @@ class _ContactState extends State<Contact> {
                                 ),
                                 RichText(
                                     text: TextSpan(
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                          text: AppLocalizations.of(context)!
-                                              .iAcceptApplicationDataProtectionPolicy,
-                                          style: AppTheme
-                                              .themeData.textTheme.labelSmall!
-                                              .copyWith(
-                                            color: AppColors.darkGrey,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                            text: AppLocalizations.of(context)!
-                                                .dataProtection,
-                                            style: AppTheme
-                                                .themeData.textTheme.labelSmall!
-                                                .copyWith(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!
+                                          .iAcceptApplicationDataProtectionPolicy,
+                                      style: AppTheme
+                                          .themeData.textTheme.labelSmall!
+                                          .copyWith(
+                                        color: AppColors.darkGrey,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                        text: AppLocalizations.of(context)!
+                                            .dataProtection,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall!
+                                            .copyWith(
                                                 color: AppColors.mainAccent),
-                                            mouseCursor: SystemMouseCursors.click),
-                                        TextSpan(
-                                          text:
+                                        mouseCursor: SystemMouseCursors.click,
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            router.go('/dataprotection');
+                                          }),
+                                    TextSpan(
+                                      text:
                                           AppLocalizations.of(context)!.policy,
-                                          style: AppTheme
-                                              .themeData.textTheme.labelSmall!
-                                              .copyWith(color: AppColors.darkGrey),
-                                        ),
-                                      ],
-                                    ))
+                                      style: AppTheme
+                                          .themeData.textTheme.labelSmall!
+                                          .copyWith(color: AppColors.darkGrey),
+                                    ),
+                                  ],
+                                ))
                               ],
                             ),
                           ),
@@ -823,19 +831,21 @@ class _ContactState extends State<Contact> {
                                   color: isHoveredButton
                                       ? AppColors.mainDarkAccent
                                       : AppColors.mainAccent,
-                                  textStyle: Theme.of(context).textTheme.labelSmall!
+                                  textStyle: Theme.of(context)
+                                      .textTheme
+                                      .labelSmall!
                                       .copyWith(color: Colors.white),
-                                  onPressed: _isClickable
+                                  onPressed: _isClickable && _checkboxValue
                                       ? () {
-                                    isSavePressed = true;
-                                    print('pressed1');
-                                    if (_formKey.currentState!
-                                        .validate()) {
-                                      print('validate');
-                                      _showProgressSnackBar();
-                                      _showSuccessSnackBar();
-                                    }
-                                  }
+                                          isSavePressed = true;
+                                          print('pressed1 $_checkboxValue');
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            print('validate');
+                                            _showProgressSnackBar();
+                                            _showSuccessSnackBar();
+                                          }
+                                        }
                                       : null),
                             ),
                           ),
@@ -893,7 +903,8 @@ class _ContactState extends State<Contact> {
         behavior: SnackBarBehavior.floating,
         content: SizedBox(
           height: 35,
-          child: Row(crossAxisAlignment: CrossAxisAlignment.center,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               (Text(
                 'Successfully sent',

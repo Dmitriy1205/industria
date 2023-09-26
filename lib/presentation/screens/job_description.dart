@@ -117,8 +117,8 @@ class _JobDescriptionState extends State<JobDescription> {
                 child: Padding(
                   padding: EdgeInsets.only(
                       top: 70.0,
-                      left: constraints.maxWidth < 1000 ? 20 : 260,
-                      right: constraints.maxWidth < 1000 ? 20 : 260),
+                      left: constraints.maxWidth < 1000 ? 24 : 260,
+                      right: constraints.maxWidth < 1000 ? 24 : 260),
                   child: Form(
                     key: _formKey,
                     child: Column(

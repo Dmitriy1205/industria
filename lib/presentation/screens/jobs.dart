@@ -334,7 +334,7 @@ class _JobsState extends State<Jobs> {
         SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 20,
+                horizontal: 24,
                 vertical: 43),
             child: Column(
               children: [

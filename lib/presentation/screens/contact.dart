@@ -314,7 +314,7 @@ class _ContactState extends State<Contact> {
                                                 if (_formKey.currentState!
                                                     .validate()) {
                                                   _showProgressSnackBar();
-                                                  _showErrorSnackBar('errorMessage');
+                                                  _showSuccessSnackBar();
                                                 }
                                               }
                                             : null),
@@ -560,7 +560,7 @@ class _ContactState extends State<Contact> {
                                                 if (_formKey.currentState!
                                                     .validate()) {
                                                   _showProgressSnackBar();
-                                                  _showSucessSnackBar();
+                                                  _showSuccessSnackBar();
                                                 }
                                               }
                                             : null),
@@ -836,7 +836,7 @@ class _ContactState extends State<Contact> {
                                                 .validate()) {
                                               print('validate');
                                               _showProgressSnackBar();
-                                              _showSucessSnackBar();
+                                              _showSuccessSnackBar();
                                             }
                                           }
                                         : null),
@@ -864,28 +864,48 @@ class _ContactState extends State<Contact> {
     print(
         '_scaffoldMessengerKey.currentState! ${_scaffoldMessengerKey.currentState!}');
     _scaffoldMessengerKey.currentState!.showSnackBar(const SnackBar(
-      backgroundColor: AppColors.lightGrey,
+      backgroundColor: Colors.white,
       behavior: SnackBarBehavior.floating,
-      content: (Text(
-        'Data sending in progress..',
-        style: TextStyle(color: Colors.black),
-      )),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+        side: BorderSide.none,
+      ),
+      content: SizedBox(
+        height: 35,
+        child: Row(
+          children: [
+            CircularProgressIndicator(color: AppColors.mainAccent),
+            SizedBox(width: 20),
+            Text(
+              'Data sending in progress..',
+              style: TextStyle(color: Colors.black),
+            ),
+          ],
+        ),
+      ),
       duration: Duration(seconds: 3),
     ));
   }
 
-  Future<void> _showSucessSnackBar() async {
+  Future<void> _showSuccessSnackBar() async {
     print('second');
     await Future.delayed(Duration(seconds: 3));
     _scaffoldMessengerKey.currentState!.removeCurrentSnackBar();
     _scaffoldMessengerKey.currentState!.showSnackBar(
       const SnackBar(
-        backgroundColor: AppColors.lightGrey,
+        backgroundColor: Colors.white,
         behavior: SnackBarBehavior.floating,
-        content: (Text(
-          'Successfully sent',
-          style: TextStyle(color: Colors.black),
-        )),
+        content: SizedBox(
+          height: 35,
+          child: Row(crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              (Text(
+                'Successfully sent',
+                style: TextStyle(color: Colors.black),
+              )),
+            ],
+          ),
+        ),
         duration: Duration(seconds: 3),
       ),
     );

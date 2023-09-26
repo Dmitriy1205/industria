@@ -103,7 +103,7 @@ class _ForEmployeesState extends State<ForEmployees> {
                                         decoration: InputDecoration(
                                           enabledBorder: OutlineInputBorder(
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                            BorderRadius.circular(10),
                                             borderSide: BorderSide(
                                               color: isHoveredEmail
                                                   ? AppColors.darkGrey
@@ -111,8 +111,8 @@ class _ForEmployeesState extends State<ForEmployees> {
                                             ),
                                           ),
                                           contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 10, horizontal: 10),
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10, horizontal: 10),
                                           hintStyle: AppTheme
                                               .themeData.textTheme.labelSmall,
                                           hintText: AppLocalizations.of(context)!
@@ -156,7 +156,7 @@ class _ForEmployeesState extends State<ForEmployees> {
                                         decoration: InputDecoration(
                                           enabledBorder: OutlineInputBorder(
                                             borderRadius:
-                                                BorderRadius.circular(10),
+                                            BorderRadius.circular(10),
                                             borderSide: BorderSide(
                                               color: isHoveredPass
                                                   ? AppColors.darkGrey
@@ -164,8 +164,8 @@ class _ForEmployeesState extends State<ForEmployees> {
                                             ),
                                           ),
                                           contentPadding:
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 10, horizontal: 10),
+                                          const EdgeInsets.symmetric(
+                                              vertical: 10, horizontal: 10),
                                           hintText: AppLocalizations.of(context)!
                                               .password,
                                           hintStyle: AppTheme
@@ -184,7 +184,7 @@ class _ForEmployeesState extends State<ForEmployees> {
                                           ),
                                           suffixIcon: Padding(
                                             padding:
-                                                const EdgeInsets.only(right: 10),
+                                            const EdgeInsets.only(right: 10),
                                             child: IconButton(
                                               onPressed: () {
                                                 setState(() {
@@ -193,16 +193,16 @@ class _ForEmployeesState extends State<ForEmployees> {
                                               },
                                               icon: isPassObscure
                                                   ? const FaIcon(
-                                                      FontAwesomeIcons
-                                                          .solidEyeSlash,
-                                                      size: 15,
-                                                      color: AppColors.darkGrey,
-                                                    )
+                                                FontAwesomeIcons
+                                                    .solidEyeSlash,
+                                                size: 15,
+                                                color: AppColors.darkGrey,
+                                              )
                                                   : const FaIcon(
-                                                      FontAwesomeIcons.solidEye,
-                                                      size: 15,
-                                                      color: AppColors.darkGrey,
-                                                    ),
+                                                FontAwesomeIcons.solidEye,
+                                                size: 15,
+                                                color: AppColors.darkGrey,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -236,83 +236,13 @@ class _ForEmployeesState extends State<ForEmployees> {
                                   ),
                                 ),
                               ),
-                            const SizedBox(
-                              height: 57,
-                            ),
-                            MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              onEnter: (_) {
-                                setState(() {
-                                  isHoveredButton = !isHoveredButton;
-                                });
-                              },
-                              onExit: (_) {
-                                setState(() {
-                                  isHoveredButton = !isHoveredButton;
-                                });
-                              },
-                              child: AppElevatedButton(
-                                  text: AppLocalizations.of(context)!.signIn,
-                                  color: isHoveredButton
-                                      ? AppColors.mainDarkAccent
-                                      : AppColors.mainAccent,
-                                  textStyle: AppTheme.themeData.textTheme.headlineLarge!
-                                      .copyWith(fontSize: 22,color: Colors.white),
-                                  onPressed: () {
-                                    if (!_formKey.currentState!.validate()) {
-                                      return;
-                                    }
-                                    _formKey.currentState!.save();
-                                  }),
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              child: GestureDetector(
-                                onTap: () {
-                                  router.go('/contact');
-                                },
-                              child: MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                onEnter: (_) {
-                                  setState(() {
-                                    isHoveredButton = !isHoveredButton;
-                                  });
-                                },
-                                onExit: (_) {
-                                  setState(() {
-                                    isHoveredButton = !isHoveredButton;
-                                  });
-                                },
-                                child: AppElevatedButton(
-                                    verticalPadding: 10,
-                                    text: AppLocalizations.of(context)!.signIn,
-                                    color: isHoveredButton
-                                        ? AppColors.mainDarkAccent
-                                        : AppColors.mainAccent,
-                                    onPressed: () {
-                                      if (!_formKey.currentState!.validate()) {
-                                        return;
-                                      }
-                                      _formKey.currentState!.save();
-                                    }),
-                              ))),
                               const SizedBox(
-                                height: 16,
+                                height: 57,
                               ),
                               Center(
-                                child: MouseRegion(
-                                  cursor: SystemMouseCursors.click,
                                   child: GestureDetector(
                                     onTap: () {
                                       router.go('/contact');
-                                    },
-                                    onExit: (_) {
-                                      setState(() {
-                                        isHoveredButton = !isHoveredButton;
-                                      });
                                     },
                                     child: AppElevatedButton(
                                         verticalPadding: 10,
@@ -328,28 +258,7 @@ class _ForEmployeesState extends State<ForEmployees> {
                                           }
                                           _formKey.currentState!.save();
                                         }),
-                                  );
-                                  const SizedBox(
-                                    height: 16,
-                                  );
-                                  Center(
-                                    child: MouseRegion(
-                                      cursor: SystemMouseCursors.click,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          router.go('/contact');
-                                        },
-                                        child: Text(
-                                          AppLocalizations.of(context)!
-                                              .ifYouDontHaveAccount,
-                                          textAlign: TextAlign.center,
-                                          style: AppTheme
-                                              .themeData.textTheme.labelSmall,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                })) ],
+                                  )) ],
                           ),
                         ),
                       ),

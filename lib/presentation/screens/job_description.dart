@@ -2,13 +2,15 @@ import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/nationalities.dart';
 import 'package:industria/core/enums/job_types.dart';
 import 'package:industria/core/extensions/date.dart';
-import 'package:industria/core/extensions/time.dart';
+import 'package:industria/core/utils/time.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
+import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/bold_text_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -196,7 +198,7 @@ class _JobDescriptionState extends State<JobDescription> {
                           height: 12,
                         ),
                         _iconTextTile(FontAwesomeIcons.calendarWeek,
-                            getTimeAgo(widget.job.createdAt)),
+                            getTimeAgo(widget.job.createdAt, context.watch<LocalizationBloc>().state.locale.languageCode)),
                         SizedBox(
                           height: 30,
                         ),

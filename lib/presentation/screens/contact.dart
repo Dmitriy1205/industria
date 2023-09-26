@@ -20,7 +20,8 @@ class Contact extends StatefulWidget {
 class _ContactState extends State<Contact> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _companyNameNameController = TextEditingController();
+  final TextEditingController _companyNameNameController =
+      TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
@@ -110,211 +111,223 @@ class _ContactState extends State<Contact> {
                             top: 116,
                             left: MediaQuery.of(context).size.width / 11,
                             right: MediaQuery.of(context).size.width / 11),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CustomTextFormField(
-                                    focusNode: _firstNameFocusNode,
-                                    textController: _firstNameController,
-                                    labelText:
-                                        AppLocalizations.of(context)!.firstname,
-                                    validator: Validator.validate,
-                                    textInputType: TextInputType.text,
-                                    onChange: _clickable,
-                                    isSavePressed: isSavePressed,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 30,
-                                ),
-                                Expanded(
-                                  child: CustomTextFormField(
-                                    focusNode: _lastNameFocusNode,
-                                    textController: _lastNameController,
-                                    labelText:
-                                        AppLocalizations.of(context)!.lastname,
-                                    validator: Validator.validate,
-                                    textInputType: TextInputType.text,
-                                    onChange: _clickable,
-                                    isSavePressed: isSavePressed,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CustomTextFormField(
-                                    focusNode: _companyNameFocusNode,
-                                    textController: _companyNameNameController,
-                                    labelText: AppLocalizations.of(context)!
-                                        .companyName,
-                                    validator: Validator.validate,
-                                    textInputType: TextInputType.text,
-                                    onChange: _clickable,
-                                    isSavePressed: isSavePressed,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 30,
-                                ),
-                                Expanded(
-                                  child: CustomTextFormField(
-                                    focusNode: _phoneNumberFocusNode,
-                                    textController: _phoneNumberController,
-                                    labelText: AppLocalizations.of(context)!
-                                        .phoneNumber,
-                                    validator: Validator.validatePhone,
-                                    inputFormatter:
-                                        FilteringTextInputFormatter.digitsOnly,
-                                    textInputType: TextInputType.phone,
-                                    isSavePressed: isSavePressed,
-                                    onChange: _clickable,
-                                    width: 244,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 26,
-                            ),
-                            CustomTextFormField(
-                              focusNode: _emailFocusNode,
-                              textController: _emailController,
-                              labelText: AppLocalizations.of(context)!.email,
-                              validator: Validator.validateEmail,
-                              textInputType: TextInputType.emailAddress,
-                              isSavePressed: isSavePressed,
-                              onChange: _clickable,
-                              width: 521,
-                            ),
-                            const SizedBox(
-                              height: 35,
-                            ),
-                            CustomTextFormField(
-                              focusNode: _descriptionFocusNode,
-                              textController: _descriptionController,
-                              labelText:
-                                  AppLocalizations.of(context)!.description,
-                              validator: Validator.validate,
-                              textInputType: TextInputType.text,
-                              isSavePressed: isSavePressed,
-                              onChange: _clickable,
-                              width: 521,
-                              height: 86,
-                              maxLines: 5,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 18),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
-                                  SizedBox(
-                                    height: 26,
-                                    width: 26,
-                                    child: Checkbox(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        activeColor: AppColors.mainAccent,
-                                        value: _checkboxValue,
-                                        onChanged: (checkbox) {
-                                          setState(() {
-                                            _checkboxValue = checkbox!;
-                                          });
-                                          print(
-                                              '_checkboxValue $_checkboxValue');
-                                        }),
+                                  Expanded(
+                                    child: CustomTextFormField(
+                                      focusNode: _firstNameFocusNode,
+                                      textController: _firstNameController,
+                                      labelText: AppLocalizations.of(context)!
+                                          .firstname,
+                                      validator: Validator.validate,
+                                      textInputType: TextInputType.text,
+                                      onChange: _clickable,
+                                      isSavePressed: isSavePressed,
+                                    ),
                                   ),
                                   const SizedBox(
-                                    width: 19,
+                                    width: 30,
                                   ),
-                                  RichText(
-                                      text: TextSpan(
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                        text: AppLocalizations.of(context)!
-                                            .iAcceptApplicationDataProtectionPolicy,
-                                        style: AppTheme
-                                            .themeData.textTheme.labelSmall!
-                                            .copyWith(
-                                          color: AppColors.darkGrey,
-                                        ),
-                                      ),
-                                      TextSpan(
+                                  Expanded(
+                                    child: CustomTextFormField(
+                                      focusNode: _lastNameFocusNode,
+                                      textController: _lastNameController,
+                                      labelText: AppLocalizations.of(context)!
+                                          .lastname,
+                                      validator: Validator.validate,
+                                      textInputType: TextInputType.text,
+                                      onChange: _clickable,
+                                      isSavePressed: isSavePressed,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomTextFormField(
+                                      focusNode: _companyNameFocusNode,
+                                      textController:
+                                          _companyNameNameController,
+                                      labelText: AppLocalizations.of(context)!
+                                          .companyName,
+                                      validator: Validator.validate,
+                                      textInputType: TextInputType.text,
+                                      onChange: _clickable,
+                                      isSavePressed: isSavePressed,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
+                                  Expanded(
+                                    child: CustomTextFormField(
+                                      focusNode: _phoneNumberFocusNode,
+                                      textController: _phoneNumberController,
+                                      labelText: AppLocalizations.of(context)!
+                                          .phoneNumber,
+                                      validator: Validator.validatePhone,
+                                      inputFormatter:
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
+                                      textInputType: TextInputType.phone,
+                                      isSavePressed: isSavePressed,
+                                      onChange: _clickable,
+                                      width: 244,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 26,
+                              ),
+                              CustomTextFormField(
+                                focusNode: _emailFocusNode,
+                                textController: _emailController,
+                                labelText: AppLocalizations.of(context)!.email,
+                                validator: Validator.validateEmail,
+                                textInputType: TextInputType.emailAddress,
+                                isSavePressed: isSavePressed,
+                                onChange: _clickable,
+                                width: 521,
+                              ),
+                              const SizedBox(
+                                height: 35,
+                              ),
+                              CustomTextFormField(
+                                focusNode: _descriptionFocusNode,
+                                textController: _descriptionController,
+                                labelText:
+                                    AppLocalizations.of(context)!.description,
+                                validator: Validator.validate,
+                                textInputType: TextInputType.text,
+                                isSavePressed: isSavePressed,
+                                onChange: _clickable,
+                                width: 521,
+                                height: 86,
+                                maxLines: 5,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 18),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 26,
+                                      width: 26,
+                                      child: Checkbox(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          activeColor: AppColors.mainAccent,
+                                          value: _checkboxValue,
+                                          onChanged: (checkbox) {
+                                            setState(() {
+                                              _checkboxValue = checkbox!;
+                                            });
+                                            print(
+                                                '_checkboxValue $_checkboxValue');
+                                          }),
+                                    ),
+                                    const SizedBox(
+                                      width: 19,
+                                    ),
+                                    RichText(
+                                        text: TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
                                           text: AppLocalizations.of(context)!
-                                              .dataProtection,
+                                              .iAcceptApplicationDataProtectionPolicy,
                                           style: AppTheme
                                               .themeData.textTheme.labelSmall!
                                               .copyWith(
-                                                  color: AppColors.mainAccent),
-                                          mouseCursor:
-                                              SystemMouseCursors.click),
-                                      TextSpan(
-                                        text: AppLocalizations.of(context)!
-                                            .policy,
-                                        style: AppTheme
-                                            .themeData.textTheme.labelSmall!
-                                            .copyWith(
-                                                color: AppColors.darkGrey),
-                                      ),
-                                    ],
-                                  ))
-                                ],
+                                            color: AppColors.darkGrey,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                            text: AppLocalizations.of(context)!
+                                                .dataProtection,
+                                            style: AppTheme
+                                                .themeData.textTheme.labelSmall!
+                                                .copyWith(
+                                                    color:
+                                                        AppColors.mainAccent),
+                                            mouseCursor:
+                                                SystemMouseCursors.click),
+                                        TextSpan(
+                                          text: AppLocalizations.of(context)!
+                                              .policy,
+                                          style: AppTheme
+                                              .themeData.textTheme.labelSmall!
+                                              .copyWith(
+                                                  color: AppColors.darkGrey),
+                                        ),
+                                      ],
+                                    ))
+                                  ],
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 36,
-                            ),
-                            SizedBox(
-                              width: 521,
-                              child: MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                onEnter: (_) {
-                                  setState(() {
-                                    isHoveredButton = !isHoveredButton;
-                                  });
-                                },
-                                onExit: (_) {
-                                  setState(() {
-                                    isHoveredButton = !isHoveredButton;
-                                  });
-                                },
-                                child: AppElevatedButton(
-                                    text: AppLocalizations.of(context)!.send,
-                                    color: isHoveredButton
-                                        ? AppColors.mainDarkAccent
-                                        : AppColors.mainAccent,
-                                    textStyle: AppTheme
-                                        .themeData.textTheme.labelSmall!
-                                        .copyWith(color: Colors.white),
-                                    onPressed: _isClickable
-                                        ? () {
-                                            isSavePressed = true;
-                                            print('pressed');
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                              backgroundColor:
-                                              AppColors.lightGrey,
-                                              behavior: SnackBarBehavior.floating,
-                                              content: Text(
-                                                'Data sending in progress..',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                              duration: Duration(seconds: 3),
-                                            ));
-                                          }
-                                        : null),
+                              const SizedBox(
+                                height: 36,
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: 521,
+                                child: MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  onEnter: (_) {
+                                    setState(() {
+                                      isHoveredButton = !isHoveredButton;
+                                    });
+                                  },
+                                  onExit: (_) {
+                                    setState(() {
+                                      isHoveredButton = !isHoveredButton;
+                                    });
+                                  },
+                                  child: AppElevatedButton(
+                                      text: AppLocalizations.of(context)!.send,
+                                      color: isHoveredButton
+                                          ? AppColors.mainDarkAccent
+                                          : AppColors.mainAccent,
+                                      textStyle: AppTheme
+                                          .themeData.textTheme.labelSmall!
+                                          .copyWith(color: Colors.white),
+                                      onPressed: _isClickable
+                                          ? () {
+                                              isSavePressed = true;
+                                              print('pressed');
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        const SnackBar(
+                                                  backgroundColor:
+                                                      AppColors.lightGrey,
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  content: Text(
+                                                    'Data sending in progress..',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  duration:
+                                                      Duration(seconds: 3),
+                                                ));
+                                              }
+                                            }
+                                          : null),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -367,7 +380,8 @@ class _ContactState extends State<Contact> {
                             top: 116,
                             left: MediaQuery.of(context).size.width / 11,
                             right: MediaQuery.of(context).size.width / 11),
-                        child: Form(key: _formKey,
+                        child: Form(
+                          key: _formKey,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -376,8 +390,8 @@ class _ContactState extends State<Contact> {
                                   CustomTextFormField(
                                       focusNode: _firstNameFocusNode,
                                       textController: _firstNameController,
-                                      labelText:
-                                          AppLocalizations.of(context)!.firstname,
+                                      labelText: AppLocalizations.of(context)!
+                                          .firstname,
                                       validator: Validator.validate,
                                       textInputType: TextInputType.text,
                                       isSavePressed: isSavePressed,
@@ -389,8 +403,8 @@ class _ContactState extends State<Contact> {
                                   CustomTextFormField(
                                       focusNode: _lastNameFocusNode,
                                       textController: _lastNameController,
-                                      labelText:
-                                          AppLocalizations.of(context)!.lastname,
+                                      labelText: AppLocalizations.of(context)!
+                                          .lastname,
                                       validator: Validator.validate,
                                       textInputType: TextInputType.text,
                                       isSavePressed: isSavePressed,
@@ -405,7 +419,8 @@ class _ContactState extends State<Contact> {
                                 children: [
                                   CustomTextFormField(
                                       focusNode: _companyNameFocusNode,
-                                      textController: _companyNameNameController,
+                                      textController:
+                                          _companyNameNameController,
                                       labelText: AppLocalizations.of(context)!
                                           .companyName,
                                       validator: Validator.validate,
@@ -434,7 +449,8 @@ class _ContactState extends State<Contact> {
                               CustomTextFormField(
                                   focusNode: _emailFocusNode,
                                   textController: _emailController,
-                                  labelText: AppLocalizations.of(context)!.email,
+                                  labelText:
+                                      AppLocalizations.of(context)!.email,
                                   validator: Validator.validateEmail,
                                   textInputType: TextInputType.emailAddress,
                                   isSavePressed: isSavePressed,
@@ -499,7 +515,8 @@ class _ContactState extends State<Contact> {
                                             style: AppTheme
                                                 .themeData.textTheme.labelSmall!
                                                 .copyWith(
-                                                    color: AppColors.mainAccent),
+                                                    color:
+                                                        AppColors.mainAccent),
                                             mouseCursor:
                                                 SystemMouseCursors.click),
                                         TextSpan(
@@ -544,18 +561,24 @@ class _ContactState extends State<Contact> {
                                           ? () {
                                               isSavePressed = true;
                                               print('pressed');
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(const SnackBar(
-                                                backgroundColor:
-                                                AppColors.lightGrey,
-                                                behavior: SnackBarBehavior.floating,
-                                                content: Text(
-                                                  'Data sending in progress..',
-                                                  style: TextStyle(
-                                                      color: Colors.black),
-                                                ),
-                                                duration: Duration(seconds: 3),
-                                              ));
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                        const SnackBar(
+                                                  backgroundColor:
+                                                      AppColors.lightGrey,
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  content: Text(
+                                                    'Data sending in progress..',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                  duration:
+                                                      Duration(seconds: 3),
+                                                ));
+                                              }
                                             }
                                           : null),
                                 ),
@@ -647,201 +670,207 @@ class _ContactState extends State<Contact> {
                             const Steps()
                           ]),
                       const Spacer(),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              CustomTextFormField(
-                                  focusNode: _firstNameFocusNode,
-                                  textController: _firstNameController,
-                                  labelText:
-                                      AppLocalizations.of(context)!.firstname,
-                                  validator: Validator.validate,
-                                  textInputType: TextInputType.text,
-                                  isSavePressed: isSavePressed,
-                                  onChange: _clickable,
-                                  width: 244),
-                              const SizedBox(
-                                width: 30,
-                              ),
-                              CustomTextFormField(
-                                  focusNode: _lastNameFocusNode,
-                                  textController: _lastNameController,
-                                  labelText:
-                                      AppLocalizations.of(context)!.lastname,
-                                  validator: Validator.validate,
-                                  textInputType: TextInputType.text,
-                                  isSavePressed: isSavePressed,
-                                  onChange: _clickable,
-                                  width: 244),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              CustomTextFormField(
-                                  focusNode: _companyNameFocusNode,
-                                  textController: _companyNameNameController,
-                                  labelText:
-                                      AppLocalizations.of(context)!.companyName,
-                                  validator: Validator.validate,
-                                  textInputType: TextInputType.text,
-                                  isSavePressed: isSavePressed,
-                                  onChange: _clickable,
-                                  width: 244),
-                              const SizedBox(
-                                width: 30,
-                              ),
-                              CustomTextFormField(
-                                  focusNode: _phoneNumberFocusNode,
-                                  textController: _phoneNumberController,
-                                  labelText:
-                                      AppLocalizations.of(context)!.phoneNumber,
-                                  validator: Validator.validatePhone,
-                                  textInputType: TextInputType.phone,
-                                  isSavePressed: isSavePressed,
-                                  onChange: _clickable,
-                                  width: 244),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 26,
-                          ),
-                          CustomTextFormField(
-                              focusNode: _emailFocusNode,
-                              textController: _emailController,
-                              labelText: AppLocalizations.of(context)!.email,
-                              validator: Validator.validateEmail,
-                              textInputType: TextInputType.emailAddress,
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                CustomTextFormField(
+                                    focusNode: _firstNameFocusNode,
+                                    textController: _firstNameController,
+                                    labelText:
+                                        AppLocalizations.of(context)!.firstname,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                    onChange: _clickable,
+                                    width: 244),
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                CustomTextFormField(
+                                    focusNode: _lastNameFocusNode,
+                                    textController: _lastNameController,
+                                    labelText:
+                                        AppLocalizations.of(context)!.lastname,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                    onChange: _clickable,
+                                    width: 244),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                CustomTextFormField(
+                                    focusNode: _companyNameFocusNode,
+                                    textController: _companyNameNameController,
+                                    labelText: AppLocalizations.of(context)!
+                                        .companyName,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                    onChange: _clickable,
+                                    width: 244),
+                                const SizedBox(
+                                  width: 30,
+                                ),
+                                CustomTextFormField(
+                                    focusNode: _phoneNumberFocusNode,
+                                    textController: _phoneNumberController,
+                                    labelText: AppLocalizations.of(context)!
+                                        .phoneNumber,
+                                    validator: Validator.validatePhone,
+                                    textInputType: TextInputType.phone,
+                                    isSavePressed: isSavePressed,
+                                    onChange: _clickable,
+                                    width: 244),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 26,
+                            ),
+                            CustomTextFormField(
+                                focusNode: _emailFocusNode,
+                                textController: _emailController,
+                                labelText: AppLocalizations.of(context)!.email,
+                                validator: Validator.validateEmail,
+                                textInputType: TextInputType.emailAddress,
+                                isSavePressed: isSavePressed,
+                                onChange: _clickable,
+                                width: 521),
+                            const SizedBox(
+                              height: 35,
+                            ),
+                            CustomTextFormField(
+                              focusNode: _descriptionFocusNode,
+                              textController: _descriptionController,
+                              labelText:
+                                  AppLocalizations.of(context)!.description,
+                              validator: Validator.validate,
+                              textInputType: TextInputType.text,
                               isSavePressed: isSavePressed,
                               onChange: _clickable,
-                              width: 521),
-                          const SizedBox(
-                            height: 35,
-                          ),
-                          CustomTextFormField(
-                            focusNode: _descriptionFocusNode,
-                            textController: _descriptionController,
-                            labelText:
-                                AppLocalizations.of(context)!.description,
-                            validator: Validator.validate,
-                            textInputType: TextInputType.text,
-                            isSavePressed: isSavePressed,
-                            onChange: _clickable,
-                            width: 521,
-                            height: 86,
-                            maxLines: 5,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 18),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 26,
-                                  width: 26,
-                                  child: Checkbox(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      activeColor: AppColors.mainAccent,
-                                      value: _checkboxValue,
-                                      onChanged: (_checkbox) {
-                                        print('_checkboxValue $_checkboxValue');
-                                        setState(() {
-                                          _checkboxValue = _checkbox!;
-                                        });
-                                      }),
-                                ),
-                                const SizedBox(
-                                  width: 19,
-                                ),
-                                RichText(
-                                    text: TextSpan(
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!
-                                          .iAcceptApplicationDataProtectionPolicy,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(
-                                        color: AppColors.darkGrey,
-                                      ),
-                                    ),
-                                    TextSpan(
+                              width: 521,
+                              height: 86,
+                              maxLines: 5,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 18),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 26,
+                                    width: 26,
+                                    child: Checkbox(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        activeColor: AppColors.mainAccent,
+                                        value: _checkboxValue,
+                                        onChanged: (_checkbox) {
+                                          print(
+                                              '_checkboxValue $_checkboxValue');
+                                          setState(() {
+                                            _checkboxValue = _checkbox!;
+                                          });
+                                        }),
+                                  ),
+                                  const SizedBox(
+                                    width: 19,
+                                  ),
+                                  RichText(
+                                      text: TextSpan(
+                                    children: <TextSpan>[
+                                      TextSpan(
                                         text: AppLocalizations.of(context)!
-                                            .dataProtection,
+                                            .iAcceptApplicationDataProtectionPolicy,
                                         style: AppTheme
                                             .themeData.textTheme.labelSmall!
                                             .copyWith(
-                                                color: AppColors.mainAccent),
-                                        mouseCursor: SystemMouseCursors.click),
-                                    TextSpan(
-                                      text:
-                                          AppLocalizations.of(context)!.policy,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelSmall!
-                                          .copyWith(color: AppColors.darkGrey),
-                                    ),
-                                  ],
-                                ))
-                              ],
+                                          color: AppColors.darkGrey,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                          text: AppLocalizations.of(context)!
+                                              .dataProtection,
+                                          style: AppTheme
+                                              .themeData.textTheme.labelSmall!
+                                              .copyWith(
+                                                  color: AppColors.mainAccent),
+                                          mouseCursor:
+                                              SystemMouseCursors.click),
+                                      TextSpan(
+                                        text: AppLocalizations.of(context)!
+                                            .policy,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall!
+                                            .copyWith(
+                                                color: AppColors.darkGrey),
+                                      ),
+                                    ],
+                                  ))
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 36,
-                          ),
-                          SizedBox(
-                            width: 521,
-                            child: MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              onEnter: (_) {
-                                setState(() {
-                                  isHoveredButton = !isHoveredButton;
-                                });
-                              },
-                              onExit: (_) {
-                                setState(() {
-                                  isHoveredButton = !isHoveredButton;
-                                });
-                              },
-                              child: AppElevatedButton(
-                                  text: AppLocalizations.of(context)!.send,
-                                  color: isHoveredButton
-                                      ? AppColors.mainDarkAccent
-                                      : AppColors.mainAccent,
-                                  textStyle: AppTheme
-                                      .themeData.textTheme.labelSmall!
-                                      .copyWith(color: Colors.white),
-                                  onPressed: _isClickable
-                                      ? () {
-                                          isSavePressed = true;
-                                          print('pressed');
-                                          // if(_formKey.currentState!.mounted){
-                                          //   print('validate');
-
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(const SnackBar(
-                                              backgroundColor:
-                                                  AppColors.lightGrey,
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              content: Text(
-                                                'Data sending in progress..',
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              ),
-                                              duration: Duration(seconds: 3),
-                                            ));
-                                          // }
-                                        }
-                                      : null),
+                            const SizedBox(
+                              height: 36,
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              width: 521,
+                              child: MouseRegion(
+                                cursor: SystemMouseCursors.click,
+                                onEnter: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                onExit: (_) {
+                                  setState(() {
+                                    isHoveredButton = !isHoveredButton;
+                                  });
+                                },
+                                child: AppElevatedButton(
+                                    text: AppLocalizations.of(context)!.send,
+                                    color: isHoveredButton
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    textStyle: AppTheme
+                                        .themeData.textTheme.labelSmall!
+                                        .copyWith(color: Colors.white),
+                                    onPressed: _isClickable
+                                        ? () {
+                                            isSavePressed = true;
+                                            print('pressed1');
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              print('validate');
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(const SnackBar(
+                                                backgroundColor:
+                                                    AppColors.lightGrey,
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                content: Text(
+                                                  'Data sending in progress..',
+                                                  style: TextStyle(
+                                                      color: Colors.black),
+                                                ),
+                                                duration: Duration(seconds: 3),
+                                              ));
+                                            }
+                                          }
+                                        : null),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

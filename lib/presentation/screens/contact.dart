@@ -33,11 +33,12 @@ class _ContactState extends State<Contact> {
   FocusNode _phoneNumberFocusNode = FocusNode();
   FocusNode _emailFocusNode = FocusNode();
   FocusNode _descriptionFocusNode = FocusNode();
+
   bool isHoveredButton = false;
   bool _isClickable = false;
 
 
-  void _clickable() {
+  void _clickable(_) {
     if (_firstNameController.text.isEmpty ||
         _lastNameController.text.isEmpty ||
         _companyNameNameController.text.isEmpty ||

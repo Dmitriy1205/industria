@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vph_web_date_picker/vph_web_date_picker.dart';
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
 
+enum CustomTextFormFieldType{
+  standard,
+  date
+}
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({
     Key? key,
+    this.type = CustomTextFormFieldType.standard,
     required this.focusNode,
     required this.textController,
     required this.labelText,
@@ -20,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onChange,
   }) : super(key: key);
 
+  final CustomTextFormFieldType type;
   final FocusNode focusNode;
   final TextEditingController textController;
   final String labelText;
@@ -30,7 +37,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   TextInputFormatter? inputFormatter;
   bool isSavePressed;
-  final Function()? onChange;
+  final Function(dynamic val)? onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +45,16 @@ class CustomTextFormField extends StatelessWidget {
       width: width,
       height: height,
       child: TextFormField(
+        onTap: () async{
+          if(type != CustomTextFormFieldType.date){
+            return;
+          }
+          final date = await showWebDatePicker(context: context, initialDate: DateTime.now(), width: 300);
+          if(date == null){
+            return;
+          }
+          onChange?.call(date);
+        },
         // inputFormatters: [inputFormatter ?? inputFormatter!, FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]'))] ,
         keyboardType: textInputType,
         autovalidateMode: isSavePressed
@@ -49,13 +66,14 @@ class CustomTextFormField extends StatelessWidget {
         focusNode: focusNode,
         controller: textController,
         onChanged: (v) {
-          onChange!();
+          onChange!(v);
         },
         maxLines: maxLines ?? 1,
         style:
-            AppTheme.themeData.textTheme.headlineLarge!.copyWith(fontSize: 14),
+            AppTheme.themeData.textTheme.headlineLarge!.copyWith(fontSize: 14, fontWeight: FontWeight.w600),
         decoration: InputDecoration(
           isDense: true,
+          suffixIcon: type == CustomTextFormFieldType.date ? const Icon(FontAwesomeIcons.solidCalendarDays, color: AppColors.darkGrey,) : null,
           constraints: const BoxConstraints(maxHeight: 70, minHeight: 36),
           // errorBorder: OutlineInputBorder(
           //   // borderRadius: BorderRadius.circular(borderRadius),
@@ -72,7 +90,7 @@ class CustomTextFormField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           contentPadding:
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
           alignLabelWithHint: true,
           labelStyle: AppTheme.themeData.textTheme.labelSmall!.copyWith(
               color: focusNode.hasFocus

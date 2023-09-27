@@ -412,9 +412,17 @@ class _HomeState extends State<Home> {
                                   const SizedBox(
                                     height: 63,
                                   ),
-                                  Image.asset(
-                                    AppImages.homePic2,
-                                    scale: 1,
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(32),
+                                        boxShadow: [
+                                          BoxShadow(offset: Offset(0,4), blurRadius: 20, color: Colors.black.withOpacity(0.25))
+                                        ]
+                                    ),
+                                    child: Image.asset(
+                                      AppImages.homePic2,
+                                      scale: 1,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -1409,12 +1417,12 @@ class _HomeState extends State<Home> {
                   height: 128,
                 ),
                 SizedBox(
-                  height: 269,
+                  height: 260,
                   width: MediaQuery.of(context).size.width,
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Image.asset(AppImages.homePic3),
+                      Image.asset(AppImages.homePic3, fit: BoxFit.cover,),
                       Positioned(
                         left: 110,
                         bottom: 52,

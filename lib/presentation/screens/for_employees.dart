@@ -225,14 +225,16 @@ class _ForEmployeesState extends State<ForEmployees> {
                                   alignment: Alignment.centerRight,
                                   child: MouseRegion(
                                     cursor: SystemMouseCursors.click,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        router.go('/contact');
-                                      },
-                                      child: Text(
-                                        '${AppLocalizations.of(context)!.forgotPassword}?',
-                                        style: AppTheme
-                                            .themeData.textTheme.labelSmall,
+                                    child: SelectionContainer.disabled(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          router.go('/contact');
+                                        },
+                                        child: Text(
+                                          '${AppLocalizations.of(context)!.forgotPassword}?',
+                                          style: AppTheme
+                                              .themeData.textTheme.labelSmall,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -277,16 +279,18 @@ class _ForEmployeesState extends State<ForEmployees> {
                                 Center(
                                   child: MouseRegion(
                                     cursor: SystemMouseCursors.click,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        router.go('/contact');
-                                      },
-                                      child: Text(
-                                        AppLocalizations.of(context)!
-                                            .ifYouDontHaveAccount,
-                                        textAlign: TextAlign.center,
-                                        style: AppTheme
-                                            .themeData.textTheme.labelSmall,
+                                    child: SelectionContainer.disabled(
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          router.go('/contact');
+                                        },
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .ifYouDontHaveAccount,
+                                          textAlign: TextAlign.center,
+                                          style: AppTheme
+                                              .themeData.textTheme.labelSmall,
+                                        ),
                                       ),
                                     ),
                                   ),

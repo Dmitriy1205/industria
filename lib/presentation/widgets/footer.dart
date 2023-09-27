@@ -172,14 +172,16 @@ class _FooterState extends State<Footer> {
                   ),
                   MouseRegion(
                     cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        router.go('/imprint');
-                      },
-                      child: Text(
-                        'Industry Personnel Services Germany GmbH © 2019',
-                        style: AppTheme.themeData.textTheme.titleMedium!
-                            .copyWith(color: Color(0xFF8B8B8B)),
+                    child: SelectionContainer.disabled(
+                      child: GestureDetector(
+                        onTap: () {
+                          router.go('/imprint');
+                        },
+                        child: Text(
+                          'Industry Personnel Services Germany GmbH © 2019',
+                          style: AppTheme.themeData.textTheme.titleMedium!
+                              .copyWith(color: Color(0xFF8B8B8B)),
+                        ),
                       ),
                     ),
                   ),
@@ -196,24 +198,26 @@ class _FooterState extends State<Footer> {
                       children: [
                         MouseRegion(
                           cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              html.window.open('https://pandascode.com/', 'pandas');
-                            },
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: AppLocalizations.of(context)!.poweredBy,
-                                    style: AppTheme.themeData.textTheme.titleMedium!
-                                        .copyWith(color: Color(0xFF8B8B8B)),
-                                  ),
-                                  TextSpan(
-                                    text: ' PandasCode',
-                                    style: AppTheme.themeData.textTheme.titleMedium!
-                                        .copyWith(color: AppColors.mainAccent),
-                                  )
-                                ],
+                          child: SelectionContainer.disabled(
+                            child: GestureDetector(
+                              onTap: () {
+                                html.window.open('https://pandascode.com/', 'pandas');
+                              },
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: AppLocalizations.of(context)!.poweredBy,
+                                      style: AppTheme.themeData.textTheme.titleMedium!
+                                          .copyWith(color: Color(0xFF8B8B8B)),
+                                    ),
+                                    TextSpan(
+                                      text: ' PandasCode',
+                                      style: AppTheme.themeData.textTheme.titleMedium!
+                                          .copyWith(color: AppColors.mainAccent),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -223,14 +227,16 @@ class _FooterState extends State<Footer> {
                           children: [
                             MouseRegion(
                               cursor: SystemMouseCursors.click,
-                              child: GestureDetector(
-                                onTap: () {
-                                  router.go('/cookie');
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)!.cookie,
-                                  style: AppTheme.themeData.textTheme.titleMedium!
-                                      .copyWith(color: Color(0xFF8B8B8B)),
+                              child: SelectionContainer.disabled(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    router.go('/cookie');
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)!.cookie,
+                                    style: AppTheme.themeData.textTheme.titleMedium!
+                                        .copyWith(color: Color(0xFF8B8B8B)),
+                                  ),
                                 ),
                               ),
                             ),
@@ -241,14 +247,16 @@ class _FooterState extends State<Footer> {
                             ),
                             MouseRegion(
                               cursor: SystemMouseCursors.click,
-                              child: GestureDetector(
-                                onTap: () {
-                                  router.go('/condition');
-                                },
-                                child: Text(
-                                  AppLocalizations.of(context)!.conditions,
-                                  style: AppTheme.themeData.textTheme.titleMedium!
-                                      .copyWith(color: Color(0xFF8B8B8B)),
+                              child: SelectionContainer.disabled(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    router.go('/condition');
+                                  },
+                                  child: Text(
+                                    AppLocalizations.of(context)!.conditions,
+                                    style: AppTheme.themeData.textTheme.titleMedium!
+                                        .copyWith(color: Color(0xFF8B8B8B)),
+                                  ),
                                 ),
                               ),
                             ),
@@ -284,17 +292,23 @@ class _FooterState extends State<Footer> {
         GestureDetector(
           onTap: () {
             if (i < routePaths.length) {
-              router.go(routePaths[i]);
+              if(routePaths[i] == '/companydetails'){
+                router.go('/imprint');
+              }else{
+                router.go(routePaths[i]);
+              }
             }
           },
           child: MouseRegion(
             cursor: SystemMouseCursors.click,
-            child: Text(
-              names[i],
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: AppTheme.themeData.textTheme.titleMedium!
-                  .copyWith(color: Color(0xFF8B8B8B)),
+            child: SelectionContainer.disabled(
+              child: Text(
+                names[i],
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: AppTheme.themeData.textTheme.titleMedium!
+                    .copyWith(color: Color(0xFF8B8B8B)),
+              ),
             ),
           ),
         ),

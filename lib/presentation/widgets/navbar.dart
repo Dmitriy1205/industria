@@ -116,9 +116,17 @@ class _NavbarState extends State<Navbar> {
                 left: 20.0, top: 14, right: 30, bottom: 14),
             child: Row(
               children: [
-                Image.asset(
-                  AppImages.logo,
-                  scale: 2,
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: (){
+                      router.go('/home');
+                    },
+                    child: Image.asset(
+                      AppImages.logo,
+                      scale: 2,
+                    ),
+                  ),
                 ),
                 Spacer(),
                 Theme(

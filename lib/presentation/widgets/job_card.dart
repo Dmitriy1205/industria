@@ -110,6 +110,7 @@ class _JobCardState extends State<JobCard> {
                 SizedBox(
                   height: 60,
                   child: BoldTextWidget(
+                    optimized: false,
                     text: widget.description,
                     style: AppTheme.themeData.textTheme.labelSmall!.copyWith(
                         fontWeight: FontWeight.w300,

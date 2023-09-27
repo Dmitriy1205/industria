@@ -8,14 +8,19 @@ import 'package:industria/domain/entities/job_application_request/job_applicatio
 import '../company/company.dart';
 
 part 'job_application.freezed.dart';
+
 part 'job_application.g.dart';
 
 @freezed
 class JobApplication with _$JobApplication {
   const JobApplication._();
 
-  static Map<String,dynamic> jsonFromRequest(
-      {required JobApplicationRequest request, required String docId, required String photoPath, required String cvPath, required List<String> certificatesPaths}){
+  static Map<String, dynamic> jsonFromRequest(
+      {required JobApplicationRequest request,
+      required String docId,
+      required String photoPath,
+      required String cvPath,
+      required List<String> certificatesPaths}) {
     return {
       "id": docId,
       "firstname": request.firstname,
@@ -24,7 +29,8 @@ class JobApplication with _$JobApplication {
       "citizenship": request.citizenship,
       "gender": request.gender,
       "address": request.address,
-      "availableDate": FirebaseTimestampConverters.toTimestamp(request.availableDate),
+      "availableDate":
+          FirebaseTimestampConverters.toTimestamp(request.availableDate),
       "documents": {
         "photo": photoPath,
         "cv": cvPath,
@@ -40,17 +46,26 @@ class JobApplication with _$JobApplication {
     required String id,
     required String firstname,
     required String lastname,
-    @JsonKey(fromJson: FirebaseTimestampConverters.fromTimestamp, toJson: FirebaseTimestampConverters.toTimestamp) required DateTime birthday,
+    @JsonKey(
+        fromJson: FirebaseTimestampConverters.fromTimestamp,
+        toJson: FirebaseTimestampConverters.toTimestamp)
+    required DateTime birthday,
     required String citizenship,
     required String gender,
     required String address,
-    @JsonKey(fromJson: FirebaseTimestampConverters.fromTimestamp, toJson: FirebaseTimestampConverters.toTimestamp) required DateTime availableDate,
+    @JsonKey(
+        fromJson: FirebaseTimestampConverters.fromTimestamp,
+        toJson: FirebaseTimestampConverters.toTimestamp)
+    required DateTime availableDate,
     required JobApplicationDocuments documents,
-    @JsonKey(fromJson: FirebaseTimestampConverters.fromTimestamp, includeToJson: false) required DateTime createdAt,
+    @JsonKey(
+        fromJson: FirebaseTimestampConverters.fromTimestamp,
+        includeToJson: false)
+    required DateTime createdAt,
     required String companyId,
     required Company company,
-    }) = _JobApplication;
+  }) = _JobApplication;
 
-  factory JobApplication.fromJson(Map<String, Object?> json)
-      => _$JobApplicationFromJson(json);
+  factory JobApplication.fromJson(Map<String, Object?> json) =>
+      _$JobApplicationFromJson(json);
 }

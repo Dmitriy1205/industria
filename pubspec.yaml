@@ -41,6 +41,7 @@ dependencies:
   flutter_svg: ^2.0.7
   vph_web_date_picker: ^0.0.4
   file_picker: ^5.5.0
+  freezed_annotation: ^2.4.1
   bloc_concurrency: ^0.2.2
 
 dev_dependencies:
@@ -49,7 +50,7 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
   json_serializable: ^6.6.1
-  build_runner: ^2.3.3
+  build_runner: ^2.4.6
 
 
 flutter:

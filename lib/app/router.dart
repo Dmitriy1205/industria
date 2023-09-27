@@ -42,7 +42,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: const Jobs(),
+              child: Jobs(initialCountry: state.uri.queryParameters["country"], initialKeyword: state.uri.queryParameters["keyword"] ?? "",),
             ),
           ),
           GoRoute(

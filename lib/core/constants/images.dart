@@ -17,5 +17,6 @@ class AppImages{
   static const String tnt = 'assets/images/tnt.png';
   static const String apple = 'assets/images/apple.png';
   static const String google = 'assets/images/google.png';
+  static const String homeBg = 'assets/images/home_bg.png';
   static const String search = 'assets/icons/search.svg';
 }

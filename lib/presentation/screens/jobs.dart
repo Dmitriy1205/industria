@@ -21,15 +21,17 @@ import '../widgets/footer.dart';
 import '../widgets/job_card.dart';
 
 class Jobs extends StatefulWidget {
-  const Jobs({super.key});
+  final String initialKeyword;
+  final String? initialCountry;
+  const Jobs({super.key, this.initialKeyword = "", this.initialCountry});
 
   @override
   State<Jobs> createState() => _JobsState();
 }
 
 class _JobsState extends State<Jobs> {
-  final textController = TextEditingController();
-  String dropdownValue = '';
+  late final textController = TextEditingController(text: widget.initialKeyword);
+  late String dropdownValue = widget.initialCountry ?? AppLocalizations.of(context)!.allGermany;
   JobAreas dropdownValueFilter = JobAreas.all;
   bool isHovered = false;
   bool isHoveredButton = false;
@@ -38,12 +40,8 @@ class _JobsState extends State<Jobs> {
   @override
   void initState() {
     super.initState();
-    sl<JobsBloc>().state.maybeMap(
-        initial: (_) {
-          sl<JobsBloc>().add(JobsEvent.fetchJobs(
-              filter: JobFilters(count: 10, keyword: "", page: 0)));
-        },
-        orElse: () {});
+    sl<JobsBloc>().add(JobsEvent.fetchJobs(
+        filter: JobFilters(count: 10, keyword: widget.initialKeyword, page: 0, city: widget.initialCountry)));
   }
 
   void _onSearchClicked() {
@@ -63,12 +61,6 @@ class _JobsState extends State<Jobs> {
       dropdownValue = AppLocalizations.of(context)!.allGermany;
       dropdownValueFilter = JobAreas.all;
     });
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    dropdownValue = AppLocalizations.of(context)!.allGermany;
   }
 
   @override

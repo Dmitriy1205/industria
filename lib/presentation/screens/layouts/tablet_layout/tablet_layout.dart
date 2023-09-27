@@ -182,7 +182,7 @@ class _TabletLayoutState extends State<TabletLayout> {
         ),
       ),
       appBar: PreferredSize(
-        preferredSize: Size(double.infinity, 120),
+        preferredSize: Size(double.infinity, 110),
         child: TabletNavbar(scaffold: scaffoldState,),
       ),
       body: widget.child,

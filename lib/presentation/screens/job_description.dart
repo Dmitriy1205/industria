@@ -9,7 +9,10 @@ import 'package:industria/core/constants/nationalities.dart';
 import 'package:industria/core/enums/job_types.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:industria/core/utils/time.dart';
+import 'package:industria/core/utils/toast.dart';
+import 'package:industria/domain/entities/job_application_request/job_application_request.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
+import 'package:industria/presentation/bloc/job_application/job_application_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/bold_text_widget.dart';
@@ -20,6 +23,7 @@ import 'package:industria/presentation/widgets/firebase_image.dart';
 
 import '../../app/router.dart';
 import '../../core/constants/colors.dart';
+import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 import '../../core/validator/field_validator.dart';
 import '../widgets/custom_text_form_field.dart';
@@ -43,6 +47,7 @@ class _JobDescriptionState extends State<JobDescription> {
 
   final TextEditingController _dateOfBirthController = TextEditingController();
   final FocusNode _dateOfBirthFocus = FocusNode();
+  DateTime? _dateOfBirth;
 
   final TextEditingController _citizenshipController = TextEditingController();
   final FocusNode _citizenshipFocus = FocusNode();
@@ -55,6 +60,7 @@ class _JobDescriptionState extends State<JobDescription> {
   final TextEditingController _availableDateController =
       TextEditingController();
   final FocusNode _availableDateFocus = FocusNode();
+  DateTime? _availableDate;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -108,213 +114,296 @@ class _JobDescriptionState extends State<JobDescription> {
 
   @override
   Widget build(BuildContext context) {
-    return SelectionArea(
-      child: LayoutBuilder(
-        builder: (context,constraints) => Scaffold(
-          body: CustomScrollView(
-            slivers: <Widget>[
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: 70.0,
-                      left: constraints.maxWidth < 1000 ? 24 : 260,
-                      right: constraints.maxWidth < 1000 ? 24 : 260),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              router.go('/jobs');
-                            },
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.arrow_back_ios_new,
-                                  color: AppColors.mainAccent,
-                                  size: 14,
-                                ),
-                                const SizedBox(
-                                  width: 18,
-                                ),
-                                Text(
-                                  AppLocalizations.of(context)!.backToJobs,
-                                  style: AppTheme.themeData.textTheme.titleMedium!
-                                      .copyWith(color: AppColors.mainAccent),
-                                ),
-                              ],
+    return BlocListener<JobApplicationBloc, JobApplicationState>(
+      bloc: sl<JobApplicationBloc>(),
+      listener: (context, state) {
+        state.maybeMap(
+            loading: (_) {
+              showProgressSnackBar(context);
+            },
+            success: (_) {
+              showSuccessSnackBar(context);
+            },
+            error: (_) {
+              showErrorSnackBar(
+                  context, "Server error while applying for a job");
+            },
+            orElse: () {});
+      },
+      child: SelectionArea(
+        child: LayoutBuilder(
+          builder: (context, constraints) => Scaffold(
+            body: CustomScrollView(
+              slivers: <Widget>[
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: 70.0,
+                        left: constraints.maxWidth < 1000 ? 24 : 260,
+                        right: constraints.maxWidth < 1000 ? 24 : 260),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                router.go('/jobs');
+                              },
+                              child: Row(
+                                children: [
+                                  const Icon(
+                                    Icons.arrow_back_ios_new,
+                                    color: AppColors.mainAccent,
+                                    size: 14,
+                                  ),
+                                  const SizedBox(
+                                    width: 18,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.backToJobs,
+                                    style: AppTheme
+                                        .themeData.textTheme.titleMedium!
+                                        .copyWith(color: AppColors.mainAccent),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Row(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  widget.job.title,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineLarge
-                                      ?.copyWith(
-                                      fontWeight: FontWeight.w600, fontSize: 32),
-                                ),
-                                Text(
-                                  JobTypes.fromString(widget.job.jobType)!.localizedString(context),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineLarge
-                                      ?.copyWith(
-                                      fontWeight: FontWeight.w600, fontSize: 18),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            FirebaseImage(widget.job.company.logo)
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 14,
-                        ),
-                        _iconTextTile(FontAwesomeIcons.solidBuilding,
-                            widget.job.companyName),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        _iconTextTile(
-                            FontAwesomeIcons.locationArrow, widget.job.location),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        _iconTextTile(
-                            FontAwesomeIcons.moneyBill, widget.job.salary),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        _iconTextTile(FontAwesomeIcons.calendarWeek,
-                            getTimeAgo(widget.job.createdAt, context.watch<LocalizationBloc>().state.locale.languageCode)),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.jobDescription,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(fontSize: 24),
-                        ),
-                        SizedBox(
-                          height: 18,
-                        ),
-                        BoldTextWidget(
-                          text: widget.job.description,
-                          style: TextStyle(),
-                        ),
-                        SizedBox(
-                          height: 60,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: CustomTextFormField(
-                                focusNode: _firstnameFocus,
-                                textController: _firstnameController,
-                                labelText:
-                                AppLocalizations.of(context)!.firstname,
-                                validator: Validator.validate,
-                                textInputType: TextInputType.text,
-                                isSavePressed: isSavePressed,
-                                onChange: _clickable,
-                                maxLines: 1,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 16,
-                            ),
-                            Expanded(
-                              child: CustomTextFormField(
-                                focusNode: _lastnameFocus,
-                                textController: _lastnameController,
-                                labelText: AppLocalizations.of(context)!.lastname,
-                                validator: Validator.validate,
-                                textInputType: TextInputType.text,
-                                isSavePressed: isSavePressed,
-                                onChange: _clickable,
-                                maxLines: 1,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        LayoutBuilder(
-                          builder: (context,constraints) {
-                            if(constraints.maxWidth < 1000){
-                              return Column(
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
-                                    children: [
-                                      CustomTextFormField(
-                                        width: constraints.maxWidth / 2 - 8,
-                                        focusNode: _dateOfBirthFocus,
-                                        textController: _dateOfBirthController,
-                                        type: CustomTextFormFieldType.date,
-                                        labelText:
-                                        AppLocalizations.of(context)!.dateOfBirth,
-                                        validator: Validator.validate,
-                                        textInputType: TextInputType.text,
-                                        isSavePressed: isSavePressed,
-                                        onChange: (v) {
-                                          setState(() {
-                                            _dateOfBirthController.text =
-                                                (v as DateTime).formatted;
-                                          });
-                                          _clickable(v);
-                                        },
-                                        maxLines: 1,
-                                      ),
-                                      SizedBox(
-                                        width: 16,
-                                      ),
-                                      DropdownTextFormField(
-                                        validator: (val){
-                                          final error = Validator.validate(val);
-                                          if(error != null){
-                                            return error;
-                                          }
-
-                                          if(!["Male","Female"].contains(val)){
-                                            return "Doesn't match proposed ones";
-                                          }
-                                        },
-                                        isSavePressed: isSavePressed,
-                                        controller: _genderController,
-                                        variants: ["Male", "Female"],
-                                        onChanged: _clickable,
-                                        hintText: AppLocalizations.of(context)!.gender,
-                                        width: constraints.maxWidth / 2 - 8,
-                                      ),
-                                    ],
+                                  Text(
+                                    widget.job.title,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 32),
                                   ),
-                                  SizedBox(
-                                    height: 5,
+                                  Text(
+                                    JobTypes.fromString(widget.job.jobType)!
+                                        .localizedString(context),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineLarge
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                              const Spacer(),
+                              FirebaseImage(widget.job.company.logo)
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 14,
+                          ),
+                          _iconTextTile(FontAwesomeIcons.solidBuilding,
+                              widget.job.companyName),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          _iconTextTile(FontAwesomeIcons.locationArrow,
+                              widget.job.location),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          _iconTextTile(
+                              FontAwesomeIcons.moneyBill, widget.job.salary),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          _iconTextTile(
+                              FontAwesomeIcons.calendarWeek,
+                              getTimeAgo(
+                                  widget.job.createdAt,
+                                  context
+                                      .watch<LocalizationBloc>()
+                                      .state
+                                      .locale
+                                      .languageCode)),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.jobDescription,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge
+                                ?.copyWith(fontSize: 24),
+                          ),
+                          const SizedBox(
+                            height: 18,
+                          ),
+                          BoldTextWidget(
+                            text: widget.job.description,
+                            style: const TextStyle(),
+                          ),
+                          const SizedBox(
+                            height: 60,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: CustomTextFormField(
+                                  focusNode: _firstnameFocus,
+                                  textController: _firstnameController,
+                                  labelText:
+                                      AppLocalizations.of(context)!.firstname,
+                                  validator: Validator.validate,
+                                  textInputType: TextInputType.text,
+                                  isSavePressed: isSavePressed,
+                                  onChange: _clickable,
+                                  maxLines: 1,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              Expanded(
+                                child: CustomTextFormField(
+                                  focusNode: _lastnameFocus,
+                                  textController: _lastnameController,
+                                  labelText:
+                                      AppLocalizations.of(context)!.lastname,
+                                  validator: Validator.validate,
+                                  textInputType: TextInputType.text,
+                                  isSavePressed: isSavePressed,
+                                  onChange: _clickable,
+                                  maxLines: 1,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              if (constraints.maxWidth < 1000) {
+                                return Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CustomTextFormField(
+                                          width: constraints.maxWidth / 2 - 8,
+                                          focusNode: _dateOfBirthFocus,
+                                          textController:
+                                              _dateOfBirthController,
+                                          type: CustomTextFormFieldType.date,
+                                          labelText:
+                                              AppLocalizations.of(context)!
+                                                  .dateOfBirth,
+                                          validator: Validator.validate,
+                                          textInputType: TextInputType.text,
+                                          isSavePressed: isSavePressed,
+                                          onChange: (v) {
+                                            setState(() {
+                                              _dateOfBirth = v as DateTime;
+                                              _dateOfBirthController.text =
+                                                  v.formatted;
+                                            });
+                                            _clickable(v);
+                                          },
+                                          maxLines: 1,
+                                        ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        DropdownTextFormField(
+                                          validator: (val) {
+                                            final error =
+                                                Validator.validate(val);
+                                            if (error != null) {
+                                              return error;
+                                            }
+
+                                            if (!["Male", "Female"]
+                                                .contains(val)) {
+                                              return "Doesn't match proposed ones";
+                                            }
+                                          },
+                                          isSavePressed: isSavePressed,
+                                          controller: _genderController,
+                                          variants: ["Male", "Female"],
+                                          onChanged: _clickable,
+                                          hintText:
+                                              AppLocalizations.of(context)!
+                                                  .gender,
+                                          width: constraints.maxWidth / 2 - 8,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    DropdownTextFormField(
+                                      validator: (val) {
+                                        final error = Validator.validate(val);
+                                        if (error != null) {
+                                          return error;
+                                        }
+
+                                        if (!Nationalities.list.contains(val)) {
+                                          return "Doesn't match proposed ones";
+                                        }
+                                      },
+                                      isSavePressed: isSavePressed,
+                                      onChanged: _clickable,
+                                      controller: _citizenshipController,
+                                      variants: Nationalities.list,
+                                      hintText: AppLocalizations.of(context)!
+                                          .citizenship,
+                                      width: constraints.maxWidth,
+                                    ),
+                                  ],
+                                );
+                              }
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CustomTextFormField(
+                                    width: constraints.maxWidth / 4,
+                                    focusNode: _dateOfBirthFocus,
+                                    textController: _dateOfBirthController,
+                                    type: CustomTextFormFieldType.date,
+                                    labelText: AppLocalizations.of(context)!
+                                        .dateOfBirth,
+                                    validator: Validator.validate,
+                                    textInputType: TextInputType.text,
+                                    isSavePressed: isSavePressed,
+                                    onChange: (v) {
+                                      setState(() {
+                                        _dateOfBirth = v as DateTime;
+                                        _dateOfBirthController.text =
+                                            v.formatted;
+                                      });
+                                      _clickable(v);
+                                    },
+                                    maxLines: 1,
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
                                   ),
                                   DropdownTextFormField(
-                                    validator: (val){
+                                    validator: (val) {
                                       final error = Validator.validate(val);
-                                      if(error != null){
+                                      if (error != null) {
                                         return error;
                                       }
 
-                                      if(!Nationalities.list.contains(val)){
+                                      if (!Nationalities.list.contains(val)) {
                                         return "Doesn't match proposed ones";
                                       }
                                     },
@@ -322,225 +411,265 @@ class _JobDescriptionState extends State<JobDescription> {
                                     onChanged: _clickable,
                                     controller: _citizenshipController,
                                     variants: Nationalities.list,
-                                    hintText: AppLocalizations.of(context)!.citizenship,
-                                    width: constraints.maxWidth,
+                                    hintText: AppLocalizations.of(context)!
+                                        .citizenship,
+                                    width: constraints.maxWidth / 2 - 16,
+                                  ),
+                                  const SizedBox(
+                                    width: 16,
+                                  ),
+                                  DropdownTextFormField(
+                                    validator: (val) {
+                                      final error = Validator.validate(val);
+                                      if (error != null) {
+                                        return error;
+                                      }
+
+                                      if (!["Male", "Female"].contains(val)) {
+                                        return "Doesn't match proposed ones";
+                                      }
+                                    },
+                                    isSavePressed: isSavePressed,
+                                    controller: _genderController,
+                                    variants: ["Male", "Female"],
+                                    onChanged: _clickable,
+                                    hintText:
+                                        AppLocalizations.of(context)!.gender,
+                                    width: constraints.maxWidth / 4 - 16,
                                   ),
                                 ],
                               );
-                            }
-                            return Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            },
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          CustomTextFormField(
+                            focusNode: _addressFocus,
+                            textController: _addressController,
+                            labelText: AppLocalizations.of(context)!.address,
+                            validator: Validator.validate,
+                            textInputType: TextInputType.text,
+                            isSavePressed: isSavePressed,
+                            onChange: _clickable,
+                            maxLines: 1,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          CustomTextFormField(
+                            focusNode: _availableDateFocus,
+                            textController: _availableDateController,
+                            type: CustomTextFormFieldType.date,
+                            labelText:
+                                AppLocalizations.of(context)!.availabilityDate,
+                            validator: Validator.validate,
+                            textInputType: TextInputType.text,
+                            isSavePressed: isSavePressed,
+                            onChange: (v) {
+                              setState(() {
+                                _availableDate = v as DateTime;
+                                _availableDateController.text = v.formatted;
+                              });
+                              _clickable(v);
+                            },
+                            maxLines: 1,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Wrap(
+                            runSpacing: 5,
+                            spacing: 40,
                             children: [
-                              CustomTextFormField(
-                                width: constraints.maxWidth / 4,
-                                focusNode: _dateOfBirthFocus,
-                                textController: _dateOfBirthController,
-                                type: CustomTextFormFieldType.date,
-                                labelText:
-                                AppLocalizations.of(context)!.dateOfBirth,
-                                validator: Validator.validate,
-                                textInputType: TextInputType.text,
-                                isSavePressed: isSavePressed,
-                                onChange: (v) {
-                                  setState(() {
-                                    _dateOfBirthController.text =
-                                        (v as DateTime).formatted;
-                                  });
-                                  _clickable(v);
-                                },
-                                maxLines: 1,
+                              SizedBox(
+                                height: 200,
+                                child: FileUploadFormWidget(
+                                    mandatory: true,
+                                    allowedTypes: ["png", "jpg", "jpeg"],
+                                    singlePick: true,
+                                    validationError: "Missing picture",
+                                    icon: FontAwesomeIcons.solidUser,
+                                    hint: AppLocalizations.of(context)!
+                                        .dragPicture,
+                                    pickedFilesNames:
+                                        photo == null ? [] : [photo!.filename],
+                                    onPick: (file) {
+                                      setState(() {
+                                        photo = file.first;
+                                      });
+                                      _clickable(photo);
+                                    }),
                               ),
                               SizedBox(
-                                width: 16,
-                              ),
-                              DropdownTextFormField(
-                                validator: (val){
-                                  final error = Validator.validate(val);
-                                  if(error != null){
-                                    return error;
-                                  }
-
-                                  if(!Nationalities.list.contains(val)){
-                                    return "Doesn't match proposed ones";
-                                  }
-                                },
-                                isSavePressed: isSavePressed,
-                                onChanged: _clickable,
-                                controller: _citizenshipController,
-                                variants: Nationalities.list,
-                                hintText: AppLocalizations.of(context)!.citizenship,
-                                width: constraints.maxWidth / 2 - 16,
+                                height: 200,
+                                child: FileUploadFormWidget(
+                                    allowedTypes: ["pdf"],
+                                    mandatory: true,
+                                    validationError: "Missing cv",
+                                    singlePick: true,
+                                    icon: FontAwesomeIcons.solidFile,
+                                    hint: AppLocalizations.of(context)!.dragCv,
+                                    pickedFilesNames:
+                                        cv == null ? [] : [cv!.filename],
+                                    onPick: (file) {
+                                      setState(() {
+                                        cv = file.first;
+                                      });
+                                      _clickable(cv);
+                                    }),
                               ),
                               SizedBox(
-                                width: 16,
+                                height: 200,
+                                child: FileUploadFormWidget(
+                                    allowedTypes: ["pdf", "png", "jpeg", "jpg"],
+                                    singlePick: false,
+                                    mandatory: false,
+                                    icon: FontAwesomeIcons.solidFile,
+                                    hint: AppLocalizations.of(context)!.dragCv,
+                                    pickedFilesNames: certificates
+                                        .map((e) => e.filename)
+                                        .toList(),
+                                    onPick: (files) {
+                                      setState(() {
+                                        certificates = files;
+                                      });
+                                    }),
                               ),
-                              DropdownTextFormField(
-                                validator: (val){
-                                  final error = Validator.validate(val);
-                                  if(error != null){
-                                    return error;
-                                  }
-
-                                  if(!["Male","Female"].contains(val)){
-                                    return "Doesn't match proposed ones";
-                                  }
-                                },
-                                isSavePressed: isSavePressed,
-                                controller: _genderController,
-                                variants: ["Male", "Female"],
-                                onChanged: _clickable,
-                                hintText: AppLocalizations.of(context)!.gender,
-                                width: constraints.maxWidth / 4 - 16,
+                            ].map((e) => e).toList(),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.mandatoryFields,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelSmall
+                                ?.copyWith(fontSize: 12),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Checkbox(
+                                  value: acceptPolicy,
+                                  onChanged: (val) {
+                                    setState(() {
+                                      acceptPolicy = val!;
+                                    });
+                                    _clickable(val);
+                                  }),
+                              const SizedBox(
+                                width: 19,
                               ),
-                            ],
-                          );
-                          },
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        CustomTextFormField(
-                          focusNode: _addressFocus,
-                          textController: _addressController,
-                          labelText: AppLocalizations.of(context)!.address,
-                          validator: Validator.validate,
-                          textInputType: TextInputType.text,
-                          isSavePressed: isSavePressed,
-                          onChange: _clickable,
-                          maxLines: 1,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        CustomTextFormField(
-                          focusNode: _availableDateFocus,
-                          textController: _availableDateController,
-                          type: CustomTextFormFieldType.date,
-                          labelText:
-                          AppLocalizations.of(context)!.availabilityDate,
-                          validator: Validator.validate,
-                          textInputType: TextInputType.text,
-                          isSavePressed: isSavePressed,
-                          onChange: (v) {
-                            setState(() {
-                              _availableDateController.text =
-                                  (v as DateTime).formatted;
-                            });
-                            _clickable(v);
-                          },
-                          maxLines: 1,
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Wrap(
-                          runSpacing: 5,
-                          spacing: 40,
-                          children: [
-                          SizedBox(
-                            height: 200,
-                            child: FileUploadFormWidget(
-                              mandatory: true,
-                                allowedTypes: ["png","jpg","jpeg"],
-                                singlePick: true,
-                                validationError: "Missing picture",
-                                icon: FontAwesomeIcons.solidUser, hint: AppLocalizations.of(context)!.dragPicture, pickedFilesNames: photo == null ? [] : [photo!.filename], onPick: (file){
-                              setState(() {
-                                photo = file.first;
-                              });
-                              _clickable(photo);
-                            }),
-                          ),
-                          SizedBox(
-                            height: 200,
-                            child: FileUploadFormWidget(
-                              allowedTypes: ["pdf"],
-                              mandatory: true,
-                                validationError: "Missing cv",
-                                singlePick: true,
-                                icon: FontAwesomeIcons.solidFile, hint: AppLocalizations.of(context)!.dragCv, pickedFilesNames: cv == null ? [] : [cv!.filename], onPick: (file){
-                              setState(() {
-                                cv = file.first;
-                              });
-                              _clickable(cv);
-                            }),
-                          ),
-                          SizedBox(
-                            height: 200,
-                            child: FileUploadFormWidget(
-                                allowedTypes: ["pdf","png","jpeg","jpg"],
-                                singlePick: false,
-                                mandatory: false,
-                                icon: FontAwesomeIcons.solidFile, hint: AppLocalizations.of(context)!.dragCv, pickedFilesNames: certificates.map((e) => e.filename).toList(), onPick: (files){
-                              setState(() {
-                                certificates = files;
-                              });
-                            }),
-                          ),
-                        ].map((e) => e).toList(),),
-                        SizedBox(height: 15,),
-                        Text(AppLocalizations.of(context)!.mandatoryFields, style: Theme.of(context).textTheme.labelSmall?.copyWith(fontSize: 12),),
-                        SizedBox(height: 15,),
-                        Row(
-                          children: [
-                            Checkbox(value: acceptPolicy, onChanged: (val){
-                              setState(() {
-                                acceptPolicy = val!;
-                              });
-                              _clickable(val);
-                            }),
-                            SizedBox(width: 19,),
-                            Expanded(
-                              child: RichText(
-                                text: TextSpan(
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!.iAcceptApplicationDataProtectionPolicy,
-                                      style: Theme.of(context).textTheme.labelSmall,
-                                    ),
-                                    TextSpan(
-                                      text: AppLocalizations.of(context)!.dataProtection.trim(),
-                                      style: Theme.of(context).textTheme.labelSmall?.copyWith(color: AppColors.mainDarkAccent),
-                                      recognizer: TapGestureRecognizer()
-                                        ..onTap = () {
-                                          context.push('/dataprotection');
-                                        },
-                                    ),
-                                    TextSpan(
-                                      text: ' ${AppLocalizations.of(context)!.iAcceptApplicationDataProtectionPolicy}',
-                                      style: Theme.of(context).textTheme.labelSmall,
-                                    ),
-                                  ],
+                              Expanded(
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: AppLocalizations.of(context)!
+                                            .iAcceptApplicationDataProtectionPolicy,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall,
+                                      ),
+                                      TextSpan(
+                                        text: AppLocalizations.of(context)!
+                                            .dataProtection
+                                            .trim(),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall
+                                            ?.copyWith(
+                                                color:
+                                                    AppColors.mainDarkAccent),
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () {
+                                            context.push('/dataprotection');
+                                          },
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            ' ${AppLocalizations.of(context)!.iAcceptApplicationDataProtectionPolicy}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelSmall,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 30,),
-                        AppElevatedButton(
-                            verticalPadding: 10,
-                            textStyle: Theme.of(context).textTheme.labelSmall?.copyWith(color: Colors.white),
-                            color: isClickable ? null : AppColors.lightGrey,
-                            text: AppLocalizations.of(context)!.send, onPressed: (){
-                              if(!isClickable){
-                                return;
-                              }
-                              if(!isSavePressed){
-                                setState(() {
-                                  isSavePressed = true;
-                                });
-                              }
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          AppElevatedButton(
+                              verticalPadding: 10,
+                              textStyle: Theme.of(context)
+                                  .textTheme
+                                  .labelSmall
+                                  ?.copyWith(color: Colors.white),
+                              color: isClickable ? null : AppColors.lightGrey,
+                              text: AppLocalizations.of(context)!.send,
+                              onPressed: () {
+                                if (!isClickable) {
+                                  return;
+                                }
+                                if (!isSavePressed) {
+                                  setState(() {
+                                    isSavePressed = true;
+                                  });
+                                }
 
-                              _formKey.currentState!.validate();
-                        }),
-                        SizedBox(height: 30,),
-                      ],
+                                final valid = _formKey.currentState!.validate();
+                                if (!valid) return;
+
+                                final jobApplicationRequest = JobApplicationRequest(
+                                    firstname: _firstnameController.text,
+                                    lastname: _lastnameController.text,
+                                    birthday: _dateOfBirth!,
+                                    citizenship: _citizenshipController.text,
+                                    gender: _genderController.text,
+                                    address: _addressController.text,
+                                    availableDate: _availableDate!,
+                                    company: widget.job.company,
+                                    documents: JobApplicationRequestDocuments(
+                                        photo: JobApplicationRequestDocument(
+                                            bytes: photo!.bytes,
+                                            extension: photo!.filename
+                                                .split(".")
+                                                .last),
+                                        cv: JobApplicationRequestDocument(
+                                            bytes: cv!.bytes,
+                                            extension:
+                                                cv!.filename.split(".").last),
+                                        certificates: certificates
+                                            .map((e) =>
+                                                JobApplicationRequestDocument(
+                                                    bytes: e.bytes,
+                                                    extension: e.filename
+                                                        .split(".")
+                                                        .last))
+                                            .toList()));
+                                sl<JobApplicationBloc>().add(
+                                    JobApplicationEvent.applyJob(
+                                        jobApplicationRequest:
+                                            jobApplicationRequest));
+                              }),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const Footer(),
-            ],
+                const Footer(),
+              ],
+            ),
           ),
         ),
       ),
@@ -558,12 +687,12 @@ class _JobDescriptionState extends State<JobDescription> {
               size: 20,
               color: AppColors.mainDarkAccent,
             )),
-        SizedBox(
+        const SizedBox(
           width: 14,
         ),
         Text(
           text,
-          style: TextStyle(fontSize: 14),
+          style: const TextStyle(fontSize: 14),
         )
       ],
     );

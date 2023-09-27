@@ -16,6 +16,7 @@ import 'package:industria/domain/repositories/job/job_repository_impl.dart';
 import 'package:industria/domain/repositories/job_application/job_application_repository_contract.dart';
 import 'package:industria/domain/repositories/job_application/job_application_repository_impl.dart';
 import 'package:industria/domain/repositories/language/language_repository_impl.dart';
+import 'package:industria/presentation/bloc/contact_requests/contact_request_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 import 'package:industria/presentation/bloc/job_application/job_application_bloc.dart';
 import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
@@ -40,7 +41,7 @@ Future<void> init() async {
   await sharedPrefs.reload();
   final cookieRepository = CookieRepositoryImpl(
       db: CookieServiceImpl(sharedPreferences: sharedPrefs));
-  final contactRequests = ContactRequestsRepositoryImpl(
+  final contactRequestsRepository = ContactRequestsRepositoryImpl(
       db: ContactRequestsServiceImpl(
           db: FirebaseFirestore.instance, storage: FirebaseStorage.instance));
   final languageRepository = LanguageRepositoryImpl(db: LocaleServiceImpl(sharedPreferences: sharedPrefs));
@@ -53,11 +54,12 @@ Future<void> init() async {
   ///Injecting
   sl.registerSingleton<CookieRepository>(cookieRepository);
   sl.registerSingleton<JobRepository>(jobRepository);
-  sl.registerSingleton<ContactRequestsRepository>(contactRequests);
+  sl.registerSingleton<ContactRequestsRepository>(contactRequestsRepository);
   sl.registerSingleton<JobApplicationRepository>(jobApplicationRepository);
 
   sl.registerLazySingleton(() => LocalizationBloc(initialLocale: initialLocale, languageRepository: languageRepository));
   sl.registerLazySingleton(() => CookieBloc(cookieRepository: sl<CookieRepository>(), initialValue: initialCookie));
   sl.registerLazySingleton(() => JobsBloc(jobRepository: jobRepository));
   sl.registerLazySingleton(() => JobApplicationBloc(jobApplicationRepository: jobApplicationRepository));
+  sl.registerLazySingleton(() => ContactRequestBloc(contactRequestsRepository: contactRequestsRepository));
 }

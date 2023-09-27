@@ -439,9 +439,9 @@ class _ContactState extends State<Contact> {
                       const SizedBox(
                         height: 161,
                       ),
-                    ),
+                    ]),
                   ),
-                ),
+                  )),
                 const Footer(),
               ],
             );

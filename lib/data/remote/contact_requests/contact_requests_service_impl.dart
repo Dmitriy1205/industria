@@ -20,13 +20,8 @@ class ContactRequestsServiceImpl implements ContactRequestsService {
     final uploadPath = _contactRequestsDir(docRef.id);
 
     final json = ContactRequests.jsonFromRequest(
-        id: contactRequests.id,
-        firstname: contactRequests.firstname,
-        lastname: contactRequests.lastname,
-        companyName: contactRequests.companyName,
-        description: contactRequests.description,
-        email: contactRequests.email,
-        phoneNumber: contactRequests.phoneNumber);
+        docId: docRef.id,
+        contactRequests: contactRequests);
     await docRef.set(json);
   }
 

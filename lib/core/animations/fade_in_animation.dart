@@ -65,12 +65,12 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
       setState(() {
         _isVisible = true;
       });
-    } else if (scrollOffset < revealOffset && _isVisible) {
+    } /*else if (scrollOffset < revealOffset && _isVisible) {
       _controller.reverse();
       setState(() {
         _isVisible = false;
       });
-    }
+    }*/
   }
 
   @override

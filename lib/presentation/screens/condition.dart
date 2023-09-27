@@ -28,22 +28,24 @@ class Condition extends StatelessWidget {
                   const SizedBox(
                     height: 61,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 105.0,right: 135),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.cookies,
-                          style: AppTheme.themeData.textTheme.titleLarge!
-                              .copyWith(color: Colors.black, fontSize: 24),
-                        ),
-                        SizedBox(height: 30,),
-                        Text(
-                          AppLocalizations.of(context)!.cookiesBigText,
-                          style: AppTheme.themeData.textTheme.titleMedium,
-                        )
-                      ],
+                  LayoutBuilder(
+                    builder: (context,constraints) => Padding(
+                      padding: EdgeInsets.only(left: constraints.maxWidth < 1100 ? 24 : 105.0,right: constraints.maxWidth < 1100 ? 24 :135),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.cookies,
+                            style: AppTheme.themeData.textTheme.titleLarge!
+                                .copyWith(color: Colors.black, fontSize: 24),
+                          ),
+                          SizedBox(height: 30,),
+                          Text(
+                            AppLocalizations.of(context)!.cookiesBigText,
+                            style: AppTheme.themeData.textTheme.titleMedium,
+                          )
+                        ],
+                      ),
                     ),
                   ),const SizedBox(
                     height: 200,

@@ -27,56 +27,58 @@ class Imprint extends StatelessWidget {
                     width: 110,
                   ),
                   const SizedBox(height: 47,),
-            Padding(
-              padding: const EdgeInsets.only(left: 105.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Industry Personnel Services Germany GmbH',
-                    style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
-                  ),
-                  const SizedBox(height: 16), // Add spacing between text sections
-                  Text(
-                      AppLocalizations.of(context)!.address,
+            LayoutBuilder(
+              builder: (context, constraints) => Padding(
+                padding: EdgeInsets.symmetric(horizontal: constraints.maxWidth < 1100 ? 24 : 105.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Industry Personnel Services Germany GmbH',
                       style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    'Gaustr. 21\n55411 Bingen am Rhein\nGermany',
-                    style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    '${AppLocalizations.of(context)!.managingDirector}:',
-                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    'Michael Walker',
-                    style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    '${AppLocalizations.of(context)!.registerCourt}:',
-                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
-                  ),
-                  Text(
-                    'Mainz, HRB 47850',
-                    style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w400),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Text(
-                        'Email: ',
-                          style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
-                      ),
-                      Text(
-                        'team@industria-jobs.de',
-                        style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    const SizedBox(height: 16), // Add spacing between text sections
+                    Text(
+                        AppLocalizations.of(context)!.address,
+                        style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'Gaustr. 21\n55411 Bingen am Rhein\nGermany',
+                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      '${AppLocalizations.of(context)!.managingDirector}:',
+                        style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'Michael Walker',
+                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      '${AppLocalizations.of(context)!.registerCourt}:',
+                        style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'Mainz, HRB 47850',
+                      style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w400),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Text(
+                          'Email: ',
+                            style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'team@industria-jobs.de',
+                          style: AppTheme.themeData.textTheme.titleLarge!.copyWith(color: Colors.black,fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
                   const SizedBox(height: 161,),

@@ -95,6 +95,13 @@ class _ContactState extends State<Contact> {
             },
             success: (_) {
               showSuccessSnackBar(context);
+              _firstNameController.clear();
+              _lastNameController.clear();
+              _companyNameNameController.clear();
+              _emailController.clear();
+              _phoneNumberController.clear();
+              _descriptionController.clear();
+              isSavePressed = false;
             },
             error: (_) {
               showErrorSnackBar(

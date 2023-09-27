@@ -31,90 +31,92 @@ class ForEmployers extends StatelessWidget {
                     height: 4,
                     width: 110,
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 47, left: 100, right: 105),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.simplifyHiring,
-                          style: AppTheme.themeData.textTheme.titleMedium!
-                              .copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 24,
+                  LayoutBuilder(
+                    builder: (context,constraints) => Padding(
+                      padding:
+                          EdgeInsets.only(top: 47, left: constraints.maxWidth < 1100 ? 24 : 100, right: constraints.maxWidth < 1100 ? 24 : 100),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.simplifyHiring,
+                            style: AppTheme.themeData.textTheme.titleMedium!
+                                .copyWith(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 24,
+                            ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.simplifyHiringText,
-                          style: AppTheme.themeData.textTheme.titleMedium,
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          AppLocalizations.of(context)!.whyChooseIndustria,
-                          style: AppTheme.themeData.textTheme.titleMedium!
-                              .copyWith(
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 24,
+                          const SizedBox(
+                            height: 30,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: AppLocalizations.of(context)!
-                                    .whyChooseIndustriaText,
-                                style: AppTheme.themeData.textTheme.titleMedium,
+                          Text(
+                            AppLocalizations.of(context)!.simplifyHiringText,
+                            style: AppTheme.themeData.textTheme.titleMedium,
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.whyChooseIndustria,
+                            style: AppTheme.themeData.textTheme.titleMedium!
+                                .copyWith(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 24,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: AppLocalizations.of(context)!
+                                      .whyChooseIndustriaText,
+                                  style: AppTheme.themeData.textTheme.titleMedium,
 
-                              ),
-                              TextSpan(
-                                text:AppLocalizations.of(context)!
-                                    .bapMemberShip,
-                                style:AppTheme
-                                    .themeData.textTheme.titleMedium!
-                                    .copyWith(
-                                  color: AppColors.mainDarkAccent,decoration: TextDecoration.underline,decorationColor:AppColors.mainDarkAccent ),
-                                mouseCursor: SystemMouseCursors.click,
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    html.window.open(
-                                        'https://www.industria-jobs.de/download_files/Besch_Bap.pdf',
-                                        'pdf');
-                                  },
-                              ),
-                              // WidgetSpan(
-                              //   child: MouseRegion(
-                              //     cursor: SystemMouseCursors.click,
-                              //     child: GestureDetector(
-                              //       onTap: () {
-                              //
-                              //       },
-                              //       child: Text(
-                              //         AppLocalizations.of(context)!
-                              //             .bapMemberShip,
-                              //         style: AppTheme
-                              //             .themeData.textTheme.titleMedium!
-                              //             .copyWith(
-                              //           color: AppColors.mainAccent,
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
-                            ],
+                                ),
+                                TextSpan(
+                                  text:AppLocalizations.of(context)!
+                                      .bapMemberShip,
+                                  style:AppTheme
+                                      .themeData.textTheme.titleMedium!
+                                      .copyWith(
+                                    color: AppColors.mainDarkAccent,decoration: TextDecoration.underline,decorationColor:AppColors.mainDarkAccent ),
+                                  mouseCursor: SystemMouseCursors.click,
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      html.window.open(
+                                          'https://www.industria-jobs.de/download_files/Besch_Bap.pdf',
+                                          'pdf');
+                                    },
+                                ),
+                                // WidgetSpan(
+                                //   child: MouseRegion(
+                                //     cursor: SystemMouseCursors.click,
+                                //     child: GestureDetector(
+                                //       onTap: () {
+                                //
+                                //       },
+                                //       child: Text(
+                                //         AppLocalizations.of(context)!
+                                //             .bapMemberShip,
+                                //         style: AppTheme
+                                //             .themeData.textTheme.titleMedium!
+                                //             .copyWith(
+                                //           color: AppColors.mainAccent,
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(

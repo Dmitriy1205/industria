@@ -20,6 +20,7 @@ class JobApplicationServiceImpl implements JobApplicationService {
   @override
   Future<void> applyForJob(
       {required JobApplicationRequest jobApplication}) async {
+
     final localDocuments = jobApplication.documents;
     final docRef = db.collection(FirestoreCollections.jobApplications).doc();
     final uploadPath = _applicantDocumentsDir(docRef.id);
@@ -46,6 +47,7 @@ class JobApplicationServiceImpl implements JobApplicationService {
         photoPath: photoPath,
         cvPath: cvPath,
         certificatesPaths: certificatesPaths);
+
     await docRef.set(json);
   }
 

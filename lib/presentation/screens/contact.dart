@@ -146,27 +146,94 @@ class _ContactState extends State<Contact> {
                                         isSavePressed: isSavePressed,
                                       ),
                                     ),
-                                    const SizedBox(
-                                      width: 30,
+                                  ),
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
+                                  Expanded(
+                                    child: CustomTextFormField(
+                                      focusNode: _lastNameFocusNode,
+                                      textController: _lastNameController,
+                                      labelText:
+                                          AppLocalizations.of(context)!.lastname,
+                                      validator: Validator.validate,
+                                      textInputType: TextInputType.text,
+                                      onChange: _clickable,
+                                      isSavePressed: isSavePressed,
                                     ),
-                                    Expanded(
-                                      child: CustomTextFormField(
-                                        focusNode: _lastNameFocusNode,
-                                        textController: _lastNameController,
-                                        labelText: AppLocalizations.of(context)!
-                                            .lastname,
-                                        validator: Validator.validate,
-                                        textInputType: TextInputType.text,
-                                        onChange: _clickable,
-                                        isSavePressed: isSavePressed,
-                                      ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: CustomTextFormField(
+                                      focusNode: _companyNameFocusNode,
+                                      textController: _companyNameNameController,
+                                      labelText: AppLocalizations.of(context)!
+                                          .companyName,
+                                      validator: Validator.validate,
+                                      textInputType: TextInputType.text,
+                                      onChange: _clickable,
+                                      isSavePressed: isSavePressed,
                                     ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
+                                  ),
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
+                                  Expanded(
+                                    child: CustomTextFormField(
+                                      focusNode: _phoneNumberFocusNode,
+                                      textController: _phoneNumberController,
+                                      labelText: AppLocalizations.of(context)!
+                                          .phoneNumber,
+                                      validator: Validator.validatePhone,
+                                      inputFormatter:
+                                          FilteringTextInputFormatter.digitsOnly,
+                                      textInputType: TextInputType.phone,
+                                      isSavePressed: isSavePressed,
+                                      onChange: _clickable,
+                                      width: 244,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 26,
+                              ),
+                              CustomTextFormField(
+                                focusNode: _emailFocusNode,
+                                textController: _emailController,
+                                labelText: AppLocalizations.of(context)!.email,
+                                validator: Validator.validateEmail,
+                                textInputType: TextInputType.emailAddress,
+                                isSavePressed: isSavePressed,
+                                onChange: _clickable,
+                                width: 521,
+                              ),
+                              const SizedBox(
+                                height: 35,
+                              ),
+                              CustomTextFormField(
+                                focusNode: _descriptionFocusNode,
+                                textController: _descriptionController,
+                                labelText:
+                                    AppLocalizations.of(context)!.description,
+                                validator: Validator.validate,
+                                textInputType: TextInputType.text,
+                                isSavePressed: isSavePressed,
+                                onChange: _clickable,
+                                width: 521,
+                                height: 86,
+                                maxLines: 5,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 18),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     Expanded(
                                       child: CustomTextFormField(
@@ -200,6 +267,37 @@ class _ContactState extends State<Contact> {
                                         width: 244,
                                       ),
                                     ),
+                                    RichText(
+                                        text: TextSpan(
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: AppLocalizations.of(context)!
+                                              .iAcceptApplicationDataProtectionPolicy,
+                                          style: AppTheme
+                                              .themeData.textTheme.labelSmall!
+                                              .copyWith(
+                                            color: AppColors.darkGrey,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                            text: AppLocalizations.of(context)!
+                                                .dataProtection,
+                                            style: AppTheme
+                                                .themeData.textTheme.labelSmall!
+                                                .copyWith(
+                                                    color: AppColors.mainAccent),
+                                            mouseCursor:
+                                                SystemMouseCursors.click),
+                                        TextSpan(
+                                          text: AppLocalizations.of(context)!
+                                              .policy,
+                                          style: AppTheme
+                                              .themeData.textTheme.labelSmall!
+                                              .copyWith(
+                                                  color: AppColors.darkGrey),
+                                        ),
+                                      ],
+                                    ))
                                   ],
                                 ),
                                 const SizedBox(
@@ -333,13 +431,13 @@ class _ContactState extends State<Contact> {
                                                 : null),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(
-                            height: 161,
-                          ),
-                        ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 161,
                       ),
                     ),
                   ),

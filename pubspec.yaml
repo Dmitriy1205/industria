@@ -42,6 +42,7 @@ dependencies:
   vph_web_date_picker: ^0.0.4
   file_picker: ^5.5.0
   freezed_annotation: ^2.4.1
+  bloc_concurrency: ^0.2.2
 
 dev_dependencies:
   flutter_test:

@@ -43,7 +43,10 @@ class FileUploadFormWidget extends FormField<List<String>> {
             icon: icon,
             hint: hint,
             pickedFilesNames: pickedFilesNames,
-            onPick: onPick,
+            onPick: (e){
+              field.didChange(e.map((e) => e.filename).toList());
+              onPick.call(e);
+            },
             singlePick: singlePick,
             mandatory: mandatory,
             errorText: field.errorText,

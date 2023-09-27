@@ -40,7 +40,7 @@ class _NavbarState extends State<Navbar> {
                     },
                     child: Text(AppLocalizations.of(context)!.home,
                       style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: AppColors.darkGrey),),
+                          .copyWith(color: Color(0xFF575757)),),
                   ),
                 ),
                 MouseRegion(
@@ -52,7 +52,7 @@ class _NavbarState extends State<Navbar> {
                     child: Text(
                       AppLocalizations.of(context)!.jobs,
                       style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: AppColors.darkGrey),
+                          .copyWith(color: Color(0xFF575757)),
                     ),
                   ),
                 ),
@@ -65,7 +65,7 @@ class _NavbarState extends State<Navbar> {
                     child: Text(
                       AppLocalizations.of(context)!.forEmployers,
                       style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: AppColors.darkGrey),
+                          .copyWith(color: Color(0xFF575757)),
                     ),
                   ),
                 ),
@@ -78,7 +78,7 @@ class _NavbarState extends State<Navbar> {
                     child: Text(
                       AppLocalizations.of(context)!.forEmployees,
                       style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: AppColors.darkGrey),
+                          .copyWith(color: Color(0xFF575757)),
                     ),
                   ),
                 ),
@@ -91,7 +91,7 @@ class _NavbarState extends State<Navbar> {
                     child: Text(
                       AppLocalizations.of(context)!.ourTeam,
                       style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: AppColors.darkGrey),
+                          .copyWith(color: Color(0xFF575757)),
                     ),
                   ),
                 ),
@@ -104,7 +104,7 @@ class _NavbarState extends State<Navbar> {
                     child: Text(
                       AppLocalizations.of(context)!.contact,
                       style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: AppColors.darkGrey),
+                          .copyWith(color: Color(0xFF575757)),
                     ),
                   ),
                 ),
@@ -151,7 +151,7 @@ class _NavbarState extends State<Navbar> {
                         child: Text(
                           value,
                           style: AppTheme.themeData.textTheme.titleSmall!
-                              .copyWith(color: AppColors.darkGrey),
+                              .copyWith(color: Color(0xFF575757)),
                         ),
                       );
                     }).toList(),

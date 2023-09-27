@@ -2,18 +2,26 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:industria/domain/entities/contact_requests/contact_requests.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 import 'package:industria/presentation/widgets/steps.dart';
 
 import '../../app/router.dart';
 import '../../core/constants/colors.dart';
+import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 import '../../core/validator/field_validator.dart';
+import '../../data/remote/contact_requests/contact_requests_service_contract.dart';
+import '../../domain/repositories/contact_request/contact_request_repository_contract.dart';
+import '../../domain/repositories/contact_request/contact_request_repository_impl.dart';
 import '../widgets/app_elevated_button.dart';
 import '../widgets/footer.dart';
 
 class Contact extends StatefulWidget {
   Contact({super.key});
+
+  // ContactRequestsRepositoryImpl contactRequestsRepositoryImpl =
+  //     ContactRequestsRepositoryImpl(db: sl<ContactRequestsRepository>());
 
   @override
   State<Contact> createState() => _ContactState();
@@ -841,8 +849,27 @@ class _ContactState extends State<Contact> {
                                           print('pressed1 $_checkboxValue');
                                           if (_formKey.currentState!
                                               .validate()) {
-                                            print('validate');
+                                            print('validated');
                                             _showProgressSnackBar();
+                                            sl<ContactRequestsRepository>().sendContactRequest(
+                                                contactRequests: ContactRequests(
+                                                    firstname:
+                                                        _firstNameController
+                                                            .text,
+                                                    lastname:
+                                                        _lastNameController
+                                                            .text,
+                                                    companyName:
+                                                        _companyNameNameController
+                                                            .text,
+                                                    phoneNumber:
+                                                        _phoneNumberController
+                                                            .text,
+                                                    email:
+                                                        _emailController.text,
+                                                    description:
+                                                        _descriptionController
+                                                            .text,));
                                             _showSuccessSnackBar();
                                           }
                                         }

@@ -105,7 +105,7 @@ class _ContactState extends State<Contact> {
             },
             error: (_) {
               showErrorSnackBar(
-                  context, "Server error while applying for a job");
+                  context, "Server error while sending data");
             },
             orElse: () {});
       },

@@ -1,8 +1,8 @@
 {
   "home": "Startseite",
-  "jobs": "Arbeit",
+  "jobs": "Jobs",
   "forEmployers": "Für Arbeitgeber",
-  "forEmployees": "Für Arbeitnehmer",
+  "forEmployees": "Für Bewerber",
   "ourTeam": "Unser Team",
   "contact": "Kontakt",
   "login": "Einloggen",
@@ -77,7 +77,7 @@
    "forgotPassword":"PASSWORT VERGESSEN",
    "signIn":"Anmelden",
    "ifYouDontHaveAccount":"Wenn Sie kein Konto haben, aber ein Mitarbeiter sind,\nklicken Sie hier, um den Administrator zu kontaktieren",
-   "employeeLogin": "Mitarbeiter Einloggen",
+   "employeeLogin": "Mitarbeiter Login",
 
 
    "contactUs": "Kontaktieren Sie uns",

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:industria/app/app.dart';
 import 'package:industria/app/router.dart';
 
 import '../../core/constants/colors.dart';
@@ -178,7 +177,7 @@ class _FooterState extends State<Footer> {
                           router.go('/imprint');
                         },
                         child: Text(
-                          'Industry Personnel Services Germany GmbH © 2019',
+                          'Industria Personnel Services Germany GmbH © 2019',
                           style: AppTheme.themeData.textTheme.titleMedium!
                               .copyWith(color: Color(0xFF8B8B8B)),
                         ),

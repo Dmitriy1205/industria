@@ -136,18 +136,6 @@ class _ContactState extends State<Contact> {
                         const SizedBox(
                           height: 47,
                         ),
-                        SizedBox(
-                          child: Text(
-                            AppLocalizations.of(context)!.wannaContactUs,
-                            textAlign: TextAlign.center,
-                            style: AppTheme.themeData.textTheme.titleMedium!
-                                .copyWith(
-                                    fontSize: 18,
-                                    color: AppColors.darkGrey,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.w400),
-                          ),
-                        ),
                         Padding(
                             padding: EdgeInsets.only(
                                 top: 116,
@@ -480,21 +468,6 @@ class _ContactState extends State<Contact> {
                             height: 4,
                             width: 110,
                           ),
-                          const SizedBox(
-                            height: 47,
-                          ),
-                          SizedBox(
-                            child: Text(
-                              AppLocalizations.of(context)!.wannaContactUs,
-                              textAlign: TextAlign.center,
-                              style: AppTheme.themeData.textTheme.titleMedium!
-                                  .copyWith(
-                                      fontSize: 18,
-                                      color: AppColors.darkGrey,
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.w400),
-                            ),
-                          ),
                           Padding(
                             padding: EdgeInsets.only(
                                 top: 116,
@@ -768,17 +741,6 @@ class _ContactState extends State<Contact> {
                 ),
                 const SizedBox(
                   height: 47,
-                ),
-                SizedBox(
-                  child: Text(
-                    AppLocalizations.of(context)!.wannaContactUs,
-                    textAlign: TextAlign.center,
-                    style: AppTheme.themeData.textTheme.titleMedium!.copyWith(
-                        fontSize: 18,
-                        color: AppColors.darkGrey,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w400),
-                  ),
                 ),
                 Padding(
                   padding:

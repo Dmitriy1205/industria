@@ -26,8 +26,8 @@ class _FooterState extends State<Footer> {
     '/ourteam',
     '/contact',
     '/dataprotection',
-    '/admin',
-    '/companydetails',
+    '/admin/login',
+    '/imprint',
   ];
   bool isHovered = false;
 
@@ -291,11 +291,7 @@ class _FooterState extends State<Footer> {
         GestureDetector(
           onTap: () {
             if (i < routePaths.length) {
-              if(routePaths[i] == '/companydetails'){
-                router.go('/imprint');
-              }else{
-                router.go(routePaths[i]);
-              }
+              router.go(routePaths[i]);
             }
           },
           child: MouseRegion(

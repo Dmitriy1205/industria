@@ -117,5 +117,9 @@
    "dragCv": "Ziehen Sie Ihren Lebenslauf hierher *",
    "dragPicture": "Ziehen Sie Ihr Bild hierher *",
    "backToJobs": "Zurück zu den Jobs",
-   "jobDescription": "Arbeitsbeschreibung"
+   "jobDescription": "Arbeitsbeschreibung",
+
+   "admin_panel": "Administrationsmenü",
+   "admin_login": "Admin Login",
+   "logOut": "Ausloggen"
 }

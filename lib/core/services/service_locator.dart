@@ -1,5 +1,6 @@
 import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:industria/data/remote/contact_requests/contact_requests_service_contract.dart';
@@ -7,6 +8,8 @@ import 'package:industria/data/remote/contact_requests/contact_requests_service_
 import 'package:industria/data/remote/job/job_service_contract.dart';
 import 'package:industria/data/remote/job/job_service_impl.dart';
 import 'package:industria/domain/entities/contact_requests/contact_requests.dart';
+import 'package:industria/domain/repositories/auth/auth_repository_contract.dart';
+import 'package:industria/domain/repositories/auth/auth_repository_impl.dart';
 import 'package:industria/domain/repositories/contact_request/contact_request_repository_contract.dart';
 import 'package:industria/data/local/language/language_service_impl.dart';
 import 'package:industria/data/remote/job_application/job_application_service_contract.dart';
@@ -16,6 +19,7 @@ import 'package:industria/domain/repositories/job/job_repository_impl.dart';
 import 'package:industria/domain/repositories/job_application/job_application_repository_contract.dart';
 import 'package:industria/domain/repositories/job_application/job_application_repository_impl.dart';
 import 'package:industria/domain/repositories/language/language_repository_impl.dart';
+import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/contact_requests/contact_request_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 import 'package:industria/presentation/bloc/job_application/job_application_bloc.dart';
@@ -47,6 +51,7 @@ Future<void> init() async {
   final languageRepository = LanguageRepositoryImpl(db: LocaleServiceImpl(sharedPreferences: sharedPrefs));
   const jobRepository = JobRepositoryImpl(db: JobServiceImpl(algolia: algolia));
   final jobApplicationRepository = JobApplicationRepositoryImpl(db: JobApplicationServiceImpl(db: FirebaseFirestore.instance, storage: FirebaseStorage.instance));
+  final authRepository = AuthRepositoryImpl(auth: FirebaseAuth.instance);
 
   final initialCookie = await cookieRepository.fetchCookies();
   final initialLocale = await languageRepository.fetchLocale();
@@ -56,10 +61,12 @@ Future<void> init() async {
   sl.registerSingleton<JobRepository>(jobRepository);
   sl.registerSingleton<ContactRequestsRepository>(contactRequestsRepository);
   sl.registerSingleton<JobApplicationRepository>(jobApplicationRepository);
+  sl.registerSingleton<AuthRepository>(authRepository);
 
   sl.registerLazySingleton(() => LocalizationBloc(initialLocale: initialLocale, languageRepository: languageRepository));
   sl.registerLazySingleton(() => CookieBloc(cookieRepository: sl<CookieRepository>(), initialValue: initialCookie));
   sl.registerLazySingleton(() => JobsBloc(jobRepository: jobRepository));
   sl.registerLazySingleton(() => JobApplicationBloc(jobApplicationRepository: jobApplicationRepository));
   sl.registerLazySingleton(() => ContactRequestBloc(contactRequestsRepository: contactRequestsRepository));
+  sl.registerLazySingleton(() => AuthBloc(authRepository: authRepository));
 }

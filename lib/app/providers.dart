@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 
@@ -21,7 +22,8 @@ class Providers extends StatelessWidget {
         BlocProvider(
           create: (context) => sl<CookieBloc>(),
           lazy: false,
-        )
+        ),
+        BlocProvider(create: (context) => sl<AuthBloc>())
       ],
       child: child,
     );

@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,7 +9,6 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../../app/router.dart';
 import '../../core/constants/colors.dart';
 import '../../core/themes/theme.dart';
-import '../bloc/localization/localization_bloc.dart';
 import '../widgets/footer.dart';
 
 class Home extends StatefulWidget {

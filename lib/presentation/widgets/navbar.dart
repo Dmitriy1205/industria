@@ -20,7 +20,6 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   bool isHovered = false;
 
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -35,18 +34,20 @@ class _NavbarState extends State<Navbar> {
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       router.go('/home');
                     },
-                    child: Text(AppLocalizations.of(context)!.home,
+                    child: Text(
+                      AppLocalizations.of(context)!.home,
                       style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: Color(0xFF575757)),),
+                          .copyWith(color: Color(0xFF575757)),
+                    ),
                   ),
                 ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       router.go('/jobs');
                     },
                     child: Text(
@@ -59,7 +60,7 @@ class _NavbarState extends State<Navbar> {
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       router.go('/employers');
                     },
                     child: Text(
@@ -72,7 +73,7 @@ class _NavbarState extends State<Navbar> {
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       router.go('/employees');
                     },
                     child: Text(
@@ -85,7 +86,7 @@ class _NavbarState extends State<Navbar> {
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       router.go('/ourteam');
                     },
                     child: Text(
@@ -98,7 +99,7 @@ class _NavbarState extends State<Navbar> {
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       router.go('/contact');
                     },
                     child: Text(
@@ -108,7 +109,12 @@ class _NavbarState extends State<Navbar> {
                     ),
                   ),
                 ),
-              ].map((e) => Container(child: e, margin: EdgeInsets.symmetric(horizontal: 22),)).toList(),
+              ]
+                  .map((e) => Container(
+                        child: e,
+                        margin: EdgeInsets.symmetric(horizontal: 22),
+                      ))
+                  .toList(),
             ),
           ),
           Padding(
@@ -119,7 +125,7 @@ class _NavbarState extends State<Navbar> {
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   child: GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       router.go('/home');
                     },
                     child: Image.asset(
@@ -144,9 +150,8 @@ class _NavbarState extends State<Navbar> {
                       ),
                     ),
                     underline: SizedBox(),
-                    value:
-                    context.read<LocalizationBloc>().state.locale ==
-                        const Locale('en')
+                    value: context.read<LocalizationBloc>().state.locale ==
+                            const Locale('en')
                         ? 'ENG'
                         : 'DE',
                     borderRadius: BorderRadius.circular(10),
@@ -164,20 +169,16 @@ class _NavbarState extends State<Navbar> {
                       );
                     }).toList(),
                     onChanged: (String? newValue) {
-                      if (context.read<LocalizationBloc>().state.locale ==
-                          const Locale('en')) {
-                        context.read<LocalizationBloc>().add(
-                            const LocalizationEvent.changeLang(
-                                locale: Locale('de')));
-                      } else {
-                        context.read<LocalizationBloc>().add(
-                            const LocalizationEvent.changeLang(
-                                locale: Locale('en')));
-                      }
+                      final locale =
+                          newValue!.toLowerCase() == 'eng' ? 'en' : 'de';
+                      context.read<LocalizationBloc>().add(
+                          LocalizationEvent.changeLang(locale: Locale(locale)));
                     },
                   ),
                 ),
-                SizedBox(width: 20,),
+                SizedBox(
+                  width: 20,
+                ),
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
                   onEnter: (_) {
@@ -198,14 +199,14 @@ class _NavbarState extends State<Navbar> {
                       height: 45,
                       padding: EdgeInsets.symmetric(horizontal: 35),
                       decoration: BoxDecoration(
-                          color:
-                              isHovered ? AppColors.mainDarkAccent : AppColors.mainAccent,
+                          color: isHovered
+                              ? AppColors.mainDarkAccent
+                              : AppColors.mainAccent,
                           borderRadius: BorderRadius.circular(8)),
                       child: Center(
                         child: Text(
                           AppLocalizations.of(context)!.login,
-                          style:
-                              AppTheme.themeData.textTheme.titleLarge,
+                          style: AppTheme.themeData.textTheme.titleLarge,
                         ),
                       ),
                     ),
@@ -217,8 +218,16 @@ class _NavbarState extends State<Navbar> {
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(width: double.infinity, height: 3, color: AppColors.secondaryAccent,),
-              Container(width: double.infinity, height: 3, color: AppColors.mainAccent,),
+              Container(
+                width: double.infinity,
+                height: 3,
+                color: AppColors.secondaryAccent,
+              ),
+              Container(
+                width: double.infinity,
+                height: 3,
+                color: AppColors.mainAccent,
+              ),
             ],
           )
         ],

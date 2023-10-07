@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 
-Future<void> showSuccessSnackBar(BuildContext context) async {
+Future<void> showSuccessSnackBar(BuildContext context, [String? msg]) async {
   ScaffoldMessenger.of(context).removeCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(
+    SnackBar(
       backgroundColor: Colors.white,
       behavior: SnackBarBehavior.floating,
       content: SizedBox(
@@ -14,13 +14,13 @@ Future<void> showSuccessSnackBar(BuildContext context) async {
         child: Row(crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             (Text(
-              'Successfully sent',
-              style: TextStyle(color: Colors.black),
+              msg ?? 'Successfully sent',
+              style: const TextStyle(color: Colors.black),
             )),
           ],
         ),
       ),
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     ),
   );
 }
@@ -33,9 +33,9 @@ Future<void> showErrorSnackBar(BuildContext context, String errorMessage) async 
       behavior: SnackBarBehavior.floating,
       content: Text(
         'Error: $errorMessage',
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.white),
       ),
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     ),
   );
 }

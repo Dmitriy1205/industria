@@ -73,7 +73,7 @@
  "conditions":"Conditions",
  "userName":"Username",
  "password":"Password",
- "passwordCantBeEmpty":"Password cant be empty",
+ "passwordCantBeEmpty":"Password cannot be empty",
  "forgotPassword":"FORGOT PASSWORD",
  "signIn":"Sign in",
  "ifYouDontHaveAccount":"If you do not have an account but you are an employee,\nclick here to contact admin",
@@ -116,5 +116,9 @@
  "dragCv": "Drag your CV here *",
  "dragPicture": "Drag your picture here *",
  "backToJobs": "Back to jobs",
- "jobDescription": "Job description"
+ "jobDescription": "Job description",
+
+ "admin_panel": "Admin panel",
+ "admin_login": "Admin Login",
+ "logOut": "Log out"
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
@@ -9,6 +8,7 @@ import 'package:industria/presentation/screens/admin/admin_feedbacks.dart';
 import 'package:industria/presentation/screens/admin/admin_job_applications.dart';
 import 'package:industria/presentation/screens/admin/admin_main_screen.dart';
 import 'package:industria/presentation/screens/admin/admin_users.dart';
+import 'package:industria/presentation/screens/admin/admin_vacancies.dart';
 import 'package:industria/presentation/screens/admin/change_user_credentials.dart';
 import 'package:industria/presentation/screens/admin/create_user_credentials.dart';
 import 'package:industria/presentation/screens/admin/view_user_credentials.dart';
@@ -23,7 +23,6 @@ import 'package:industria/presentation/screens/layouts/admin/admin_desktop_dashb
 import 'package:industria/presentation/screens/main_screen.dart';
 import 'package:industria/presentation/screens/our_team.dart';
 
-import '../core/services/service_locator.dart';
 import '../presentation/screens/admin/admin_login.dart';
 import '../presentation/screens/contact.dart';
 import '../presentation/screens/home.dart';
@@ -111,6 +110,14 @@ final GoRouter router = GoRouter(
               context: context,
               state: state,
               child: const AdminFeedbacks(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/vacancies',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: const AdminVacancies(),
             ),
           ),
         ]),

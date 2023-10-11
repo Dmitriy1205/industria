@@ -29,96 +29,105 @@ class _AdminNavbarState extends State<AdminNavbar> {
   Widget build(BuildContext context) {
     return AppBar(
       surfaceTintColor: Colors.white,
-      flexibleSpace: Stack(
-        fit: StackFit.passthrough,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-                left: 20.0, top: 14, right: 30, bottom: 14),
-            child: Row(
-              children: [
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: (){
-                      router.go('/home');
-                    },
-                    child: Image.asset(
-                      AppImages.logo,
-                      scale: 2,
-                    ),
-                  ),
-                ),
-                const Spacer(),
-                Theme(
-                  data: Theme.of(context).copyWith(
-                    hoverColor: Colors.white,
-                  ),
-                  child: DropdownButton<String>(
-                    focusColor: Colors.white,
-                    icon: const Padding(
-                      padding: EdgeInsets.only(left: 3.0),
-                      child: Icon(
-                        Icons.arrow_drop_down,
-                        size: 15,
-                        color: AppColors.darkGrey,
+      flexibleSpace: BlocListener<AuthBloc,AuthState>(
+        listener: (context,state){
+          state.maybeMap(
+              unauthenticated: (_){
+                context.go('/admin/login');
+              },
+              orElse: (){});
+        },
+        child: Stack(
+          fit: StackFit.passthrough,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0, top: 14, right: 30, bottom: 14),
+              child: Row(
+                children: [
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: (){
+                        router.go('/home');
+                      },
+                      child: Image.asset(
+                        AppImages.logo,
+                        scale: 2,
                       ),
                     ),
-                    underline: const SizedBox(),
-                    value:
-                    context.read<LocalizationBloc>().state.locale ==
-                        const Locale('en')
-                        ? 'ENG'
-                        : 'DE',
-                    borderRadius: BorderRadius.circular(10),
-                    items: <String>[
-                      'ENG',
-                      'DE',
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: AppTheme.themeData.textTheme.titleSmall!
-                              .copyWith(color: const Color(0xFF575757)),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      final locale = newValue!.toLowerCase() == 'eng' ? 'en' : 'de';
-                      context.read<LocalizationBloc>().add(
-                           LocalizationEvent.changeLang(
-                              locale: Locale(locale)));
-                    },
                   ),
-                ),
-                context.watch<AuthBloc>().state.isAuthenticated ? const SizedBox(width: 60,) : const SizedBox.shrink(),
-                context.watch<AuthBloc>().state.isAuthenticated ? GestureDetector(
-                  onTapDown: (det){
-                    _showMenu(context, det.globalPosition.translate(0.0, 10.0));
-                  },
-                  child: const MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: Row(
-                      children: [
-                        Icon(FontAwesomeIcons.solidUser, color: AppColors.darkGrey, size: 20,),
-                        SizedBox(width: 4,),
-                        Icon(Icons.arrow_drop_down, color: AppColors.darkGrey, size: 16,),
-                      ],
+                  const Spacer(),
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                      hoverColor: Colors.white,
+                    ),
+                    child: DropdownButton<String>(
+                      focusColor: Colors.white,
+                      icon: const Padding(
+                        padding: EdgeInsets.only(left: 3.0),
+                        child: Icon(
+                          Icons.arrow_drop_down,
+                          size: 15,
+                          color: AppColors.darkGrey,
+                        ),
+                      ),
+                      underline: const SizedBox(),
+                      value:
+                      context.read<LocalizationBloc>().state.locale ==
+                          const Locale('en')
+                          ? 'ENG'
+                          : 'DE',
+                      borderRadius: BorderRadius.circular(10),
+                      items: <String>[
+                        'ENG',
+                        'DE',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: AppTheme.themeData.textTheme.titleSmall!
+                                .copyWith(color: const Color(0xFF575757)),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        final locale = newValue!.toLowerCase() == 'eng' ? 'en' : 'de';
+                        context.read<LocalizationBloc>().add(
+                             LocalizationEvent.changeLang(
+                                locale: Locale(locale)));
+                      },
                     ),
                   ),
-                ) : const SizedBox.shrink()
-              ],
+                  context.watch<AuthBloc>().state.isAuthenticated ? const SizedBox(width: 60,) : const SizedBox.shrink(),
+                  context.watch<AuthBloc>().state.isAuthenticated ? GestureDetector(
+                    onTapDown: (det){
+                      _showMenu(context, det.globalPosition.translate(0.0, 10.0));
+                    },
+                    child: const MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Row(
+                        children: [
+                          Icon(FontAwesomeIcons.solidUser, color: AppColors.darkGrey, size: 20,),
+                          SizedBox(width: 4,),
+                          Icon(Icons.arrow_drop_down, color: AppColors.darkGrey, size: 16,),
+                        ],
+                      ),
+                    ),
+                  ) : const SizedBox.shrink()
+                ],
+              ),
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(width: double.infinity, height: 3, color: AppColors.secondaryAccent,),
-              Container(width: double.infinity, height: 3, color: AppColors.mainAccent,),
-            ],
-          )
-        ],
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(width: double.infinity, height: 3, color: AppColors.secondaryAccent,),
+                Container(width: double.infinity, height: 3, color: AppColors.mainAccent,),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -139,7 +148,6 @@ class _AdminNavbarState extends State<AdminNavbar> {
           value: 1,
           onTap: (){
             context.read<AuthBloc>().add(const AuthEvent.logout());
-            context.go('/admin/login');
           },
           child: Text(AppLocalizations.of(context)!.logOut, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
         ),

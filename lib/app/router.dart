@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:industria/domain/entities/employee/employee.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
+import 'package:industria/presentation/screens/admin/admin_feedbacks.dart';
+import 'package:industria/presentation/screens/admin/admin_job_applications.dart';
 import 'package:industria/presentation/screens/admin/admin_main_screen.dart';
 import 'package:industria/presentation/screens/admin/admin_users.dart';
+import 'package:industria/presentation/screens/admin/change_user_credentials.dart';
+import 'package:industria/presentation/screens/admin/create_user_credentials.dart';
+import 'package:industria/presentation/screens/admin/view_user_credentials.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
 import 'package:industria/presentation/screens/data_protection.dart';
@@ -13,6 +19,7 @@ import 'package:industria/presentation/screens/for_employees.dart';
 import 'package:industria/presentation/screens/for_employers.dart';
 import 'package:industria/presentation/screens/job_description.dart';
 import 'package:industria/presentation/screens/jobs.dart';
+import 'package:industria/presentation/screens/layouts/admin/admin_desktop_dashboard_layout.dart';
 import 'package:industria/presentation/screens/main_screen.dart';
 import 'package:industria/presentation/screens/our_team.dart';
 
@@ -32,6 +39,8 @@ String? _authRedirect(String fullPath, bool isAuthenticated){
 }
 final GoRouter router = GoRouter(
   redirect: (context, state) {
+    bool isUndefined = context.read<AuthBloc>().state.isUndefined;
+    if(isUndefined) return null;
     bool isAuthenticated = context.read<AuthBloc>().state.isAuthenticated;
     return _authRedirect(state.fullPath!, isAuthenticated);
   },
@@ -44,7 +53,7 @@ final GoRouter router = GoRouter(
     ShellRoute(
         builder: (context, state, child) => Scaffold(
               body: AdminMainScreen(
-                child: child,
+                child: AdminDesktopDashboardLayout(showSidePanel: state.fullPath != '/admin/login',child: child,),
               ),
             ),
         routes: [
@@ -62,6 +71,46 @@ final GoRouter router = GoRouter(
               context: context,
               state: state,
               child: const AdminUsers(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/user',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: ChangeUserCredentials(employee: state.extra as Employee),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/create_user',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: CreateUserCredentials(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/view_user',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: ViewUserCredentials(employee: state.extra as Employee),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/job_applications',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: const AdminJobApplications(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/feedbacks',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: const AdminFeedbacks(),
             ),
           ),
         ]),

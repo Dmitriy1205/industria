@@ -29,87 +29,91 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldState,
-      drawer: Drawer(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () {
-                    if (context.read<LocalizationBloc>().state.locale ==
-                        const Locale('en')) {
-                      context.read<LocalizationBloc>().add(
-                          const LocalizationEvent.changeLang(
-                              locale: Locale('de')));
-                    } else {
-                      context.read<LocalizationBloc>().add(
-                          const LocalizationEvent.changeLang(
-                              locale: Locale('en')));
-                    }
-                  },
-                  child: SizedBox(
-                    width: 55,
-                    height: 27,
-                    child: Image.asset(
-                      context.read<LocalizationBloc>().state.locale ==
-                              const Locale('en')
-                          ? AppImages.engFlag
-                          : AppImages.gerFlag,
-                      fit: BoxFit.fill,
+    return BlocListener<AuthBloc,AuthState>(
+      listener: (context,state){
+        context.go('/admin/login');
+      },
+      child: Scaffold(
+        key: scaffoldState,
+        drawer: Drawer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      if (context.read<LocalizationBloc>().state.locale ==
+                          const Locale('en')) {
+                        context.read<LocalizationBloc>().add(
+                            const LocalizationEvent.changeLang(
+                                locale: Locale('de')));
+                      } else {
+                        context.read<LocalizationBloc>().add(
+                            const LocalizationEvent.changeLang(
+                                locale: Locale('en')));
+                      }
+                    },
+                    child: SizedBox(
+                      width: 55,
+                      height: 27,
+                      child: Image.asset(
+                        context.read<LocalizationBloc>().state.locale ==
+                                const Locale('en')
+                            ? AppImages.engFlag
+                            : AppImages.gerFlag,
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                 ),
-              ),
-          MouseRegion(
-            cursor: SystemMouseCursors.click,
-            onEnter: (_) {
-              setState(() {
-                isHovered = !isHovered;
-              });
-            },
-            onExit: (_) {
-              setState(() {
-                isHovered = !isHovered;
-              });
-            },
-            child: GestureDetector(
-              onTap: () {
-                context.read<AuthBloc>().add(const AuthEvent.logout());
-                context.go('/admin/login');
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              onEnter: (_) {
+                setState(() {
+                  isHovered = !isHovered;
+                });
               },
-              child: Container(
-                height: 45,
-                decoration: BoxDecoration(
-                    color: isHovered
-                        ? AppColors.mainDarkAccent
-                        : AppColors.mainAccent,
-                    borderRadius: BorderRadius.circular(8)),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Center(
-                    child: Text(
-                      AppLocalizations.of(context)!.logOut,
-                      style: AppTheme.themeData.textTheme.headlineMedium,
+              onExit: (_) {
+                setState(() {
+                  isHovered = !isHovered;
+                });
+              },
+              child: GestureDetector(
+                onTap: () {
+                  context.read<AuthBloc>().add(const AuthEvent.logout());
+                },
+                child: Container(
+                  height: 45,
+                  decoration: BoxDecoration(
+                      color: isHovered
+                          ? AppColors.mainDarkAccent
+                          : AppColors.mainAccent,
+                      borderRadius: BorderRadius.circular(8)),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.logOut,
+                        style: AppTheme.themeData.textTheme.headlineMedium,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ),)
-            ],
+              ),)
+              ],
+            ),
           ),
         ),
+        appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, 110),
+          child: TabletNavbar(scaffold: scaffoldState,),
+        ),
+        body: widget.child,
       ),
-      appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, 110),
-        child: TabletNavbar(scaffold: scaffoldState,),
-      ),
-      body: widget.child,
     );
   }
 }

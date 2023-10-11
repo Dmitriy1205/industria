@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +25,7 @@ class App extends StatelessWidget {
       child: BlocBuilder<LocalizationBloc, LocalizationState>(
         builder: (context, state) {
           return MaterialApp.router(
+            scrollBehavior: MaterialScrollBehavior().copyWith( dragDevices: {PointerDeviceKind.mouse}, ),
             routeInformationProvider: router.routeInformationProvider,
             routeInformationParser: router.routeInformationParser,
             routerDelegate: router.routerDelegate,

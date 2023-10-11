@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
+import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 
 import '../core/services/service_locator.dart';
@@ -23,7 +24,8 @@ class Providers extends StatelessWidget {
           create: (context) => sl<CookieBloc>(),
           lazy: false,
         ),
-        BlocProvider(create: (context) => sl<AuthBloc>())
+        BlocProvider(create: (context) => sl<AuthBloc>()),
+        BlocProvider(create: (context) => sl<AdminEmployeeListBloc>())
       ],
       child: child,
     );

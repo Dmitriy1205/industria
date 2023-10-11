@@ -78,7 +78,7 @@ class _JobCardState extends State<JobCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     //TODO: change to Image.network when use real data from api
-                    FirebaseImage(widget.icon),
+                    FirebaseImage(storageRef: widget.icon),
                     Text(
                       widget.date,
                       style: AppTheme.themeData.textTheme.labelSmall!.copyWith(

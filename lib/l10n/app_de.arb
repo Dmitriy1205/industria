@@ -121,5 +121,8 @@
 
    "admin_panel": "Administrationsmenü",
    "admin_login": "Admin Login",
-   "logOut": "Ausloggen"
+   "logOut": "Ausloggen",
+   "employee": "Mitarbeiter",
+   "feedback": "Rückmeldung",
+   "jobApplication": "Bewerbung"
 }

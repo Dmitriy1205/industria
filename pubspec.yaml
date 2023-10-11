@@ -45,6 +45,12 @@ dependencies:
   freezed_annotation: ^2.4.1
   bloc_concurrency: ^0.2.2
   styled_text: ^8.1.0
+  dio: ^5.3.3
+  adaptive_dialog: ^1.9.0+2
+
+  pandas_tableview:
+    git:
+      url: https://github.com/PandasCodi/pandas_tableview.git
 
 dev_dependencies:
   flutter_test:

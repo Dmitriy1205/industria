@@ -40,8 +40,8 @@ Future<void> showErrorSnackBar(BuildContext context, String errorMessage) async 
   );
 }
 
-void showProgressSnackBar(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+void showProgressSnackBar(BuildContext context, [String? msg]) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     backgroundColor: Colors.white,
     behavior: SnackBarBehavior.floating,
     shape: RoundedRectangleBorder(
@@ -55,7 +55,7 @@ void showProgressSnackBar(BuildContext context) {
           CircularProgressIndicator(color: AppColors.mainAccent),
           SizedBox(width: 20),
           Text(
-            'Data sending in progress..',
+            msg ?? 'Data sending in progress..',
             style: TextStyle(color: Colors.black),
           ),
         ],

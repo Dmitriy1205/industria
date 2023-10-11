@@ -202,7 +202,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                 ],
                               ),
                               const Spacer(),
-                              FirebaseImage(widget.job.company.logo)
+                              FirebaseImage(storageRef: widget.job.company.logo)
                             ],
                           ),
                           const SizedBox(

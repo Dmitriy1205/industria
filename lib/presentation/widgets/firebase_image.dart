@@ -3,14 +3,22 @@ import 'package:flutter/material.dart';
 
 class FirebaseImage extends StatelessWidget {
   final String storageRef;
-  const FirebaseImage(this.storageRef, {Key? key}) : super(key: key);
+  final bool rounded;
+  const FirebaseImage({Key? key, required this.storageRef, this.rounded = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String?>(
         future: FirebaseStorageManager.getDownloadUrl(storageRef),
         builder: (context,state) {
-          return !state.hasData || state.data == null ? const SizedBox() : Image.network(state.data!, width: 60, height: 60,);
+          if (!state.hasData || state.data == null) {
+            return const SizedBox();
+          } else {
+            if(rounded){
+              return CircleAvatar(backgroundImage: Image.network(state.data!, width: 60, height: 60,).image);
+            }
+            return Image.network(state.data!, width: 60, height: 60,);
+          }
         });
   }
 }

@@ -6,11 +6,13 @@ import '../../core/themes/theme.dart';
 class AppElevatedButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
+  final Widget? prefixIcon;
   final Color? color;
 
   const AppElevatedButton({
     required this.text,
     required this.onPressed,
+    this.prefixIcon,
     super.key,
     this.color,
     this.borderColor,
@@ -37,7 +39,10 @@ class AppElevatedButton extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          prefixIcon ?? SizedBox.shrink(),
+          prefixIcon != null ? SizedBox(width: 16,) : SizedBox.shrink(),
           Flexible(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: verticalPadding ?? 15),

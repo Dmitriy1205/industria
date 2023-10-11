@@ -9,6 +9,9 @@ class FirebaseTimestampConverters{
       return timestamp.toDate();
     }
   }
+  static String toTimestampString(DateTime date){
+    return date.toUtc().toIso8601String();
+  }
   static Timestamp toTimestamp(DateTime date){
     return Timestamp.fromDate(date);
   }

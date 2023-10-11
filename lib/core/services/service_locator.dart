@@ -1,13 +1,16 @@
 import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:industria/data/remote/admin_employee/admin_employee_service_impl.dart';
 import 'package:industria/data/remote/contact_requests/contact_requests_service_contract.dart';
 import 'package:industria/data/remote/contact_requests/contact_requests_service_impl.dart';
 import 'package:industria/data/remote/job/job_service_contract.dart';
 import 'package:industria/data/remote/job/job_service_impl.dart';
 import 'package:industria/domain/entities/contact_requests/contact_requests.dart';
+import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_impl.dart';
 import 'package:industria/domain/repositories/auth/auth_repository_contract.dart';
 import 'package:industria/domain/repositories/auth/auth_repository_impl.dart';
 import 'package:industria/domain/repositories/contact_request/contact_request_repository_contract.dart';
@@ -22,12 +25,14 @@ import 'package:industria/domain/repositories/language/language_repository_impl.
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/contact_requests/contact_request_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
+import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/bloc/job_application/job_application_bloc.dart';
 import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/local/cookie/cookie_service_impl.dart';
+import '../../domain/repositories/admin_employee/admin_employee_repository_contract.dart';
 import '../../domain/repositories/contact_request/contact_request_repository_impl.dart';
 import '../../domain/repositories/cookie/cookie_repository_contract.dart';
 import '../../domain/repositories/cookie/cookie_repository_impl.dart';
@@ -52,6 +57,7 @@ Future<void> init() async {
   const jobRepository = JobRepositoryImpl(db: JobServiceImpl(algolia: algolia));
   final jobApplicationRepository = JobApplicationRepositoryImpl(db: JobApplicationServiceImpl(db: FirebaseFirestore.instance, storage: FirebaseStorage.instance));
   final authRepository = AuthRepositoryImpl(auth: FirebaseAuth.instance);
+  final employeeRepository = AdminEmployeeRepositoryImpl(adminEmployeeService: AdminEmployeeServiceImpl(db: FirebaseFirestore.instance, dio: Dio(), algolia: algolia));
 
   final initialCookie = await cookieRepository.fetchCookies();
   final initialLocale = await languageRepository.fetchLocale();
@@ -62,6 +68,7 @@ Future<void> init() async {
   sl.registerSingleton<ContactRequestsRepository>(contactRequestsRepository);
   sl.registerSingleton<JobApplicationRepository>(jobApplicationRepository);
   sl.registerSingleton<AuthRepository>(authRepository);
+  sl.registerSingleton<AdminEmployeeRepository>(employeeRepository);
 
   sl.registerLazySingleton(() => LocalizationBloc(initialLocale: initialLocale, languageRepository: languageRepository));
   sl.registerLazySingleton(() => CookieBloc(cookieRepository: sl<CookieRepository>(), initialValue: initialCookie));
@@ -69,4 +76,5 @@ Future<void> init() async {
   sl.registerLazySingleton(() => JobApplicationBloc(jobApplicationRepository: jobApplicationRepository));
   sl.registerLazySingleton(() => ContactRequestBloc(contactRequestsRepository: contactRequestsRepository));
   sl.registerLazySingleton(() => AuthBloc(authRepository: authRepository));
+  sl.registerLazySingleton(() => AdminEmployeeListBloc(adminEmployeeRepository: employeeRepository));
 }

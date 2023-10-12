@@ -26,6 +26,7 @@ mixin _$ContactRequests {
   String get phoneNumber => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  bool? get read => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $ContactRequestsCopyWith<$Res> {
       String companyName,
       String phoneNumber,
       String email,
-      String description});
+      String description,
+      bool? read});
 }
 
 /// @nodoc
@@ -67,6 +69,7 @@ class _$ContactRequestsCopyWithImpl<$Res, $Val extends ContactRequests>
     Object? phoneNumber = null,
     Object? email = null,
     Object? description = null,
+    Object? read = freezed,
   }) {
     return _then(_value.copyWith(
       firstname: null == firstname
@@ -93,6 +96,10 @@ class _$ContactRequestsCopyWithImpl<$Res, $Val extends ContactRequests>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      read: freezed == read
+          ? _value.read
+          : read // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 }
@@ -111,7 +118,8 @@ abstract class _$$_ContactRequestsCopyWith<$Res>
       String companyName,
       String phoneNumber,
       String email,
-      String description});
+      String description,
+      bool? read});
 }
 
 /// @nodoc
@@ -131,6 +139,7 @@ class __$$_ContactRequestsCopyWithImpl<$Res>
     Object? phoneNumber = null,
     Object? email = null,
     Object? description = null,
+    Object? read = freezed,
   }) {
     return _then(_$_ContactRequests(
       firstname: null == firstname
@@ -157,6 +166,10 @@ class __$$_ContactRequestsCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      read: freezed == read
+          ? _value.read
+          : read // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -170,7 +183,8 @@ class _$_ContactRequests extends _ContactRequests {
       required this.companyName,
       required this.phoneNumber,
       required this.email,
-      required this.description})
+      required this.description,
+      this.read})
       : super._();
 
   factory _$_ContactRequests.fromJson(Map<String, dynamic> json) =>
@@ -188,10 +202,12 @@ class _$_ContactRequests extends _ContactRequests {
   final String email;
   @override
   final String description;
+  @override
+  final bool? read;
 
   @override
   String toString() {
-    return 'ContactRequests(firstname: $firstname, lastname: $lastname, companyName: $companyName, phoneNumber: $phoneNumber, email: $email, description: $description)';
+    return 'ContactRequests(firstname: $firstname, lastname: $lastname, companyName: $companyName, phoneNumber: $phoneNumber, email: $email, description: $description, read: $read)';
   }
 
   @override
@@ -209,13 +225,14 @@ class _$_ContactRequests extends _ContactRequests {
                 other.phoneNumber == phoneNumber) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.read, read) || other.read == read));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, firstname, lastname, companyName,
-      phoneNumber, email, description);
+      phoneNumber, email, description, read);
 
   @JsonKey(ignore: true)
   @override
@@ -238,7 +255,8 @@ abstract class _ContactRequests extends ContactRequests {
       required final String companyName,
       required final String phoneNumber,
       required final String email,
-      required final String description}) = _$_ContactRequests;
+      required final String description,
+      final bool? read}) = _$_ContactRequests;
   const _ContactRequests._() : super._();
 
   factory _ContactRequests.fromJson(Map<String, dynamic> json) =
@@ -256,6 +274,8 @@ abstract class _ContactRequests extends ContactRequests {
   String get email;
   @override
   String get description;
+  @override
+  bool? get read;
   @override
   @JsonKey(ignore: true)
   _$$_ContactRequestsCopyWith<_$_ContactRequests> get copyWith =>

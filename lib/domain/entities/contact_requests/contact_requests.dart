@@ -33,6 +33,7 @@ class ContactRequests with _$ContactRequests {
     required final String phoneNumber,
     required final String email,
     required final String description,
+    final bool? read,
   }) = _ContactRequests;
 
   factory ContactRequests.fromJson(Map<String, Object?> json) =>

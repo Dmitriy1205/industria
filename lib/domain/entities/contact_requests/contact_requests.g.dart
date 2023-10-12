@@ -14,6 +14,7 @@ _$_ContactRequests _$$_ContactRequestsFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phoneNumber'] as String,
       email: json['email'] as String,
       description: json['description'] as String,
+      read: json['read'] as bool?,
     );
 
 Map<String, dynamic> _$$_ContactRequestsToJson(_$_ContactRequests instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$_ContactRequestsToJson(_$_ContactRequests instance) =>
       'phoneNumber': instance.phoneNumber,
       'email': instance.email,
       'description': instance.description,
+      'read': instance.read,
     };

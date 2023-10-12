@@ -5,17 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:industria/data/remote/admin_employee/admin_employee_service_impl.dart';
-import 'package:industria/data/remote/contact_requests/contact_requests_service_contract.dart';
 import 'package:industria/data/remote/contact_requests/contact_requests_service_impl.dart';
-import 'package:industria/data/remote/job/job_service_contract.dart';
 import 'package:industria/data/remote/job/job_service_impl.dart';
-import 'package:industria/domain/entities/contact_requests/contact_requests.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_impl.dart';
 import 'package:industria/domain/repositories/auth/auth_repository_contract.dart';
 import 'package:industria/domain/repositories/auth/auth_repository_impl.dart';
 import 'package:industria/domain/repositories/contact_request/contact_request_repository_contract.dart';
 import 'package:industria/data/local/language/language_service_impl.dart';
-import 'package:industria/data/remote/job_application/job_application_service_contract.dart';
 import 'package:industria/data/remote/job_application/job_application_service_impl.dart';
 import 'package:industria/domain/repositories/job/job_repository_contract.dart';
 import 'package:industria/domain/repositories/job/job_repository_impl.dart';
@@ -52,7 +48,7 @@ Future<void> init() async {
       db: CookieServiceImpl(sharedPreferences: sharedPrefs));
   final contactRequestsRepository = ContactRequestsRepositoryImpl(
       db: ContactRequestsServiceImpl(
-          db: FirebaseFirestore.instance, storage: FirebaseStorage.instance));
+          db: FirebaseFirestore.instance, storage: FirebaseStorage.instance, algolia: algolia));
   final languageRepository = LanguageRepositoryImpl(db: LocaleServiceImpl(sharedPreferences: sharedPrefs));
   const jobRepository = JobRepositoryImpl(db: JobServiceImpl(algolia: algolia));
   final jobApplicationRepository = JobApplicationRepositoryImpl(db: JobApplicationServiceImpl(db: FirebaseFirestore.instance, storage: FirebaseStorage.instance));

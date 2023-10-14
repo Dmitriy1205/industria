@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
+import 'package:industria/domain/entities/job_application/job_application.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/screens/admin/admin_feedbacks.dart';
@@ -11,6 +12,7 @@ import 'package:industria/presentation/screens/admin/admin_users.dart';
 import 'package:industria/presentation/screens/admin/admin_vacancies.dart';
 import 'package:industria/presentation/screens/admin/change_user_credentials.dart';
 import 'package:industria/presentation/screens/admin/create_user_credentials.dart';
+import 'package:industria/presentation/screens/admin/view_job_application.dart';
 import 'package:industria/presentation/screens/admin/view_user_credentials.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
@@ -56,6 +58,14 @@ final GoRouter router = GoRouter(
               ),
             ),
         routes: [
+          GoRoute(
+            path: '/admin/view_job_application',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: ViewJobApplication(),
+            ),
+          ),
           GoRoute(
             path: '/admin/login',
             pageBuilder: (context, state) => pageTransition<void>(

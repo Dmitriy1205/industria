@@ -13,7 +13,6 @@ class Company with _$Company {
     required String id,
     required String name,
     required String logo,
-    @JsonKey(fromJson: FirebaseTimestampConverters.fromTimestamp, includeToJson: false) required DateTime createdAt,
   }) = _Company;
 
   factory Company.fromJson(Map<String, Object?> json)

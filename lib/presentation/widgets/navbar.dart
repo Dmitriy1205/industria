@@ -111,8 +111,8 @@ class _NavbarState extends State<Navbar> {
                 ),
               ]
                   .map((e) => Container(
-                        child: e,
                         margin: EdgeInsets.symmetric(horizontal: 22),
+                        child: e,
                       ))
                   .toList(),
             ),

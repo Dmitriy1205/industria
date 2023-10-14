@@ -127,7 +127,7 @@ class _AdminUsersState extends State<AdminUsers> {
                         ),
                       )),
                   PTableViewRowFixed(
-                      width: 400,
+                      width: 500,
                       child: Text(
                         "ACTIONS",
                         style:
@@ -149,8 +149,7 @@ class _AdminUsersState extends State<AdminUsers> {
                     color: Colors.grey,
                   ),
                   backgroundColor: Colors.white,
-                  contentPadding:
-                      const EdgeInsets.only(left: 30, right: 30, bottom: 15),
+                  horizontalPadding: 30,
                   columns: context
                       .watch<AdminEmployeeListBloc>()
                       .state

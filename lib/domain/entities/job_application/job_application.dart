@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:industria/core/utils/firebase_timestamp_converters.dart';
 import 'package:industria/domain/entities/job_application_documents/job_application_documents.dart';
 import 'package:industria/domain/entities/job_application_request/job_application_request.dart';
+import 'package:industria/domain/entities/job_offer/job_offer.dart';
 
 import '../company/company.dart';
 
@@ -38,7 +39,9 @@ class JobApplication with _$JobApplication {
       },
       "createdAt": FieldValue.serverTimestamp(),
       "companyId": request.company.id,
-      "company": request.company.toJson()
+      "company": request.company.toJson(),
+      "jobOfferId": request.offer.id,
+      "jobOfferName": request.offer.title
     };
   }
 
@@ -64,6 +67,10 @@ class JobApplication with _$JobApplication {
     required DateTime createdAt,
     required String companyId,
     required Company company,
+    required String jobOfferId,
+    required String jobOfferName,
+    @Default("Pending") String status,
+    @Default(false) bool read,
   }) = _JobApplication;
 
   factory JobApplication.fromJson(Map<String, Object?> json) =>

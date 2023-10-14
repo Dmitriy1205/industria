@@ -6,6 +6,7 @@ import 'package:industria/presentation/bloc/employee_feature/admin_employee_list
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 
 import '../core/services/service_locator.dart';
+import '../presentation/bloc/job_application_feature/admin_job_applications/admin_job_applications_bloc.dart';
 
 class Providers extends StatelessWidget {
   final Widget child;
@@ -25,7 +26,8 @@ class Providers extends StatelessWidget {
           lazy: false,
         ),
         BlocProvider(create: (context) => sl<AuthBloc>()),
-        BlocProvider(create: (context) => sl<AdminEmployeeListBloc>())
+        BlocProvider(create: (context) => sl<AdminEmployeeListBloc>()),
+        BlocProvider(create: (context) => sl<AdminJobApplicationsBloc>())
       ],
       child: child,
     );

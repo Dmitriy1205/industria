@@ -40,6 +40,10 @@ mixin _$JobApplication {
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get companyId => throw _privateConstructorUsedError;
   Company get company => throw _privateConstructorUsedError;
+  String get jobOfferId => throw _privateConstructorUsedError;
+  String get jobOfferName => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
+  bool get read => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -74,7 +78,11 @@ abstract class $JobApplicationCopyWith<$Res> {
           includeToJson: false)
       DateTime createdAt,
       String companyId,
-      Company company});
+      Company company,
+      String jobOfferId,
+      String jobOfferName,
+      String status,
+      bool read});
 
   $JobApplicationDocumentsCopyWith<$Res> get documents;
   $CompanyCopyWith<$Res> get company;
@@ -105,6 +113,10 @@ class _$JobApplicationCopyWithImpl<$Res, $Val extends JobApplication>
     Object? createdAt = null,
     Object? companyId = null,
     Object? company = null,
+    Object? jobOfferId = null,
+    Object? jobOfferName = null,
+    Object? status = null,
+    Object? read = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -155,6 +167,22 @@ class _$JobApplicationCopyWithImpl<$Res, $Val extends JobApplication>
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
               as Company,
+      jobOfferId: null == jobOfferId
+          ? _value.jobOfferId
+          : jobOfferId // ignore: cast_nullable_to_non_nullable
+              as String,
+      jobOfferName: null == jobOfferName
+          ? _value.jobOfferName
+          : jobOfferName // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      read: null == read
+          ? _value.read
+          : read // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -204,7 +232,11 @@ abstract class _$$_JobApplicationCopyWith<$Res>
           includeToJson: false)
       DateTime createdAt,
       String companyId,
-      Company company});
+      Company company,
+      String jobOfferId,
+      String jobOfferName,
+      String status,
+      bool read});
 
   @override
   $JobApplicationDocumentsCopyWith<$Res> get documents;
@@ -235,6 +267,10 @@ class __$$_JobApplicationCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? companyId = null,
     Object? company = null,
+    Object? jobOfferId = null,
+    Object? jobOfferName = null,
+    Object? status = null,
+    Object? read = null,
   }) {
     return _then(_$_JobApplication(
       id: null == id
@@ -285,6 +321,22 @@ class __$$_JobApplicationCopyWithImpl<$Res>
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
               as Company,
+      jobOfferId: null == jobOfferId
+          ? _value.jobOfferId
+          : jobOfferId // ignore: cast_nullable_to_non_nullable
+              as String,
+      jobOfferName: null == jobOfferName
+          ? _value.jobOfferName
+          : jobOfferName // ignore: cast_nullable_to_non_nullable
+              as String,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
+      read: null == read
+          ? _value.read
+          : read // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -313,7 +365,11 @@ class _$_JobApplication extends _JobApplication with DiagnosticableTreeMixin {
           includeToJson: false)
       required this.createdAt,
       required this.companyId,
-      required this.company})
+      required this.company,
+      required this.jobOfferId,
+      required this.jobOfferName,
+      this.status = "Pending",
+      this.read = false})
       : super._();
 
   factory _$_JobApplication.fromJson(Map<String, dynamic> json) =>
@@ -351,10 +407,20 @@ class _$_JobApplication extends _JobApplication with DiagnosticableTreeMixin {
   final String companyId;
   @override
   final Company company;
+  @override
+  final String jobOfferId;
+  @override
+  final String jobOfferName;
+  @override
+  @JsonKey()
+  final String status;
+  @override
+  @JsonKey()
+  final bool read;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'JobApplication(id: $id, firstname: $firstname, lastname: $lastname, birthday: $birthday, citizenship: $citizenship, gender: $gender, address: $address, availableDate: $availableDate, documents: $documents, createdAt: $createdAt, companyId: $companyId, company: $company)';
+    return 'JobApplication(id: $id, firstname: $firstname, lastname: $lastname, birthday: $birthday, citizenship: $citizenship, gender: $gender, address: $address, availableDate: $availableDate, documents: $documents, createdAt: $createdAt, companyId: $companyId, company: $company, jobOfferId: $jobOfferId, jobOfferName: $jobOfferName, status: $status, read: $read)';
   }
 
   @override
@@ -373,7 +439,11 @@ class _$_JobApplication extends _JobApplication with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('documents', documents))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('companyId', companyId))
-      ..add(DiagnosticsProperty('company', company));
+      ..add(DiagnosticsProperty('company', company))
+      ..add(DiagnosticsProperty('jobOfferId', jobOfferId))
+      ..add(DiagnosticsProperty('jobOfferName', jobOfferName))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('read', read));
   }
 
   @override
@@ -400,7 +470,13 @@ class _$_JobApplication extends _JobApplication with DiagnosticableTreeMixin {
                 other.createdAt == createdAt) &&
             (identical(other.companyId, companyId) ||
                 other.companyId == companyId) &&
-            (identical(other.company, company) || other.company == company));
+            (identical(other.company, company) || other.company == company) &&
+            (identical(other.jobOfferId, jobOfferId) ||
+                other.jobOfferId == jobOfferId) &&
+            (identical(other.jobOfferName, jobOfferName) ||
+                other.jobOfferName == jobOfferName) &&
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.read, read) || other.read == read));
   }
 
   @JsonKey(ignore: true)
@@ -418,7 +494,11 @@ class _$_JobApplication extends _JobApplication with DiagnosticableTreeMixin {
       documents,
       createdAt,
       companyId,
-      company);
+      company,
+      jobOfferId,
+      jobOfferName,
+      status,
+      read);
 
   @JsonKey(ignore: true)
   @override
@@ -456,7 +536,11 @@ abstract class _JobApplication extends JobApplication {
           includeToJson: false)
       required final DateTime createdAt,
       required final String companyId,
-      required final Company company}) = _$_JobApplication;
+      required final Company company,
+      required final String jobOfferId,
+      required final String jobOfferName,
+      final String status,
+      final bool read}) = _$_JobApplication;
   const _JobApplication._() : super._();
 
   factory _JobApplication.fromJson(Map<String, dynamic> json) =
@@ -494,6 +578,14 @@ abstract class _JobApplication extends JobApplication {
   String get companyId;
   @override
   Company get company;
+  @override
+  String get jobOfferId;
+  @override
+  String get jobOfferName;
+  @override
+  String get status;
+  @override
+  bool get read;
   @override
   @JsonKey(ignore: true)
   _$$_JobApplicationCopyWith<_$_JobApplication> get copyWith =>

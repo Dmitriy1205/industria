@@ -22,6 +22,10 @@ _$_JobApplication _$$_JobApplicationFromJson(Map<String, dynamic> json) =>
       createdAt: FirebaseTimestampConverters.fromTimestamp(json['createdAt']),
       companyId: json['companyId'] as String,
       company: Company.fromJson(json['company'] as Map<String, dynamic>),
+      jobOfferId: json['jobOfferId'] as String,
+      jobOfferName: json['jobOfferName'] as String,
+      status: json['status'] as String? ?? "Pending",
+      read: json['read'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$_JobApplicationToJson(_$_JobApplication instance) =>
@@ -38,4 +42,8 @@ Map<String, dynamic> _$$_JobApplicationToJson(_$_JobApplication instance) =>
       'documents': instance.documents,
       'companyId': instance.companyId,
       'company': instance.company,
+      'jobOfferId': instance.jobOfferId,
+      'jobOfferName': instance.jobOfferName,
+      'status': instance.status,
+      'read': instance.read,
     };

@@ -95,8 +95,7 @@ class AdminFeedbacks extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   backgroundColor: Colors.white,
-                  contentPadding:
-                  const EdgeInsets.only(left: 30, right: 30, bottom: 15),
+                horizontalPadding: 30,
                 columns: [],
                   // columns: context
                   //     .watch<AdminEmployeeListBloc>()

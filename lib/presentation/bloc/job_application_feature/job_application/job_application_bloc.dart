@@ -3,7 +3,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:industria/domain/entities/job_application_request/job_application_request.dart';
 
-import '../../../domain/repositories/job_application/job_application_repository_contract.dart';
+import '../../../../domain/repositories/job_application/job_application_repository_contract.dart';
 
 part 'job_application_event.dart';
 

@@ -12,7 +12,6 @@ import 'package:industria/core/utils/time.dart';
 import 'package:industria/core/utils/toast.dart';
 import 'package:industria/domain/entities/job_application_request/job_application_request.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
-import 'package:industria/presentation/bloc/job_application/job_application_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/bold_text_widget.dart';
@@ -26,6 +25,7 @@ import '../../core/constants/colors.dart';
 import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 import '../../core/validator/field_validator.dart';
+import '../bloc/job_application_feature/job_application/job_application_bloc.dart';
 import '../widgets/custom_text_form_field.dart';
 import '../widgets/footer.dart';
 
@@ -526,7 +526,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                     singlePick: false,
                                     mandatory: false,
                                     icon: FontAwesomeIcons.solidFile,
-                                    hint: AppLocalizations.of(context)!.dragCv,
+                                    hint: AppLocalizations.of(context)!.dragCertificates,
                                     pickedFilesNames: certificates
                                         .map((e) => e.filename)
                                         .toList(),
@@ -628,6 +628,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                 if (!valid) return;
 
                                 final jobApplicationRequest = JobApplicationRequest(
+                                    offer: widget.job,
                                     firstname: _firstnameController.text,
                                     lastname: _lastnameController.text,
                                     birthday: _dateOfBirth!,

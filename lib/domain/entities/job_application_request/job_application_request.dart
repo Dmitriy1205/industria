@@ -1,3 +1,5 @@
+import 'package:industria/domain/entities/job_offer/job_offer.dart';
+
 import '../company/company.dart';
 
 class JobApplicationRequest{
@@ -9,6 +11,7 @@ class JobApplicationRequest{
   final String address;
   final DateTime availableDate;
   final Company company;
+  final JobOffer offer;
   final JobApplicationRequestDocuments documents;
 
   const JobApplicationRequest({
@@ -21,6 +24,7 @@ class JobApplicationRequest{
     required this.availableDate,
     required this.company,
     required this.documents,
+    required this.offer
   });
 }
 

@@ -23,9 +23,6 @@ mixin _$Company {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get logo => throw _privateConstructorUsedError;
-  @JsonKey(
-      fromJson: FirebaseTimestampConverters.fromTimestamp, includeToJson: false)
-  DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,14 +34,7 @@ abstract class $CompanyCopyWith<$Res> {
   factory $CompanyCopyWith(Company value, $Res Function(Company) then) =
       _$CompanyCopyWithImpl<$Res, Company>;
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      String logo,
-      @JsonKey(
-          fromJson: FirebaseTimestampConverters.fromTimestamp,
-          includeToJson: false)
-      DateTime createdAt});
+  $Res call({String id, String name, String logo});
 }
 
 /// @nodoc
@@ -63,7 +53,6 @@ class _$CompanyCopyWithImpl<$Res, $Val extends Company>
     Object? id = null,
     Object? name = null,
     Object? logo = null,
-    Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -78,10 +67,6 @@ class _$CompanyCopyWithImpl<$Res, $Val extends Company>
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ) as $Val);
   }
 }
@@ -93,14 +78,7 @@ abstract class _$$_CompanyCopyWith<$Res> implements $CompanyCopyWith<$Res> {
       __$$_CompanyCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String id,
-      String name,
-      String logo,
-      @JsonKey(
-          fromJson: FirebaseTimestampConverters.fromTimestamp,
-          includeToJson: false)
-      DateTime createdAt});
+  $Res call({String id, String name, String logo});
 }
 
 /// @nodoc
@@ -116,7 +94,6 @@ class __$$_CompanyCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? logo = null,
-    Object? createdAt = null,
   }) {
     return _then(_$_Company(
       id: null == id
@@ -131,10 +108,6 @@ class __$$_CompanyCopyWithImpl<$Res>
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
@@ -142,14 +115,7 @@ class __$$_CompanyCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Company with DiagnosticableTreeMixin implements _Company {
-  const _$_Company(
-      {required this.id,
-      required this.name,
-      required this.logo,
-      @JsonKey(
-          fromJson: FirebaseTimestampConverters.fromTimestamp,
-          includeToJson: false)
-      required this.createdAt});
+  const _$_Company({required this.id, required this.name, required this.logo});
 
   factory _$_Company.fromJson(Map<String, dynamic> json) =>
       _$$_CompanyFromJson(json);
@@ -160,14 +126,10 @@ class _$_Company with DiagnosticableTreeMixin implements _Company {
   final String name;
   @override
   final String logo;
-  @override
-  @JsonKey(
-      fromJson: FirebaseTimestampConverters.fromTimestamp, includeToJson: false)
-  final DateTime createdAt;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Company(id: $id, name: $name, logo: $logo, createdAt: $createdAt)';
+    return 'Company(id: $id, name: $name, logo: $logo)';
   }
 
   @override
@@ -177,8 +139,7 @@ class _$_Company with DiagnosticableTreeMixin implements _Company {
       ..add(DiagnosticsProperty('type', 'Company'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('logo', logo))
-      ..add(DiagnosticsProperty('createdAt', createdAt));
+      ..add(DiagnosticsProperty('logo', logo));
   }
 
   @override
@@ -188,14 +149,12 @@ class _$_Company with DiagnosticableTreeMixin implements _Company {
             other is _$_Company &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.logo, logo) || other.logo == logo) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+            (identical(other.logo, logo) || other.logo == logo));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, logo, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, name, logo);
 
   @JsonKey(ignore: true)
   @override
@@ -215,11 +174,7 @@ abstract class _Company implements Company {
   const factory _Company(
       {required final String id,
       required final String name,
-      required final String logo,
-      @JsonKey(
-          fromJson: FirebaseTimestampConverters.fromTimestamp,
-          includeToJson: false)
-      required final DateTime createdAt}) = _$_Company;
+      required final String logo}) = _$_Company;
 
   factory _Company.fromJson(Map<String, dynamic> json) = _$_Company.fromJson;
 
@@ -229,10 +184,6 @@ abstract class _Company implements Company {
   String get name;
   @override
   String get logo;
-  @override
-  @JsonKey(
-      fromJson: FirebaseTimestampConverters.fromTimestamp, includeToJson: false)
-  DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
   _$$_CompanyCopyWith<_$_Company> get copyWith =>

@@ -151,7 +151,7 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
           PTableViewRowFixed(
               width: 250,
               child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(
                   jobApplication.jobOfferName,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: jobApplication.read ? AppColors.darkGrey : Colors.black),

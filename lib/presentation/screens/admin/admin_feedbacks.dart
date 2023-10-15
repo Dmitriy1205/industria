@@ -1,19 +1,37 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Feedback;
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:industria/presentation/widgets/custom_checkbox.dart';
+import 'package:intl/intl.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/constants/colors.dart';
-import '../../../domain/entities/employee/employee.dart';
+import '../../../domain/entities/feedback/feedback.dart';
+import '../../bloc/feedback_feature/admin_feedback_list/admin_feedback_list_bloc.dart';
 import '../../widgets/firebase_image.dart';
 
-class AdminFeedbacks extends StatelessWidget {
+class AdminFeedbacks extends StatefulWidget {
   const AdminFeedbacks({Key? key}) : super(key: key);
+
+  @override
+  State<AdminFeedbacks> createState() => _AdminFeedbacksState();
+}
+
+class _AdminFeedbacksState extends State<AdminFeedbacks> {
+  @override
+  void initState() {
+    super.initState();
+    if (context.read<AdminFeedbackListBloc>().state.tableData.element.isEmpty) {
+      context.read<AdminFeedbackListBloc>().add(
+          const AdminFeedbackListEvent.fetchData(elementsPerPage: 7, page: 0));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 18.0,top: 15),
+      padding: const EdgeInsets.only(top: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -22,7 +40,14 @@ class AdminFeedbacks extends StatelessWidget {
           ),
           Row(
             children: [
-              _tableTitle(title: 'Feedbacks', subtitle: '120'),
+              _tableTitle(
+                  title: 'Feedbacks',
+                  subtitle: context
+                      .watch<AdminFeedbackListBloc>()
+                      .state
+                      .tableData
+                      .totalElementCounts
+                      .toString()),
               const SizedBox(
                 width: 60,
               ),
@@ -37,34 +62,47 @@ class AdminFeedbacks extends StatelessWidget {
           Expanded(
             child: PTableView(
               pagination: PTableViewPagination(
-                currentPage: 1,
-                pagesCount: 1,
+                currentPage: context
+                    .watch<AdminFeedbackListBloc>()
+                    .state
+                    .tableData
+                    .currentPage,
+                pagesCount: context
+                    .watch<AdminFeedbackListBloc>()
+                    .state
+                    .tableData
+                    .numberOfPages,
                 onPageChanged: (i) {
-                  // context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: i, elementsPerPage: 5));
+                  context.read<AdminFeedbackListBloc>().add(
+                      AdminFeedbackListEvent.fetchData(
+                          page: i, elementsPerPage: 5));
                 },
               ),
               fixedHeight: 500,
               borderRadius: BorderRadius.circular(4),
               headerHeight: 45,
-              header:  PTableViewHeader(
+              header: PTableViewHeader(
                 contentPadding: EdgeInsets.symmetric(horizontal: 18),
                 backgroundColor: Color(0xFFF1F1F1),
                 rows: [
                   PTableViewRowFixed(
-                    width: 701,
+                    width: 530,
                     child: Row(
                       children: [
-                        CustomCheckbox(value: false, onChanged: (v){}),
-                        const SizedBox(width: 21,),
+                        CustomCheckbox(value: false, onChanged: (v) {}),
+                        const SizedBox(
+                          width: 21,
+                        ),
                         const Text(
                           "MESSAGE",
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 12),
                         ),
                       ],
-                    ),),
+                    ),
+                  ),
                   const PTableViewRowFixed(
-                      width: 228,
+                      width: 370,
                       child: Center(
                         child: Text(
                           "FROM",
@@ -73,21 +111,21 @@ class AdminFeedbacks extends StatelessWidget {
                         ),
                       )),
                   const PTableViewRowFixed(
-                      width: 202,
+                      width: 300,
                       child: Text(
                         "DATE",
-                        style:
-                        TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12),
                       )),
                 ],
               ),
               content: PTableViewContent(
-                  onTap: (i){
-                    // context.go("/admin/view_user", extra: context
-                    //     .read<AdminEmployeeListBloc>()
-                    //     .state
-                    //     .tableData
-                    //     .element[i]);
+                  onTap: (i) {
+                    context.go("/admin/view_feedback", extra: context
+                        .read<AdminFeedbackListBloc>()
+                        .state
+                        .tableData
+                        .element[i]);
                   },
                   divider: Container(
                     width: double.infinity,
@@ -95,16 +133,14 @@ class AdminFeedbacks extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   backgroundColor: Colors.white,
-                horizontalPadding: 30,
-                columns: [],
-                  // columns: context
-                  //     .watch<AdminEmployeeListBloc>()
-                  //     .state
-                  //     .tableData
-                  //     .element
-                  //     .map((e) => _employeesList(employee: e))
-                  //     .toList()
-      ),
+                  horizontalPadding: 17,
+                  columns: context
+                      .watch<AdminFeedbackListBloc>()
+                      .state
+                      .tableData
+                      .element
+                      .map((e) => _employeesList(feedback: e))
+                      .toList()),
             ),
           )
         ],
@@ -113,96 +149,65 @@ class AdminFeedbacks extends StatelessWidget {
   }
 }
 
-PTableViewColumn _employeesList({required Employee employee}) {
-  return PTableViewColumn(
-      rows: [
-        PTableViewRowFixed(
-            width: 300,
-            child: SizedBox(
-              height: 60,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  FirebaseImage(storageRef: employee.photoRef, rounded: true,),
-                  const SizedBox(
-                    width: 12,
+PTableViewColumn _employeesList({required Feedback feedback}) {
+  return PTableViewColumn(rows: [
+    PTableViewRowFixed(
+        width: 695,
+        child: SizedBox(
+          height: 60,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 38.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CustomCheckbox(value: false, onChanged: (v) {}),
+                const SizedBox(
+                  width: 12,
+                ),
+                Expanded(
+                  child: Text(
+                    feedback.description,
+                    style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 12),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "${employee.firstname} ${employee.lastname}",
-                          style: const TextStyle(fontWeight: FontWeight.w600),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          employee.email,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 12,
-                            color: AppColors.darkGrey,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            )),
-        PTableViewRowFixed(
-            width: 400,
-            child: SizedBox(
-              height: 60,
-              child: Center(
-                child: Container(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: const Color(0xFFF1F1F1)),
-                    child: Text(
-                      employee.role,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600, color: Color(0xfF282828)),
-                    )),
-              ),
-            )),
-        PTableViewRowFixed(
-            width: 400,
-            child: SizedBox(
-              height: 60,
-              child: Row(
-                children: [
-                  _tableAction(
-                      title: 'Change credentials',
-                      icon: FontAwesomeIcons.userPen,
-                      onTap: () {
-                        // context.push("/admin/user", extra: employee);
-                      }),
-                  const Spacer(),
-                  _tableAction(
-                      title: 'Delete account',
-                      icon: FontAwesomeIcons.solidTrashCan,
-                      onTap: () async{
-                        // final response = await showOkCancelAlertDialog(context: context, title: 'Confirm operation', message: 'Are you sure you want to delete an employee?', okLabel: 'Confirm');
-                        // if(response == OkCancelResult.ok){
-                        //   if(!mounted) return;
-                        //   deleteEmployeeBloc.add(AdminDeleteEmployeeEvent.deleteEmployee(userUid: employee.id!));
-                        // }
-                      }),
-                ],
-              ),
-            )),
-      ]);
+                ),
+              ],
+            ),
+          ),
+        )),
+    PTableViewRowFixed(
+        width: 201,
+        child: SizedBox(
+          height: 60,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "${feedback.firstname} ${feedback.lastname}",
+              style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 14),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        )),
+    PTableViewRowFixed(
+        width: 282,
+        child: SizedBox(
+          height: 60,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              '${DateFormat.Hm().format(feedback.createdAt)} | ${DateFormat.yMMMMd().format(feedback.createdAt)}',
+              style: const TextStyle(fontWeight: FontWeight.w600,fontSize: 14),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        )),
+  ]);
 }
 
 Widget _tableAction(
     {required String title,
-      required IconData icon,
-      required VoidCallback onTap}) {
+    required IconData icon,
+    required VoidCallback onTap}) {
   return GestureDetector(
     onTap: onTap,
     child: SelectionContainer.disabled(
@@ -229,6 +234,7 @@ Widget _tableAction(
     ),
   );
 }
+
 Widget _tableTitle({required String title, required String subtitle}) {
   return SizedBox(
     height: 25,

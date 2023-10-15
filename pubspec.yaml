@@ -47,6 +47,7 @@ dependencies:
   styled_text: ^8.1.0
   dio: ^5.3.3
   adaptive_dialog: ^1.9.0+2
+  pdf: ^3.10.4
 
   pandas_tableview:
     git:

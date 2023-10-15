@@ -85,6 +85,18 @@ class AdminDesktopDashboardLayout extends StatelessWidget {
                               }
                               context.go('/admin/vacancies');
                             }),
+                        _tab(
+                            title: "Holidays",
+                            icon: FontAwesomeIcons.table,
+                            isSelected: GoRouterState.of(context).fullPath ==
+                                '/admin/holidays',
+                            onTap: () {
+                              if (GoRouterState.of(context).fullPath ==
+                                  '/admin/holidays') {
+                                return;
+                              }
+                              context.go('/admin/holidays');
+                            }),
                       ],
                     ),
                   ),

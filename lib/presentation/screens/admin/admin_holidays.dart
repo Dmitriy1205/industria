@@ -6,10 +6,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/constants/images.dart';
+import 'package:industria/core/extensions/date.dart';
 import 'package:industria/core/utils/debounce.dart';
+import 'package:industria/core/utils/pdf_attendance.dart';
 import 'package:industria/core/utils/toast.dart';
+import 'package:industria/domain/entities/attendance/attendance.dart';
+import 'package:industria/domain/entities/attendance_periods/attendance_periods.dart';
+import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
-import 'package:industria/domain/repositories/attendance/attendance_repository_contract.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_delete_employee/admin_delete_employee_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
@@ -17,22 +21,25 @@ import 'package:industria/presentation/widgets/firebase_image.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/services/service_locator.dart';
+import '../../../domain/entities/attendance_period/attendance_period.dart';
 import '../../../domain/entities/employee/employee.dart';
+import '../../../domain/repositories/attendance/attendance_repository_contract.dart';
 import '../../bloc/attendance/attendance_cubit.dart';
+import '../../bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
 
-class AdminUsers extends StatefulWidget {
-  const AdminUsers({Key? key}) : super(key: key);
+class AdminHolidays extends StatefulWidget {
+  const AdminHolidays({Key? key}) : super(key: key);
 
   @override
-  State<AdminUsers> createState() => _AdminUsersState();
+  State<AdminHolidays> createState() => _AdminHolidaysState();
 }
 
-class _AdminUsersState extends State<AdminUsers> {
+class _AdminHolidaysState extends State<AdminHolidays> {
   @override
   void initState() {
     super.initState();
-    if(context.read<AdminEmployeeListBloc>().state.tableData.element.isEmpty){
-      context.read<AdminEmployeeListBloc>().add(const AdminEmployeeListEvent.fetchData(elementsPerPage: 7, page: 0));
+    if(context.read<AdminHolidayRequestsListBloc>().state.tableData.element.isEmpty){
+      context.read<AdminHolidayRequestsListBloc>().add(const AdminHolidayRequestsListEvent.fetchData(elementsPerPage: 7, page: 0));
     }
   }
 
@@ -51,7 +58,7 @@ class _AdminUsersState extends State<AdminUsers> {
             },
             success: (_){
               showSuccessSnackBar(context, "Successfully deleted employee");
-              context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: 0, elementsPerPage: 7));
+              context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.fetchData(page: 0, elementsPerPage: 7));
             },
             fail: (_){
               showErrorSnackBar(context, "Failed to delete employee");
@@ -65,32 +72,32 @@ class _AdminUsersState extends State<AdminUsers> {
           ),
           Row(
             children: [
-              _tableTitle(title: 'All Employees', subtitle: context.watch<AdminEmployeeListBloc>().state.tableData.totalElementCounts.toString()),
+              _tableTitle(title: 'Holiday requests', subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
               const SizedBox(
                 width: 60,
               ),
               Expanded(child: _search(onTextChanged: (val){
                 _debouncer.run(() {
-                  context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.changeSearchTerm(searchTerm: val));
+                  context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
                 });
               })),
               const SizedBox(
                 width: 60,
               ),
               SizedBox(
-                  width: 200,
-                  child: AppElevatedButton(
-                    text: "Create account",
-                    prefixIcon: const Icon(
-                      FontAwesomeIcons.plus,
-                      color: Colors.white,
-                    ),
-                    textStyle: const TextStyle(fontSize: 14),
-                    onPressed: () {
-                      context.go("/admin/create_user");
-                    },
-                    verticalPadding: 15,
-                  ))
+                width: 120,
+                child: ElevatedButton(onPressed: (){
+                  generatePdfAttendance(Attendance(employeeId: "dsadsa", employeeName: "Yemets Vlad", employerName: "Hoe Vial", end: DateTime.now().add(Duration(days: 6)), start: DateTime.now().subtract(Duration(days: 1)), periods: AttendancePeriods(
+                    mon: AttendancePeriod(
+                      comment: "Great day",
+                      date: DateTime.now().subtract(Duration(days: 1)),
+                      pause: 1,
+                      workTimeStart: DateTime.now().copyWith(hour: 7, minute: 43),
+                      workTimeEnd: DateTime.now().copyWith(hour: 18, minute: 52),
+                    )
+                  )));
+                }, child: Text("PDF")),
+              )
             ],
           ),
           const SizedBox(
@@ -99,10 +106,10 @@ class _AdminUsersState extends State<AdminUsers> {
           Expanded(
             child: PTableView(
               pagination: PTableViewPagination(
-                currentPage: context.watch<AdminEmployeeListBloc>().state.tableData.currentPage,
-                pagesCount: context.watch<AdminEmployeeListBloc>().state.tableData.numberOfPages,
+                currentPage: context.watch<AdminHolidayRequestsListBloc>().state.tableData.currentPage,
+                pagesCount: context.watch<AdminHolidayRequestsListBloc>().state.tableData.numberOfPages,
                 onPageChanged: (i) {
-                  context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: i, elementsPerPage: 7));
+                  context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.fetchData(page: i, elementsPerPage: 7));
                 },
               ),
               fixedHeight: 500,
@@ -113,38 +120,41 @@ class _AdminUsersState extends State<AdminUsers> {
                 backgroundColor: Color(0xFFF1F1F1),
                 rows: [
                   PTableViewRowFixed(
-                      width: 300,
-                      child: Text(
-                        "TOPIC",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 12),
-                      ),),
+                    width: 300,
+                    child: Text(
+                      "Employee",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 12),
+                    ),),
                   PTableViewRowFixed(
                       width: 400,
+                      child: Text(
+                        "Unavailable",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12),
+                      )),
+                  PTableViewRowFixed(
+                      width: 300,
                       child: Center(
                         child: Text(
-                          "POSITION",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12),
+                          "Status",
+                          style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                         ),
                       )),
                   PTableViewRowFixed(
-                      width: 500,
+                      width: 300,
                       child: Text(
-                        "ACTIONS",
+                        "Date",
                         style:
-                            TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                       )),
                 ],
               ),
               content: PTableViewContent(
-                onTap: (i){
-                  context.go("/admin/view_user", extra: context
-                      .read<AdminEmployeeListBloc>()
-                      .state
-                      .tableData
-                      .element[i]);
-                },
+                  onTap: (i){
+                    context.go("/admin/holiday?id=${context.read<AdminHolidayRequestsListBloc>().state.tableData.element[i].id}");
+                  },
                   divider: Container(
                     width: double.infinity,
                     height: 1,
@@ -153,11 +163,11 @@ class _AdminUsersState extends State<AdminUsers> {
                   backgroundColor: Colors.white,
                   horizontalPadding: 30,
                   columns: context
-                      .watch<AdminEmployeeListBloc>()
+                      .watch<AdminHolidayRequestsListBloc>()
                       .state
                       .tableData
                       .element
-                      .map((e) => _employeesList(employee: e))
+                      .map((e) => _holidaysList(holidayRequest: e))
                       .toList()),
             ),
           )
@@ -166,96 +176,79 @@ class _AdminUsersState extends State<AdminUsers> {
     );
   }
 
-  PTableViewColumn _employeesList({required Employee employee}) {
+  PTableViewColumn _holidaysList({required HolidayRequest holidayRequest}) {
     return PTableViewColumn(
         rows: [
-      PTableViewRowFixed(
-          width: 300,
-          child: SizedBox(
-            height: 60,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                FirebaseImage(storageRef: employee.photoRef, rounded: true,),
-                const SizedBox(
-                  width: 12,
+          PTableViewRowFixed(
+              width: 300,
+              child: SizedBox(
+                height: 60,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FirebaseImage(storageRef: holidayRequest.photoRef, rounded: true,),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Text(
+                      "${holidayRequest.firstname} ${holidayRequest.lastname}",
+                      style: TextStyle(fontWeight: FontWeight.w600, color: holidayRequest.read ? AppColors.darkGrey : Colors.black),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "${employee.firstname} ${employee.lastname}",
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Text(
-                        employee.email,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12,
-                          color: AppColors.darkGrey,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )),
-      PTableViewRowFixed(
-          width: 400,
-          child: SizedBox(
-            height: 60,
-            child: Center(
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: const Color(0xFFF1F1F1)),
+              )),
+          PTableViewRowFixed(
+              width: 400,
+              child: SizedBox(
+                height: 60,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    employee.role,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w600, color: Color(0xfF282828)),
-                  )),
-            ),
-          )),
-      PTableViewRowFixed(
-          width: 400,
-          child: SizedBox(
-            height: 60,
-            child: Row(
-              children: [
-                _tableAction(
-                    title: 'Change credentials',
-                    icon: FontAwesomeIcons.userPen,
-                    onTap: () {
-                      context.push("/admin/user", extra: employee);
-                    }),
-                const Spacer(),
-                _tableAction(
-                    title: 'Delete account',
-                    icon: FontAwesomeIcons.solidTrashCan,
-                    onTap: () async{
-                      final response = await showOkCancelAlertDialog(context: context, title: 'Confirm operation', message: 'Are you sure you want to delete an employee?', okLabel: 'Confirm');
-                      if(response == OkCancelResult.ok){
-                        if(!mounted) return;
-                        deleteEmployeeBloc.add(AdminDeleteEmployeeEvent.deleteEmployee(userUid: employee.id!));
-                      }
-                    }),
-              ],
-            ),
-          )),
-    ]);
+                    "${holidayRequest.unavailableFrom.formattedTexted} - ${holidayRequest.unavailableTo.formattedTexted}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600, color: holidayRequest.read ? AppColors.darkGrey : Colors.black),
+                  ),
+                ),
+              )),
+          PTableViewRowFixed(
+              width: 300,
+              child: SizedBox(
+                height: 60,
+                child: Center(
+                  child: Container(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: holidayRequest.status == "Pending" ? Color(0xFFCAFFCF) : const Color(0xFFF1F1F1)),
+                      child: Text(
+                        holidayRequest.status,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600, color: Color(0xfF282828)),
+                      )),
+                ),
+              )),
+          PTableViewRowFixed(
+              width: 300,
+              child: SizedBox(
+                height: 60,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Text(
+                    holidayRequest.createdAt.formattedTextedWithTime,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600, color: holidayRequest.read ? AppColors.darkGrey : Colors.black),
+                  ),
+                ),
+              )),
+        ]);
   }
 
   Widget _tableAction(
       {required String title,
-      required IconData icon,
-      required VoidCallback onTap}) {
+        required IconData icon,
+        required VoidCallback onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: SelectionContainer.disabled(
@@ -290,7 +283,7 @@ class _AdminUsersState extends State<AdminUsers> {
         onChanged: onTextChanged,
         decoration: InputDecoration(
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             hintText: 'Search',
             prefixIcon: Padding(
               padding: const EdgeInsets.all(11),

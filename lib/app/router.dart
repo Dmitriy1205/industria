@@ -58,7 +58,7 @@ final GoRouter router = GoRouter(
     ShellRoute(
         builder: (context, state, child) => Scaffold(
               body: AdminMainScreen(
-                child: AdminDesktopDashboardLayout(showSidePanel: state.fullPath != '/admin/login',child: child,),
+                child: AdminDesktopDashboardLayout(isLoginScreen: state.fullPath != '/admin/login',child: child,),
               ),
             ),
         routes: [

@@ -84,20 +84,6 @@ class _AdminHolidaysState extends State<AdminHolidays> {
               const SizedBox(
                 width: 60,
               ),
-              SizedBox(
-                width: 120,
-                child: ElevatedButton(onPressed: (){
-                  generatePdfAttendance(Attendance(employeeId: "dsadsa", employeeName: "Yemets Vlad", employerName: "Hoe Vial", end: DateTime.now().add(Duration(days: 6)), start: DateTime.now().subtract(Duration(days: 1)), periods: AttendancePeriods(
-                    mon: AttendancePeriod(
-                      comment: "Great day",
-                      date: DateTime.now().subtract(Duration(days: 1)),
-                      pause: 1,
-                      workTimeStart: DateTime.now().copyWith(hour: 7, minute: 43),
-                      workTimeEnd: DateTime.now().copyWith(hour: 18, minute: 52),
-                    )
-                  )));
-                }, child: Text("PDF")),
-              )
             ],
           ),
           const SizedBox(

@@ -60,20 +60,13 @@ Future<void> init() async {
       db: CookieServiceImpl(sharedPreferences: sharedPrefs));
   final contactRequestsRepository = ContactRequestsRepositoryImpl(
       db: ContactRequestsServiceImpl(
-          db: FirebaseFirestore.instance, storage: FirebaseStorage.instance, algolia: algolia));
-  final languageRepository = LanguageRepositoryImpl(db: LocaleServiceImpl(sharedPreferences: sharedPrefs));
-  final jobRepository = JobRepositoryImpl(db: JobServiceImpl(algolia: algolia, db: FirebaseFirestore.instance));
-  final jobApplicationRepository = JobApplicationRepositoryImpl(db: JobApplicationServiceImpl(db: FirebaseFirestore.instance, storage: FirebaseStorage.instance, algolia: algolia));
-  final authRepository = AuthRepositoryImpl(auth: FirebaseAuth.instance);
-  final employeeRepository = AdminEmployeeRepositoryImpl(adminEmployeeService: AdminEmployeeServiceImpl(db: FirebaseFirestore.instance, dio: Dio(), algolia: algolia));
-  final holidayRequestsRepository = HolidayRequestsRepositoryImpl(db: HolidayRequestsServiceImpl(algolia: algolia, db: FirebaseFirestore.instance));
-  final attendanceRepository = AttendanceRepositoryImpl(db: AttendanceServiceImpl(db: FirebaseFirestore.instance));
           db: FirebaseFirestore.instance,
           storage: FirebaseStorage.instance,
           algolia: algolia));
   final languageRepository = LanguageRepositoryImpl(
       db: LocaleServiceImpl(sharedPreferences: sharedPrefs));
-  const jobRepository = JobRepositoryImpl(db: JobServiceImpl(algolia: algolia));
+  final jobRepository = JobRepositoryImpl(
+      db: JobServiceImpl(algolia: algolia, db: FirebaseFirestore.instance));
   final jobApplicationRepository = JobApplicationRepositoryImpl(
       db: JobApplicationServiceImpl(
           db: FirebaseFirestore.instance,
@@ -83,6 +76,11 @@ Future<void> init() async {
   final employeeRepository = AdminEmployeeRepositoryImpl(
       adminEmployeeService: AdminEmployeeServiceImpl(
           db: FirebaseFirestore.instance, dio: Dio(), algolia: algolia));
+  final holidayRequestsRepository = HolidayRequestsRepositoryImpl(
+      db: HolidayRequestsServiceImpl(
+          algolia: algolia, db: FirebaseFirestore.instance));
+  final attendanceRepository = AttendanceRepositoryImpl(
+      db: AttendanceServiceImpl(db: FirebaseFirestore.instance));
   final feedbackRepository = AdminFeedbackRepositoryImpl(
       adminFeedbackService: AdminFeedbackServiceImpl(
           dio: Dio(), db: FirebaseFirestore.instance, algolia: algolia));
@@ -111,12 +109,12 @@ Future<void> init() async {
   sl.registerLazySingleton(() =>
       ContactRequestBloc(contactRequestsRepository: contactRequestsRepository));
   sl.registerLazySingleton(() => AuthBloc(authRepository: authRepository));
-  sl.registerLazySingleton(() => AdminJobApplicationsBloc(jobApplicationRepository: jobApplicationRepository));
-  sl.registerLazySingleton(() => AdminHolidayRequestsListBloc(holidayRequestsRepository: holidayRequestsRepository));
-  sl.registerLazySingleton(
-      () => AdminEmployeeListBloc(adminEmployeeRepository: employeeRepository));
   sl.registerLazySingleton(() => AdminJobApplicationsBloc(
       jobApplicationRepository: jobApplicationRepository));
+  sl.registerLazySingleton(() => AdminHolidayRequestsListBloc(
+      holidayRequestsRepository: holidayRequestsRepository));
+  sl.registerLazySingleton(
+      () => AdminEmployeeListBloc(adminEmployeeRepository: employeeRepository));
   sl.registerLazySingleton(
       () => AdminFeedbackListBloc(adminFeedbackRepository: feedbackRepository));
 }

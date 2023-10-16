@@ -87,7 +87,7 @@ class AdminDesktopDashboardLayout extends StatelessWidget {
                             }),
                         _tab(
                             title: "Holidays",
-                            icon: FontAwesomeIcons.table,
+                            icon: FontAwesomeIcons.userClock,
                             isSelected: GoRouterState.of(context).fullPath ==
                                 '/admin/holidays',
                             onTap: () {

@@ -105,7 +105,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: ChangeUserCredentials(employee: state.extra as Employee),
+              child: ChangeUserCredentials(),
             ),
           ),
           GoRoute(
@@ -121,7 +121,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: ViewUserCredentials(employee: state.extra as Employee),
+              child: ViewUserCredentials(),
             ),
           ),
           GoRoute(
@@ -244,9 +244,7 @@ final GoRouter router = GoRouter(
           pageBuilder: (context, state) => pageTransition<void>(
             context: context,
             state: state,
-            child: JobDescription(
-              job: state.extra as JobOffer,
-            ),
+            child: JobDescription(),
           ),
         ),
       ],

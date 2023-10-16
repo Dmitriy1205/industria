@@ -139,11 +139,11 @@ class _AdminUsersState extends State<AdminUsers> {
               ),
               content: PTableViewContent(
                 onTap: (i){
-                  context.go("/admin/view_user", extra: context
+                  context.go("/admin/view_user?id=${context
                       .read<AdminEmployeeListBloc>()
                       .state
                       .tableData
-                      .element[i]);
+                      .element[i].id}");
                 },
                   divider: Container(
                     width: double.infinity,
@@ -233,7 +233,7 @@ class _AdminUsersState extends State<AdminUsers> {
                     title: 'Change credentials',
                     icon: FontAwesomeIcons.userPen,
                     onTap: () {
-                      context.push("/admin/user", extra: employee);
+                      context.push("/admin/user?id=${employee.id}");
                     }),
                 const Spacer(),
                 _tableAction(

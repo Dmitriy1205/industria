@@ -27,6 +27,11 @@ class AdminEmployeeRepositoryImpl implements AdminEmployeeRepository{
     return _adminEmployeeService.updateEmployee(userUid: userUid, email: email, password: password, firstname: firstname, lastname: lastname, phoneNumber: phoneNumber, role: role, dateOfBirth: dateOfBirth, worksSince: worksSince, imgFilename: imgFilename, imgBytes: imgBytes);
   }
 
+  @override
+  Future<Employee?> getEmployeeById(String employeeId) {
+    return _adminEmployeeService.getEmployeeById(employeeId);
+  }
+
   const AdminEmployeeRepositoryImpl({
     required AdminEmployeeService adminEmployeeService,
   }) : _adminEmployeeService = adminEmployeeService;

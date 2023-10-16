@@ -58,7 +58,7 @@ Future<void> init() async {
       db: ContactRequestsServiceImpl(
           db: FirebaseFirestore.instance, storage: FirebaseStorage.instance, algolia: algolia));
   final languageRepository = LanguageRepositoryImpl(db: LocaleServiceImpl(sharedPreferences: sharedPrefs));
-  const jobRepository = JobRepositoryImpl(db: JobServiceImpl(algolia: algolia));
+  final jobRepository = JobRepositoryImpl(db: JobServiceImpl(algolia: algolia, db: FirebaseFirestore.instance));
   final jobApplicationRepository = JobApplicationRepositoryImpl(db: JobApplicationServiceImpl(db: FirebaseFirestore.instance, storage: FirebaseStorage.instance, algolia: algolia));
   final authRepository = AuthRepositoryImpl(auth: FirebaseAuth.instance);
   final employeeRepository = AdminEmployeeRepositoryImpl(adminEmployeeService: AdminEmployeeServiceImpl(db: FirebaseFirestore.instance, dio: Dio(), algolia: algolia));

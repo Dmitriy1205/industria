@@ -39,18 +39,22 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
         const SizedBox(
           height: 20,
         ),
-        Row(
-          children: [
-            _tableTitle(title: 'Job Applications', subtitle: context.watch<AdminJobApplicationsBloc>().state.tableData.totalElementCounts.toString()),
-            const SizedBox(
-              width: 60,
-            ),
-            Expanded(child: _search(onTextChanged: (val){
-              _debouncer.run(() {
-                context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.changeSearchTerm(searchTerm: val));
-              });
-            })),
-          ],
+        SizedBox(
+          height: 52,
+          child: Row(
+            children: [
+              SizedBox(width: 16,),
+              _tableTitle(title: 'Job Applications', subtitle: context.watch<AdminJobApplicationsBloc>().state.tableData.totalElementCounts.toString()),
+              const SizedBox(
+                width: 60,
+              ),
+              Expanded(child: _search(onTextChanged: (val){
+                _debouncer.run(() {
+                  context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.changeSearchTerm(searchTerm: val));
+                });
+              })),
+            ],
+          ),
         ),
         const SizedBox(
           height: 10,

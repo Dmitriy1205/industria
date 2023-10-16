@@ -63,35 +63,39 @@ class _AdminUsersState extends State<AdminUsers> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              _tableTitle(title: 'All Employees', subtitle: context.watch<AdminEmployeeListBloc>().state.tableData.totalElementCounts.toString()),
-              const SizedBox(
-                width: 60,
-              ),
-              Expanded(child: _search(onTextChanged: (val){
-                _debouncer.run(() {
-                  context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.changeSearchTerm(searchTerm: val));
-                });
-              })),
-              const SizedBox(
-                width: 60,
-              ),
-              SizedBox(
-                  width: 200,
-                  child: AppElevatedButton(
-                    text: "Create account",
-                    prefixIcon: const Icon(
-                      FontAwesomeIcons.plus,
-                      color: Colors.white,
-                    ),
-                    textStyle: const TextStyle(fontSize: 14),
-                    onPressed: () {
-                      context.go("/admin/create_user");
-                    },
-                    verticalPadding: 15,
-                  ))
-            ],
+          SizedBox(
+            height: 52,
+            child: Row(
+              children: [
+                SizedBox(width: 16,),
+                _tableTitle(title: 'All Employees', subtitle: context.watch<AdminEmployeeListBloc>().state.tableData.totalElementCounts.toString()),
+                const SizedBox(
+                  width: 60,
+                ),
+                Expanded(child: _search(onTextChanged: (val){
+                  _debouncer.run(() {
+                    context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.changeSearchTerm(searchTerm: val));
+                  });
+                })),
+                const SizedBox(
+                  width: 60,
+                ),
+                SizedBox(
+                    width: 200,
+                    child: AppElevatedButton(
+                      text: "Create account",
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                      ),
+                      textStyle: const TextStyle(fontSize: 14),
+                      onPressed: () {
+                        context.go("/admin/create_user");
+                      },
+                      verticalPadding: 15,
+                    ))
+              ],
+            ),
           ),
           const SizedBox(
             height: 10,
@@ -301,7 +305,7 @@ class _AdminUsersState extends State<AdminUsers> {
                 height: 16,
               ),
             ),
-            hintStyle: const TextStyle(color: AppColors.darkGrey),
+            hintStyle: const TextStyle(color: AppColors.darkGrey,),
             filled: true,
             fillColor: Colors.white,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8))),

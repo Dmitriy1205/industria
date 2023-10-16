@@ -30,16 +30,17 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(
+          height: 20,
+        ),
+        SizedBox(
+          height: 52,
+          child: Row(
             children: [
+              SizedBox(width: 16,),
               _tableTitle(
                   title: 'Feedbacks',
                   subtitle: context
@@ -56,95 +57,95 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
               ),
             ],
           ),
-          const SizedBox(
-            height: 25,
-          ),
-          Expanded(
-            child: PTableView(
-              pagination: PTableViewPagination(
-                currentPage: context
-                    .watch<AdminFeedbackListBloc>()
-                    .state
-                    .tableData
-                    .currentPage,
-                pagesCount: context
-                    .watch<AdminFeedbackListBloc>()
-                    .state
-                    .tableData
-                    .numberOfPages,
-                onPageChanged: (i) {
-                  context.read<AdminFeedbackListBloc>().add(
-                      AdminFeedbackListEvent.fetchData(
-                          page: i, elementsPerPage: 5));
-                },
-              ),
-              fixedHeight: 500,
-              borderRadius: BorderRadius.circular(4),
-              headerHeight: 45,
-              header: PTableViewHeader(
-                contentPadding: EdgeInsets.symmetric(horizontal: 18),
-                backgroundColor: Color(0xFFF1F1F1),
-                rows: [
-                  PTableViewRowFixed(
-                    width: 530,
-                    child: Row(
-                      children: [
-                        CustomCheckbox(value: false, onChanged: (v) {}),
-                        const SizedBox(
-                          width: 21,
-                        ),
-                        const Text(
-                          "MESSAGE",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const PTableViewRowFixed(
-                      width: 370,
-                      child: Center(
-                        child: Text(
-                          "FROM",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12),
-                        ),
-                      )),
-                  const PTableViewRowFixed(
-                      width: 300,
-                      child: Text(
-                        "DATE",
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Expanded(
+          child: PTableView(
+            pagination: PTableViewPagination(
+              currentPage: context
+                  .watch<AdminFeedbackListBloc>()
+                  .state
+                  .tableData
+                  .currentPage,
+              pagesCount: context
+                  .watch<AdminFeedbackListBloc>()
+                  .state
+                  .tableData
+                  .numberOfPages,
+              onPageChanged: (i) {
+                context.read<AdminFeedbackListBloc>().add(
+                    AdminFeedbackListEvent.fetchData(
+                        page: i, elementsPerPage: 5));
+              },
+            ),
+            fixedHeight: 500,
+            borderRadius: BorderRadius.circular(4),
+            headerHeight: 45,
+            header: PTableViewHeader(
+              contentPadding: EdgeInsets.symmetric(horizontal: 18),
+              backgroundColor: Color(0xFFF1F1F1),
+              rows: [
+                PTableViewRowFixed(
+                  width: 530,
+                  child: Row(
+                    children: [
+                      CustomCheckbox(value: false, onChanged: (v) {}),
+                      const SizedBox(
+                        width: 21,
+                      ),
+                      const Text(
+                        "MESSAGE",
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12),
-                      )),
-                ],
-              ),
-              content: PTableViewContent(
-                  onTap: (i) {
-                    context.go("/admin/view_feedback", extra: context
-                        .read<AdminFeedbackListBloc>()
-                        .state
-                        .tableData
-                        .element[i]);
-                  },
-                  divider: Container(
-                    width: double.infinity,
-                    height: 1,
-                    color: Colors.grey,
+                      ),
+                    ],
                   ),
-                  backgroundColor: Colors.white,
-                  horizontalPadding: 17,
-                  columns: context
-                      .watch<AdminFeedbackListBloc>()
+                ),
+                const PTableViewRowFixed(
+                    width: 370,
+                    child: Center(
+                      child: Text(
+                        "FROM",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12),
+                      ),
+                    )),
+                const PTableViewRowFixed(
+                    width: 300,
+                    child: Text(
+                      "DATE",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 12),
+                    )),
+              ],
+            ),
+            content: PTableViewContent(
+                onTap: (i) {
+                  context.go("/admin/view_feedback", extra: context
+                      .read<AdminFeedbackListBloc>()
                       .state
                       .tableData
-                      .element
-                      .map((e) => _employeesList(feedback: e))
-                      .toList()),
-            ),
-          )
-        ],
-      ),
+                      .element[i]);
+                },
+                divider: Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: Colors.grey,
+                ),
+                backgroundColor: Colors.white,
+                horizontalPadding: 17,
+                columns: context
+                    .watch<AdminFeedbackListBloc>()
+                    .state
+                    .tableData
+                    .element
+                    .map((e) => _employeesList(feedback: e))
+                    .toList()),
+          ),
+        )
+      ],
     );
   }
 }

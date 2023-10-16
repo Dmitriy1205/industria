@@ -72,7 +72,7 @@ final GoRouter router = GoRouter(
           ),
           GoRoute(
             path: '/admin/holidays',
-            pageBuilder: (context, state) => pageTransition<void>(
+            pageBuilder: (context, state) => fadePageTransition<void>(
               context: context,
               state: state,
               child: AdminHolidays(),
@@ -96,7 +96,7 @@ final GoRouter router = GoRouter(
           ),
           GoRoute(
             path: '/admin/users',
-            pageBuilder: (context, state) => pageTransition<void>(
+            pageBuilder: (context, state) => fadePageTransition<void>(
               context: context,
               state: state,
               child: const AdminUsers(),
@@ -129,7 +129,7 @@ final GoRouter router = GoRouter(
 
           GoRoute(
             path: '/admin/job_applications',
-            pageBuilder: (context, state) => pageTransition<void>(
+            pageBuilder: (context, state) => fadePageTransition<void>(
               context: context,
               state: state,
               child: const AdminJobApplications(),
@@ -137,7 +137,7 @@ final GoRouter router = GoRouter(
           ),
           GoRoute(
             path: '/admin/feedbacks',
-            pageBuilder: (context, state) => pageTransition<void>(
+            pageBuilder: (context, state) => fadePageTransition<void>(
               context: context,
               state: state,
               child: const AdminFeedbacks(),
@@ -153,7 +153,7 @@ final GoRouter router = GoRouter(
           ),
           GoRoute(
             path: '/admin/vacancies',
-            pageBuilder: (context, state) => pageTransition<void>(
+            pageBuilder: (context, state) => fadePageTransition<void>(
               context: context,
               state: state,
               child: const AdminVacancies(),
@@ -262,6 +262,35 @@ final GoRouter router = GoRouter(
     ),
   ],
 );
+
+CustomTransitionPage fadePageTransition<T>({
+  Key? key,
+  String? restorationId,
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return CustomTransitionPage<T>(
+    restorationId: restorationId,
+    key: state.pageKey,
+    child: child,
+    transitionDuration: Duration(milliseconds: 400),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = 0.0;
+      const end = 1.0;
+      const curve = Curves.ease;
+      final tween = Tween(begin: begin, end: end).chain(Tween(begin: end, end: begin));
+      final curvedAnimation = CurvedAnimation(
+        parent: secondaryAnimation,
+        curve: curve,
+      );
+      return FadeTransition(
+        opacity: tween.animate(curvedAnimation),
+        child: child,
+      );
+    },
+  );
+}
 
 CustomTransitionPage pageTransition<T>({
   Key? key,

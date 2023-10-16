@@ -70,21 +70,25 @@ class _AdminHolidaysState extends State<AdminHolidays> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              _tableTitle(title: 'Holiday requests', subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
-              const SizedBox(
-                width: 60,
-              ),
-              Expanded(child: _search(onTextChanged: (val){
-                _debouncer.run(() {
-                  context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
-                });
-              })),
-              const SizedBox(
-                width: 60,
-              ),
-            ],
+          SizedBox(
+            height: 52,
+            child: Row(
+              children: [
+                SizedBox(width: 16,),
+                _tableTitle(title: 'Holiday requests', subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
+                const SizedBox(
+                  width: 60,
+                ),
+                Expanded(child: _search(onTextChanged: (val){
+                  _debouncer.run(() {
+                    context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
+                  });
+                })),
+                const SizedBox(
+                  width: 60,
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 10,

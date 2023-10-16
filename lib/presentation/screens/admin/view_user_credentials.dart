@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:industria/core/utils/pdf_attendance.dart';
@@ -7,6 +8,7 @@ import 'package:industria/core/utils/time.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/services/service_locator.dart';
 import '../../../domain/entities/attendance/attendance.dart';
@@ -145,25 +147,58 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                     Padding(
                       padding: const EdgeInsets.only(
                           right: 30, left: 30, bottom: 40),
-                      child: Row(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _section(
-                              title: "Phone",
-                              subtitle: widget.employee.phoneNumber),
-                          const Spacer(),
-                          _section(
-                              title: "Date of birth",
-                              subtitle: widget.employee.dateOfBirth.formatted),
-                          const Spacer(),
-                          _section(
-                              title: "Joned company",
-                              subtitle: getTimeAgo(
-                                  widget.employee.worksSince,
-                                  context
-                                      .read<LocalizationBloc>()
-                                      .state
-                                      .locale
-                                      .languageCode)),
+                          Row(
+                            children: [
+                              _section(
+                                  title: "Phone",
+                                  subtitle: widget.employee.phoneNumber),
+                              const Spacer(),
+                              _section(
+                                  title: "Date of birth",
+                                  subtitle: widget.employee.dateOfBirth.formatted),
+                              const Spacer(),
+                              _section(
+                                  title: "Joned company",
+                                  subtitle: getTimeAgo(
+                                      widget.employee.worksSince,
+                                      context
+                                          .read<LocalizationBloc>()
+                                          .state
+                                          .locale
+                                          .languageCode)),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          InkWell(
+                            onTap: () async{
+                              final uri = Uri.parse("https://wa.me/${widget.employee.phoneNumber}");
+                              if(await canLaunchUrl(uri)){
+                                await launchUrl(uri);
+                              }
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: AppColors.mainAccent
+                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                      margin: EdgeInsets.only(bottom: 3),
+                                      child: Icon(FontAwesomeIcons.whatsapp, size: 20, color: Color(0xFFEEEEEE),)),
+                                  SizedBox(width: 10,),
+                                  Text("Chat", style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w500),),
+                                  SizedBox(width: 20,),
+                                ],
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     )

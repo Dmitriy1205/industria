@@ -6,12 +6,14 @@ import 'package:industria/domain/entities/job_application/job_application.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/screens/admin/admin_feedbacks.dart';
+import 'package:industria/presentation/screens/admin/admin_holidays.dart';
 import 'package:industria/presentation/screens/admin/admin_job_applications.dart';
 import 'package:industria/presentation/screens/admin/admin_main_screen.dart';
 import 'package:industria/presentation/screens/admin/admin_users.dart';
 import 'package:industria/presentation/screens/admin/admin_vacancies.dart';
 import 'package:industria/presentation/screens/admin/change_user_credentials.dart';
 import 'package:industria/presentation/screens/admin/create_user_credentials.dart';
+import 'package:industria/presentation/screens/admin/view_holiday.dart';
 import 'package:industria/presentation/screens/admin/view_job_application.dart';
 import 'package:industria/presentation/screens/admin/view_user_credentials.dart';
 import 'package:industria/presentation/screens/admin/view_user_feddback.dart';
@@ -61,6 +63,22 @@ final GoRouter router = GoRouter(
             ),
         routes: [
           GoRoute(
+            path: '/admin/holiday',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: ViewHoliday(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/holidays',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: AdminHolidays(),
+            ),
+          ),
+          GoRoute(
             path: '/admin/view_job_application',
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
@@ -89,7 +107,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: ChangeUserCredentials(employee: state.extra as Employee),
+              child: ChangeUserCredentials(),
             ),
           ),
           GoRoute(
@@ -105,7 +123,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: ViewUserCredentials(employee: state.extra as Employee),
+              child: ViewUserCredentials(),
             ),
           ),
 
@@ -237,9 +255,7 @@ final GoRouter router = GoRouter(
           pageBuilder: (context, state) => pageTransition<void>(
             context: context,
             state: state,
-            child: JobDescription(
-              job: state.extra as JobOffer,
-            ),
+            child: JobDescription(),
           ),
         ),
       ],

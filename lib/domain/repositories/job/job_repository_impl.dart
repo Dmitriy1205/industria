@@ -8,6 +8,11 @@ class JobRepositoryImpl implements JobRepository{
   @override
   Future<List<JobOffer>> findJobOffers({required JobFilters filter}) => db.findJobOffers(filter: filter);
 
+  @override
+  Future<JobOffer?> getJobOfferById({required String id}) {
+    return db.getJobOfferById(id: id);
+  }
+
   const JobRepositoryImpl({
     required this.db,
   });

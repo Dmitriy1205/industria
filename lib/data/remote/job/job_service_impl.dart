@@ -1,10 +1,13 @@
 import 'package:algolia/algolia.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:industria/core/constants/firestore_collections.dart';
 import 'package:industria/data/remote/job/job_service_contract.dart';
 import 'package:industria/domain/entities/job_filters/job_filters.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 
 class JobServiceImpl implements JobService {
   final Algolia algolia;
+  final FirebaseFirestore db;
 
   @override
   Future<List<JobOffer>> findJobOffers({required JobFilters filter}) async {
@@ -41,7 +44,14 @@ class JobServiceImpl implements JobService {
     return andParts.join(" AND ");
   }
 
-  const JobServiceImpl({
+  @override
+  Future<JobOffer?> getJobOfferById({required String id}) async{
+    final response = await db.collection(FirestoreCollections.jobs).doc(id).get();
+    return JobOffer.fromJson(response.data()!);
+  }
+
+  JobServiceImpl({
     required this.algolia,
+    required this.db,
   });
 }

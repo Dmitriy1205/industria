@@ -9,6 +9,7 @@ import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/utils/debounce.dart';
 import 'package:industria/core/utils/toast.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
+import 'package:industria/domain/repositories/attendance/attendance_repository_contract.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_delete_employee/admin_delete_employee_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
@@ -17,6 +18,7 @@ import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/services/service_locator.dart';
 import '../../../domain/entities/employee/employee.dart';
+import '../../bloc/attendance/attendance_cubit.dart';
 
 class AdminUsers extends StatefulWidget {
   const AdminUsers({Key? key}) : super(key: key);
@@ -49,7 +51,7 @@ class _AdminUsersState extends State<AdminUsers> {
             },
             success: (_){
               showSuccessSnackBar(context, "Successfully deleted employee");
-              context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: 0, elementsPerPage: 5));
+              context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: 0, elementsPerPage: 7));
             },
             fail: (_){
               showErrorSnackBar(context, "Failed to delete employee");
@@ -100,7 +102,7 @@ class _AdminUsersState extends State<AdminUsers> {
                 currentPage: context.watch<AdminEmployeeListBloc>().state.tableData.currentPage,
                 pagesCount: context.watch<AdminEmployeeListBloc>().state.tableData.numberOfPages,
                 onPageChanged: (i) {
-                  context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: i, elementsPerPage: 5));
+                  context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: i, elementsPerPage: 7));
                 },
               ),
               fixedHeight: 500,
@@ -137,11 +139,11 @@ class _AdminUsersState extends State<AdminUsers> {
               ),
               content: PTableViewContent(
                 onTap: (i){
-                  context.go("/admin/view_user", extra: context
+                  context.go("/admin/view_user?id=${context
                       .read<AdminEmployeeListBloc>()
                       .state
                       .tableData
-                      .element[i]);
+                      .element[i].id}");
                 },
                   divider: Container(
                     width: double.infinity,
@@ -231,7 +233,7 @@ class _AdminUsersState extends State<AdminUsers> {
                     title: 'Change credentials',
                     icon: FontAwesomeIcons.userPen,
                     onTap: () {
-                      context.push("/admin/user", extra: employee);
+                      context.push("/admin/user?id=${employee.id}");
                     }),
                 const Spacer(),
                 _tableAction(

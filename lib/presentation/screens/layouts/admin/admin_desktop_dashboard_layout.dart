@@ -86,7 +86,7 @@ class AdminDesktopDashboardLayout extends StatelessWidget {
                               context.go('/admin/vacancies');
                             }),
                         _tab(
-                            title: "Holidays",
+                            title: AppLocalizations.of(context)!.holidays,
                             icon: FontAwesomeIcons.userClock,
                             isSelected: GoRouterState.of(context).fullPath ==
                                 '/admin/holidays',

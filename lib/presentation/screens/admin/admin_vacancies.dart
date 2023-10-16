@@ -18,6 +18,7 @@ import 'package:pandas_tableview/p_tableview.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../domain/entities/employee/employee.dart';
 import '../../widgets/custom_checkbox.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminVacancies extends StatefulWidget {
   const AdminVacancies({Key? key}) : super(key: key);
@@ -73,7 +74,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
               children: [
                 SizedBox(width: 16,),
                 _tableTitle(
-                    title: 'Vacancies',
+                    title: AppLocalizations.of(context)!.vacancies,
                     subtitle: context
                         .watch<AdminEmployeeListBloc>()
                         .state

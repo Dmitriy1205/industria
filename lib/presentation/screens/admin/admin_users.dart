@@ -19,6 +19,7 @@ import 'package:pandas_tableview/p_tableview.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../domain/entities/employee/employee.dart';
 import '../../bloc/attendance/attendance_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminUsers extends StatefulWidget {
   const AdminUsers({Key? key}) : super(key: key);
@@ -68,7 +69,7 @@ class _AdminUsersState extends State<AdminUsers> {
             child: Row(
               children: [
                 SizedBox(width: 16,),
-                _tableTitle(title: 'All Employees', subtitle: context.watch<AdminEmployeeListBloc>().state.tableData.totalElementCounts.toString()),
+                _tableTitle(title: AppLocalizations.of(context)!.all_employees, subtitle: context.watch<AdminEmployeeListBloc>().state.tableData.totalElementCounts.toString()),
                 const SizedBox(
                   width: 60,
                 ),

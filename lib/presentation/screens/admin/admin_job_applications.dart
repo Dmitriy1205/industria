@@ -11,6 +11,7 @@ import '../../../core/constants/images.dart';
 import '../../../core/utils/debounce.dart';
 import '../../../domain/entities/job_application/job_application.dart';
 import '../../bloc/job_application_feature/admin_job_applications/admin_job_applications_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../widgets/app_elevated_button.dart';
 
 class AdminJobApplications extends StatefulWidget {
@@ -44,7 +45,7 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
           child: Row(
             children: [
               SizedBox(width: 16,),
-              _tableTitle(title: 'Job Applications', subtitle: context.watch<AdminJobApplicationsBloc>().state.tableData.totalElementCounts.toString()),
+              _tableTitle(title: AppLocalizations.of(context)!.job_applications, subtitle: context.watch<AdminJobApplicationsBloc>().state.tableData.totalElementCounts.toString()),
               const SizedBox(
                 width: 60,
               ),

@@ -125,5 +125,11 @@
    "employee": "Mitarbeiter",
    "feedback": "Rückmeldung",
    "vacancies": "Stellenangebote",
-   "jobApplication": "Bewerbung"
+   "jobApplication": "Bewerbung",
+
+   "feedbacks": "Rückmeldungen",
+   "all_employees": "Alle Angestellten",
+   "job_applications": "Bewerbungen",
+   "holiday_requests": "Urlaubswünsche",
+   "holidays": "Feiertage"
 }

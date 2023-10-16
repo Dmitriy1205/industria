@@ -1,31 +1,21 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:industria/core/utils/debounce.dart';
-import 'package:industria/core/utils/pdf_attendance.dart';
 import 'package:industria/core/utils/toast.dart';
-import 'package:industria/domain/entities/attendance/attendance.dart';
-import 'package:industria/domain/entities/attendance_periods/attendance_periods.dart';
 import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_delete_employee/admin_delete_employee_bloc.dart';
-import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
-import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/services/service_locator.dart';
-import '../../../domain/entities/attendance_period/attendance_period.dart';
-import '../../../domain/entities/employee/employee.dart';
-import '../../../domain/repositories/attendance/attendance_repository_contract.dart';
-import '../../bloc/attendance/attendance_cubit.dart';
 import '../../bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminHolidays extends StatefulWidget {
   const AdminHolidays({Key? key}) : super(key: key);
@@ -75,7 +65,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
             child: Row(
               children: [
                 SizedBox(width: 16,),
-                _tableTitle(title: 'Holiday requests', subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
+                _tableTitle(title: AppLocalizations.of(context)!.feedbacks, subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
                 const SizedBox(
                   width: 60,
                 ),
@@ -84,9 +74,6 @@ class _AdminHolidaysState extends State<AdminHolidays> {
                     context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
                   });
                 })),
-                const SizedBox(
-                  width: 60,
-                ),
               ],
             ),
           ),

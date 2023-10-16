@@ -10,6 +10,7 @@ import '../../../core/constants/colors.dart';
 import '../../../domain/entities/feedback/feedback.dart';
 import '../../bloc/feedback_feature/admin_feedback_list/admin_feedback_list_bloc.dart';
 import '../../widgets/firebase_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminFeedbacks extends StatefulWidget {
   const AdminFeedbacks({Key? key}) : super(key: key);
@@ -42,7 +43,7 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
             children: [
               SizedBox(width: 16,),
               _tableTitle(
-                  title: 'Feedbacks',
+                  title: AppLocalizations.of(context)!.feedbacks,
                   subtitle: context
                       .watch<AdminFeedbackListBloc>()
                       .state

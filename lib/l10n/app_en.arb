@@ -124,5 +124,11 @@
  "employee": "Employee",
  "feedback": "Feedback",
  "vacancies": "Vacancies",
- "jobApplication": "Job application"
+ "jobApplication": "Job application",
+
+ "feedbacks": "Feedbacks",
+ "all_employees": "All Employees",
+ "job_applications": "Job Applications",
+ "holiday_requests": "Holiday requests",
+ "holidays": "Holidays"
 }

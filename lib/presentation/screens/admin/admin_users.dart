@@ -84,7 +84,7 @@ class _AdminUsersState extends State<AdminUsers> {
                 SizedBox(
                     width: 200,
                     child: AppElevatedButton(
-                      text: "Create account",
+                      text: AppLocalizations.of(context)!.createAccount,
                       prefixIcon: const Icon(
                         FontAwesomeIcons.plus,
                         color: Colors.white,
@@ -113,14 +113,14 @@ class _AdminUsersState extends State<AdminUsers> {
               fixedHeight: 500,
               borderRadius: BorderRadius.circular(4),
               headerHeight: 45,
-              header: const PTableViewHeader(
+              header: PTableViewHeader(
                 contentPadding: EdgeInsets.symmetric(horizontal: 30),
                 backgroundColor: Color(0xFFF1F1F1),
                 rows: [
                   PTableViewRowFixed(
                       width: 300,
                       child: Text(
-                        "TOPIC",
+                        AppLocalizations.of(context)!.topic.toUpperCase(),
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12),
                       ),),
@@ -128,15 +128,15 @@ class _AdminUsersState extends State<AdminUsers> {
                       width: 400,
                       child: Center(
                         child: Text(
-                          "POSITION",
+                          AppLocalizations.of(context)!.position.toUpperCase(),
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 12),
                         ),
                       )),
                   PTableViewRowFixed(
-                      width: 500,
+                      width: 550,
                       child: Text(
-                        "ACTIONS",
+                        AppLocalizations.of(context)!.actions.toUpperCase(),
                         style:
                             TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                       )),
@@ -229,23 +229,23 @@ class _AdminUsersState extends State<AdminUsers> {
             ),
           )),
       PTableViewRowFixed(
-          width: 400,
+          width: 550,
           child: SizedBox(
             height: 60,
             child: Row(
               children: [
                 _tableAction(
-                    title: 'Change credentials',
+                    title: AppLocalizations.of(context)!.changeCredentials.toUpperCase(),
                     icon: FontAwesomeIcons.userPen,
                     onTap: () {
                       context.push("/admin/user?id=${employee.id}");
                     }),
                 const Spacer(),
                 _tableAction(
-                    title: 'Delete account',
+                    title: AppLocalizations.of(context)!.deleteAccount.toUpperCase(),
                     icon: FontAwesomeIcons.solidTrashCan,
                     onTap: () async{
-                      final response = await showOkCancelAlertDialog(context: context, title: 'Confirm operation', message: 'Are you sure you want to delete an employee?', okLabel: 'Confirm');
+                      final response = await showOkCancelAlertDialog(context: context, title: AppLocalizations.of(context)!.confirmOperation, message: AppLocalizations.of(context)!.questionDeleteEmployee, okLabel: AppLocalizations.of(context)!.confirm);
                       if(response == OkCancelResult.ok){
                         if(!mounted) return;
                         deleteEmployeeBloc.add(AdminDeleteEmployeeEvent.deleteEmployee(userUid: employee.id!));
@@ -296,7 +296,7 @@ class _AdminUsersState extends State<AdminUsers> {
         decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            hintText: 'Search',
+            hintText: AppLocalizations.of(context)!.search,
             prefixIcon: Padding(
               padding: const EdgeInsets.all(11),
               child: SvgPicture.asset(

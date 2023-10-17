@@ -17,6 +17,7 @@ import '../../../core/utils/route_value.dart';
 import '../../../domain/entities/attendance/attendance.dart';
 import '../../../domain/repositories/attendance/attendance_repository_contract.dart';
 import '../../bloc/attendance/attendance_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewUserCredentials extends StatefulWidget {
 
@@ -57,17 +58,17 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
               const SizedBox(
                 height: 26,
               ),
-              const Row(
+              Row(
                 children: [
                   SizedBox(
                     width: 11,
                   ),
                   Text(
-                    "Employee",
+                    AppLocalizations.of(context)!.employee,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    " / View",
+                    " / ${AppLocalizations.of(context)!.view}",
                     style: TextStyle(fontSize: 18),
                   )
                 ],
@@ -163,15 +164,15 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                             Row(
                               children: [
                                 _section(
-                                    title: "Phone",
+                                    title: AppLocalizations.of(context)!.phoneNumber,
                                     subtitle: state.phoneNumber),
                                 const Spacer(),
                                 _section(
-                                    title: "Date of birth",
+                                    title: AppLocalizations.of(context)!.dateOfBirth,
                                     subtitle: state.dateOfBirth.formatted),
                                 const Spacer(),
                                 _section(
-                                    title: "Joned company",
+                                    title: AppLocalizations.of(context)!.joinedCompany,
                                     subtitle: getTimeAgo(
                                         state.worksSince,
                                         context
@@ -203,7 +204,7 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                                         margin: EdgeInsets.only(bottom: 3),
                                         child: Icon(FontAwesomeIcons.whatsapp, size: 20, color: Color(0xFFEEEEEE),)),
                                     SizedBox(width: 10,),
-                                    Text("Chat", style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w500),),
+                                    Text(AppLocalizations.of(context)!.chat, style: TextStyle(fontSize: 12, color: Colors.white, fontWeight: FontWeight.w500),),
                                     SizedBox(width: 20,),
                                   ],
                                 ),
@@ -235,8 +236,8 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                               return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                const Text(
-                                  "Reports",
+                                 Text(
+                                  AppLocalizations.of(context)!.reports,
                                   style: TextStyle(fontWeight: FontWeight.w600),
                                 ),
                                 ...state
@@ -244,12 +245,12 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
-                                            "Attendance report | ${e.start.formattedTexted} - ${e.end.formattedTexted}"),
+                                            "${AppLocalizations.of(context)!.attendance_report} | ${e.start.formattedTexted} - ${e.end.formattedTexted}"),
                                         TextButton(
                                             onPressed: (){
                                               generatePdfAttendance(e);
                                             },
-                                            child: Text("Download", style: TextStyle(decoration: TextDecoration.underline, color: AppColors.mainAccent, decorationColor: AppColors.mainAccent, fontWeight: FontWeight.w600),))
+                                            child: Text(AppLocalizations.of(context)!.download, style: TextStyle(decoration: TextDecoration.underline, color: AppColors.mainAccent, decorationColor: AppColors.mainAccent, fontWeight: FontWeight.w600),))
                                       ],
                                     ))
                                     .toList()

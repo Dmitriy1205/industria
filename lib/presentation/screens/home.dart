@@ -1066,53 +1066,116 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                FadeIn(
-                  scrollController: scrollController,
-                  revealOffset: 250,
-                  slideBegin: const Offset(0.0, 1.0),
-                  slideEnd: Offset.zero,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 155,
-                      left: 90,
+                Center(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxWidth: 1500
                     ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            height: 351,
-                            width: 630,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: YoutubePlayer(
-                                controller: youtubeController!,
+                    child: FadeIn(
+                      scrollController: scrollController,
+                      revealOffset: 250,
+                      slideBegin: const Offset(0.0, 1.0),
+                      slideEnd: Offset.zero,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 155,
+                          left: 90,
+                        ),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                height: 351,
+                                width: 630,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: YoutubePlayer(
+                                    controller: youtubeController!,
+                                  ),
+                                ),
                               ),
-                            ),
+                              SizedBox(
+                                width: 100,
+                              ),
+                              SizedBox(
+                                width: 589,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .ourIndustry,
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20,
+                                              color:
+                                                  AppColors.mainDarkAccent),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!.connecting,
+                                      style: AppTheme
+                                          .themeData.textTheme.headlineLarge!
+                                          .copyWith(fontSize: 36),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!
+                                          .foundedInLondon,
+                                      textAlign: TextAlign.start,
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(fontSize: 18),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            width: 100,
-                          ),
-                          SizedBox(
-                            width: 589,
-                            child: Column(
+                      ),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                        maxWidth: 1500
+                    ),
+                    child: FadeIn(
+                      scrollController: scrollController,
+                      revealOffset: 800,
+                      slideBegin: const Offset(1.0, 0.0),
+                      slideEnd: Offset.zero,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 155, left: 90, right: 115),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  AppLocalizations.of(context)!
-                                      .ourIndustry,
+                                  AppLocalizations.of(context)!.bestChoice,
                                   style: AppTheme
                                       .themeData.textTheme.labelMedium!
                                       .copyWith(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 20,
-                                          color:
-                                              AppColors.mainDarkAccent),
+                                          color: AppColors.mainDarkAccent),
                                 ),
                                 SizedBox(
                                   height: 20,
                                 ),
                                 Text(
-                                  AppLocalizations.of(context)!.connecting,
+                                  AppLocalizations.of(context)!.whyWeAre,
                                   style: AppTheme
                                       .themeData.textTheme.headlineLarge!
                                       .copyWith(fontSize: 36),
@@ -1121,87 +1184,38 @@ class _HomeState extends State<Home> {
                                   height: 20,
                                 ),
                                 Text(
-                                  AppLocalizations.of(context)!
-                                      .foundedInLondon,
+                                  AppLocalizations.of(context)!.atIndustria,
                                   textAlign: TextAlign.start,
-                                  style: AppTheme
-                                      .themeData.textTheme.labelMedium!
+                                  style: AppTheme.themeData.textTheme.labelMedium!
+                                      .copyWith(fontSize: 18),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Text(
+                                  AppLocalizations.of(context)!.ourTailored,
+                                  textAlign: TextAlign.start,
+                                  style: AppTheme.themeData.textTheme.labelMedium!
                                       .copyWith(fontSize: 18),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
-                      ),
-                  ),
-                ),
-                FadeIn(
-                  scrollController: scrollController,
-                  revealOffset: 800,
-                  slideBegin: const Offset(1.0, 0.0),
-                  slideEnd: Offset.zero,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 155, left: 90, right: 115),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              AppLocalizations.of(context)!.bestChoice,
-                              style: AppTheme
-                                  .themeData.textTheme.labelMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
-                                      color: AppColors.mainDarkAccent),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.whyWeAre,
-                              style: AppTheme
-                                  .themeData.textTheme.headlineLarge!
-                                  .copyWith(fontSize: 36),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.atIndustria,
-                              textAlign: TextAlign.start,
-                              style: AppTheme.themeData.textTheme.labelMedium!
-                                  .copyWith(fontSize: 18),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Text(
-                              AppLocalizations.of(context)!.ourTailored,
-                              textAlign: TextAlign.start,
-                              style: AppTheme.themeData.textTheme.labelMedium!
-                                  .copyWith(fontSize: 18),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(32),
+                                boxShadow: [
+                                  BoxShadow(offset: Offset(0,4), blurRadius: 20, color: Colors.black.withOpacity(0.25))
+                                ]
+                              ),
+                              child: Image.asset(
+                                AppImages.homePic2,
+                                height: 477,
+                                width: 472,
+                              ),
                             ),
                           ],
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(32),
-                            boxShadow: [
-                              BoxShadow(offset: Offset(0,4), blurRadius: 20, color: Colors.black.withOpacity(0.25))
-                            ]
-                          ),
-                          child: Image.asset(
-                            AppImages.homePic2,
-                            height: 477,
-                            width: 472,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

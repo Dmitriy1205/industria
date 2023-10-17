@@ -48,9 +48,7 @@ class _JobCardState extends State<JobCard> {
         });
       },
       child: GestureDetector(
-        onTap: () {
-          widget.goToDescription();
-        },
+        onTap: widget.goToDescription,
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
@@ -77,7 +75,6 @@ class _JobCardState extends State<JobCard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //TODO: change to Image.network when use real data from api
                     FirebaseImage(storageRef: widget.icon),
                     Text(
                       widget.date,

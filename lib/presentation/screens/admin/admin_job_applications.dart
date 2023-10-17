@@ -11,6 +11,8 @@ import '../../../core/constants/images.dart';
 import '../../../core/utils/debounce.dart';
 import '../../../domain/entities/job_application/job_application.dart';
 import '../../bloc/job_application_feature/admin_job_applications/admin_job_applications_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../bloc/localization/localization_bloc.dart';
 import '../../widgets/app_elevated_button.dart';
 
 class AdminJobApplications extends StatefulWidget {
@@ -39,18 +41,22 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
         const SizedBox(
           height: 20,
         ),
-        Row(
-          children: [
-            _tableTitle(title: 'Job Applications', subtitle: context.watch<AdminJobApplicationsBloc>().state.tableData.totalElementCounts.toString()),
-            const SizedBox(
-              width: 60,
-            ),
-            Expanded(child: _search(onTextChanged: (val){
-              _debouncer.run(() {
-                context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.changeSearchTerm(searchTerm: val));
-              });
-            })),
-          ],
+        SizedBox(
+          height: 52,
+          child: Row(
+            children: [
+              SizedBox(width: 16,),
+              _tableTitle(title: AppLocalizations.of(context)!.job_applications, subtitle: context.watch<AdminJobApplicationsBloc>().state.tableData.totalElementCounts.toString()),
+              const SizedBox(
+                width: 60,
+              ),
+              Expanded(child: _search(onTextChanged: (val){
+                _debouncer.run(() {
+                  context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.changeSearchTerm(searchTerm: val));
+                });
+              })),
+            ],
+          ),
         ),
         const SizedBox(
           height: 10,
@@ -67,28 +73,28 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
             fixedHeight: 500,
             borderRadius: BorderRadius.circular(4),
             headerHeight: 45,
-            header: const PTableViewHeader(
+            header: PTableViewHeader(
               contentPadding: EdgeInsets.symmetric(horizontal: 30),
               backgroundColor: Color(0xFFF1F1F1),
               rows: [
                 PTableViewRowFixed(
                   width: 250,
                   child: Text(
-                    "APPLICANT",
+                    AppLocalizations.of(context)!.applicant.toUpperCase(),
                     style: TextStyle(
                         fontWeight: FontWeight.w500, fontSize: 12),
                   ),),
                 PTableViewRowFixed(
                     width: 250,
                     child: Text(
-                      "VACANCY",
+                      AppLocalizations.of(context)!.vacancy.toUpperCase(),
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 12),
                     )),
                 PTableViewRowFixed(
                     width: 200,
                     child: Text(
-                      "COMPANY",
+                      AppLocalizations.of(context)!.company.toUpperCase(),
                       style:
                       TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                     )),
@@ -96,7 +102,7 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
                     width: 200,
                     child: Center(
                       child: Text(
-                        "STATUS",
+                        AppLocalizations.of(context)!.status.toUpperCase(),
                         style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                       ),
@@ -104,7 +110,7 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
                 PTableViewRowFixed(
                     width: 500,
                     child: Text(
-                      "DATE",
+                      AppLocalizations.of(context)!.date.toUpperCase(),
                       style:
                       TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                     )),
@@ -192,7 +198,7 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  jobApplication.createdAt.formattedTextedWithTime,
+                  jobApplication.createdAt.formattedTextedWithTime(context.watch<LocalizationBloc>().state.locale),
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: jobApplication.read ? AppColors.darkGrey : Colors.black),
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -207,8 +213,8 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
         onChanged: onTextChanged,
         decoration: InputDecoration(
             contentPadding:
-            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            hintText: 'Search',
+            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            hintText: AppLocalizations.of(context)!.search,
             prefixIcon: Padding(
               padding: const EdgeInsets.all(11),
               child: SvgPicture.asset(

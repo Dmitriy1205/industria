@@ -296,7 +296,7 @@ class _JobsState extends State<Jobs> {
                                         description: e.description,
                                         salary: e.salary,
                                         goToDescription: () {
-                                          context.push('/job_description', extra: e);
+                                          context.go('/job_description?id=${e.id}');
                                         }),
                                   );
                                 },
@@ -514,7 +514,7 @@ class _JobsState extends State<Jobs> {
                                       description: e.description,
                                       salary: e.salary,
                                       goToDescription: () {
-                                        context.push('/job_description', extra: e);
+                                        context.go('/job_description?id=${e.id}');
                                       }),
                                 );
                               },

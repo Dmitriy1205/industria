@@ -1,7 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,18 +8,14 @@ import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:industria/core/utils/toast.dart';
 import 'package:industria/core/validator/field_validator.dart';
-import 'package:industria/data/remote/admin_employee/admin_employee_service_impl.dart';
-import 'package:industria/domain/entities/employee/employee.dart';
-import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_impl.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
-import 'package:industria/presentation/bloc/employee_feature/admin_update_employee/admin_update_employee_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
-import 'package:industria/presentation/widgets/firebase_image.dart';
 
 import '../../../core/services/service_locator.dart';
 import '../../../domain/repositories/admin_employee/admin_employee_repository_contract.dart';
 import '../../bloc/employee_feature/admin_create_employee/admin_create_employee_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateUserCredentials extends StatefulWidget {
 
@@ -112,18 +106,18 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                   const SizedBox(
                     height: 50,
                   ),
-                  const Row(
+                  Row(
                     children: [
                       SizedBox(
                         width: 11,
                       ),
                       Text(
-                        "Employee",
+                        AppLocalizations.of(context)!.employee,
                         style:
                             TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        " / Change credentials",
+                        " / ${AppLocalizations.of(context)!.createAccount}",
                         style: TextStyle(fontSize: 18),
                       )
                     ],
@@ -167,8 +161,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                             _photoBytes = pickedFiles.files.first.bytes;
                                           });
                                         },
-                                        child: const Text(
-                                          'Add photo',
+                                        child: Text(
+                                          AppLocalizations.of(context)!.addPhoto,
                                           style: TextStyle(
                                               decoration:
                                                   TextDecoration.underline,
@@ -200,7 +194,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                 CustomTextFormField(
                                   focusNode: _emailNode,
                                   textController: _emailController,
-                                  labelText: 'Email*',
+                                  labelText: '${AppLocalizations.of(context)!.email}*',
                                   textInputType: TextInputType.emailAddress,
                                   validator: Validator.validateEmail,
                                   isSavePressed: true,
@@ -211,7 +205,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                 CustomTextFormField(
                                   focusNode: _passwordNode,
                                   textController: _passwordController,
-                                  labelText: 'Password*',
+                                  labelText: '${AppLocalizations.of(context)!.password}*',
                                   textInputType: TextInputType.emailAddress,
                                   validator: Validator.validate,
                                   isSavePressed: true,
@@ -225,7 +219,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _firstnameNode,
                                       textController: _firstnameController,
-                                      labelText: 'Firstname*',
+                                      labelText: '${AppLocalizations.of(context)!.firstname}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -237,7 +231,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _lastnameNode,
                                       textController: _lastnameController,
-                                      labelText: 'Lastname*',
+                                      labelText: '${AppLocalizations.of(context)!.lastname}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -253,7 +247,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _phoneNode,
                                       textController: _phoneController,
-                                      labelText: 'Phone number*',
+                                      labelText: '${AppLocalizations.of(context)!.phoneNumber}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validatePhone,
                                       isSavePressed: true,
@@ -265,7 +259,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _roleNode,
                                       textController: _roleController,
-                                      labelText: 'Role*',
+                                      labelText: '${AppLocalizations.of(context)!.role}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -282,7 +276,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                       focusNode: _dateOfBirthNode,
                                       type: CustomTextFormFieldType.date,
                                       textController: _dateOfBirtController,
-                                      labelText: 'Date of birth*',
+                                      labelText: '${AppLocalizations.of(context)!.dateOfBirth}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -301,7 +295,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _worksSinceNode,
                                       textController: _worksSinceController,
-                                      labelText: 'Works since*',
+                                      labelText: '${AppLocalizations.of(context)!.worksSince}*',
                                       type: CustomTextFormFieldType.date,
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
@@ -323,7 +317,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                   height: 30,
                                 ),
                                 AppElevatedButton(
-                                  text: "Create",
+                                  text: AppLocalizations.of(context)!.create,
                                   onPressed: () {
                                     final email = _emailController.text;
                                     final password = _passwordController.text;

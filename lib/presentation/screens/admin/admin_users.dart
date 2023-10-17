@@ -9,6 +9,7 @@ import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/utils/debounce.dart';
 import 'package:industria/core/utils/toast.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
+import 'package:industria/domain/repositories/attendance/attendance_repository_contract.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_delete_employee/admin_delete_employee_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
@@ -17,6 +18,8 @@ import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/services/service_locator.dart';
 import '../../../domain/entities/employee/employee.dart';
+import '../../bloc/attendance/attendance_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminUsers extends StatefulWidget {
   const AdminUsers({Key? key}) : super(key: key);
@@ -49,7 +52,7 @@ class _AdminUsersState extends State<AdminUsers> {
             },
             success: (_){
               showSuccessSnackBar(context, "Successfully deleted employee");
-              context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: 0, elementsPerPage: 5));
+              context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: 0, elementsPerPage: 7));
             },
             fail: (_){
               showErrorSnackBar(context, "Failed to delete employee");
@@ -61,35 +64,39 @@ class _AdminUsersState extends State<AdminUsers> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              _tableTitle(title: 'All Employees', subtitle: context.watch<AdminEmployeeListBloc>().state.tableData.totalElementCounts.toString()),
-              const SizedBox(
-                width: 60,
-              ),
-              Expanded(child: _search(onTextChanged: (val){
-                _debouncer.run(() {
-                  context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.changeSearchTerm(searchTerm: val));
-                });
-              })),
-              const SizedBox(
-                width: 60,
-              ),
-              SizedBox(
-                  width: 200,
-                  child: AppElevatedButton(
-                    text: "Create account",
-                    prefixIcon: const Icon(
-                      FontAwesomeIcons.plus,
-                      color: Colors.white,
-                    ),
-                    textStyle: const TextStyle(fontSize: 14),
-                    onPressed: () {
-                      context.go("/admin/create_user");
-                    },
-                    verticalPadding: 15,
-                  ))
-            ],
+          SizedBox(
+            height: 52,
+            child: Row(
+              children: [
+                SizedBox(width: 16,),
+                _tableTitle(title: AppLocalizations.of(context)!.all_employees, subtitle: context.watch<AdminEmployeeListBloc>().state.tableData.totalElementCounts.toString()),
+                const SizedBox(
+                  width: 60,
+                ),
+                Expanded(child: _search(onTextChanged: (val){
+                  _debouncer.run(() {
+                    context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.changeSearchTerm(searchTerm: val));
+                  });
+                })),
+                const SizedBox(
+                  width: 60,
+                ),
+                SizedBox(
+                    width: 200,
+                    child: AppElevatedButton(
+                      text: AppLocalizations.of(context)!.createAccount,
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                      ),
+                      textStyle: const TextStyle(fontSize: 14),
+                      onPressed: () {
+                        context.go("/admin/create_user");
+                      },
+                      verticalPadding: 15,
+                    ))
+              ],
+            ),
           ),
           const SizedBox(
             height: 10,
@@ -100,20 +107,20 @@ class _AdminUsersState extends State<AdminUsers> {
                 currentPage: context.watch<AdminEmployeeListBloc>().state.tableData.currentPage,
                 pagesCount: context.watch<AdminEmployeeListBloc>().state.tableData.numberOfPages,
                 onPageChanged: (i) {
-                  context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: i, elementsPerPage: 5));
+                  context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: i, elementsPerPage: 7));
                 },
               ),
               fixedHeight: 500,
               borderRadius: BorderRadius.circular(4),
               headerHeight: 45,
-              header: const PTableViewHeader(
+              header: PTableViewHeader(
                 contentPadding: EdgeInsets.symmetric(horizontal: 30),
                 backgroundColor: Color(0xFFF1F1F1),
                 rows: [
                   PTableViewRowFixed(
                       width: 300,
                       child: Text(
-                        "TOPIC",
+                        AppLocalizations.of(context)!.topic.toUpperCase(),
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12),
                       ),),
@@ -121,15 +128,15 @@ class _AdminUsersState extends State<AdminUsers> {
                       width: 400,
                       child: Center(
                         child: Text(
-                          "POSITION",
+                          AppLocalizations.of(context)!.position.toUpperCase(),
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 12),
                         ),
                       )),
                   PTableViewRowFixed(
-                      width: 500,
+                      width: 550,
                       child: Text(
-                        "ACTIONS",
+                        AppLocalizations.of(context)!.actions.toUpperCase(),
                         style:
                             TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                       )),
@@ -137,11 +144,11 @@ class _AdminUsersState extends State<AdminUsers> {
               ),
               content: PTableViewContent(
                 onTap: (i){
-                  context.go("/admin/view_user", extra: context
+                  context.go("/admin/view_user?id=${context
                       .read<AdminEmployeeListBloc>()
                       .state
                       .tableData
-                      .element[i]);
+                      .element[i].id}");
                 },
                   divider: Container(
                     width: double.infinity,
@@ -222,23 +229,23 @@ class _AdminUsersState extends State<AdminUsers> {
             ),
           )),
       PTableViewRowFixed(
-          width: 400,
+          width: 550,
           child: SizedBox(
             height: 60,
             child: Row(
               children: [
                 _tableAction(
-                    title: 'Change credentials',
+                    title: AppLocalizations.of(context)!.changeCredentials.toUpperCase(),
                     icon: FontAwesomeIcons.userPen,
                     onTap: () {
-                      context.push("/admin/user", extra: employee);
+                      context.push("/admin/user?id=${employee.id}");
                     }),
                 const Spacer(),
                 _tableAction(
-                    title: 'Delete account',
+                    title: AppLocalizations.of(context)!.deleteAccount.toUpperCase(),
                     icon: FontAwesomeIcons.solidTrashCan,
                     onTap: () async{
-                      final response = await showOkCancelAlertDialog(context: context, title: 'Confirm operation', message: 'Are you sure you want to delete an employee?', okLabel: 'Confirm');
+                      final response = await showOkCancelAlertDialog(context: context, title: AppLocalizations.of(context)!.confirmOperation, message: AppLocalizations.of(context)!.questionDeleteEmployee, okLabel: AppLocalizations.of(context)!.confirm);
                       if(response == OkCancelResult.ok){
                         if(!mounted) return;
                         deleteEmployeeBloc.add(AdminDeleteEmployeeEvent.deleteEmployee(userUid: employee.id!));
@@ -289,7 +296,7 @@ class _AdminUsersState extends State<AdminUsers> {
         decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            hintText: 'Search',
+            hintText: AppLocalizations.of(context)!.search,
             prefixIcon: Padding(
               padding: const EdgeInsets.all(11),
               child: SvgPicture.asset(
@@ -299,7 +306,7 @@ class _AdminUsersState extends State<AdminUsers> {
                 height: 16,
               ),
             ),
-            hintStyle: const TextStyle(color: AppColors.darkGrey),
+            hintStyle: const TextStyle(color: AppColors.darkGrey,),
             filled: true,
             fillColor: Colors.white,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(8))),

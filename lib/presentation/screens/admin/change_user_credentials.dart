@@ -12,18 +12,20 @@ import 'package:industria/data/remote/admin_employee/admin_employee_service_impl
 import 'package:industria/domain/entities/employee/employee.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_impl.dart';
+import 'package:industria/presentation/bloc/employee_feature/admin_employee_details/admin_employee_details_cubit.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_update_employee/admin_update_employee_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/services/service_locator.dart';
+import '../../../core/utils/route_value.dart';
 
 class ChangeUserCredentials extends StatefulWidget {
-  final Employee employee;
 
-  const ChangeUserCredentials({Key? key, required this.employee})
+  const ChangeUserCredentials({Key? key})
       : super(key: key);
 
   @override
@@ -45,28 +47,22 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
 
   final _passwordNode = FocusNode();
 
-  late final _firstnameController =
-      TextEditingController(text: widget.employee.firstname);
+  TextEditingController? _firstnameController;
 
-  late final _lastnameController =
-      TextEditingController(text: widget.employee.lastname);
+  TextEditingController? _lastnameController;
 
-  late final _phoneController =
-      TextEditingController(text: widget.employee.phoneNumber);
+  TextEditingController? _phoneController;
 
-  late final _roleController =
-      TextEditingController(text: widget.employee.role);
+  TextEditingController? _roleController;
 
-  late final _dateOfBirtController =
-      TextEditingController(text: widget.employee.dateOfBirth.formatted);
+  TextEditingController? _dateOfBirtController;
 
-  late final _worksSinceController =
-      TextEditingController(text: widget.employee.worksSince.formatted);
+  TextEditingController? _worksSinceController;
 
-  late final _passwordController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-  late DateTime _dateOfBirth = widget.employee.dateOfBirth;
-  late DateTime _worksSince = widget.employee.worksSince;
+  DateTime? _dateOfBirth;
+  DateTime? _worksSince;
 
   bool _changePassword = false;
 
@@ -77,6 +73,20 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
 
   final _adminUpdateEmployeeBloc = AdminUpdateEmployeeBloc(
       adminEmployeeRepository: sl<AdminEmployeeRepository>());
+  
+  final _adminEmployeeDetailsCubit = AdminEmployeeDetailsCubit(adminEmployeeRepository: sl<AdminEmployeeRepository>());
+  
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final paramValue = routeValue(context, "id");
+      if(paramValue != null){
+        _adminEmployeeDetailsCubit.fetchEmployeeById(paramValue);
+      }
+    });
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,278 +106,300 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
               showErrorSnackBar(context, "Failed to update user!");
             });
       },
-      child: Form(
-        key: _formKey,
-        child: Center(
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 800),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 26,
-                ),
-                const Row(
-                  children: [
-                    SizedBox(
-                      width: 11,
-                    ),
-                    Text(
-                      "Employee",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      " / Change credentials",
-                      style: TextStyle(fontSize: 18),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 34,
-                ),
-                IntrinsicHeight(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.white,
-                    ),
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              Row(
-                                children: [
-                                  _photoBytes != null ? CircleAvatar(
-                                      backgroundImage: Image.memory(Uint8List.fromList(_photoBytes!)).image
-                                  ) : FirebaseImage(
-                                    storageRef: widget.employee.photoRef,
-                                    rounded: true,
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  TextButton(
-                                      onPressed: () async{
-                                        final pickedFiles = await FilePicker.platform.pickFiles(allowMultiple: false, type: FileType.custom, allowedExtensions: ["png","jpg","jpeg"]);
-                                        if(pickedFiles == null) return;
-                                        setState(() {
-                                          _photoFileName = pickedFiles.files.first.name;
-                                          _photoBytes = pickedFiles.files.first.bytes;
-                                        });
-                                      },
-                                      child: const Text(
-                                        'Change photo',
-                                        style: TextStyle(
-                                            decoration:
-                                                TextDecoration.underline,
-                                            color: AppColors.mainAccent,
-                                            decorationColor:
-                                                AppColors.mainAccent,
-                                            fontSize: 12),
-                                      )),
-                                  const Spacer(),
-                                  Text(
-                                    widget.employee.email,
-                                    style: const TextStyle(
-                                        color: AppColors.darkGrey,
-                                        fontSize: 12),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 21,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          height: 1,
-                          width: double.infinity,
-                          color: AppColors.lightGrey,
-                        ),
-                        const SizedBox(
-                          height: 22,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 36),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: CustomTextFormField(
-                                    focusNode: _firstnameNode,
-                                    textController: _firstnameController,
-                                    labelText: 'Firstname*',
-                                    textInputType: TextInputType.name,
-                                    validator: Validator.validate,
-                                    isSavePressed: true,
-                                  )),
-                                  const SizedBox(
-                                    width: 30,
-                                  ),
-                                  Expanded(
-                                      child: CustomTextFormField(
-                                    focusNode: _lastnameNode,
-                                    textController: _lastnameController,
-                                    labelText: 'Lastname*',
-                                    textInputType: TextInputType.name,
-                                    validator: Validator.validate,
-                                    isSavePressed: true,
-                                  )),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: CustomTextFormField(
-                                    focusNode: _phoneNode,
-                                    textController: _phoneController,
-                                    labelText: 'Phone number*',
-                                    textInputType: TextInputType.name,
-                                    validator: Validator.validatePhone,
-                                    isSavePressed: true,
-                                  )),
-                                  const SizedBox(
-                                    width: 30,
-                                  ),
-                                  Expanded(
-                                      child: CustomTextFormField(
-                                    focusNode: _roleNode,
-                                    textController: _roleController,
-                                    labelText: 'Role*',
-                                    textInputType: TextInputType.name,
-                                    validator: Validator.validate,
-                                    isSavePressed: true,
-                                  )),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Row(
-                                children: [
-                                  Expanded(
-                                      child: CustomTextFormField(
-                                    focusNode: _dateOfBirthNode,
-                                    type: CustomTextFormFieldType.date,
-                                    textController: _dateOfBirtController,
-                                    labelText: 'Date of birth*',
-                                    textInputType: TextInputType.name,
-                                    validator: Validator.validate,
-                                    isSavePressed: true,
-                                    onChange: (val) {
-                                      setState(() {
-                                        _dateOfBirtController.text =
-                                            (val as DateTime).formatted;
-                                        _dateOfBirth = val;
-                                      });
-                                    },
-                                  )),
-                                  const SizedBox(
-                                    width: 30,
-                                  ),
-                                  Expanded(
-                                      child: CustomTextFormField(
-                                    focusNode: _worksSinceNode,
-                                    textController: _worksSinceController,
-                                    labelText: 'Works since*',
-                                    type: CustomTextFormFieldType.date,
-                                    textInputType: TextInputType.name,
-                                    validator: Validator.validate,
-                                    isSavePressed: true,
-                                    onChange: (val) {
-                                      setState(() {
-                                        _worksSinceController.text =
-                                            (val as DateTime).formatted;
-                                        _worksSince = val;
-                                      });
-                                    },
-                                  )),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 15,
-                              ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                      value: _changePassword,
-                                      onChanged: (val) {
-                                        setState(() {
-                                          _changePassword = val!;
-                                        });
-                                      }),
-                                  const SizedBox(
-                                    width: 2,
-                                  ),
-                                  const Text(
-                                    "Change credentials",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: AppColors.darkGrey),
-                                  )
-                                ],
-                              ),
-                              !_changePassword
-                                  ? const SizedBox.shrink()
-                                  : const SizedBox(
-                                      height: 15,
+      child: BlocConsumer<AdminEmployeeDetailsCubit, Employee?>(
+        listener: (context,state){
+          if(state != null){
+            _firstnameController =
+                TextEditingController(text: state.firstname);
+            _lastnameController =
+                TextEditingController(text: state.lastname);
+            _phoneController =
+                TextEditingController(text: state.phoneNumber);
+            _roleController =
+                TextEditingController(text: state.role);
+            _dateOfBirtController =
+                TextEditingController(text: state.dateOfBirth.formatted);
+            _worksSinceController =
+                TextEditingController(text: state.worksSince.formatted);
+            _dateOfBirth = state.dateOfBirth;
+            _worksSince = state.worksSince;
+            setState(() {});
+          }
+        },
+        bloc: _adminEmployeeDetailsCubit,
+        builder: (context,state) => state == null ? Center(child: CircularProgressIndicator(),) : Form(
+          key: _formKey,
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 800),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 26,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 11,
+                      ),
+                      Text(
+                        AppLocalizations.of(context)!.employee,
+                        style:
+                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        " / ${AppLocalizations.of(context)!.changeCredentials}",
+                        style: TextStyle(fontSize: 18),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 34,
+                  ),
+                  IntrinsicHeight(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                      ),
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                Row(
+                                  children: [
+                                    _photoBytes != null ? CircleAvatar(
+                                        backgroundImage: Image.memory(Uint8List.fromList(_photoBytes!)).image
+                                    ) : FirebaseImage(
+                                      storageRef: state.photoRef,
+                                      rounded: true,
                                     ),
-                              !_changePassword
-                                  ? const SizedBox.shrink()
-                                  : CustomTextFormField(
-                                      focusNode: _passwordNode,
-                                      textController: _passwordController,
-                                      labelText: 'Password',
+                                    const SizedBox(
+                                      width: 15,
+                                    ),
+                                    TextButton(
+                                        onPressed: () async{
+                                          final pickedFiles = await FilePicker.platform.pickFiles(allowMultiple: false, type: FileType.custom, allowedExtensions: ["png","jpg","jpeg"]);
+                                          if(pickedFiles == null) return;
+                                          setState(() {
+                                            _photoFileName = pickedFiles.files.first.name;
+                                            _photoBytes = pickedFiles.files.first.bytes;
+                                          });
+                                        },
+                                        child: Text(
+                                          AppLocalizations.of(context)!.changePhoto,
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: AppColors.mainAccent,
+                                              decorationColor:
+                                                  AppColors.mainAccent,
+                                              fontSize: 12),
+                                        )),
+                                    const Spacer(),
+                                    Text(
+                                      state.email,
+                                      style: const TextStyle(
+                                          color: AppColors.darkGrey,
+                                          fontSize: 12),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 21,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            height: 1,
+                            width: double.infinity,
+                            color: AppColors.lightGrey,
+                          ),
+                          const SizedBox(
+                            height: 22,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 36),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child: CustomTextFormField(
+                                      focusNode: _firstnameNode,
+                                      textController: _firstnameController!,
+                                      labelText: '${AppLocalizations.of(context)!.firstname}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
+                                    )),
+                                    const SizedBox(
+                                      width: 30,
                                     ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              AppElevatedButton(
-                                text: "Save",
-                                onPressed: () {
-                                  final userUid = widget.employee.id!;
-                                  final email = widget.employee.email;
-                                  final password = _changePassword ? _passwordController.text : null;
-                                  final firstname = _firstnameController.text;
-                                  final lastname = _lastnameController.text;
-                                  final phoneNumber = _phoneController.text;
-                                  final role = _roleController.text;
-                                  _adminUpdateEmployeeBloc.add(AdminUpdateEmployeeEvent.updateEmployee(userUid: userUid, email: email, password: password, firstname: firstname, lastname: lastname, phoneNumber: phoneNumber, role: role, dateOfBirth: _dateOfBirth!, worksSince: _worksSince!, imgFilename: _photoFileName, imgBytes: _photoBytes));
-                                },
-                                verticalPadding: 10,
-                                textStyle: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                                    Expanded(
+                                        child: CustomTextFormField(
+                                      focusNode: _lastnameNode,
+                                      textController: _lastnameController!,
+                                      labelText: '${AppLocalizations.of(context)!.lastname}*',
+                                      textInputType: TextInputType.name,
+                                      validator: Validator.validate,
+                                      isSavePressed: true,
+                                    )),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child: CustomTextFormField(
+                                      focusNode: _phoneNode,
+                                      textController: _phoneController!,
+                                      labelText: '${AppLocalizations.of(context)!.phoneNumber}*',
+                                      textInputType: TextInputType.name,
+                                      validator: Validator.validatePhone,
+                                      isSavePressed: true,
+                                    )),
+                                    const SizedBox(
+                                      width: 30,
+                                    ),
+                                    Expanded(
+                                        child: CustomTextFormField(
+                                      focusNode: _roleNode,
+                                      textController: _roleController!,
+                                      labelText: '${AppLocalizations.of(context)!.role}*',
+                                      textInputType: TextInputType.name,
+                                      validator: Validator.validate,
+                                      isSavePressed: true,
+                                    )),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                        child: CustomTextFormField(
+                                      focusNode: _dateOfBirthNode,
+                                      type: CustomTextFormFieldType.date,
+                                      textController: _dateOfBirtController!,
+                                      labelText: '${AppLocalizations.of(context)!.dateOfBirth}*',
+                                      textInputType: TextInputType.name,
+                                      validator: Validator.validate,
+                                      isSavePressed: true,
+                                      onChange: (val) {
+                                        setState(() {
+                                          _dateOfBirtController!.text =
+                                              (val as DateTime).formatted;
+                                          _dateOfBirth = val;
+                                        });
+                                      },
+                                    )),
+                                    const SizedBox(
+                                      width: 30,
+                                    ),
+                                    Expanded(
+                                        child: CustomTextFormField(
+                                      focusNode: _worksSinceNode,
+                                      textController: _worksSinceController!,
+                                      labelText: '${AppLocalizations.of(context)!.worksSince}*',
+                                      type: CustomTextFormFieldType.date,
+                                      textInputType: TextInputType.name,
+                                      validator: Validator.validate,
+                                      isSavePressed: true,
+                                      onChange: (val) {
+                                        setState(() {
+                                          _worksSinceController!.text =
+                                              (val as DateTime).formatted;
+                                          _worksSince = val;
+                                        });
+                                      },
+                                    )),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                        value: _changePassword,
+                                        onChanged: (val) {
+                                          setState(() {
+                                            _changePassword = val!;
+                                          });
+                                        }),
+                                    const SizedBox(
+                                      width: 2,
+                                    ),
+                                    Text(
+                                      AppLocalizations.of(context)!.changeCredentials,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.darkGrey),
+                                    )
+                                  ],
+                                ),
+                                !_changePassword
+                                    ? const SizedBox.shrink()
+                                    : const SizedBox(
+                                        height: 15,
+                                      ),
+                                !_changePassword
+                                    ? const SizedBox.shrink()
+                                    : CustomTextFormField(
+                                        focusNode: _passwordNode,
+                                        textController: _passwordController,
+                                        labelText: AppLocalizations.of(context)!.password,
+                                        textInputType: TextInputType.name,
+                                        validator: Validator.validate,
+                                        isSavePressed: true,
+                                      ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                                AppElevatedButton(
+                                  text: AppLocalizations.of(context)!.save,
+                                  onPressed: () {
+                                    final userUid = state.id!;
+                                    final email = state.email;
+                                    final password = _changePassword ? _passwordController.text : null;
+                                    final firstname = _firstnameController!.text;
+                                    final lastname = _lastnameController!.text;
+                                    final phoneNumber = _phoneController!.text;
+                                    final role = _roleController!.text;
+                                    _adminUpdateEmployeeBloc.add(AdminUpdateEmployeeEvent.updateEmployee(userUid: userUid, email: email, password: password, firstname: firstname, lastname: lastname, phoneNumber: phoneNumber, role: role, dateOfBirth: _dateOfBirth!, worksSince: _worksSince!, imgFilename: _photoFileName, imgBytes: _photoBytes));
+                                  },
+                                  verticalPadding: 10,
+                                  textStyle: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                                const SizedBox(
+                                  height: 30,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -384,12 +416,12 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
     _dateOfBirthNode.dispose();
     _worksSinceNode.dispose();
     _passwordNode.dispose();
-    _firstnameController.dispose();
-    _lastnameController.dispose();
-    _phoneController.dispose();
-    _roleController.dispose();
-    _dateOfBirtController.dispose();
-    _worksSinceController.dispose();
+    _firstnameController?.dispose();
+    _lastnameController?.dispose();
+    _phoneController?.dispose();
+    _roleController?.dispose();
+    _dateOfBirtController?.dispose();
+    _worksSinceController?.dispose();
     _passwordController.dispose();
     super.dispose();
   }

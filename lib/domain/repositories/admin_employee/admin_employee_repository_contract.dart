@@ -8,4 +8,5 @@ abstract class AdminEmployeeRepository{
   Future<TableData<List<Employee>>> listEmployees({required int page,
     required int elementsPerPage,
     required String searchTerm});
+  Future<Employee?> getEmployeeById(String employeeId);
 }

@@ -104,6 +104,16 @@ class AdminEmployeeServiceImpl implements AdminEmployeeService {
     }
   }
 
+  @override
+  Future<Employee?> getEmployeeById(String employeeId) async{
+    final response = await _db.collection(FirestoreCollections.employees).doc(employeeId).get();
+    if(response.exists){
+      return Employee.fromJson(response.data()!);
+    }else{
+      return null;
+    }
+  }
+
   AdminEmployeeServiceImpl({
     required Dio dio,
     required FirebaseFirestore db,

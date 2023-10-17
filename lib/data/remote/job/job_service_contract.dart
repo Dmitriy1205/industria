@@ -3,4 +3,5 @@ import '../../../domain/entities/job_offer/job_offer.dart';
 
 abstract class JobService{
   Future<List<JobOffer>> findJobOffers({required JobFilters filter});
+  Future<JobOffer?> getJobOfferById({required String id});
 }

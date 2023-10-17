@@ -9,10 +9,10 @@ import 'package:industria/app/providers.dart';
 import 'package:industria/app/router.dart';
 import 'package:industria/core/overlays/cookie_overlay.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../core/themes/theme.dart';
 import '../l10n/l10n.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../presentation/bloc/localization/localization_bloc.dart';
 

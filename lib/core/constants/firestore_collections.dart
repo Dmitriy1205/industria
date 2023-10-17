@@ -3,4 +3,6 @@ class FirestoreCollections{
   static String jobs = "job_offers";
   static String employees = "employees";
   static String contactRequests = "contact_requests";
+  static String holidays = "holidays";
+  static String attendances = "attendance";
 }

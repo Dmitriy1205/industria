@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/extensions/date.dart';
-import 'package:industria/core/utils/download_storage_file.dart';
 import 'package:industria/core/utils/route_value.dart';
 import 'package:industria/core/utils/toast.dart';
-import 'package:industria/domain/entities/job_application/job_application.dart';
 import 'package:industria/domain/repositories/holiday_requests/holiday_requests_repository_contract.dart';
 import 'package:industria/presentation/bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
-import 'package:industria/presentation/bloc/job_application_feature/admin_job_applications/admin_job_applications_bloc.dart';
-import 'package:industria/presentation/bloc/job_application_feature/view_job_application/view_job_application_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
 
 import '../../../core/services/service_locator.dart';
 import '../../../core/themes/theme.dart';
-import '../../../domain/repositories/attendance/attendance_repository_contract.dart';
-import '../../../domain/repositories/job_application/job_application_repository_contract.dart';
-import '../../bloc/attendance/attendance_cubit.dart';
 import '../../bloc/holiday_request_feature/view_holiday/view_holiday_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewHoliday extends StatefulWidget{
   const ViewHoliday({Key? key})
@@ -79,7 +72,7 @@ class _ViewHolidayState extends State<ViewHoliday>{
               child: Column(
                 children: [
                   const SizedBox(height: 20,),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 18),
                     child: SizedBox(
                       height: 25,
@@ -87,14 +80,14 @@ class _ViewHolidayState extends State<ViewHoliday>{
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "Job application",
+                            AppLocalizations.of(context)!.jobApplication,
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black),
                           ),
                           Text(
-                            " / View",
+                            " / ${AppLocalizations.of(context)!.view}",
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w400,
@@ -127,19 +120,19 @@ class _ViewHolidayState extends State<ViewHoliday>{
                                   children: [
                                     FirebaseImage(storageRef: state.holiday!.photoRef, rounded: true,),
                                     SizedBox(width: 24,),
-                                    _section(title: "Employee", subtitle: "${state.holiday!.firstname} ${state.holiday!.lastname}"),
+                                    _section(title: AppLocalizations.of(context)!.employee, subtitle: "${state.holiday!.firstname} ${state.holiday!.lastname}"),
                                   ],
                                 ),
                                 const SizedBox(height: 30,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    _section(title: "Unavailable", subtitle: "${state.holiday!.unavailableFrom.formattedTexted} - ${state.holiday!.unavailableTo.formattedTexted}"),
-                                    _section(title: "Date", subtitle: state.holiday!.createdAt.formattedTextedWithTime),
+                                    _section(title: AppLocalizations.of(context)!.unavailable, subtitle: "${state.holiday!.unavailableFrom.formattedTexted} - ${state.holiday!.unavailableTo.formattedTexted}"),
+                                    _section(title: AppLocalizations.of(context)!.date, subtitle: state.holiday!.createdAt.formattedTextedWithTime),
                                   ],
                                 ),
                                 const SizedBox(height: 30,),
-                                _section(title: "Reason", subtitle: state.holiday!.reason),
+                                _section(title: AppLocalizations.of(context)!.reason, subtitle: state.holiday!.reason),
                               ],
                             ),
                           ),
@@ -208,7 +201,7 @@ class _ViewHolidayState extends State<ViewHoliday>{
                           width: 160,
                           child: AppElevatedButton(onPressed: (){
                             _viewHolidayBloc.add(ViewHolidayEvent.changeStatus(id: state.holiday!.id, status: selectedStatus!));
-                          }, text: 'Save', textStyle: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal), color: Colors.white, verticalPadding: 8,)),
+                          }, text: AppLocalizations.of(context)!.save, textStyle: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal), color: Colors.white, verticalPadding: 8,)),
                     ],
                   ),
                   const SizedBox(height: 25,),

@@ -152,5 +152,15 @@
    "worksSince": "Funktioniert seitdem",
    "create": "Erstellen",
    "changePhoto": "Foto ändern",
-   "save": "Speichern"
+   "save": "Speichern",
+   "applicant": "Antragsteller",
+   "vacancy": "Stellenangebot",
+   "company": "Unternehmen",
+   "status": "Status",
+   "date": "Datum",
+   "picture": "Bild",
+   "cv": "Lebenslauf",
+   "certificates": "Zertifikate",
+   "unavailable": "Nicht verfügbar",
+   "reason": "Grund"
 }

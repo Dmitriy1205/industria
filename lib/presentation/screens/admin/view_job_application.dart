@@ -15,6 +15,7 @@ import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/themes/theme.dart';
 import '../../../domain/repositories/job_application/job_application_repository_contract.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewJobApplication extends StatefulWidget{
   const ViewJobApplication({Key? key})
@@ -73,7 +74,7 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
           child: Column(
             children: [
               const SizedBox(height: 20,),
-              const Padding(
+              Padding(
                 padding: EdgeInsets.symmetric(horizontal: 18),
                 child: SizedBox(
                   height: 25,
@@ -81,14 +82,14 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        "Job application",
+                        AppLocalizations.of(context)!.jobApplication,
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
                       Text(
-                        " / View",
+                        " / ${AppLocalizations.of(context)!.view}",
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
@@ -120,22 +121,22 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _section(title: "Firstname", subtitle: state.jobApplication!.firstname),
-                                _section(title: "Lastname", subtitle: state.jobApplication!.lastname),
-                                _section(title: "Date of birth", subtitle: state.jobApplication!.birthday.formatted),
+                                _section(title: AppLocalizations.of(context)!.firstname, subtitle: state.jobApplication!.firstname),
+                                _section(title: AppLocalizations.of(context)!.lastname, subtitle: state.jobApplication!.lastname),
+                                _section(title: AppLocalizations.of(context)!.dateOfBirth, subtitle: state.jobApplication!.birthday.formatted),
                               ],
                             ),
                             const SizedBox(height: 30,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                _section(title: "Citizenship", subtitle: state.jobApplication!.citizenship),
-                                _section(title: "Availability date", subtitle: state.jobApplication!.availableDate.formatted),
-                                _section(title: "Gender", subtitle: state.jobApplication!.gender),
+                                _section(title: AppLocalizations.of(context)!.citizenship, subtitle: state.jobApplication!.citizenship),
+                                _section(title: AppLocalizations.of(context)!.availabilityDate, subtitle: state.jobApplication!.availableDate.formatted),
+                                _section(title: AppLocalizations.of(context)!.gender, subtitle: state.jobApplication!.gender),
                               ],
                             ),
                             const SizedBox(height: 30,),
-                            _section(title: "Address", subtitle: state.jobApplication!.gender),
+                            _section(title: AppLocalizations.of(context)!.address, subtitle: state.jobApplication!.gender),
                           ],
                         ),
                       ),
@@ -147,9 +148,9 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            _section(title: "Vacancy", subtitle: state.jobApplication!.jobOfferName, link: true),
+                            _section(title: AppLocalizations.of(context)!.vacancy, subtitle: state.jobApplication!.jobOfferName, link: true),
                             const SizedBox(width: 65,),
-                            _section(title: "Company", subtitle: state.jobApplication!.company.name, link: true),
+                            _section(title: AppLocalizations.of(context)!.company, subtitle: state.jobApplication!.company.name, link: true),
                             const Spacer(),
                             Text(state.jobApplication!.createdAt.formattedTextedWithTime, style: const TextStyle(fontSize: 12, color: Color(0xFF282828), fontWeight: FontWeight.w600),)
                           ],
@@ -181,14 +182,14 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Picture ",),
+                                Text("${AppLocalizations.of(context)!.picture} ",),
                                 MouseRegion(
                                     cursor: SystemMouseCursors.click,
                                     child: GestureDetector(
                                         onTap: (){
                                           downloadStorageFile(state.jobApplication!.documents.photo);
                                         },
-                                        child: Text("Download", style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.mainAccent, decoration: TextDecoration.underline, decorationColor: AppColors.mainAccent),)))
+                                        child: Text(AppLocalizations.of(context)!.download, style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.mainAccent, decoration: TextDecoration.underline, decorationColor: AppColors.mainAccent),)))
                               ],
                             ),
                           ),
@@ -205,14 +206,14 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("CV ",),
+                              Text("${AppLocalizations.of(context)!.cv} ",),
                               MouseRegion(
                                   cursor: SystemMouseCursors.click,
                                   child: GestureDetector(
                                       onTap: (){
                                         downloadStorageFile(state.jobApplication!.documents.cv);
                                       },
-                                      child: Text("Download", style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.mainAccent, decoration: TextDecoration.underline, decorationColor: AppColors.mainAccent),)))
+                                      child: Text(AppLocalizations.of(context)!.download, style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.mainAccent, decoration: TextDecoration.underline, decorationColor: AppColors.mainAccent),)))
                             ],
                           ),
                         )
@@ -228,14 +229,14 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("Certificates ",),
+                              Text("${AppLocalizations.of(context)!.certificates} ",),
                               MouseRegion(
                                   cursor: SystemMouseCursors.click,
                                   child: GestureDetector(
                                       onTap: (){
 
                                       },
-                                      child: Text("Download", style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.mainAccent, decoration: TextDecoration.underline, decorationColor: AppColors.mainAccent),)))
+                                      child: Text(AppLocalizations.of(context)!.download, style: TextStyle(fontWeight: FontWeight.w600, color: AppColors.mainAccent, decoration: TextDecoration.underline, decorationColor: AppColors.mainAccent),)))
                             ],
                           ),
                         )
@@ -304,7 +305,7 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
                       width: 160,
                       child: AppElevatedButton(onPressed: (){
                         _viewJobApplicationBloc.add(ViewJobApplicationEvent.changeStatus(id: state.jobApplication!.id, status: selectedStatus!));
-                      }, text: 'Save', textStyle: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal), color: Colors.white, verticalPadding: 8,)),
+                      }, text: AppLocalizations.of(context)!.save, textStyle: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal), color: Colors.white, verticalPadding: 8,)),
                 ],
               ),
               const SizedBox(height: 25,),

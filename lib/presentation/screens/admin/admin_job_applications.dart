@@ -72,28 +72,28 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
             fixedHeight: 500,
             borderRadius: BorderRadius.circular(4),
             headerHeight: 45,
-            header: const PTableViewHeader(
+            header: PTableViewHeader(
               contentPadding: EdgeInsets.symmetric(horizontal: 30),
               backgroundColor: Color(0xFFF1F1F1),
               rows: [
                 PTableViewRowFixed(
                   width: 250,
                   child: Text(
-                    "APPLICANT",
+                    AppLocalizations.of(context)!.applicant.toUpperCase(),
                     style: TextStyle(
                         fontWeight: FontWeight.w500, fontSize: 12),
                   ),),
                 PTableViewRowFixed(
                     width: 250,
                     child: Text(
-                      "VACANCY",
+                      AppLocalizations.of(context)!.vacancy.toUpperCase(),
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 12),
                     )),
                 PTableViewRowFixed(
                     width: 200,
                     child: Text(
-                      "COMPANY",
+                      AppLocalizations.of(context)!.company.toUpperCase(),
                       style:
                       TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                     )),
@@ -101,7 +101,7 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
                     width: 200,
                     child: Center(
                       child: Text(
-                        "STATUS",
+                        AppLocalizations.of(context)!.status.toUpperCase(),
                         style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                       ),
@@ -109,7 +109,7 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
                 PTableViewRowFixed(
                     width: 500,
                     child: Text(
-                      "DATE",
+                      AppLocalizations.of(context)!.date.toUpperCase(),
                       style:
                       TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                     )),
@@ -212,8 +212,8 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
         onChanged: onTextChanged,
         decoration: InputDecoration(
             contentPadding:
-            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            hintText: 'Search',
+            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            hintText: AppLocalizations.of(context)!.search,
             prefixIcon: Padding(
               padding: const EdgeInsets.all(11),
               child: SvgPicture.asset(

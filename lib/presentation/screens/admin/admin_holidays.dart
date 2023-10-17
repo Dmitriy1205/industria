@@ -92,21 +92,21 @@ class _AdminHolidaysState extends State<AdminHolidays> {
               fixedHeight: 500,
               borderRadius: BorderRadius.circular(4),
               headerHeight: 45,
-              header: const PTableViewHeader(
+              header: PTableViewHeader(
                 contentPadding: EdgeInsets.symmetric(horizontal: 30),
                 backgroundColor: Color(0xFFF1F1F1),
                 rows: [
                   PTableViewRowFixed(
                     width: 300,
                     child: Text(
-                      "Employee",
+                      AppLocalizations.of(context)!.employee,
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 12),
                     ),),
                   PTableViewRowFixed(
                       width: 400,
                       child: Text(
-                        "Unavailable",
+                        AppLocalizations.of(context)!.unavailable,
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12),
                       )),
@@ -114,7 +114,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
                       width: 300,
                       child: Center(
                         child: Text(
-                          "Status",
+                          AppLocalizations.of(context)!.status,
                           style:
                           TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                         ),
@@ -122,7 +122,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
                   PTableViewRowFixed(
                       width: 300,
                       child: Text(
-                        "Date",
+                        AppLocalizations.of(context)!.date,
                         style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                       )),
@@ -261,7 +261,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
         decoration: InputDecoration(
             contentPadding:
             const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            hintText: 'Search',
+            hintText: AppLocalizations.of(context)!.search,
             prefixIcon: Padding(
               padding: const EdgeInsets.all(11),
               child: SvgPicture.asset(

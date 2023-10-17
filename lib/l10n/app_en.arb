@@ -151,5 +151,15 @@
  "worksSince": "Works since",
  "create": "Create",
  "changePhoto": "Change photo",
- "save": "Save"
+ "save": "Save",
+ "applicant": "Applicant",
+ "vacancy": "Vacancy",
+ "company": "Company",
+ "status": "Status",
+ "date": "Date",
+ "picture": "Picture",
+ "cv": "CV",
+ "certificates": "Certificates",
+ "unavailable": "Unavailable",
+ "reason": "Reason"
 }

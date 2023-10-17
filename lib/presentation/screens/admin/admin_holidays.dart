@@ -10,6 +10,7 @@ import 'package:industria/core/utils/toast.dart';
 import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_delete_employee/admin_delete_employee_bloc.dart';
+import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 
@@ -213,7 +214,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    holidayRequest.createdAt.formattedTextedWithTime,
+                    holidayRequest.createdAt.formattedTextedWithTime(context.watch<LocalizationBloc>().state.locale),
                     style: TextStyle(
                         fontWeight: FontWeight.w600, color: holidayRequest.read ? AppColors.darkGrey : Colors.black),
                   ),

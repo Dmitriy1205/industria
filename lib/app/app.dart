@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -26,7 +27,7 @@ class App extends StatelessWidget {
       child: BlocBuilder<LocalizationBloc, LocalizationState>(
         builder: (context, state) {
           return MaterialApp.router(
-            scrollBehavior: kIsWeb ? MaterialScrollBehavior().copyWith( dragDevices: {PointerDeviceKind.mouse}, ) : null,
+            scrollBehavior: Platform.isWindows || Platform.isLinux || Platform.isMacOS ? MaterialScrollBehavior().copyWith( dragDevices: {PointerDeviceKind.mouse}, ) : null,
             routeInformationProvider: router.routeInformationProvider,
             routeInformationParser: router.routeInformationParser,
             routerDelegate: router.routerDelegate,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart'hide Feedback;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
-import 'package:industria/domain/entities/job_application/job_application.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/screens/admin/admin_feedbacks.dart';
@@ -11,10 +10,14 @@ import 'package:industria/presentation/screens/admin/admin_main_screen.dart';
 import 'package:industria/presentation/screens/admin/admin_users.dart';
 import 'package:industria/presentation/screens/admin/admin_vacancies.dart';
 import 'package:industria/presentation/screens/admin/change_user_credentials.dart';
+import 'package:industria/presentation/screens/admin/create_company.dart';
 import 'package:industria/presentation/screens/admin/create_user_credentials.dart';
+import 'package:industria/presentation/screens/admin/create_vacancy.dart';
+import 'package:industria/presentation/screens/admin/update_vacancy.dart';
 import 'package:industria/presentation/screens/admin/view_job_application.dart';
 import 'package:industria/presentation/screens/admin/view_user_credentials.dart';
 import 'package:industria/presentation/screens/admin/view_user_feddback.dart';
+import 'package:industria/presentation/screens/admin/view_vacancy.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
 import 'package:industria/presentation/screens/data_protection.dart';
@@ -141,7 +144,39 @@ final GoRouter router = GoRouter(
               child: const AdminVacancies(),
             ),
           ),
-        ]),
+          GoRoute(
+            path: '/admin/create_vacancy',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: CreateVacancy(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/edit_vacancy',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: const EditVacancy(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/view_vacancy',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: const ViewVacancy(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/create_company',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: const CreateCompany(),
+            ),
+          ),
+        ],),
     ShellRoute(
       builder: (context, state, child) => Scaffold(
         body: MainScreen(

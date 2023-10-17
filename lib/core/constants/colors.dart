@@ -8,4 +8,5 @@ class AppColors {
   static const Color darkGrey = Color(0xFF8B8B8B);
   static const Color mainDarkAccent = Color(0xFF17558E);
   static const Color danger = Color(0xFFBD0000);
+  static const Color red = Color(0xFFBD3D3D);
 }

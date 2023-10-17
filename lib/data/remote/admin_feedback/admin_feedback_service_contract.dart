@@ -2,7 +2,7 @@ import '../../../core/table_data/table_data.dart';
 import '../../../domain/entities/feedback/feedback.dart';
 
 abstract class AdminFeedbackService {
-  Future<void> deleteFeedback({required String userUid});
+  Future<void> deleteFeedback({required List<Feedback> feedbackId});
 
   Future<TableData<List<Feedback>>> listFeedbacks(
       {required int page,

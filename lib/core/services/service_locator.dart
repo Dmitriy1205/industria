@@ -35,6 +35,7 @@ import '../../domain/repositories/admin_feedback/admin_feedback_repository_contr
 import '../../domain/repositories/contact_request/contact_request_repository_impl.dart';
 import '../../domain/repositories/cookie/cookie_repository_contract.dart';
 import '../../domain/repositories/cookie/cookie_repository_impl.dart';
+import '../../presentation/bloc/feedback_feature/admin_delete_feedback/admin_delete_feedback_bloc.dart';
 import '../../presentation/bloc/job_application_feature/admin_job_applications/admin_job_applications_bloc.dart';
 import '../../presentation/bloc/job_application_feature/job_application/job_application_bloc.dart';
 
@@ -100,4 +101,6 @@ Future<void> init() async {
       jobApplicationRepository: jobApplicationRepository));
   sl.registerLazySingleton(
       () => AdminFeedbackListBloc(adminFeedbackRepository: feedbackRepository));
+  sl.registerLazySingleton(
+          () => AdminDeleteFeedbackBloc(adminFeedbackRepository: feedbackRepository));
 }

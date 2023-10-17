@@ -7,6 +7,7 @@ import 'package:industria/presentation/bloc/feedback_feature/admin_feedback_list
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 
 import '../core/services/service_locator.dart';
+import '../presentation/bloc/feedback_feature/admin_delete_feedback/admin_delete_feedback_bloc.dart';
 import '../presentation/bloc/job_application_feature/admin_job_applications/admin_job_applications_bloc.dart';
 
 class Providers extends StatelessWidget {
@@ -30,6 +31,7 @@ class Providers extends StatelessWidget {
         BlocProvider(create: (context) => sl<AdminEmployeeListBloc>()),
         BlocProvider(create: (context) => sl<AdminJobApplicationsBloc>()),
         BlocProvider(create: (context) => sl<AdminFeedbackListBloc>()),
+        BlocProvider(create: (context) => sl<AdminDeleteFeedbackBloc>()),
       ],
       child: child,
     );

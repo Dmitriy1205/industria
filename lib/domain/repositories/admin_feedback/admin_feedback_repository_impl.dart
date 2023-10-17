@@ -11,8 +11,8 @@ class AdminFeedbackRepositoryImpl implements AdminFeedbackRepository {
   final AdminFeedbackService _adminFeedbackService;
 
   @override
-  Future<void> deleteFeedback({required String userUid}) {
-    return _adminFeedbackService.deleteFeedback(userUid: userUid);
+  Future<void> deleteFeedback({required List<Feedback> feedbackId}) {
+    return _adminFeedbackService.deleteFeedback(feedbackId: feedbackId);
   }
 
   @override

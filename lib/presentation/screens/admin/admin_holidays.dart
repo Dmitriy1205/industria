@@ -183,7 +183,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: Text(
-                    "${holidayRequest.unavailableFrom.formattedTexted} - ${holidayRequest.unavailableTo.formattedTexted}",
+                    "${holidayRequest.unavailableFrom.formattedTexted(context.watch<LocalizationBloc>().state.locale)} - ${holidayRequest.unavailableTo.formattedTexted(context.watch<LocalizationBloc>().state.locale)}",
                     style: TextStyle(
                         fontWeight: FontWeight.w600, color: holidayRequest.read ? AppColors.darkGrey : Colors.black),
                   ),

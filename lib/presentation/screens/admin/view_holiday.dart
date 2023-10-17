@@ -129,7 +129,7 @@ class _ViewHolidayState extends State<ViewHoliday>{
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    _section(title: AppLocalizations.of(context)!.unavailable, subtitle: "${state.holiday!.unavailableFrom.formattedTexted} - ${state.holiday!.unavailableTo.formattedTexted}"),
+                                    _section(title: AppLocalizations.of(context)!.unavailable, subtitle: "${state.holiday!.unavailableFrom.formattedTexted(context.watch<LocalizationBloc>().state.locale)} - ${state.holiday!.unavailableTo.formattedTexted(context.watch<LocalizationBloc>().state.locale)}"),
                                     _section(title: AppLocalizations.of(context)!.date, subtitle: state.holiday!.createdAt.formattedTextedWithTime(context.watch<LocalizationBloc>().state.locale)),
                                   ],
                                 ),

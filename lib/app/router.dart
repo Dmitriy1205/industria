@@ -30,7 +30,9 @@ import 'package:industria/presentation/screens/main_screen.dart';
 import 'package:industria/presentation/screens/our_team.dart';
 
 import '../domain/entities/feedback/feedback.dart';
+import '../presentation/screens/admin/admin_holidays.dart';
 import '../presentation/screens/admin/admin_login.dart';
+import '../presentation/screens/admin/view_holiday.dart';
 import '../presentation/screens/contact.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/imprint.dart';
@@ -62,7 +64,7 @@ final GoRouter router = GoRouter(
     ShellRoute(
         builder: (context, state, child) => Scaffold(
               body: AdminMainScreen(
-                child: AdminDesktopDashboardLayout(showSidePanel: state.fullPath != '/admin/login',child: child,),
+                child: AdminDesktopDashboardLayout(isLoginScreen: state.fullPath != '/admin/login',child: child,),
               ),
             ),
         routes: [
@@ -95,7 +97,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: ChangeUserCredentials(employee: state.extra as Employee),
+              child: ChangeUserCredentials(),
             ),
           ),
           GoRoute(
@@ -111,7 +113,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: ViewUserCredentials(employee: state.extra as Employee),
+              child: ViewUserCredentials(),
             ),
           ),
 
@@ -161,6 +163,22 @@ final GoRouter router = GoRouter(
               context: context,
               state: state,
               child: const EditVacancy(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/holiday',
+            pageBuilder: (context, state) => pageTransition<void>(
+              context: context,
+              state: state,
+              child: ViewHoliday(),
+            ),
+          ),
+          GoRoute(
+            path: '/admin/holidays',
+            pageBuilder: (context, state) => fadePageTransition<void>(
+              context: context,
+              state: state,
+              child: AdminHolidays(),
             ),
           ),
           GoRoute(
@@ -275,15 +293,42 @@ final GoRouter router = GoRouter(
           pageBuilder: (context, state) => pageTransition<void>(
             context: context,
             state: state,
-            child: JobDescription(
-              job: state.extra as JobOffer,
-            ),
+            child: JobDescription(),
           ),
         ),
       ],
     ),
   ],
 );
+
+CustomTransitionPage fadePageTransition<T>({
+  Key? key,
+  String? restorationId,
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return CustomTransitionPage<T>(
+    restorationId: restorationId,
+    key: state.pageKey,
+    child: child,
+    transitionDuration: Duration(milliseconds: 400),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = 0.0;
+      const end = 1.0;
+      const curve = Curves.ease;
+      final tween = Tween(begin: begin, end: end).chain(Tween(begin: end, end: begin));
+      final curvedAnimation = CurvedAnimation(
+        parent: secondaryAnimation,
+        curve: curve,
+      );
+      return FadeTransition(
+        opacity: tween.animate(curvedAnimation),
+        child: child,
+      );
+    },
+  );
+}
 
 CustomTransitionPage pageTransition<T>({
   Key? key,

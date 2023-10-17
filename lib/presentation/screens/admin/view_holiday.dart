@@ -15,6 +15,8 @@ import '../../../core/themes/theme.dart';
 import '../../bloc/holiday_request_feature/view_holiday/view_holiday_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../bloc/localization/localization_bloc.dart';
+
 class ViewHoliday extends StatefulWidget{
   const ViewHoliday({Key? key})
       : super(key: key);
@@ -128,7 +130,7 @@ class _ViewHolidayState extends State<ViewHoliday>{
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     _section(title: AppLocalizations.of(context)!.unavailable, subtitle: "${state.holiday!.unavailableFrom.formattedTexted} - ${state.holiday!.unavailableTo.formattedTexted}"),
-                                    _section(title: AppLocalizations.of(context)!.date, subtitle: state.holiday!.createdAt.formattedTextedWithTime),
+                                    _section(title: AppLocalizations.of(context)!.date, subtitle: state.holiday!.createdAt.formattedTextedWithTime(context.watch<LocalizationBloc>().state.locale)),
                                   ],
                                 ),
                                 const SizedBox(height: 30,),

@@ -17,6 +17,8 @@ import '../../../core/themes/theme.dart';
 import '../../../domain/repositories/job_application/job_application_repository_contract.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../bloc/localization/localization_bloc.dart';
+
 class ViewJobApplication extends StatefulWidget{
   const ViewJobApplication({Key? key})
       : super(key: key);
@@ -152,7 +154,7 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
                             const SizedBox(width: 65,),
                             _section(title: AppLocalizations.of(context)!.company, subtitle: state.jobApplication!.company.name, link: true),
                             const Spacer(),
-                            Text(state.jobApplication!.createdAt.formattedTextedWithTime, style: const TextStyle(fontSize: 12, color: Color(0xFF282828), fontWeight: FontWeight.w600),)
+                            Text(state.jobApplication!.createdAt.formattedTextedWithTime(context.watch<LocalizationBloc>().state.locale), style: const TextStyle(fontSize: 12, color: Color(0xFF282828), fontWeight: FontWeight.w600),)
                           ],
                         ),
                       )

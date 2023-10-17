@@ -12,6 +12,7 @@ import '../../../core/utils/debounce.dart';
 import '../../../domain/entities/job_application/job_application.dart';
 import '../../bloc/job_application_feature/admin_job_applications/admin_job_applications_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../bloc/localization/localization_bloc.dart';
 import '../../widgets/app_elevated_button.dart';
 
 class AdminJobApplications extends StatefulWidget {
@@ -197,7 +198,7 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Text(
-                  jobApplication.createdAt.formattedTextedWithTime,
+                  jobApplication.createdAt.formattedTextedWithTime(context.watch<LocalizationBloc>().state.locale),
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12, color: jobApplication.read ? AppColors.darkGrey : Colors.black),
                   overflow: TextOverflow.ellipsis,
                 ),

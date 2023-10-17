@@ -1,31 +1,21 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:industria/core/utils/debounce.dart';
-import 'package:industria/core/utils/pdf_attendance.dart';
 import 'package:industria/core/utils/toast.dart';
-import 'package:industria/domain/entities/attendance/attendance.dart';
-import 'package:industria/domain/entities/attendance_periods/attendance_periods.dart';
 import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_delete_employee/admin_delete_employee_bloc.dart';
-import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
-import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/services/service_locator.dart';
-import '../../../domain/entities/attendance_period/attendance_period.dart';
-import '../../../domain/entities/employee/employee.dart';
-import '../../../domain/repositories/attendance/attendance_repository_contract.dart';
-import '../../bloc/attendance/attendance_cubit.dart';
 import '../../bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminHolidays extends StatefulWidget {
   const AdminHolidays({Key? key}) : super(key: key);
@@ -70,35 +60,22 @@ class _AdminHolidaysState extends State<AdminHolidays> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              _tableTitle(title: 'Holiday requests', subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
-              const SizedBox(
-                width: 60,
-              ),
-              Expanded(child: _search(onTextChanged: (val){
-                _debouncer.run(() {
-                  context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
-                });
-              })),
-              const SizedBox(
-                width: 60,
-              ),
-              SizedBox(
-                width: 120,
-                child: ElevatedButton(onPressed: (){
-                  generatePdfAttendance(Attendance(employeeId: "dsadsa", employeeName: "Yemets Vlad", employerName: "Hoe Vial", end: DateTime.now().add(Duration(days: 6)), start: DateTime.now().subtract(Duration(days: 1)), periods: AttendancePeriods(
-                    mon: AttendancePeriod(
-                      comment: "Great day",
-                      date: DateTime.now().subtract(Duration(days: 1)),
-                      pause: 1,
-                      workTimeStart: DateTime.now().copyWith(hour: 7, minute: 43),
-                      workTimeEnd: DateTime.now().copyWith(hour: 18, minute: 52),
-                    )
-                  )));
-                }, child: Text("PDF")),
-              )
-            ],
+          SizedBox(
+            height: 52,
+            child: Row(
+              children: [
+                SizedBox(width: 16,),
+                _tableTitle(title: AppLocalizations.of(context)!.feedbacks, subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
+                const SizedBox(
+                  width: 60,
+                ),
+                Expanded(child: _search(onTextChanged: (val){
+                  _debouncer.run(() {
+                    context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
+                  });
+                })),
+              ],
+            ),
           ),
           const SizedBox(
             height: 10,
@@ -115,21 +92,21 @@ class _AdminHolidaysState extends State<AdminHolidays> {
               fixedHeight: 500,
               borderRadius: BorderRadius.circular(4),
               headerHeight: 45,
-              header: const PTableViewHeader(
+              header: PTableViewHeader(
                 contentPadding: EdgeInsets.symmetric(horizontal: 30),
                 backgroundColor: Color(0xFFF1F1F1),
                 rows: [
                   PTableViewRowFixed(
                     width: 300,
                     child: Text(
-                      "Employee",
+                      AppLocalizations.of(context)!.employee,
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 12),
                     ),),
                   PTableViewRowFixed(
                       width: 400,
                       child: Text(
-                        "Unavailable",
+                        AppLocalizations.of(context)!.unavailable,
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12),
                       )),
@@ -137,7 +114,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
                       width: 300,
                       child: Center(
                         child: Text(
-                          "Status",
+                          AppLocalizations.of(context)!.status,
                           style:
                           TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                         ),
@@ -145,7 +122,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
                   PTableViewRowFixed(
                       width: 300,
                       child: Text(
-                        "Date",
+                        AppLocalizations.of(context)!.date,
                         style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
                       )),
@@ -284,7 +261,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
         decoration: InputDecoration(
             contentPadding:
             const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-            hintText: 'Search',
+            hintText: AppLocalizations.of(context)!.search,
             prefixIcon: Padding(
               padding: const EdgeInsets.all(11),
               child: SvgPicture.asset(

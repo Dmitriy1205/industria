@@ -18,6 +18,7 @@ import 'package:industria/presentation/bloc/employee_feature/admin_update_employ
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/route_value.dart';
@@ -136,18 +137,18 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                   const SizedBox(
                     height: 26,
                   ),
-                  const Row(
+                  Row(
                     children: [
                       SizedBox(
                         width: 11,
                       ),
                       Text(
-                        "Employee",
+                        AppLocalizations.of(context)!.employee,
                         style:
                             TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        " / Change credentials",
+                        " / ${AppLocalizations.of(context)!.changeCredentials}",
                         style: TextStyle(fontSize: 18),
                       )
                     ],
@@ -193,8 +194,8 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                             _photoBytes = pickedFiles.files.first.bytes;
                                           });
                                         },
-                                        child: const Text(
-                                          'Change photo',
+                                        child: Text(
+                                          AppLocalizations.of(context)!.changePhoto,
                                           style: TextStyle(
                                               decoration:
                                                   TextDecoration.underline,
@@ -236,7 +237,7 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _firstnameNode,
                                       textController: _firstnameController!,
-                                      labelText: 'Firstname*',
+                                      labelText: '${AppLocalizations.of(context)!.firstname}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -248,7 +249,7 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _lastnameNode,
                                       textController: _lastnameController!,
-                                      labelText: 'Lastname*',
+                                      labelText: '${AppLocalizations.of(context)!.lastname}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -264,7 +265,7 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _phoneNode,
                                       textController: _phoneController!,
-                                      labelText: 'Phone number*',
+                                      labelText: '${AppLocalizations.of(context)!.phoneNumber}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validatePhone,
                                       isSavePressed: true,
@@ -276,7 +277,7 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _roleNode,
                                       textController: _roleController!,
-                                      labelText: 'Role*',
+                                      labelText: '${AppLocalizations.of(context)!.role}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -293,7 +294,7 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                       focusNode: _dateOfBirthNode,
                                       type: CustomTextFormFieldType.date,
                                       textController: _dateOfBirtController!,
-                                      labelText: 'Date of birth*',
+                                      labelText: '${AppLocalizations.of(context)!.dateOfBirth}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -312,7 +313,7 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _worksSinceNode,
                                       textController: _worksSinceController!,
-                                      labelText: 'Works since*',
+                                      labelText: '${AppLocalizations.of(context)!.worksSince}*',
                                       type: CustomTextFormFieldType.date,
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
@@ -342,8 +343,8 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                     const SizedBox(
                                       width: 2,
                                     ),
-                                    const Text(
-                                      "Change credentials",
+                                    Text(
+                                      AppLocalizations.of(context)!.changeCredentials,
                                       style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
@@ -361,7 +362,7 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                     : CustomTextFormField(
                                         focusNode: _passwordNode,
                                         textController: _passwordController,
-                                        labelText: 'Password',
+                                        labelText: AppLocalizations.of(context)!.password,
                                         textInputType: TextInputType.name,
                                         validator: Validator.validate,
                                         isSavePressed: true,
@@ -370,7 +371,7 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
                                   height: 30,
                                 ),
                                 AppElevatedButton(
-                                  text: "Save",
+                                  text: AppLocalizations.of(context)!.save,
                                   onPressed: () {
                                     final userUid = state.id!;
                                     final email = state.email;

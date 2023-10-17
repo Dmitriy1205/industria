@@ -18,6 +18,7 @@ import 'package:pandas_tableview/p_tableview.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../domain/entities/employee/employee.dart';
 import '../../widgets/custom_checkbox.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminVacancies extends StatefulWidget {
   const AdminVacancies({Key? key}) : super(key: key);
@@ -67,43 +68,47 @@ class _AdminVacanciesState extends State<AdminVacancies> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              _tableTitle(
-                  title: 'Vacancies',
-                  subtitle: context
-                      .watch<AdminEmployeeListBloc>()
-                      .state
-                      .tableData
-                      .totalElementCounts
-                      .toString()),
-              const SizedBox(
-                width: 60,
-              ),
-              Expanded(child: _search(onTextChanged: (val) {
-                _debouncer.run(() {
-                  context.read<AdminEmployeeListBloc>().add(
-                      AdminEmployeeListEvent.changeSearchTerm(searchTerm: val));
-                });
-              })),
-              const SizedBox(
-                width: 60,
-              ),
-              SizedBox(
-                  width: 200,
-                  child: AppElevatedButton(
-                    text: "Create vacancy",
-                    prefixIcon: const Icon(
-                      FontAwesomeIcons.plus,
-                      color: Colors.white,
-                    ),
-                    textStyle: const TextStyle(fontSize: 14),
-                    onPressed: () {
-                      context.go("/admin/create_user");
-                    },
-                    verticalPadding: 15,
-                  ))
-            ],
+          SizedBox(
+            height: 52,
+            child: Row(
+              children: [
+                SizedBox(width: 16,),
+                _tableTitle(
+                    title: AppLocalizations.of(context)!.vacancies,
+                    subtitle: context
+                        .watch<AdminEmployeeListBloc>()
+                        .state
+                        .tableData
+                        .totalElementCounts
+                        .toString()),
+                const SizedBox(
+                  width: 60,
+                ),
+                Expanded(child: _search(onTextChanged: (val) {
+                  _debouncer.run(() {
+                    context.read<AdminEmployeeListBloc>().add(
+                        AdminEmployeeListEvent.changeSearchTerm(searchTerm: val));
+                  });
+                })),
+                const SizedBox(
+                  width: 60,
+                ),
+                SizedBox(
+                    width: 200,
+                    child: AppElevatedButton(
+                      text: "Create vacancy",
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                      ),
+                      textStyle: const TextStyle(fontSize: 14),
+                      onPressed: () {
+                        context.go("/admin/create_user");
+                      },
+                      verticalPadding: 15,
+                    ))
+              ],
+            ),
           ),
           const SizedBox(
             height: 10,

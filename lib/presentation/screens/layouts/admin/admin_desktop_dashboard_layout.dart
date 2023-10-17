@@ -7,19 +7,19 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminDesktopDashboardLayout extends StatelessWidget {
   final Widget child;
-  final bool showSidePanel;
+  final bool isLoginScreen;
 
   const AdminDesktopDashboardLayout(
-      {Key? key, required this.child, this.showSidePanel = true})
+      {Key? key, required this.child, this.isLoginScreen = true})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFEEF3F8),
+      color: isLoginScreen ? Color(0xFFEEF3F8) : Colors.white,
       child: Row(
         children: [
-          showSidePanel
+          isLoginScreen
               ? Container(
                   width: 200,
                   height: double.infinity,
@@ -86,7 +86,7 @@ class AdminDesktopDashboardLayout extends StatelessWidget {
                               context.go('/admin/vacancies');
                             }),
                         _tab(
-                            title: "Holidays",
+                            title: AppLocalizations.of(context)!.holidays,
                             icon: FontAwesomeIcons.userClock,
                             isSelected: GoRouterState.of(context).fullPath ==
                                 '/admin/holidays',

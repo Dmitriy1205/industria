@@ -45,6 +45,9 @@ String? _authRedirect(String fullPath, bool isAuthenticated){
 }
 final GoRouter router = GoRouter(
   redirect: (context, state) {
+    if(state.uri.toString() == "/admin"){
+      return "/admin/login";
+    }
     bool isUndefined = context.read<AuthBloc>().state.isUndefined;
     if(isUndefined) return null;
     bool isAuthenticated = context.read<AuthBloc>().state.isAuthenticated;

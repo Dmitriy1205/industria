@@ -11,27 +11,18 @@ class AdminVacancyRepositoryImpl implements AdminVacancyRepository {
 
   @override
   Future<void> createVacancy(
-      {required String email,
-      required String password,
-      required String firstname,
-      required String lastname,
-      required String phoneNumber,
-      required String role,
-      required DateTime dateOfBirth,
-      required DateTime worksSince,
-      required String imgFilename,
-      required List<int> imgBytes}) {
+      {required String title,
+        required String type,
+        required String description,
+        required String location,
+        required String salary,
+        required List<String> questions}) {
     return _adminVacancyService.createVacancy(
-        email: email,
-        password: password,
-        firstname: firstname,
-        lastname: lastname,
-        phoneNumber: phoneNumber,
-        role: role,
-        dateOfBirth: dateOfBirth,
-        worksSince: worksSince,
-        imgFilename: imgFilename,
-        imgBytes: imgBytes);
+        title: title,
+        type: type,
+        description: description,
+        location: location,
+        salary: salary,);
   }
 
   @override

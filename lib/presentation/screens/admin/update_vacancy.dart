@@ -385,7 +385,7 @@ class _EditVacancyState extends State<EditVacancy> {
                                 height: 10,
                               ),
                               AppElevatedButton(
-                                text: "Create",
+                                text: "Save",
                                 onPressed: () {
                                   final email = _titleController.text;
                                   final firstname = _salaryController.text;

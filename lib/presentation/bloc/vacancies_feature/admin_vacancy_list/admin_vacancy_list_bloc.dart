@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../core/table_data/table_data.dart';
-import '../../../../domain/entities/employee/employee.dart';
+import '../../../../domain/entities/vacancy/vacancy.dart';
 import '../../../../domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
 
 part 'admin_vacancy_list_event.dart';

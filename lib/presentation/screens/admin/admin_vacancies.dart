@@ -1,4 +1,3 @@
-import 'package:adaptive_dialog/adaptive_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,17 +7,15 @@ import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/utils/debounce.dart';
 import 'package:industria/core/utils/toast.dart';
-import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
-import 'package:industria/presentation/bloc/employee_feature/admin_delete_employee/admin_delete_employee_bloc.dart';
-import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
-import 'package:industria/presentation/widgets/firebase_image.dart';
-import 'package:intl/intl.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/services/service_locator.dart';
 import '../../../core/themes/theme.dart';
-import '../../../domain/entities/employee/employee.dart';
+import '../../../domain/entities/vacancy/vacancy.dart';
+import '../../../domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
+import '../../bloc/vacancies_feature/admin_delete_vacancy/admin_delete_vacancy_bloc.dart';
+import '../../bloc/vacancies_feature/admin_vacancy_list/admin_vacancy_list_bloc.dart';
 import '../../widgets/custom_checkbox.dart';
 
 class AdminVacancies extends StatefulWidget {
@@ -30,31 +27,31 @@ class AdminVacancies extends StatefulWidget {
 
 class _AdminVacanciesState extends State<AdminVacancies> {
   List<bool> checkable = [];
-  List<Employee> employee = [];
+  List<Vacancy> employee = [];
 
   @override
   void initState() {
     super.initState();
     if (context
-        .read<AdminEmployeeListBloc>()
+        .read<AdminVacancyListBloc>()
         .state
         .tableData
         .element
         .isEmpty) {
-      context.read<AdminEmployeeListBloc>().add(
-          const AdminEmployeeListEvent.fetchData(elementsPerPage: 7, page: 0));
+      context.read<AdminVacancyListBloc>().add(
+          const AdminVacancyListEvent.fetchData(elementsPerPage: 7, page: 0));
     }
   }
   @override
   void didChangeDependencies() {
     employee = context
-        .read<AdminEmployeeListBloc>()
+        .read<AdminVacancyListBloc>()
         .state
         .tableData
         .element;
     checkable = List.generate(
         context
-            .read<AdminEmployeeListBloc>()
+            .read<AdminVacancyListBloc>()
             .state
             .tableData
             .totalElementCounts,
@@ -69,12 +66,12 @@ class _AdminVacanciesState extends State<AdminVacancies> {
 
   final Debouncer _debouncer = Debouncer(milliseconds: 500);
 
-  final deleteEmployeeBloc = AdminDeleteEmployeeBloc(
-      adminEmployeeRepository: sl<AdminEmployeeRepository>());
+  final deleteEmployeeBloc = AdminDeleteVacancyBloc(
+      adminVacancyRepository: sl<AdminVacancyRepository>());
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AdminDeleteEmployeeBloc, AdminDeleteEmployeeState>(
+    return BlocListener<AdminDeleteVacancyBloc, AdminDeleteVacancyState>(
       bloc: deleteEmployeeBloc,
       listener: (context, state) {
         state.maybeMap(
@@ -83,8 +80,8 @@ class _AdminVacanciesState extends State<AdminVacancies> {
             },
             success: (_) {
               showSuccessSnackBar(context, "Successfully deleted vacancy");
-              context.read<AdminEmployeeListBloc>().add(
-                  const AdminEmployeeListEvent.fetchData(
+              context.read<AdminVacancyListBloc>().add(
+                  const AdminVacancyListEvent.fetchData(
                       page: 0, elementsPerPage: 5));
             },
             fail: (_) {
@@ -103,7 +100,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
               _tableTitle(
                   title: 'Vacancies',
                   subtitle: context
-                      .watch<AdminEmployeeListBloc>()
+                      .watch<AdminVacancyListBloc>()
                       .state
                       .tableData
                       .totalElementCounts
@@ -113,8 +110,8 @@ class _AdminVacanciesState extends State<AdminVacancies> {
               ),
               Expanded(child: _search(onTextChanged: (val) {
                 _debouncer.run(() {
-                  context.read<AdminEmployeeListBloc>().add(
-                      AdminEmployeeListEvent.changeSearchTerm(searchTerm: val));
+                  context.read<AdminVacancyListBloc>().add(
+                      AdminVacancyListEvent.changeSearchTerm(searchTerm: val));
                 });
               })),
               const SizedBox(
@@ -143,7 +140,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
               ? Row(
                 children: [
                   Text(
-                      '${checkable.where((value) => value).length == context.read<AdminEmployeeListBloc>().state.tableData.totalElementCounts ? "All" : checkable.where((value) => value).length} selected',
+                      '${checkable.where((value) => value).length == context.read<AdminVacancyListBloc>().state.tableData.totalElementCounts ? "All" : checkable.where((value) => value).length} selected',
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
@@ -163,7 +160,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                     child: Text(
                       checkable.where((value) => value).length ==
                           context
-                              .read<AdminEmployeeListBloc>()
+                              .read<AdminVacancyListBloc>()
                               .state
                               .tableData
                               .totalElementCounts
@@ -187,18 +184,18 @@ class _AdminVacanciesState extends State<AdminVacancies> {
             child: PTableView(
               pagination: PTableViewPagination(
                 currentPage: context
-                    .watch<AdminEmployeeListBloc>()
+                    .watch<AdminVacancyListBloc>()
                     .state
                     .tableData
                     .currentPage,
                 pagesCount: context
-                    .watch<AdminEmployeeListBloc>()
+                    .watch<AdminVacancyListBloc>()
                     .state
                     .tableData
                     .numberOfPages,
                 onPageChanged: (i) {
-                  context.read<AdminEmployeeListBloc>().add(
-                      AdminEmployeeListEvent.fetchData(
+                  context.read<AdminVacancyListBloc>().add(
+                      AdminVacancyListEvent.fetchData(
                           page: i, elementsPerPage: 5));
                 },
               ),
@@ -248,7 +245,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                   onTap: (i) {
                     context.go("/admin/view_vacancy",
                         extra: context
-                            .read<AdminEmployeeListBloc>()
+                            .read<AdminVacancyListBloc>()
                             .state
                             .tableData
                             .element[i]);
@@ -261,14 +258,14 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                   backgroundColor: Colors.white,
                   horizontalPadding: 18,
                   columns: context
-                      .watch<AdminEmployeeListBloc>()
+                      .watch<AdminVacancyListBloc>()
                       .state
                       .tableData
                       .element
                       .asMap()
                       .entries
                       .map((e) =>
-                      _feedbackList(employee: e.value,
+                      _feedbackList(vacancy: e.value,
                           index: e.key,
                           checkable: checkable))
                       .toList()),
@@ -279,7 +276,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
     );
   }
 
-  PTableViewColumn _feedbackList({required Employee employee,
+  PTableViewColumn _feedbackList({required Vacancy vacancy,
     required int index,
     required List<bool> checkable}) {
     return PTableViewColumn(rows: [
@@ -304,7 +301,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                   ),
                   Expanded(
                     child: Text(
-                      employee.role,
+                      vacancy.title,
                       style: const TextStyle(
                           fontWeight: FontWeight.w600, fontSize: 12),
                       overflow: TextOverflow.ellipsis,
@@ -314,16 +311,16 @@ class _AdminVacanciesState extends State<AdminVacancies> {
               ),
             ),
           )),
-      const PTableViewRowFixed(
+      PTableViewRowFixed(
           width: 601,
           child: SizedBox(
             height: 60,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                'Google',
+                vacancy.company.name,
                 style:
-                TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
                 overflow: TextOverflow.ellipsis,
               ),
             ),

@@ -1,8 +1,4 @@
-import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,24 +8,14 @@ import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/enums/company.dart';
 import 'package:industria/core/enums/currency.dart';
 import 'package:industria/core/enums/job_types.dart';
-import 'package:industria/core/extensions/date.dart';
 import 'package:industria/core/utils/toast.dart';
-import 'package:industria/core/validator/field_validator.dart';
-import 'package:industria/data/remote/admin_employee/admin_employee_service_impl.dart';
-import 'package:industria/domain/entities/employee/employee.dart';
-import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_impl.dart';
-import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
-import 'package:industria/presentation/bloc/employee_feature/admin_update_employee/admin_update_employee_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
-import 'package:industria/presentation/widgets/firebase_image.dart';
-
-import '../../../core/enums/job_areas.dart';
 import '../../../core/enums/period.dart';
 import '../../../core/services/service_locator.dart';
-import '../../../core/themes/theme.dart';
-import '../../../domain/repositories/admin_employee/admin_employee_repository_contract.dart';
-import '../../bloc/employee_feature/admin_create_employee/admin_create_employee_bloc.dart';
+import '../../../domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
+import '../../bloc/vacancies_feature/admin_create_vacancy/admin_create_vacancy_bloc.dart';
+import '../../bloc/vacancies_feature/admin_vacancy_list/admin_vacancy_list_bloc.dart';
 import '../../widgets/custom_dropdown_field.dart';
 
 class CreateVacancy extends StatefulWidget {
@@ -64,8 +50,8 @@ class _CreateVacancyState extends State<CreateVacancy> {
 
   final _formKey = GlobalKey<FormState>();
 
-  final _adminCreateEmployeeBloc = AdminCreateEmployeeBloc(
-      adminEmployeeRepository: sl<AdminEmployeeRepository>());
+  final _adminCreateEmployeeBloc = AdminCreateVacancyBloc(
+      adminVacancyRepository: sl<AdminVacancyRepository>());
 
   void _addTextField() {
     setState(() {
@@ -85,7 +71,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AdminCreateEmployeeBloc, AdminCreateEmployeeState>(
+    return BlocListener<AdminCreateVacancyBloc, AdminCreateVacancyState>(
       bloc: _adminCreateEmployeeBloc,
       listener: (context, state) {
         state.map(
@@ -95,8 +81,8 @@ class _CreateVacancyState extends State<CreateVacancy> {
             },
             success: (_) {
               showSuccessSnackBar(context, "Created vacancy successfully!");
-              context.read<AdminEmployeeListBloc>().add(
-                  AdminEmployeeListEvent.fetchData(
+              context.read<AdminVacancyListBloc>().add(
+                  const AdminVacancyListEvent.fetchData(
                       page: 0, elementsPerPage: 5));
               context.pop();
             },

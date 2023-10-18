@@ -1,4 +1,10 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../core/utils/firebase_timestamp_converters.dart';
 import '../company/company.dart';
+
+part 'vacancy.freezed.dart';
+part 'vacancy.g.dart';
 
 @freezed
 class Vacancy with _$Vacancy {

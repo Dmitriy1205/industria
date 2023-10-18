@@ -6,8 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:industria/core/constants/firestore_collections.dart';
 import 'package:industria/core/table_data/table_data.dart';
-import 'package:industria/domain/entities/employee/employee.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
+import 'package:industria/domain/entities/vacancy/vacancy.dart';
 
 import '../../../domain/entities/company/company.dart';
 import 'admin_vacancy_service_contract.dart';
@@ -19,7 +19,7 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
   final Algolia _algolia;
 
   @override
-  Future<TableData<List<Employee>>> listVacancy(
+  Future<TableData<List<Vacancy>>> listVacancy(
       {required int page,
       required int elementsPerPage,
       required String searchTerm}) async {
@@ -29,7 +29,7 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
       currentQuery = currentQuery.setHitsPerPage(elementsPerPage).setPage(page);
       final objects = await currentQuery.getObjects();
       final employees =
-          objects.hits.map((e) => Employee.fromJson(e.data)).toList();
+          objects.hits.map((e) => Vacancy.fromJson(e.data)).toList();
       return TableData(
           numberOfPages: objects.nbPages,
           totalElementCounts: objects.nbHits,

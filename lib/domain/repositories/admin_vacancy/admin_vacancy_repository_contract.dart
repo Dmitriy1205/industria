@@ -1,6 +1,6 @@
 import '../../../core/table_data/table_data.dart';
 import '../../entities/company/company.dart';
-import '../../entities/employee/employee.dart';
+import '../../entities/vacancy/vacancy.dart';
 
 abstract class AdminVacancyRepository {
   Future<void> createVacancy(
@@ -32,7 +32,7 @@ abstract class AdminVacancyRepository {
 
   Future<void> deleteVacancy({required List<String> vacanciesIds});
 
-  Future<TableData<List<Employee>>> listVacancy(
+  Future<TableData<List<Vacancy>>> listVacancy(
       {required int page,
       required int elementsPerPage,
       required String searchTerm});

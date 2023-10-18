@@ -5,12 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:industria/data/remote/admin_employee/admin_employee_service_impl.dart';
+import 'package:industria/data/remote/admin_vacancy/admin_vacancy_service_impl.dart';
 import 'package:industria/data/remote/attendance/attendance_service_impl.dart';
 import 'package:industria/data/remote/admin_feedback/admin_feedback_service_impl.dart';
 import 'package:industria/data/remote/contact_requests/contact_requests_service_impl.dart';
 import 'package:industria/data/remote/holiday_requests/holiday_requests_service_impl.dart';
 import 'package:industria/data/remote/job/job_service_impl.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_impl.dart';
+import 'package:industria/domain/repositories/admin_vacancy/admin_vacancy_repository_impl.dart';
 import 'package:industria/domain/repositories/attendance/attendance_repository_contract.dart';
 import 'package:industria/domain/repositories/attendance/attendance_repository_impl.dart';
 import 'package:industria/domain/repositories/admin_feedback/admin_feedback_repository_impl.dart';
@@ -34,17 +36,22 @@ import 'package:industria/presentation/bloc/holiday_request_feature/admin_holida
 import 'package:industria/presentation/bloc/feedback_feature/admin_feedback_list/admin_feedback_list_bloc.dart';
 import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
+import 'package:industria/presentation/bloc/vacancies_feature/admin_vacancy_list/admin_vacancy_list_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/local/cookie/cookie_service_impl.dart';
 import '../../domain/repositories/admin_employee/admin_employee_repository_contract.dart';
 import '../../domain/repositories/admin_feedback/admin_feedback_repository_contract.dart';
+import '../../domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
 import '../../domain/repositories/contact_request/contact_request_repository_impl.dart';
 import '../../domain/repositories/cookie/cookie_repository_contract.dart';
 import '../../domain/repositories/cookie/cookie_repository_impl.dart';
 import '../../presentation/bloc/feedback_feature/admin_delete_feedback/admin_delete_feedback_bloc.dart';
 import '../../presentation/bloc/job_application_feature/admin_job_applications/admin_job_applications_bloc.dart';
 import '../../presentation/bloc/job_application_feature/job_application/job_application_bloc.dart';
+import '../../presentation/bloc/vacancies_feature/admin_create_vacancy/admin_create_vacancy_bloc.dart';
+import '../../presentation/bloc/vacancies_feature/admin_delete_vacancy/admin_delete_vacancy_bloc.dart';
+import '../../presentation/bloc/vacancies_feature/admin_update_vacancy/admin_update_vacancy_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -85,6 +92,12 @@ Future<void> init() async {
   final feedbackRepository = AdminFeedbackRepositoryImpl(
       adminFeedbackService: AdminFeedbackServiceImpl(
           dio: Dio(), db: FirebaseFirestore.instance, algolia: algolia));
+  final adminVacancyRepository = AdminVacancyRepositoryImpl(
+      adminVacancyService: AdminVacancyServiceImpl(
+          dio: Dio(),
+          db: FirebaseFirestore.instance,
+          storage: FirebaseStorage.instance,
+          algolia: algolia));
 
   final initialCookie = await cookieRepository.fetchCookies();
   final initialLocale = await languageRepository.fetchLocale();
@@ -99,6 +112,7 @@ Future<void> init() async {
   sl.registerSingleton<HolidayRequestsRepository>(holidayRequestsRepository);
   sl.registerSingleton<AttendanceRepository>(attendanceRepository);
   sl.registerSingleton<AdminFeedbackRepository>(feedbackRepository);
+  sl.registerSingleton<AdminVacancyRepository>(adminVacancyRepository);
 
   sl.registerLazySingleton(() => LocalizationBloc(
       initialLocale: initialLocale, languageRepository: languageRepository));
@@ -118,6 +132,14 @@ Future<void> init() async {
       () => AdminEmployeeListBloc(adminEmployeeRepository: employeeRepository));
   sl.registerLazySingleton(
       () => AdminFeedbackListBloc(adminFeedbackRepository: feedbackRepository));
-  sl.registerLazySingleton(
-          () => AdminDeleteFeedbackBloc(adminFeedbackRepository: feedbackRepository));
+  sl.registerLazySingleton(() =>
+      AdminDeleteFeedbackBloc(adminFeedbackRepository: feedbackRepository));
+  sl.registerLazySingleton(() =>
+      AdminVacancyListBloc(adminVacancyRepository: adminVacancyRepository));
+  sl.registerLazySingleton(() =>
+      AdminCreateVacancyBloc(adminVacancyRepository: adminVacancyRepository));
+  sl.registerLazySingleton(() =>
+      AdminUpdateVacancyBloc(adminVacancyRepository: adminVacancyRepository));
+  sl.registerLazySingleton(() =>
+      AdminDeleteVacancyBloc(adminVacancyRepository: adminVacancyRepository));
 }

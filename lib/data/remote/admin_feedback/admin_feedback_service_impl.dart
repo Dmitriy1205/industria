@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:industria/core/table_data/table_data.dart';
 import 'package:industria/domain/entities/feedback/feedback.dart';
 
+import '../../../core/constants/firestore_collections.dart';
 import 'admin_feedback_service_contract.dart';
 
 class AdminFeedbackServiceImpl implements AdminFeedbackService {
@@ -13,15 +14,12 @@ class AdminFeedbackServiceImpl implements AdminFeedbackService {
 
   @override
   Future<void> deleteFeedback({required List<Feedback> feedbackId}) {
-    List<Future<void>> deleteRequests = [];
-
-    for (var feedbackId in feedbackId) {
-      deleteRequests.add(_dio.delete(
-          'https://us-central1-industria-a338a.cloudfunctions.net/apis/contact_requests/${feedbackId.id}',
-          // queryParameters: {'id': feedbackId.id}
-      ));
-    }
-    return Future.wait(deleteRequests);
+    return _db.runTransaction((transaction) async {
+      for (var feedback in feedbackId) {
+        var docRef = _db.collection(FirestoreCollections.contactRequests).doc(feedback.id);
+        transaction.delete(docRef);
+      }
+    });
   }
 
   @override

@@ -219,9 +219,8 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
                               .tableData
                               .element[i]);
                     },
-                    divider: Container(
-                      width: double.infinity,
-                      height: 1,
+                    divider: BorderSide(
+                      width: 1,
                       color: Colors.grey,
                     ),
                     backgroundColor: Colors.white,

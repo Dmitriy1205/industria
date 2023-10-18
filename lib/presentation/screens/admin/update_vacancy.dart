@@ -42,7 +42,7 @@ class _EditVacancyState extends State<EditVacancy> {
   JobTypes? dropdownJobType ;
   Period? dropdownPeriod;
   Currency? dropdownCurrency;
-  Company? dropdownCompany;
+  CompanyEnum? dropdownCompany;
   List<TextEditingController> _questionControllers = [];
   List<FocusNode> _questionNodes = [];
   int _counter = 0;
@@ -233,8 +233,8 @@ class _EditVacancyState extends State<EditVacancy> {
                                 padding:
                                 const EdgeInsets.symmetric(vertical: 15.0),
                                 child: Expanded(
-                                  child: CustomDropdownField<Company>(
-                                    items: Company.values.toList(),
+                                  child: CustomDropdownField<CompanyEnum>(
+                                    items: CompanyEnum.values.toList(),
                                     selectedItem: dropdownCompany,
                                     onChanged: (value) {
                                       setState(() {

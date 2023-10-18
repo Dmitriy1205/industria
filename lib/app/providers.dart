@@ -10,6 +10,7 @@ import 'package:industria/presentation/bloc/localization/localization_bloc.dart'
 import '../core/services/service_locator.dart';
 import '../presentation/bloc/feedback_feature/admin_delete_feedback/admin_delete_feedback_bloc.dart';
 import '../presentation/bloc/job_application_feature/admin_job_applications/admin_job_applications_bloc.dart';
+import '../presentation/bloc/vacancies_feature/admin_vacancy_list/admin_vacancy_list_bloc.dart';
 
 class Providers extends StatelessWidget {
   final Widget child;
@@ -34,6 +35,7 @@ class Providers extends StatelessWidget {
         BlocProvider(create: (context) => sl<AdminHolidayRequestsListBloc>()),
         BlocProvider(create: (context) => sl<AdminFeedbackListBloc>()),
         BlocProvider(create: (context) => sl<AdminDeleteFeedbackBloc>()),
+        BlocProvider(create: (context) => sl<AdminVacancyListBloc>()),
       ],
       child: child,
     );

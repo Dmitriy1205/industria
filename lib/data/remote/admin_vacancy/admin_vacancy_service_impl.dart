@@ -24,7 +24,7 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
       required int elementsPerPage,
       required String searchTerm}) async {
     try {
-      final index = _algolia.index("dev_emp");
+      final index = _algolia.index("dev_vac");
       AlgoliaQuery currentQuery = index.query(searchTerm);
       currentQuery = currentQuery.setHitsPerPage(elementsPerPage).setPage(page);
       final objects = await currentQuery.getObjects();
@@ -52,32 +52,89 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
   }
 
   @override
-  Future<void> updateVacancy({required String id, required String title, required Company company, required String type, required String salary, required String currency, required String period, required String location, required String area, required String city, required String description, required List<String> questions}) async{
+  Future<void> updateVacancy(
+      {required String id,
+      required String title,
+      required Company company,
+      required String type,
+      required String salary,
+      required String currency,
+      required String period,
+      required String location,
+      required String area,
+      required String city,
+      required String description,
+      required List<String> questions}) async {
     final doc = _db.collection(FirestoreCollections.jobs).doc(id);
-    final json = JobOffer.firestoreJson(docId: doc.id, company: company, title: title, jobType: type, salary: salary, currency: currency, period: period, location: location, area: area, city: city, description: description, questions: questions);
+    final json = JobOffer.firestoreJson(
+        docId: doc.id,
+        company: company,
+        title: title,
+        jobType: type,
+        salary: salary,
+        currency: currency,
+        period: period,
+        location: location,
+        area: area,
+        city: city,
+        description: description,
+        questions: questions);
     await doc.update(json);
   }
 
   @override
-  Future<void> createVacancy({required String title, required Company company, required String type, required String salary, required String currency, required String period, required String location, required String area, required String city, required String description, required List<String> questions}) async{
+  Future<void> createVacancy(
+      {required String title,
+      required Company company,
+      required String type,
+      required String salary,
+      required String currency,
+      required String period,
+      required String location,
+      required String area,
+      required String city,
+      required String description,
+      required List<String> questions}) async {
     final doc = _db.collection(FirestoreCollections.jobs).doc();
-    final json = JobOffer.firestoreJson(docId: doc.id, company: company, title: title, jobType: type, salary: salary, currency: currency, period: period, location: location, area: area, city: city, description: description, questions: questions);
+    final json = {
+      'title': title,
+      'company': company,
+      'type': type,
+      'salary': salary,
+      'currency': currency,
+      'period': period,
+      'location': location,
+      'area': area,
+      'city': city,
+      'description': description,
+      'createdAt': DateTime.now().toUtc().toIso8601String(),
+      'questions': questions,
+    };
     await doc.set(json);
   }
 
   @override
-  Future<void> createCompany({required String companyName, required String photoName, required List<int> photoBytes}) async{
+  Future<void> createCompany(
+      {required String companyName,
+      required String photoName,
+      required List<int> photoBytes}) async {
     final doc = _db.collection(FirestoreCollections.companies).doc();
-    final storageRefPath = "companies/pictures/${doc.id}.${photoName.split(".").last}";
+    final storageRefPath =
+        "companies/pictures/${doc.id}.${photoName.split(".").last}";
     final storageRef = _storage.ref(storageRefPath);
     await storageRef.putData(Uint8List.fromList(photoBytes));
     await doc.set({"name": companyName, "id": doc.id, "logo": storageRef});
   }
 
   @override
-  Future<List<Company>> listCompanies({required String searchTerm, required int count}) async{
-    final doc = await _db.collection(FirestoreCollections.companies).where('name', isGreaterThanOrEqualTo: searchTerm)
-        .where('name', isLessThan: searchTerm +'z').limit(count).get();
+  Future<List<Company>> listCompanies(
+      {required String searchTerm, required int count}) async {
+    final doc = await _db
+        .collection(FirestoreCollections.companies)
+        .where('name', isGreaterThanOrEqualTo: searchTerm)
+        .where('name', isLessThan: searchTerm + 'z')
+        .limit(count)
+        .get();
     return doc.docs.map((e) => Company.fromJson(e.data())).toList();
   }
 
@@ -86,10 +143,8 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
     required FirebaseFirestore db,
     required FirebaseStorage storage,
     required Algolia algolia,
-  })
-      : _dio = dio,
+  })  : _dio = dio,
         _db = db,
         _storage = storage,
         _algolia = algolia;
-
 }

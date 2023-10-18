@@ -1,4 +1,4 @@
-enum Company {
+enum CompanyEnum {
   apple("Apple"),
   google("Google"),
   disney("Disney"),
@@ -6,5 +6,5 @@ enum Company {
 
   final String text;
 
-  const Company(this.text);
+  const CompanyEnum(this.text);
 }

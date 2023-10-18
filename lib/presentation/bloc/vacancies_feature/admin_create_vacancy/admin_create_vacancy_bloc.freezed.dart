@@ -16,61 +16,65 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AdminCreateVacancyEvent {
-  String get email => throw _privateConstructorUsedError;
-  String get password => throw _privateConstructorUsedError;
-  String get firstname => throw _privateConstructorUsedError;
-  String get lastname => throw _privateConstructorUsedError;
-  String get phoneNumber => throw _privateConstructorUsedError;
-  String get role => throw _privateConstructorUsedError;
-  DateTime get dateOfBirth => throw _privateConstructorUsedError;
-  DateTime get worksSince => throw _privateConstructorUsedError;
-  String get imgFilename => throw _privateConstructorUsedError;
-  List<int> get imgBytes => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  Company get company => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
+  String get salary => throw _privateConstructorUsedError;
+  String get currency => throw _privateConstructorUsedError;
+  String get period => throw _privateConstructorUsedError;
+  String get location => throw _privateConstructorUsedError;
+  String get area => throw _privateConstructorUsedError;
+  String get city => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  List<String> get questions => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String email,
-            String password,
-            String firstname,
-            String lastname,
-            String phoneNumber,
-            String role,
-            DateTime dateOfBirth,
-            DateTime worksSince,
-            String imgFilename,
-            List<int> imgBytes)
+            String title,
+            Company company,
+            String type,
+            String salary,
+            String currency,
+            String period,
+            String location,
+            String area,
+            String city,
+            String description,
+            List<String> questions)
         createVacancy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String email,
-            String password,
-            String firstname,
-            String lastname,
-            String phoneNumber,
-            String role,
-            DateTime dateOfBirth,
-            DateTime worksSince,
-            String imgFilename,
-            List<int> imgBytes)?
+            String title,
+            Company company,
+            String type,
+            String salary,
+            String currency,
+            String period,
+            String location,
+            String area,
+            String city,
+            String description,
+            List<String> questions)?
         createVacancy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String email,
-            String password,
-            String firstname,
-            String lastname,
-            String phoneNumber,
-            String role,
-            DateTime dateOfBirth,
-            DateTime worksSince,
-            String imgFilename,
-            List<int> imgBytes)?
+            String title,
+            Company company,
+            String type,
+            String salary,
+            String currency,
+            String period,
+            String location,
+            String area,
+            String city,
+            String description,
+            List<String> questions)?
         createVacancy,
     required TResult orElse(),
   }) =>
@@ -104,16 +108,19 @@ abstract class $AdminCreateVacancyEventCopyWith<$Res> {
       _$AdminCreateVacancyEventCopyWithImpl<$Res, AdminCreateVacancyEvent>;
   @useResult
   $Res call(
-      {String email,
-      String password,
-      String firstname,
-      String lastname,
-      String phoneNumber,
-      String role,
-      DateTime dateOfBirth,
-      DateTime worksSince,
-      String imgFilename,
-      List<int> imgBytes});
+      {String title,
+      Company company,
+      String type,
+      String salary,
+      String currency,
+      String period,
+      String location,
+      String area,
+      String city,
+      String description,
+      List<String> questions});
+
+  $CompanyCopyWith<$Res> get company;
 }
 
 /// @nodoc
@@ -130,59 +137,72 @@ class _$AdminCreateVacancyEventCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? password = null,
-    Object? firstname = null,
-    Object? lastname = null,
-    Object? phoneNumber = null,
-    Object? role = null,
-    Object? dateOfBirth = null,
-    Object? worksSince = null,
-    Object? imgFilename = null,
-    Object? imgBytes = null,
+    Object? title = null,
+    Object? company = null,
+    Object? type = null,
+    Object? salary = null,
+    Object? currency = null,
+    Object? period = null,
+    Object? location = null,
+    Object? area = null,
+    Object? city = null,
+    Object? description = null,
+    Object? questions = null,
   }) {
     return _then(_value.copyWith(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
+      company: null == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
+              as Company,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
-      firstname: null == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
+      salary: null == salary
+          ? _value.salary
+          : salary // ignore: cast_nullable_to_non_nullable
               as String,
-      lastname: null == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
+      currency: null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
               as String,
-      phoneNumber: null == phoneNumber
-          ? _value.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
+      period: null == period
+          ? _value.period
+          : period // ignore: cast_nullable_to_non_nullable
               as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
               as String,
-      dateOfBirth: null == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      worksSince: null == worksSince
-          ? _value.worksSince
-          : worksSince // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      imgFilename: null == imgFilename
-          ? _value.imgFilename
-          : imgFilename // ignore: cast_nullable_to_non_nullable
+      area: null == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
               as String,
-      imgBytes: null == imgBytes
-          ? _value.imgBytes
-          : imgBytes // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      questions: null == questions
+          ? _value.questions
+          : questions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CompanyCopyWith<$Res> get company {
+    return $CompanyCopyWith<$Res>(_value.company, (value) {
+      return _then(_value.copyWith(company: value) as $Val);
+    });
   }
 }
 
@@ -195,16 +215,20 @@ abstract class _$$_CreateVacancyEventCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String email,
-      String password,
-      String firstname,
-      String lastname,
-      String phoneNumber,
-      String role,
-      DateTime dateOfBirth,
-      DateTime worksSince,
-      String imgFilename,
-      List<int> imgBytes});
+      {String title,
+      Company company,
+      String type,
+      String salary,
+      String currency,
+      String period,
+      String location,
+      String area,
+      String city,
+      String description,
+      List<String> questions});
+
+  @override
+  $CompanyCopyWith<$Res> get company;
 }
 
 /// @nodoc
@@ -218,58 +242,63 @@ class __$$_CreateVacancyEventCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? email = null,
-    Object? password = null,
-    Object? firstname = null,
-    Object? lastname = null,
-    Object? phoneNumber = null,
-    Object? role = null,
-    Object? dateOfBirth = null,
-    Object? worksSince = null,
-    Object? imgFilename = null,
-    Object? imgBytes = null,
+    Object? title = null,
+    Object? company = null,
+    Object? type = null,
+    Object? salary = null,
+    Object? currency = null,
+    Object? period = null,
+    Object? location = null,
+    Object? area = null,
+    Object? city = null,
+    Object? description = null,
+    Object? questions = null,
   }) {
     return _then(_$_CreateVacancyEvent(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
-      password: null == password
-          ? _value.password
-          : password // ignore: cast_nullable_to_non_nullable
+      company: null == company
+          ? _value.company
+          : company // ignore: cast_nullable_to_non_nullable
+              as Company,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
-      firstname: null == firstname
-          ? _value.firstname
-          : firstname // ignore: cast_nullable_to_non_nullable
+      salary: null == salary
+          ? _value.salary
+          : salary // ignore: cast_nullable_to_non_nullable
               as String,
-      lastname: null == lastname
-          ? _value.lastname
-          : lastname // ignore: cast_nullable_to_non_nullable
+      currency: null == currency
+          ? _value.currency
+          : currency // ignore: cast_nullable_to_non_nullable
               as String,
-      phoneNumber: null == phoneNumber
-          ? _value.phoneNumber
-          : phoneNumber // ignore: cast_nullable_to_non_nullable
+      period: null == period
+          ? _value.period
+          : period // ignore: cast_nullable_to_non_nullable
               as String,
-      role: null == role
-          ? _value.role
-          : role // ignore: cast_nullable_to_non_nullable
+      location: null == location
+          ? _value.location
+          : location // ignore: cast_nullable_to_non_nullable
               as String,
-      dateOfBirth: null == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      worksSince: null == worksSince
-          ? _value.worksSince
-          : worksSince // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      imgFilename: null == imgFilename
-          ? _value.imgFilename
-          : imgFilename // ignore: cast_nullable_to_non_nullable
+      area: null == area
+          ? _value.area
+          : area // ignore: cast_nullable_to_non_nullable
               as String,
-      imgBytes: null == imgBytes
-          ? _value._imgBytes
-          : imgBytes // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      questions: null == questions
+          ? _value._questions
+          : questions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -278,47 +307,50 @@ class __$$_CreateVacancyEventCopyWithImpl<$Res>
 
 class _$_CreateVacancyEvent implements _CreateVacancyEvent {
   const _$_CreateVacancyEvent(
-      {required this.email,
-      required this.password,
-      required this.firstname,
-      required this.lastname,
-      required this.phoneNumber,
-      required this.role,
-      required this.dateOfBirth,
-      required this.worksSince,
-      required this.imgFilename,
-      required final List<int> imgBytes})
-      : _imgBytes = imgBytes;
+      {required this.title,
+      required this.company,
+      required this.type,
+      required this.salary,
+      required this.currency,
+      required this.period,
+      required this.location,
+      required this.area,
+      required this.city,
+      required this.description,
+      required final List<String> questions})
+      : _questions = questions;
 
   @override
-  final String email;
+  final String title;
   @override
-  final String password;
+  final Company company;
   @override
-  final String firstname;
+  final String type;
   @override
-  final String lastname;
+  final String salary;
   @override
-  final String phoneNumber;
+  final String currency;
   @override
-  final String role;
+  final String period;
   @override
-  final DateTime dateOfBirth;
+  final String location;
   @override
-  final DateTime worksSince;
+  final String area;
   @override
-  final String imgFilename;
-  final List<int> _imgBytes;
+  final String city;
   @override
-  List<int> get imgBytes {
-    if (_imgBytes is EqualUnmodifiableListView) return _imgBytes;
+  final String description;
+  final List<String> _questions;
+  @override
+  List<String> get questions {
+    if (_questions is EqualUnmodifiableListView) return _questions;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_imgBytes);
+    return EqualUnmodifiableListView(_questions);
   }
 
   @override
   String toString() {
-    return 'AdminCreateVacancyEvent.createVacancy(email: $email, password: $password, firstname: $firstname, lastname: $lastname, phoneNumber: $phoneNumber, role: $role, dateOfBirth: $dateOfBirth, worksSince: $worksSince, imgFilename: $imgFilename, imgBytes: $imgBytes)';
+    return 'AdminCreateVacancyEvent.createVacancy(title: $title, company: $company, type: $type, salary: $salary, currency: $currency, period: $period, location: $location, area: $area, city: $city, description: $description, questions: $questions)';
   }
 
   @override
@@ -326,38 +358,37 @@ class _$_CreateVacancyEvent implements _CreateVacancyEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CreateVacancyEvent &&
-            (identical(other.email, email) || other.email == email) &&
-            (identical(other.password, password) ||
-                other.password == password) &&
-            (identical(other.firstname, firstname) ||
-                other.firstname == firstname) &&
-            (identical(other.lastname, lastname) ||
-                other.lastname == lastname) &&
-            (identical(other.phoneNumber, phoneNumber) ||
-                other.phoneNumber == phoneNumber) &&
-            (identical(other.role, role) || other.role == role) &&
-            (identical(other.dateOfBirth, dateOfBirth) ||
-                other.dateOfBirth == dateOfBirth) &&
-            (identical(other.worksSince, worksSince) ||
-                other.worksSince == worksSince) &&
-            (identical(other.imgFilename, imgFilename) ||
-                other.imgFilename == imgFilename) &&
-            const DeepCollectionEquality().equals(other._imgBytes, _imgBytes));
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.company, company) || other.company == company) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.salary, salary) || other.salary == salary) &&
+            (identical(other.currency, currency) ||
+                other.currency == currency) &&
+            (identical(other.period, period) || other.period == period) &&
+            (identical(other.location, location) ||
+                other.location == location) &&
+            (identical(other.area, area) || other.area == area) &&
+            (identical(other.city, city) || other.city == city) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            const DeepCollectionEquality()
+                .equals(other._questions, _questions));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      email,
-      password,
-      firstname,
-      lastname,
-      phoneNumber,
-      role,
-      dateOfBirth,
-      worksSince,
-      imgFilename,
-      const DeepCollectionEquality().hash(_imgBytes));
+      title,
+      company,
+      type,
+      salary,
+      currency,
+      period,
+      location,
+      area,
+      city,
+      description,
+      const DeepCollectionEquality().hash(_questions));
 
   @JsonKey(ignore: true)
   @override
@@ -370,62 +401,65 @@ class _$_CreateVacancyEvent implements _CreateVacancyEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            String email,
-            String password,
-            String firstname,
-            String lastname,
-            String phoneNumber,
-            String role,
-            DateTime dateOfBirth,
-            DateTime worksSince,
-            String imgFilename,
-            List<int> imgBytes)
+            String title,
+            Company company,
+            String type,
+            String salary,
+            String currency,
+            String period,
+            String location,
+            String area,
+            String city,
+            String description,
+            List<String> questions)
         createVacancy,
   }) {
-    return createVacancy(email, password, firstname, lastname, phoneNumber,
-        role, dateOfBirth, worksSince, imgFilename, imgBytes);
+    return createVacancy(title, company, type, salary, currency, period,
+        location, area, city, description, questions);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(
-            String email,
-            String password,
-            String firstname,
-            String lastname,
-            String phoneNumber,
-            String role,
-            DateTime dateOfBirth,
-            DateTime worksSince,
-            String imgFilename,
-            List<int> imgBytes)?
+            String title,
+            Company company,
+            String type,
+            String salary,
+            String currency,
+            String period,
+            String location,
+            String area,
+            String city,
+            String description,
+            List<String> questions)?
         createVacancy,
   }) {
-    return createVacancy?.call(email, password, firstname, lastname,
-        phoneNumber, role, dateOfBirth, worksSince, imgFilename, imgBytes);
+    return createVacancy?.call(title, company, type, salary, currency, period,
+        location, area, city, description, questions);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            String email,
-            String password,
-            String firstname,
-            String lastname,
-            String phoneNumber,
-            String role,
-            DateTime dateOfBirth,
-            DateTime worksSince,
-            String imgFilename,
-            List<int> imgBytes)?
+            String title,
+            Company company,
+            String type,
+            String salary,
+            String currency,
+            String period,
+            String location,
+            String area,
+            String city,
+            String description,
+            List<String> questions)?
         createVacancy,
     required TResult orElse(),
   }) {
     if (createVacancy != null) {
-      return createVacancy(email, password, firstname, lastname, phoneNumber,
-          role, dateOfBirth, worksSince, imgFilename, imgBytes);
+      return createVacancy(title, company, type, salary, currency, period,
+          location, area, city, description, questions);
     }
     return orElse();
   }
@@ -461,37 +495,40 @@ class _$_CreateVacancyEvent implements _CreateVacancyEvent {
 
 abstract class _CreateVacancyEvent implements AdminCreateVacancyEvent {
   const factory _CreateVacancyEvent(
-      {required final String email,
-      required final String password,
-      required final String firstname,
-      required final String lastname,
-      required final String phoneNumber,
-      required final String role,
-      required final DateTime dateOfBirth,
-      required final DateTime worksSince,
-      required final String imgFilename,
-      required final List<int> imgBytes}) = _$_CreateVacancyEvent;
+      {required final String title,
+      required final Company company,
+      required final String type,
+      required final String salary,
+      required final String currency,
+      required final String period,
+      required final String location,
+      required final String area,
+      required final String city,
+      required final String description,
+      required final List<String> questions}) = _$_CreateVacancyEvent;
 
   @override
-  String get email;
+  String get title;
   @override
-  String get password;
+  Company get company;
   @override
-  String get firstname;
+  String get type;
   @override
-  String get lastname;
+  String get salary;
   @override
-  String get phoneNumber;
+  String get currency;
   @override
-  String get role;
+  String get period;
   @override
-  DateTime get dateOfBirth;
+  String get location;
   @override
-  DateTime get worksSince;
+  String get area;
   @override
-  String get imgFilename;
+  String get city;
   @override
-  List<int> get imgBytes;
+  String get description;
+  @override
+  List<String> get questions;
   @override
   @JsonKey(ignore: true)
   _$$_CreateVacancyEventCopyWith<_$_CreateVacancyEvent> get copyWith =>

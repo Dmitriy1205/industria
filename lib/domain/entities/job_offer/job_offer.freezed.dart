@@ -260,7 +260,7 @@ class __$$_JobOfferCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_JobOffer with DiagnosticableTreeMixin implements _JobOffer {
+class _$_JobOffer extends _JobOffer with DiagnosticableTreeMixin {
   const _$_JobOffer(
       {required this.id,
       required this.title,
@@ -276,7 +276,8 @@ class _$_JobOffer with DiagnosticableTreeMixin implements _JobOffer {
       @JsonKey(
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           includeToJson: false)
-      required this.createdAt});
+      required this.createdAt})
+      : super._();
 
   factory _$_JobOffer.fromJson(Map<String, dynamic> json) =>
       _$$_JobOfferFromJson(json);
@@ -387,7 +388,7 @@ class _$_JobOffer with DiagnosticableTreeMixin implements _JobOffer {
   }
 }
 
-abstract class _JobOffer implements JobOffer {
+abstract class _JobOffer extends JobOffer {
   const factory _JobOffer(
       {required final String id,
       required final String title,
@@ -404,6 +405,7 @@ abstract class _JobOffer implements JobOffer {
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           includeToJson: false)
       required final DateTime createdAt}) = _$_JobOffer;
+  const _JobOffer._() : super._();
 
   factory _JobOffer.fromJson(Map<String, dynamic> json) = _$_JobOffer.fromJson;
 

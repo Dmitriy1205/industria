@@ -10,6 +10,26 @@ part 'job_offer.g.dart';
 
 @freezed
 class JobOffer with _$JobOffer {
+  const JobOffer._();
+
+  static Map<String,dynamic> firestoreJson({required String docId, required Company company, required String title, required String jobType, required String salary, required String currency, required String period, required String location, required String area, required String city, required String description, required List<String> questions}){
+    return {
+      "id": docId,
+      "title": title,
+      "jobType": jobType,
+      "companyId": company.id,
+      "companyName": company.name,
+      "area": area,
+      "company": company.toJson(),
+      "location": location,
+      "city": city,
+      "salary": salary,
+      "description": description,
+      "questions": questions,
+      "createdAt": FieldValue.serverTimestamp()
+    };
+  }
+
   const factory JobOffer({
     required String id,
     required String title,

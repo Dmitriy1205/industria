@@ -1,9 +1,12 @@
 import '../../../core/table_data/table_data.dart';
+import '../../../domain/entities/company/company.dart';
 import '../../../domain/entities/employee/employee.dart';
 
 abstract class AdminVacancyService{
-  Future<void> createVacancy({required String title, required String type, required String description, required String location, required String salary, });
-  Future<void> updateVacancy({required String userUid, required String email, required String? password, required String firstname, required String lastname, required String phoneNumber, required String role, required DateTime dateOfBirth, required DateTime worksSince, required String? imgFilename, required List<int>? imgBytes});
-  Future<void> deleteVacancy({required String userUid});
+  Future<void> createVacancy({required String title, required Company company, required String type, required String salary, required String currency, required String period, required String location, required String area, required String city, required String description, required List<String> questions});
+  Future<void> updateVacancy({required String id, required String title, required Company company, required String type, required String salary, required String currency, required String period, required String location, required String area, required String city, required String description, required List<String> questions});
+  Future<void> deleteVacancy({required List<String> vacanciesIds});
   Future<TableData<List<Employee>>> listVacancy({required int page, required int elementsPerPage, required String searchTerm});
+  Future<List<Company>> listCompanies({required String searchTerm, required int count});
+  Future<void> createCompany({required String companyName, required String photoName, required List<int> photoBytes});
 }

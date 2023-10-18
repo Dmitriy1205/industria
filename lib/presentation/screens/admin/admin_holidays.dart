@@ -61,23 +61,40 @@ class _AdminHolidaysState extends State<AdminHolidays> {
           const SizedBox(
             height: 20,
           ),
-          SizedBox(
-            height: 52,
-            child: Row(
+          LayoutBuilder(builder: (context,constraints){
+            return constraints.maxWidth < 700 ? Column(
               children: [
-                SizedBox(width: 16,),
                 _tableTitle(title: AppLocalizations.of(context)!.feedbacks, subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
                 const SizedBox(
-                  width: 60,
+                  height: 20,
                 ),
-                Expanded(child: _search(onTextChanged: (val){
-                  _debouncer.run(() {
-                    context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
-                  });
-                })),
+                SizedBox(
+                  height: 40,
+                  child: _search(onTextChanged: (val){
+                    _debouncer.run(() {
+                      context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
+                    });
+                  }),
+                ),
               ],
-            ),
-          ),
+            )  : SizedBox(
+              height: 52,
+              child: Row(
+                children: [
+                  SizedBox(width: 16,),
+                  _tableTitle(title: AppLocalizations.of(context)!.feedbacks, subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
+                  const SizedBox(
+                    width: 60,
+                  ),
+                  Expanded(child: _search(onTextChanged: (val){
+                    _debouncer.run(() {
+                      context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
+                    });
+                  })),
+                ],
+              ),
+            );
+          }),
           const SizedBox(
             height: 10,
           ),
@@ -133,9 +150,8 @@ class _AdminHolidaysState extends State<AdminHolidays> {
                   onTap: (i){
                     context.go("/admin/holiday?id=${context.read<AdminHolidayRequestsListBloc>().state.tableData.element[i].id}");
                   },
-                  divider: Container(
-                    width: double.infinity,
-                    height: 1,
+                  divider: BorderSide(
+                    width: 1,
                     color: Colors.grey,
                   ),
                   backgroundColor: Colors.white,

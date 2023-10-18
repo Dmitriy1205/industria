@@ -95,44 +95,90 @@ class _AdminVacanciesState extends State<AdminVacancies> {
           const SizedBox(
             height: 20,
           ),
-          Row(
-            children: [
-              _tableTitle(
-                  title: 'Vacancies',
-                  subtitle: context
-                      .watch<AdminVacancyListBloc>()
-                      .state
-                      .tableData
-                      .totalElementCounts
-                      .toString()),
-              const SizedBox(
-                width: 60,
+          LayoutBuilder(builder: (context,constraints){
+            return constraints.maxWidth < 700 ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _tableTitle(
+                      title: 'Vacancies',
+                      subtitle: context
+                        .watch<AdminVacancyListBloc>()
+                        .state
+                        .tableData
+                        .totalElementCounts
+                        .toString()),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 40,
+                  child: _search(onTextChanged: (val) {
+                    _debouncer.run(() {
+                      context.read<AdminVacancyListBloc>().add(
+                        AdminVacancyListEvent.changeSearchTerm(searchTerm: val));
+                    });
+                  }),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                    width: 200,
+                    child: AppElevatedButton(
+                      text: "Create vacancy",
+                      prefixIcon: const Icon(
+                        FontAwesomeIcons.plus,
+                        color: Colors.white,
+                      ),
+                      textStyle: const TextStyle(fontSize: 14),
+                      onPressed: () {
+                        context.push('/admin/create_vacancy', extra: 'Create vacancy');
+                      },
+                      verticalPadding: 15,
+                    ))
+              ],
+            )  : SizedBox(
+              height: 52,
+              child: Row(
+                children: [
+                  _tableTitle(
+                      title: 'Vacancies',
+                      subtitle: context
+                        .watch<AdminVacancyListBloc>()
+                        .state
+                        .tableData
+                        .totalElementCounts
+                        .toString()),
+                  const SizedBox(
+                    width: 60,
+                  ),
+                  Expanded(child: _search(onTextChanged: (val) {
+                    _debouncer.run(() {
+                      context.read<AdminVacancyListBloc>().add(
+                        AdminVacancyListEvent.changeSearchTerm(searchTerm: val));
+                    });
+                  })),
+                  const SizedBox(
+                    width: 60,
+                  ),
+                  SizedBox(
+                      width: 200,
+                      child: AppElevatedButton(
+                        text: "Create vacancy",
+                        prefixIcon: const Icon(
+                          FontAwesomeIcons.plus,
+                          color: Colors.white,
+                        ),
+                        textStyle: const TextStyle(fontSize: 14),
+                        onPressed: () {
+                          context.push('/admin/create_vacancy', extra: 'Create vacancy');
+                        },
+                        verticalPadding: 15,
+                      ))
+                ],
               ),
-              Expanded(child: _search(onTextChanged: (val) {
-                _debouncer.run(() {
-                  context.read<AdminVacancyListBloc>().add(
-                      AdminVacancyListEvent.changeSearchTerm(searchTerm: val));
-                });
-              })),
-              const SizedBox(
-                width: 60,
-              ),
-              SizedBox(
-                  width: 200,
-                  child: AppElevatedButton(
-                    text: "Create vacancy",
-                    prefixIcon: const Icon(
-                      FontAwesomeIcons.plus,
-                      color: Colors.white,
-                    ),
-                    textStyle: const TextStyle(fontSize: 14),
-                    onPressed: () {
-                      context.push('/admin/create_vacancy', extra: 'Create vacancy');
-                    },
-                    verticalPadding: 15,
-                  ))
-            ],
-          ),
+            );
+          }),
           const SizedBox(
             height: 10,
           ),
@@ -250,9 +296,8 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                             .tableData
                             .element[i]);
                   },
-                  divider: Container(
-                    width: double.infinity,
-                    height: 1,
+                  divider: BorderSide(
+                    width: 1,
                     color: Colors.grey,
                   ),
                   backgroundColor: Colors.white,

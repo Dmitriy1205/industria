@@ -127,14 +127,9 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
   }
 
   @override
-  Future<List<Company>> listCompanies(
-      {required String searchTerm, required int count}) async {
-    final doc = await _db
-        .collection(FirestoreCollections.companies)
-        .where('name', isGreaterThanOrEqualTo: searchTerm)
-        .where('name', isLessThan: searchTerm + 'z')
-        .limit(count)
-        .get();
+  Future<List<Company>> listCompanies({required String searchTerm, required int count}) async{
+    final doc = await _db.collection(FirestoreCollections.companies).where('name', isGreaterThanOrEqualTo: searchTerm)
+        .where('name', isLessThan: '${searchTerm}z').limit(count).get();
     return doc.docs.map((e) => Company.fromJson(e.data())).toList();
   }
 

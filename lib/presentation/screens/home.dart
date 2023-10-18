@@ -215,6 +215,7 @@ class _HomeState extends State<Home> {
                             Theme(
                               data: Theme.of(context).copyWith(
                                 hoverColor: Colors.white,
+                                canvasColor: AppColors.lightGrey
                               ),
                               child: DropdownButton<String>(
                                 focusColor: Colors.white,
@@ -229,6 +230,21 @@ class _HomeState extends State<Home> {
                                 underline: const SizedBox(),
                                 value: dropdownValue,
                                 borderRadius: BorderRadius.circular(10),
+                                selectedItemBuilder: (context) => [
+                                  AppLocalizations.of(context)!.allGermany,
+                                  'Berlin',
+                                  'Munich'
+                                ].map((e) => Center(
+                                  child: Text(
+                                    e,
+                                    style: AppTheme
+                                        .themeData.textTheme.labelMedium!
+                                        .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.white,
+                                        fontSize: 14),
+                                  ),
+                                ),).toList(),
                                 items: <String>[
                                   AppLocalizations.of(context)!.allGermany,
                                   'Berlin',
@@ -242,7 +258,7 @@ class _HomeState extends State<Home> {
                                           .themeData.textTheme.labelMedium!
                                           .copyWith(
                                           fontWeight: FontWeight.w400,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                           fontSize: 14),
                                     ),
                                   );

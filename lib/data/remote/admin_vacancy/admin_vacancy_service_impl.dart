@@ -61,7 +61,7 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
   @override
   Future<void> createVacancy({required String title, required Company company, required String type, required String salary, required String currency, required String period, required String location, required String area, required String city, required String description, required List<String> questions}) async{
     final doc = _db.collection(FirestoreCollections.jobs).doc();
-    final json = JobOffer.firestoreJson(docId: doc.id, company: company, title: title, jobType: type, salary: salary, currency: currency, period: period, location: location, area: area, city: city, description: description, questions: questions);
+    final json = JobOffer.firestoreJson(docId: doc.id, company: company, title: title, jobType: type, salary: "$salary$currency / $period", currency: currency, period: period, location: location, area: area, city: city, description: description, questions: questions);
     await doc.set(json);
   }
 
@@ -77,7 +77,7 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
   @override
   Future<List<Company>> listCompanies({required String searchTerm, required int count}) async{
     final doc = await _db.collection(FirestoreCollections.companies).where('name', isGreaterThanOrEqualTo: searchTerm)
-        .where('name', isLessThan: searchTerm +'z').limit(count).get();
+        .where('name', isLessThan: '${searchTerm}z').limit(count).get();
     return doc.docs.map((e) => Company.fromJson(e.data())).toList();
   }
 

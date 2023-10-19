@@ -82,7 +82,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
               child: Row(
                 children: [
                   SizedBox(width: 16,),
-                  _tableTitle(title: AppLocalizations.of(context)!.feedbacks, subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
+                  _tableTitle(title: AppLocalizations.of(context)!.holidays, subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
                   const SizedBox(
                     width: 60,
                   ),

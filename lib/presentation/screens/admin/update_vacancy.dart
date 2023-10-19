@@ -23,6 +23,7 @@ import '../../../domain/entities/company/company.dart';
 import '../../../domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
 import '../../bloc/vacancies_feature/admin_vacancy_list/admin_vacancy_list_bloc.dart';
 import '../../widgets/custom_dropdown_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpdateVacancy extends StatefulWidget {
   const UpdateVacancy({Key? key}) : super(key: key);
@@ -158,15 +159,15 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Column(
                     children: [
-                      const Row(
+                      Row(
                         children: [
                           Text(
-                            "Vacancy",
+                            AppLocalizations.of(context)!.vacancy,
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            " / Update",
+                            " / ${AppLocalizations.of(context)!.update}",
                            style: TextStyle(fontSize: 18),
                           )
                         ],
@@ -202,7 +203,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                               focusNode: _titleNode,
                                               textController:
                                               _titleController!,
-                                              labelText: 'Title*',
+                                              labelText: '${AppLocalizations.of(context)!.title}*',
                                               textInputType:
                                               TextInputType.name,
                                               validator: Validator.validate,
@@ -226,7 +227,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                               displayFunction: (job) {
                                                 return job.value;
                                               },
-                                              hint: 'Type*',
+                                              hint: '${AppLocalizations.of(context)!.jobType}*',
                                             ),
                                           ),
                                         ],
@@ -239,7 +240,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                             focusNode: _salaryNode,
                                             textController:
                                             _salaryController!,
-                                            labelText: 'Salary*',
+                                            labelText: '${AppLocalizations.of(context)!.salary}*',
                                             textInputType:
                                             TextInputType.number,
                                             validator:
@@ -263,7 +264,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                             displayFunction: (cur) {
                                               return cur.text;
                                             },
-                                            hint: 'Currency*',
+                                            hint: '${AppLocalizations.of(context)!.currency}*',
                                           ),
                                         ),
                                         const SizedBox(
@@ -282,7 +283,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                             displayFunction: (job) {
                                               return job.text;
                                             },
-                                            hint: 'Period*',
+                                            hint: '${AppLocalizations.of(context)!.period}*',
                                           ),
                                         ),
                                       ],
@@ -300,7 +301,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                             .toList(),
                                         controller: _companyController!,
                                         isSavePressed: false,
-                                        hintText: 'Company name*',
+                                        hintText: '${AppLocalizations.of(context)!.companyName}*',
                                         onChanged: (value) {
                                           setState(() {
                                             dropdownCompany = state
@@ -318,8 +319,8 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                           router
                                               .go('/admin/create_company');
                                         },
-                                        child: const Text(
-                                          'Create company',
+                                        child: Text(
+                                          AppLocalizations.of(context)!.createCompany,
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
@@ -345,7 +346,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                         displayFunction: (area) {
                                           return area.text;
                                         },
-                                        hint: 'Area*',
+                                        hint: '${AppLocalizations.of(context)!.area}*',
                                       ),
                                     ),
                                     Padding(
@@ -354,7 +355,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                       child: CustomTextFormField(
                                         focusNode: _cityNode,
                                         textController: _cityController!,
-                                        labelText: 'City*',
+                                        labelText: '${AppLocalizations.of(context)!.city}*',
                                         textInputType: TextInputType.name,
                                         validator: Validator.validate,
                                         isSavePressed: true,
@@ -366,7 +367,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                       child: CustomTextFormField(
                                         focusNode: _locationNode,
                                         textController: _locationController!,
-                                        labelText: 'Location*',
+                                        labelText: '${AppLocalizations.of(context)!.location}*',
                                         textInputType: TextInputType.name,
                                         validator: Validator.validate,
                                         isSavePressed: true,
@@ -381,7 +382,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                         focusNode: _descriptionNode,
                                         textController:
                                         _descriptionController!,
-                                        labelText: 'Description*',
+                                        labelText: '${AppLocalizations.of(context)!.description}*',
                                         textInputType:
                                         TextInputType.multiline,
                                         validator: Validator.validate,
@@ -397,7 +398,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                         width: 150,
                                         height: 42,
                                         child: AppElevatedButton(
-                                          text: 'Questions',
+                                          text: AppLocalizations.of(context)!.questions,
                                           verticalPadding: 0,
                                           textStyle: const TextStyle(
                                               fontSize: 14,
@@ -442,7 +443,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                                       _questionControllers[
                                                       index],
                                                       labelText:
-                                                      'Question*',
+                                                      '${AppLocalizations.of(context)!.question}*',
                                                       textInputType:
                                                       TextInputType
                                                           .text,
@@ -486,7 +487,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                       height: 10,
                                     ),
                                     AppElevatedButton(
-                                      text: "Save",
+                                      text: AppLocalizations.of(context)!.save,
                                       onPressed: () {
                                         if (!_formKey.currentState!
                                             .validate()) return;

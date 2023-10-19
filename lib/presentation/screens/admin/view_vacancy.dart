@@ -11,6 +11,7 @@ import '../../../core/services/service_locator.dart';
 import '../../../core/utils/route_value.dart';
 import '../../../domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
 import '../../bloc/vacancies_feature/admin_view_vacancy/admin_view_vacancy_cubit.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewVacancy extends StatefulWidget {
   const ViewVacancy({
@@ -53,18 +54,18 @@ class _ViewVacancyState extends State<ViewVacancy> {
                       const SizedBox(
                         height: 26,
                       ),
-                      const Row(
+                      Row(
                         children: [
                           SizedBox(
                             width: 11,
                           ),
                           Text(
-                            "Vacancy",
+                            AppLocalizations.of(context)!.vacancy,
                             style: TextStyle(
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            " / View",
+                            " / ${AppLocalizations.of(context)!.view}",
                             style: TextStyle(fontSize: 18),
                           )
                         ],
@@ -94,7 +95,7 @@ class _ViewVacancyState extends State<ViewVacancy> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Salary',
+                                          AppLocalizations.of(context)!.salary,
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
@@ -120,7 +121,7 @@ class _ViewVacancyState extends State<ViewVacancy> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Type',
+                                          AppLocalizations.of(context)!.jobType,
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
@@ -147,7 +148,7 @@ class _ViewVacancyState extends State<ViewVacancy> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Location',
+                                    AppLocalizations.of(context)!.location,
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
@@ -172,7 +173,7 @@ class _ViewVacancyState extends State<ViewVacancy> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Description',
+                                      AppLocalizations.of(context)!.description,
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
@@ -197,7 +198,7 @@ class _ViewVacancyState extends State<ViewVacancy> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Questions',
+                                      AppLocalizations.of(context)!.questions,
                                       style: TextStyle(
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
@@ -234,7 +235,7 @@ class _ViewVacancyState extends State<ViewVacancy> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Vacancy',
+                                          AppLocalizations.of(context)!.vacancy,
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,
@@ -260,7 +261,7 @@ class _ViewVacancyState extends State<ViewVacancy> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Company',
+                                          AppLocalizations.of(context)!.company,
                                           style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.w600,

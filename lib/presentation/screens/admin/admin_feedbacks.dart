@@ -11,6 +11,7 @@ import '../../../core/themes/theme.dart';
 import '../../../core/utils/toast.dart';
 import '../../../domain/entities/feedback/feedback.dart';
 import '../../bloc/feedback_feature/admin_feedback_list/admin_feedback_list_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminFeedbacks extends StatefulWidget {
   const AdminFeedbacks({Key? key}) : super(key: key);
@@ -35,6 +36,7 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     feedback = context
         .read<AdminFeedbackListBloc>()
         .state
@@ -84,8 +86,9 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
             ),
             Row(
               children: [
+                SizedBox(width: 16,),
                 _tableTitle(
-                    title: 'Feedbacks',
+                    title: AppLocalizations.of(context)!.feedbacks,
                     subtitle: context
                         .watch<AdminFeedbackListBloc>()
                         .state
@@ -184,27 +187,27 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
                           const SizedBox(
                             width: 21,
                           ),
-                          const Text(
-                            "MESSAGE",
+                          Text(
+                            AppLocalizations.of(context)!.message.toUpperCase(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12),
                           ),
                         ],
                       ),
                     ),
-                    const PTableViewRowFixed(
+                    PTableViewRowFixed(
                         width: 370,
                         child: Center(
                           child: Text(
-                            "FROM",
+                            AppLocalizations.of(context)!.from.toUpperCase(),
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 12),
                           ),
                         )),
-                    const PTableViewRowFixed(
+                    PTableViewRowFixed(
                         width: 300,
                         child: Text(
-                          "DATE",
+                          AppLocalizations.of(context)!.date,
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 12),
                         )),

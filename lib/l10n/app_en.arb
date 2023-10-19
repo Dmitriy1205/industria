@@ -161,5 +161,20 @@
  "cv": "CV",
  "certificates": "Certificates",
  "unavailable": "Unavailable",
- "reason": "Reason"
+ "reason": "Reason",
+ "salary": "Salary",
+ "location": "Location",
+ "questions": "Questions",
+ "from": "From",
+ "update": "Update",
+ "title": "Title",
+ "currency": "Currency",
+ "period": "Period",
+ "createCompany": "Create company",
+ "city": "City",
+ "question": "Question",
+ "createVacancy": "Create vacancy",
+ "name": "Name",
+ "changeVacancy": "Change vacancy",
+ "message": "Message"
 }

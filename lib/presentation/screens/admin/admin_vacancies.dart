@@ -18,6 +18,7 @@ import '../../../domain/repositories/admin_vacancy/admin_vacancy_repository_cont
 import '../../bloc/vacancies_feature/admin_delete_vacancy/admin_delete_vacancy_bloc.dart';
 import '../../bloc/vacancies_feature/admin_vacancy_list/admin_vacancy_list_bloc.dart';
 import '../../widgets/custom_checkbox.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminVacancies extends StatefulWidget {
   const AdminVacancies({Key? key}) : super(key: key);
@@ -90,7 +91,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _tableTitle(
-                          title: 'Vacancies',
+                          title: AppLocalizations.of(context)!.vacancies,
                           subtitle: context
                               .watch<AdminVacancyListBloc>()
                               .state
@@ -116,7 +117,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                       SizedBox(
                           width: 200,
                           child: AppElevatedButton(
-                            text: "Create vacancy",
+                            text: AppLocalizations.of(context)!.createVacancy,
                             prefixIcon: const Icon(
                               FontAwesomeIcons.plus,
                               color: Colors.white,
@@ -133,8 +134,9 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                     height: 52,
                     child: Row(
                       children: [
+                        SizedBox(width: 16,),
                         _tableTitle(
-                            title: 'Vacancies',
+                            title: AppLocalizations.of(context)!.vacancies,
                             subtitle: context
                                 .watch<AdminVacancyListBloc>()
                                 .state
@@ -157,7 +159,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                         SizedBox(
                             width: 200,
                             child: AppElevatedButton(
-                              text: "Create vacancy",
+                              text: AppLocalizations.of(context)!.createVacancy,
                               prefixIcon: const Icon(
                                 FontAwesomeIcons.plus,
                                 color: Colors.white,
@@ -256,29 +258,29 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                         const SizedBox(
                           width: 11,
                         ),
-                        const Text(
-                          "NAME",
+                        Text(
+                          AppLocalizations.of(context)!.name.toUpperCase(),
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 12),
                         ),
                       ],
                     ),
                   ),
-                  const PTableViewRowFixed(
+                  PTableViewRowFixed(
                       width: 450,
                       child: Center(
                         child: Text(
-                          "COMPANY",
+                          AppLocalizations.of(context)!.company.toUpperCase(),
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 12),
                         ),
                       )),
-                  const PTableViewRowFixed(
+                  PTableViewRowFixed(
                       width: 800,
                       child: Padding(
                         padding: EdgeInsets.only(left: 350.0),
                         child: Text(
-                          "ACTIONS",
+                          AppLocalizations.of(context)!.actions.toUpperCase(),
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 12),
                         ),
@@ -309,6 +311,32 @@ class _AdminVacanciesState extends State<AdminVacancies> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget _search({required Function(String) onTextChanged}) {
+    return SizedBox(
+      height: 39,
+      child: TextField(
+        onChanged: onTextChanged,
+        decoration: InputDecoration(
+            contentPadding:
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            hintText: AppLocalizations.of(context)!.search,
+            prefixIcon: Padding(
+              padding: const EdgeInsets.all(11),
+              child: SvgPicture.asset(
+                AppImages.search,
+                color: AppColors.darkGrey,
+                width: 16,
+                height: 16,
+              ),
+            ),
+            hintStyle: const TextStyle(color: AppColors.darkGrey),
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(8))),
       ),
     );
   }
@@ -368,7 +396,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
           child: SizedBox(
             height: 60,
             child: _tableAction(
-                title: 'Change vacancy',
+                title: AppLocalizations.of(context)!.changeVacancy,
                 icon: FontAwesomeIcons.solidPenToSquare,
                 onTap: () {
                   context.go("/admin/edit_vacancy?id=${vacancy.id}");
@@ -407,32 +435,6 @@ Widget _tableAction(
           ],
         ),
       ),
-    ),
-  );
-}
-
-Widget _search({required Function(String) onTextChanged}) {
-  return SizedBox(
-    height: 39,
-    child: TextField(
-      onChanged: onTextChanged,
-      decoration: InputDecoration(
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          hintText: 'Search',
-          prefixIcon: Padding(
-            padding: const EdgeInsets.all(11),
-            child: SvgPicture.asset(
-              AppImages.search,
-              color: AppColors.darkGrey,
-              width: 16,
-              height: 16,
-            ),
-          ),
-          hintStyle: const TextStyle(color: AppColors.darkGrey),
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8))),
     ),
   );
 }

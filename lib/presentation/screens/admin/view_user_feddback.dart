@@ -4,6 +4,7 @@ import 'package:industria/core/constants/colors.dart';
 import 'package:intl/intl.dart';
 
 import '../../../domain/entities/feedback/feedback.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewUserFeedback extends StatefulWidget {
   final Feedback feedback;
@@ -29,8 +30,8 @@ class _ViewUserFeedbackState extends State<ViewUserFeedback> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Feedback",
+                  Text(
+                    AppLocalizations.of(context)!.feedback,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   Text(
@@ -70,8 +71,8 @@ class _ViewUserFeedbackState extends State<ViewUserFeedback> {
                                 children: [
                                   Row(
                                     children: [
-                                      const Text(
-                                        "From: ",
+                                      Text(
+                                        "${AppLocalizations.of(context)!.from}: ",
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
@@ -91,8 +92,8 @@ class _ViewUserFeedbackState extends State<ViewUserFeedback> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text(
-                                        "Company: ",
+                                      Text(
+                                        "${AppLocalizations.of(context)!.company}: ",
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,
@@ -112,8 +113,8 @@ class _ViewUserFeedbackState extends State<ViewUserFeedback> {
                                   ),
                                   Row(
                                     children: [
-                                      const Text(
-                                        "Phone: ",
+                                      Text(
+                                        "${AppLocalizations.of(context)!.phoneNumber}: ",
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w600,

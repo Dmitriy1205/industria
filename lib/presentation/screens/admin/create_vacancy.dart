@@ -20,6 +20,7 @@ import '../../../domain/repositories/admin_vacancy/admin_vacancy_repository_cont
 import '../../bloc/vacancies_feature/admin_create_vacancy/admin_create_vacancy_bloc.dart';
 import '../../bloc/vacancies_feature/admin_vacancy_list/admin_vacancy_list_bloc.dart';
 import '../../widgets/custom_dropdown_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateVacancy extends StatefulWidget {
   const CreateVacancy({Key? key}) : super(key: key);
@@ -125,15 +126,15 @@ class _CreateVacancyState extends State<CreateVacancy> {
                     child: LayoutBuilder(
                       builder: (context, constraints) => Column(
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Text(
-                                "Vacancy",
+                                AppLocalizations.of(context)!.vacancy,
                                 style: TextStyle(
                                     fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                " / Create vacancy",
+                                " / ${AppLocalizations.of(context)!.create}",
                                 style: TextStyle(fontSize: 18),
                               )
                             ],
@@ -169,7 +170,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                                   focusNode: _titleNode,
                                                   textController:
                                                       _titleController,
-                                                  labelText: 'Title*',
+                                                  labelText: '${AppLocalizations.of(context)!.title}*',
                                                   textInputType:
                                                       TextInputType.name,
                                                   validator: Validator.validate,
@@ -193,7 +194,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                                   displayFunction: (job) {
                                                     return job.value;
                                                   },
-                                                  hint: 'Type*',
+                                                  hint: '${AppLocalizations.of(context)!.jobType}*',
                                                 ),
                                               ),
                                             ],
@@ -206,7 +207,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                                 focusNode: _salaryNode,
                                                 textController:
                                                     _salaryController,
-                                                labelText: 'Salary*',
+                                                labelText: '${AppLocalizations.of(context)!.salary}*',
                                                 textInputType:
                                                     TextInputType.number,
                                                 validator:
@@ -230,7 +231,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                                 displayFunction: (cur) {
                                                   return cur.text;
                                                 },
-                                                hint: 'Currency*',
+                                                hint: '${AppLocalizations.of(context)!.currency}*',
                                               ),
                                             ),
                                             const SizedBox(
@@ -249,7 +250,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                                 displayFunction: (job) {
                                                   return job.text;
                                                 },
-                                                hint: 'Period*',
+                                                hint: '${AppLocalizations.of(context)!.period}*',
                                               ),
                                             ),
                                           ],
@@ -267,7 +268,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                                 .toList(),
                                             controller: _companyController,
                                             isSavePressed: false,
-                                            hintText: 'Company name*',
+                                            hintText: '${AppLocalizations.of(context)!.companyName}*',
                                             validator: (val) {
                                               final emptyErrorMsg =
                                                   Validator.validate(val);
@@ -304,8 +305,8 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                               router
                                                   .go('/admin/create_company');
                                             },
-                                            child: const Text(
-                                              'Create company',
+                                            child: Text(
+                                              AppLocalizations.of(context)!.createCompany,
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   fontWeight: FontWeight.w600,
@@ -331,7 +332,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                             displayFunction: (area) {
                                               return area.text;
                                             },
-                                            hint: 'Area*',
+                                            hint: '${AppLocalizations.of(context)!.area}*',
                                           ),
                                         ),
                                         Padding(
@@ -340,7 +341,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                           child: CustomTextFormField(
                                             focusNode: _cityNode,
                                             textController: _cityController,
-                                            labelText: 'City*',
+                                            labelText: '${AppLocalizations.of(context)!.city}*',
                                             textInputType: TextInputType.name,
                                             validator: Validator.validate,
                                             isSavePressed: true,
@@ -352,7 +353,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                           child: CustomTextFormField(
                                             focusNode: _locationNode,
                                             textController: _locationController,
-                                            labelText: 'Location*',
+                                            labelText: '${AppLocalizations.of(context)!.location}*',
                                             textInputType: TextInputType.name,
                                             validator: Validator.validate,
                                             isSavePressed: true,
@@ -367,7 +368,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                             focusNode: _descriptionNode,
                                             textController:
                                                 _descriptionController,
-                                            labelText: 'Description*',
+                                            labelText: '${AppLocalizations.of(context)!.description}*',
                                             textInputType:
                                                 TextInputType.multiline,
                                             validator: Validator.validate,
@@ -383,7 +384,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                             width: 150,
                                             height: 42,
                                             child: AppElevatedButton(
-                                              text: 'Questions',
+                                              text: AppLocalizations.of(context)!.questions,
                                               verticalPadding: 0,
                                               textStyle: const TextStyle(
                                                   fontSize: 14,
@@ -428,7 +429,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                                               _questionControllers[
                                                                   index],
                                                           labelText:
-                                                              'Question*',
+                                                              '${AppLocalizations.of(context)!.question}*',
                                                           textInputType:
                                                               TextInputType
                                                                   .text,
@@ -472,7 +473,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                           height: 10,
                                         ),
                                         AppElevatedButton(
-                                          text: "Create",
+                                          text: AppLocalizations.of(context)!.create,
                                           onPressed: () {
                                             if (!_formKey.currentState!
                                                 .validate()) return;

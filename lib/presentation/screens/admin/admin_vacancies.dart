@@ -12,6 +12,7 @@ import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/services/service_locator.dart';
 import '../../../core/themes/theme.dart';
+import '../../../domain/entities/job_offer/job_offer.dart';
 import '../../../domain/entities/vacancy/vacancy.dart';
 import '../../../domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
 import '../../bloc/vacancies_feature/admin_delete_vacancy/admin_delete_vacancy_bloc.dart';
@@ -27,36 +28,24 @@ class AdminVacancies extends StatefulWidget {
 
 class _AdminVacanciesState extends State<AdminVacancies> {
   List<bool> checkable = [];
-  List<Vacancy> employee = [];
+  List<JobOffer> vacancies = [];
 
   @override
   void initState() {
     super.initState();
-    if (context
-        .read<AdminVacancyListBloc>()
-        .state
-        .tableData
-        .element
-        .isEmpty) {
+    if (context.read<AdminVacancyListBloc>().state.tableData.element.isEmpty) {
       context.read<AdminVacancyListBloc>().add(
           const AdminVacancyListEvent.fetchData(elementsPerPage: 7, page: 0));
     }
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    employee = context
-        .read<AdminVacancyListBloc>()
-        .state
-        .tableData
-        .element;
+    vacancies = context.read<AdminVacancyListBloc>().state.tableData.element;
     checkable = List.generate(
-        context
-            .read<AdminVacancyListBloc>()
-            .state
-            .tableData
-            .totalElementCounts,
-            (index) => false);
+        context.read<AdminVacancyListBloc>().state.tableData.totalElementCounts,
+        (index) => false);
   }
 
   void toggleAllCheckboxes(bool newValue) {
@@ -73,7 +62,6 @@ class _AdminVacanciesState extends State<AdminVacancies> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AdminDeleteVacancyBloc, AdminDeleteVacancyState>(
-      bloc: deleteEmployeeBloc,
       listener: (context, state) {
         state.maybeMap(
             loading: (_) {
@@ -96,133 +84,136 @@ class _AdminVacanciesState extends State<AdminVacancies> {
           const SizedBox(
             height: 20,
           ),
-          LayoutBuilder(builder: (context,constraints){
-            return constraints.maxWidth < 700 ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _tableTitle(
-                      title: 'Vacancies',
-                      subtitle: context
-                        .watch<AdminVacancyListBloc>()
-                        .state
-                        .tableData
-                        .totalElementCounts
-                        .toString()),
-                const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: _search(onTextChanged: (val) {
-                    _debouncer.run(() {
-                      context.read<AdminVacancyListBloc>().add(
-                        AdminVacancyListEvent.changeSearchTerm(searchTerm: val));
-                    });
-                  }),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                SizedBox(
-                    width: 200,
-                    child: AppElevatedButton(
-                      text: "Create vacancy",
-                      prefixIcon: const Icon(
-                        FontAwesomeIcons.plus,
-                        color: Colors.white,
+          LayoutBuilder(builder: (context, constraints) {
+            return constraints.maxWidth < 700
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _tableTitle(
+                          title: 'Vacancies',
+                          subtitle: context
+                              .watch<AdminVacancyListBloc>()
+                              .state
+                              .tableData
+                              .totalElementCounts
+                              .toString()),
+                      const SizedBox(
+                        height: 20,
                       ),
-                      textStyle: const TextStyle(fontSize: 14),
-                      onPressed: () {
-                        context.go('/admin/create_vacancy');
-                      },
-                      verticalPadding: 15,
-                    ))
-              ],
-            )  : SizedBox(
-              height: 52,
-              child: Row(
-                children: [
-                  _tableTitle(
-                      title: 'Vacancies',
-                      subtitle: context
-                        .watch<AdminVacancyListBloc>()
-                        .state
-                        .tableData
-                        .totalElementCounts
-                        .toString()),
-                  const SizedBox(
-                    width: 60,
-                  ),
-                  Expanded(child: _search(onTextChanged: (val) {
-                    _debouncer.run(() {
-                      context.read<AdminVacancyListBloc>().add(
-                        AdminVacancyListEvent.changeSearchTerm(searchTerm: val));
-                    });
-                  })),
-                  const SizedBox(
-                    width: 60,
-                  ),
-                  SizedBox(
-                      width: 200,
-                      child: AppElevatedButton(
-                        text: "Create vacancy",
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.plus,
-                          color: Colors.white,
+                      SizedBox(
+                        height: 40,
+                        child: _search(onTextChanged: (val) {
+                          _debouncer.run(() {
+                            context.read<AdminVacancyListBloc>().add(
+                                AdminVacancyListEvent.changeSearchTerm(
+                                    searchTerm: val));
+                          });
+                        }),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                          width: 200,
+                          child: AppElevatedButton(
+                            text: "Create vacancy",
+                            prefixIcon: const Icon(
+                              FontAwesomeIcons.plus,
+                              color: Colors.white,
+                            ),
+                            textStyle: const TextStyle(fontSize: 14),
+                            onPressed: () {
+                              context.go('/admin/create_vacancy');
+                            },
+                            verticalPadding: 15,
+                          ))
+                    ],
+                  )
+                : SizedBox(
+                    height: 52,
+                    child: Row(
+                      children: [
+                        _tableTitle(
+                            title: 'Vacancies',
+                            subtitle: context
+                                .watch<AdminVacancyListBloc>()
+                                .state
+                                .tableData
+                                .totalElementCounts
+                                .toString()),
+                        const SizedBox(
+                          width: 60,
                         ),
-                        textStyle: const TextStyle(fontSize: 14),
-                        onPressed: () {
-                          context.go('/admin/create_vacancy');
-                        },
-                        verticalPadding: 15,
-                      ))
-                ],
-              ),
-            );
+                        Expanded(child: _search(onTextChanged: (val) {
+                          _debouncer.run(() {
+                            context.read<AdminVacancyListBloc>().add(
+                                AdminVacancyListEvent.changeSearchTerm(
+                                    searchTerm: val));
+                          });
+                        })),
+                        const SizedBox(
+                          width: 60,
+                        ),
+                        SizedBox(
+                            width: 200,
+                            child: AppElevatedButton(
+                              text: "Create vacancy",
+                              prefixIcon: const Icon(
+                                FontAwesomeIcons.plus,
+                                color: Colors.white,
+                              ),
+                              textStyle: const TextStyle(fontSize: 14),
+                              onPressed: () {
+                                context.go('/admin/create_vacancy');
+                              },
+                              verticalPadding: 15,
+                            ))
+                      ],
+                    ),
+                  );
           }),
           const SizedBox(
             height: 10,
           ),
           checkable.contains(true)
               ? Row(
-                children: [
-                  Text(
-                      '${checkable.where((value) => value).length == context.read<AdminVacancyListBloc>().state.tableData.totalElementCounts ? "All" : checkable.where((value) => value).length} selected',
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.darkGrey,
-                      )),
-                  const SizedBox(
-                    width: 25,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      deleteBucketDialog(context,
-                          text:
-                          'Are you sure you want to delete feedback?',
-                          // feedbacks: feedback,
-                          checkable: checkable);
-                    },
-                    child: Text(
-                      checkable.where((value) => value).length ==
-                          context
-                              .read<AdminVacancyListBloc>()
-                              .state
-                              .tableData
-                              .totalElementCounts
-                          ? 'Delete All'
-                          : 'Delete Selected',
-                      style: const TextStyle(
+                  children: [
+                    Text(
+                        '${checkable.where((value) => value).length == context.read<AdminVacancyListBloc>().state.tableData.totalElementCounts ? "All" : checkable.where((value) => value).length} selected',
+                        style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.red,
-                          decoration: TextDecoration.underline,
-                          decorationColor: AppColors.red),
+                          color: AppColors.darkGrey,
+                        )),
+                    const SizedBox(
+                      width: 25,
                     ),
-                  ),
-                ],
-              )
+                    TextButton(
+                      onPressed: () {
+                        deleteVacancyDialog(context,
+                            text: 'Are you sure you want to delete vacancy?',
+                            vacancy: vacancies,
+                            checkable: checkable);
+                      },
+                      child: Text(
+                        checkable.where((value) => value).length ==
+                                context
+                                    .read<AdminVacancyListBloc>()
+                                    .state
+                                    .tableData
+                                    .totalElementCounts
+                            ? 'Delete All'
+                            : 'Delete Selected',
+                        style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.red,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColors.red),
+                      ),
+                    ),
+                  ],
+                )
               : const SizedBox(),
           const SizedBox(
             height: 10,
@@ -257,8 +248,14 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                     width: 100,
                     child: Row(
                       children: [
-                        CustomCheckbox(value: checkable.every((value) => value == true), onChanged: (v) {toggleAllCheckboxes(v!);}),
-                        const SizedBox(width: 11,),
+                        CustomCheckbox(
+                            value: checkable.every((value) => value == true),
+                            onChanged: (v) {
+                              toggleAllCheckboxes(v!);
+                            }),
+                        const SizedBox(
+                          width: 11,
+                        ),
                         const Text(
                           "NAME",
                           style: TextStyle(
@@ -290,11 +287,8 @@ class _AdminVacanciesState extends State<AdminVacancies> {
               ),
               content: PTableViewContent(
                   onTap: (i) {
-                    context.go("/admin/view_vacancy?id=${context
-                        .read<AdminVacancyListBloc>()
-                        .state
-                        .tableData
-                        .element[i].id}");
+                    context.go(
+                        "/admin/view_vacancy?id=${context.read<AdminVacancyListBloc>().state.tableData.element[i].id}");
                   },
                   divider: BorderSide(
                     width: 1,
@@ -309,10 +303,8 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                       .element
                       .asMap()
                       .entries
-                      .map((e) =>
-                      _vacanciesList(vacancy: e.value,
-                          index: e.key,
-                          checkable: checkable))
+                      .map((e) => _vacanciesList(
+                          vacancy: e.value, index: e.key, checkable: checkable))
                       .toList()),
             ),
           )
@@ -321,9 +313,10 @@ class _AdminVacanciesState extends State<AdminVacancies> {
     );
   }
 
-  PTableViewColumn _vacanciesList({required Vacancy vacancy,
-    required int index,
-    required List<bool> checkable}) {
+  PTableViewColumn _vacanciesList(
+      {required JobOffer vacancy,
+      required int index,
+      required List<bool> checkable}) {
     return PTableViewColumn(rows: [
       PTableViewRowFixed(
           width: 300,
@@ -365,7 +358,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
               child: Text(
                 vacancy.company.name,
                 style:
-                const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
+                    const TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -385,9 +378,10 @@ class _AdminVacanciesState extends State<AdminVacancies> {
   }
 }
 
-Widget _tableAction({required String title,
-  required IconData icon,
-  required VoidCallback onTap}) {
+Widget _tableAction(
+    {required String title,
+    required IconData icon,
+    required VoidCallback onTap}) {
   return GestureDetector(
     onTap: onTap,
     child: SelectionContainer.disabled(
@@ -406,7 +400,9 @@ Widget _tableAction({required String title,
             Text(
               title,
               style: const TextStyle(
-                  fontWeight: FontWeight.w600, color: AppColors.darkGrey,fontSize: 14),
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.darkGrey,
+                  fontSize: 14),
             )
           ],
         ),
@@ -422,7 +418,7 @@ Widget _search({required Function(String) onTextChanged}) {
       onChanged: onTextChanged,
       decoration: InputDecoration(
           contentPadding:
-          const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+              const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           hintText: 'Search',
           prefixIcon: Padding(
             padding: const EdgeInsets.all(11),
@@ -472,10 +468,11 @@ Widget _tableTitle({required String title, required String subtitle}) {
     ),
   );
 }
-deleteBucketDialog(BuildContext context,
+
+deleteVacancyDialog(BuildContext context,
     {required String text,
-      List<Feedback>? feedbacks,
-      required List<bool>? checkable}) {
+    List<JobOffer>? vacancy,
+    required List<bool>? checkable}) {
   Widget cancelButton = TextButton(
     child: const Text(
       'Cancel',
@@ -491,9 +488,9 @@ deleteBucketDialog(BuildContext context,
       style: TextStyle(color: AppColors.mainAccent),
     ),
     onPressed: () {
-      // context
-      //     .read<AdminDeleteFeedbackBloc>()
-      //     .add(AdminDeleteFeedbackEvent.deleteFeedback(feedbackId: feedbacks!));
+      context
+          .read<AdminDeleteVacancyBloc>()
+          .add(AdminDeleteVacancyEvent.deleteVacancy(vacanciesIds: vacancy!));
       Navigator.pop(context);
     },
   );

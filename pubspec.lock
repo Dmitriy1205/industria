@@ -698,7 +698,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "299c759d8d56698a602d301ffdd3fe9fc550c5ce"
+      resolved-ref: "95b7165758074e1f48d2a4ab7ec95557ac018c74"
       url: "https://github.com/PandasCodi/pandas_tableview.git"
     source: git
     version: "0.0.1"

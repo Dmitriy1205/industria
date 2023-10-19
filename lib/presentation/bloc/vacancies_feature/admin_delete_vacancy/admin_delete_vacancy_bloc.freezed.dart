@@ -16,36 +16,36 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AdminDeleteVacancyEvent {
-  List<String> get vacanciesIds => throw _privateConstructorUsedError;
+  List<JobOffer> get vacanciesIds => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String> vacanciesIds) deleteEmployee,
+    required TResult Function(List<JobOffer> vacanciesIds) deleteVacancy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String> vacanciesIds)? deleteEmployee,
+    TResult? Function(List<JobOffer> vacanciesIds)? deleteVacancy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String> vacanciesIds)? deleteEmployee,
+    TResult Function(List<JobOffer> vacanciesIds)? deleteVacancy,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_DeleteEmployeeEvent value) deleteEmployee,
+    required TResult Function(_DeleteVacancyEvent value) deleteVacancy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_DeleteEmployeeEvent value)? deleteEmployee,
+    TResult? Function(_DeleteVacancyEvent value)? deleteVacancy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_DeleteEmployeeEvent value)? deleteEmployee,
+    TResult Function(_DeleteVacancyEvent value)? deleteVacancy,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ abstract class $AdminDeleteVacancyEventCopyWith<$Res> {
           $Res Function(AdminDeleteVacancyEvent) then) =
       _$AdminDeleteVacancyEventCopyWithImpl<$Res, AdminDeleteVacancyEvent>;
   @useResult
-  $Res call({List<String> vacanciesIds});
+  $Res call({List<JobOffer> vacanciesIds});
 }
 
 /// @nodoc
@@ -84,28 +84,28 @@ class _$AdminDeleteVacancyEventCopyWithImpl<$Res,
       vacanciesIds: null == vacanciesIds
           ? _value.vacanciesIds
           : vacanciesIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<JobOffer>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_DeleteEmployeeEventCopyWith<$Res>
+abstract class _$$_DeleteVacancyEventCopyWith<$Res>
     implements $AdminDeleteVacancyEventCopyWith<$Res> {
-  factory _$$_DeleteEmployeeEventCopyWith(_$_DeleteEmployeeEvent value,
-          $Res Function(_$_DeleteEmployeeEvent) then) =
-      __$$_DeleteEmployeeEventCopyWithImpl<$Res>;
+  factory _$$_DeleteVacancyEventCopyWith(_$_DeleteVacancyEvent value,
+          $Res Function(_$_DeleteVacancyEvent) then) =
+      __$$_DeleteVacancyEventCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<String> vacanciesIds});
+  $Res call({List<JobOffer> vacanciesIds});
 }
 
 /// @nodoc
-class __$$_DeleteEmployeeEventCopyWithImpl<$Res>
-    extends _$AdminDeleteVacancyEventCopyWithImpl<$Res, _$_DeleteEmployeeEvent>
-    implements _$$_DeleteEmployeeEventCopyWith<$Res> {
-  __$$_DeleteEmployeeEventCopyWithImpl(_$_DeleteEmployeeEvent _value,
-      $Res Function(_$_DeleteEmployeeEvent) _then)
+class __$$_DeleteVacancyEventCopyWithImpl<$Res>
+    extends _$AdminDeleteVacancyEventCopyWithImpl<$Res, _$_DeleteVacancyEvent>
+    implements _$$_DeleteVacancyEventCopyWith<$Res> {
+  __$$_DeleteVacancyEventCopyWithImpl(
+      _$_DeleteVacancyEvent _value, $Res Function(_$_DeleteVacancyEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -113,24 +113,24 @@ class __$$_DeleteEmployeeEventCopyWithImpl<$Res>
   $Res call({
     Object? vacanciesIds = null,
   }) {
-    return _then(_$_DeleteEmployeeEvent(
+    return _then(_$_DeleteVacancyEvent(
       vacanciesIds: null == vacanciesIds
           ? _value._vacanciesIds
           : vacanciesIds // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<JobOffer>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_DeleteEmployeeEvent implements _DeleteEmployeeEvent {
-  const _$_DeleteEmployeeEvent({required final List<String> vacanciesIds})
+class _$_DeleteVacancyEvent implements _DeleteVacancyEvent {
+  const _$_DeleteVacancyEvent({required final List<JobOffer> vacanciesIds})
       : _vacanciesIds = vacanciesIds;
 
-  final List<String> _vacanciesIds;
+  final List<JobOffer> _vacanciesIds;
   @override
-  List<String> get vacanciesIds {
+  List<JobOffer> get vacanciesIds {
     if (_vacanciesIds is EqualUnmodifiableListView) return _vacanciesIds;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_vacanciesIds);
@@ -138,14 +138,14 @@ class _$_DeleteEmployeeEvent implements _DeleteEmployeeEvent {
 
   @override
   String toString() {
-    return 'AdminDeleteVacancyEvent.deleteEmployee(vacanciesIds: $vacanciesIds)';
+    return 'AdminDeleteVacancyEvent.deleteVacancy(vacanciesIds: $vacanciesIds)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteEmployeeEvent &&
+            other is _$_DeleteVacancyEvent &&
             const DeepCollectionEquality()
                 .equals(other._vacanciesIds, _vacanciesIds));
   }
@@ -157,34 +157,34 @@ class _$_DeleteEmployeeEvent implements _DeleteEmployeeEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DeleteEmployeeEventCopyWith<_$_DeleteEmployeeEvent> get copyWith =>
-      __$$_DeleteEmployeeEventCopyWithImpl<_$_DeleteEmployeeEvent>(
+  _$$_DeleteVacancyEventCopyWith<_$_DeleteVacancyEvent> get copyWith =>
+      __$$_DeleteVacancyEventCopyWithImpl<_$_DeleteVacancyEvent>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<String> vacanciesIds) deleteEmployee,
+    required TResult Function(List<JobOffer> vacanciesIds) deleteVacancy,
   }) {
-    return deleteEmployee(vacanciesIds);
+    return deleteVacancy(vacanciesIds);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<String> vacanciesIds)? deleteEmployee,
+    TResult? Function(List<JobOffer> vacanciesIds)? deleteVacancy,
   }) {
-    return deleteEmployee?.call(vacanciesIds);
+    return deleteVacancy?.call(vacanciesIds);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<String> vacanciesIds)? deleteEmployee,
+    TResult Function(List<JobOffer> vacanciesIds)? deleteVacancy,
     required TResult orElse(),
   }) {
-    if (deleteEmployee != null) {
-      return deleteEmployee(vacanciesIds);
+    if (deleteVacancy != null) {
+      return deleteVacancy(vacanciesIds);
     }
     return orElse();
   }
@@ -192,41 +192,41 @@ class _$_DeleteEmployeeEvent implements _DeleteEmployeeEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_DeleteEmployeeEvent value) deleteEmployee,
+    required TResult Function(_DeleteVacancyEvent value) deleteVacancy,
   }) {
-    return deleteEmployee(this);
+    return deleteVacancy(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_DeleteEmployeeEvent value)? deleteEmployee,
+    TResult? Function(_DeleteVacancyEvent value)? deleteVacancy,
   }) {
-    return deleteEmployee?.call(this);
+    return deleteVacancy?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_DeleteEmployeeEvent value)? deleteEmployee,
+    TResult Function(_DeleteVacancyEvent value)? deleteVacancy,
     required TResult orElse(),
   }) {
-    if (deleteEmployee != null) {
-      return deleteEmployee(this);
+    if (deleteVacancy != null) {
+      return deleteVacancy(this);
     }
     return orElse();
   }
 }
 
-abstract class _DeleteEmployeeEvent implements AdminDeleteVacancyEvent {
-  const factory _DeleteEmployeeEvent(
-      {required final List<String> vacanciesIds}) = _$_DeleteEmployeeEvent;
+abstract class _DeleteVacancyEvent implements AdminDeleteVacancyEvent {
+  const factory _DeleteVacancyEvent(
+      {required final List<JobOffer> vacanciesIds}) = _$_DeleteVacancyEvent;
 
   @override
-  List<String> get vacanciesIds;
+  List<JobOffer> get vacanciesIds;
   @override
   @JsonKey(ignore: true)
-  _$$_DeleteEmployeeEventCopyWith<_$_DeleteEmployeeEvent> get copyWith =>
+  _$$_DeleteVacancyEventCopyWith<_$_DeleteVacancyEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 

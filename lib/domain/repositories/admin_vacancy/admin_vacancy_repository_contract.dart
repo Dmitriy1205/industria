@@ -1,3 +1,5 @@
+import 'package:industria/domain/entities/job_offer/job_offer.dart';
+
 import '../../../core/table_data/table_data.dart';
 import '../../entities/company/company.dart';
 import '../../entities/vacancy/vacancy.dart';
@@ -30,9 +32,9 @@ abstract class AdminVacancyRepository {
       required String description,
       required List<String> questions});
 
-  Future<void> deleteVacancy({required List<String> vacanciesIds});
+  Future<void> deleteVacancy({required List<JobOffer> vacanciesIds});
 
-  Future<TableData<List<Vacancy>>> listVacancy(
+  Future<TableData<List<JobOffer>>> listVacancy(
       {required int page,
       required int elementsPerPage,
       required String searchTerm});

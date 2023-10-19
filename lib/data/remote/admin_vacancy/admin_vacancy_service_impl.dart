@@ -19,7 +19,7 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
   final Algolia _algolia;
 
   @override
-  Future<TableData<List<Vacancy>>> listVacancy(
+  Future<TableData<List<JobOffer>>> listVacancy(
       {required int page,
       required int elementsPerPage,
       required String searchTerm}) async {
@@ -29,7 +29,7 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
       currentQuery = currentQuery.setHitsPerPage(elementsPerPage).setPage(page);
       final objects = await currentQuery.getObjects();
       final vacancies =
-          objects.hits.map((e) => Vacancy.fromJson(e.data)).toList();
+          objects.hits.map((e) => JobOffer.fromJson(e.data)).toList();
       return TableData(
           numberOfPages: objects.nbPages,
           totalElementCounts: objects.nbHits,
@@ -42,10 +42,10 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
   }
 
   @override
-  Future<void> deleteVacancy({required List<String> vacanciesIds}) {
+  Future<void> deleteVacancy({required List<JobOffer> vacanciesIds}) {
     return _db.runTransaction((transaction) async {
       for (var uid in vacanciesIds) {
-        var docRef = _db.collection(FirestoreCollections.jobs).doc(uid);
+        var docRef = _db.collection(FirestoreCollections.jobs).doc(uid.id);
         transaction.delete(docRef);
       }
     });

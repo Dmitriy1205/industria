@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../domain/entities/job_offer/job_offer.dart';
+import '../../../../domain/entities/vacancy/vacancy.dart';
 import '../../../../domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
 
 part 'admin_delete_vacancy_event.dart';
@@ -22,10 +24,10 @@ class AdminDeleteVacancyBloc
 
   Future<void> _mapEventToState(AdminDeleteVacancyEvent event,
           Emitter<AdminDeleteVacancyState> emit) =>
-      event.map(deleteEmployee: (e) => _deleteEmployee(e, emit));
+      event.map(deleteVacancy: (e) => _deleteVacancy(e, emit));
 
-  Future<void> _deleteEmployee(
-      _DeleteEmployeeEvent event, Emitter<AdminDeleteVacancyState> emit) async {
+  Future<void> _deleteVacancy(
+      _DeleteVacancyEvent event, Emitter<AdminDeleteVacancyState> emit) async {
     emit(const AdminDeleteVacancyState.loading());
     try {
       await _adminVacancyRepository.deleteVacancy(

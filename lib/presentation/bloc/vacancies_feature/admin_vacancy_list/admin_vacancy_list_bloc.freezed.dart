@@ -364,21 +364,21 @@ mixin _$AdminVacancyListState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            TableData<List<Vacancy>> tableData, String searchTerm)
+            TableData<List<JobOffer>> tableData, String searchTerm)
         loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(TableData<List<Vacancy>> tableData, String searchTerm)?
+    TResult? Function(TableData<List<JobOffer>> tableData, String searchTerm)?
         loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(TableData<List<Vacancy>> tableData, String searchTerm)?
+    TResult Function(TableData<List<JobOffer>> tableData, String searchTerm)?
         loaded,
     required TResult orElse(),
   }) =>
@@ -463,7 +463,7 @@ class _$_InitialState extends _InitialState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            TableData<List<Vacancy>> tableData, String searchTerm)
+            TableData<List<JobOffer>> tableData, String searchTerm)
         loaded,
   }) {
     return initial();
@@ -473,7 +473,7 @@ class _$_InitialState extends _InitialState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(TableData<List<Vacancy>> tableData, String searchTerm)?
+    TResult? Function(TableData<List<JobOffer>> tableData, String searchTerm)?
         loaded,
   }) {
     return initial?.call();
@@ -483,7 +483,7 @@ class _$_InitialState extends _InitialState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(TableData<List<Vacancy>> tableData, String searchTerm)?
+    TResult Function(TableData<List<JobOffer>> tableData, String searchTerm)?
         loaded,
     required TResult orElse(),
   }) {
@@ -536,7 +536,7 @@ abstract class _$$_LoadedStateCopyWith<$Res> {
           _$_LoadedState value, $Res Function(_$_LoadedState) then) =
       __$$_LoadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({TableData<List<Vacancy>> tableData, String searchTerm});
+  $Res call({TableData<List<JobOffer>> tableData, String searchTerm});
 }
 
 /// @nodoc
@@ -557,7 +557,7 @@ class __$$_LoadedStateCopyWithImpl<$Res>
       tableData: null == tableData
           ? _value.tableData
           : tableData // ignore: cast_nullable_to_non_nullable
-              as TableData<List<Vacancy>>,
+              as TableData<List<JobOffer>>,
       searchTerm: null == searchTerm
           ? _value.searchTerm
           : searchTerm // ignore: cast_nullable_to_non_nullable
@@ -573,7 +573,7 @@ class _$_LoadedState extends _LoadedState {
       : super._();
 
   @override
-  final TableData<List<Vacancy>> tableData;
+  final TableData<List<JobOffer>> tableData;
   @override
   final String searchTerm;
 
@@ -607,7 +607,7 @@ class _$_LoadedState extends _LoadedState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function(
-            TableData<List<Vacancy>> tableData, String searchTerm)
+            TableData<List<JobOffer>> tableData, String searchTerm)
         loaded,
   }) {
     return loaded(tableData, searchTerm);
@@ -617,7 +617,7 @@ class _$_LoadedState extends _LoadedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(TableData<List<Vacancy>> tableData, String searchTerm)?
+    TResult? Function(TableData<List<JobOffer>> tableData, String searchTerm)?
         loaded,
   }) {
     return loaded?.call(tableData, searchTerm);
@@ -627,7 +627,7 @@ class _$_LoadedState extends _LoadedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(TableData<List<Vacancy>> tableData, String searchTerm)?
+    TResult Function(TableData<List<JobOffer>> tableData, String searchTerm)?
         loaded,
     required TResult orElse(),
   }) {
@@ -671,11 +671,11 @@ class _$_LoadedState extends _LoadedState {
 
 abstract class _LoadedState extends AdminVacancyListState {
   const factory _LoadedState(
-      {required final TableData<List<Vacancy>> tableData,
+      {required final TableData<List<JobOffer>> tableData,
       required final String searchTerm}) = _$_LoadedState;
   const _LoadedState._() : super._();
 
-  TableData<List<Vacancy>> get tableData;
+  TableData<List<JobOffer>> get tableData;
   String get searchTerm;
   @JsonKey(ignore: true)
   _$$_LoadedStateCopyWith<_$_LoadedState> get copyWith =>

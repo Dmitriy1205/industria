@@ -1,5 +1,6 @@
 import 'package:industria/core/table_data/table_data.dart';
 import 'package:industria/domain/entities/company/company.dart';
+import 'package:industria/domain/entities/job_offer/job_offer.dart';
 
 import '../../../data/remote/admin_vacancy/admin_vacancy_service_contract.dart';
 import '../../entities/vacancy/vacancy.dart';
@@ -49,7 +50,7 @@ class AdminVacancyRepositoryImpl implements AdminVacancyRepository {
   }
 
   @override
-  Future<void> deleteVacancy({required List<String> vacanciesIds}) {
+  Future<void> deleteVacancy({required List<JobOffer> vacanciesIds}) {
     return _adminVacancyService.deleteVacancy(vacanciesIds: vacanciesIds);
   }
 
@@ -59,7 +60,7 @@ class AdminVacancyRepositoryImpl implements AdminVacancyRepository {
   }
 
   @override
-  Future<TableData<List<Vacancy>>> listVacancy(
+  Future<TableData<List<JobOffer>>> listVacancy(
       {required int page,
       required int elementsPerPage,
       required String searchTerm}) {

@@ -138,7 +138,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: ViewUserFeedback(feedback: state.extra as Feedback),
+              child: ViewUserFeedback(),
             ),
           ),
           GoRoute(

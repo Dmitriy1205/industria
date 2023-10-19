@@ -24,6 +24,11 @@ class AdminFeedbackRepositoryImpl implements AdminFeedbackRepository {
         page: page, elementsPerPage: elementsPerPage, searchTerm: searchTerm);
   }
 
+  @override
+  Future<Feedback?> getFeedbackById({required String id}) {
+    return _adminFeedbackService.getFeedbackById(id: id);
+  }
+
   const AdminFeedbackRepositoryImpl({
     required AdminFeedbackService adminFeedbackService,
   }) : _adminFeedbackService = adminFeedbackService;

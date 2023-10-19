@@ -45,6 +45,16 @@ class AdminFeedbackServiceImpl implements AdminFeedbackService {
     }
   }
 
+  @override
+  Future<Feedback?> getFeedbackById({required String id}) async{
+    final doc = await _db.collection(FirestoreCollections.contactRequests).doc(id).get();
+    if(doc.exists){
+      return Feedback.fromJson(doc.data()!);
+    }else{
+      return null;
+    }
+  }
+
   AdminFeedbackServiceImpl({
     required Dio dio,
     required FirebaseFirestore db,

@@ -215,12 +215,11 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
                 ),
                 content: PTableViewContent(
                     onTap: (i) {
-                      context.go("/admin/view_feedback",
-                          extra: context
-                              .read<AdminFeedbackListBloc>()
-                              .state
-                              .tableData
-                              .element[i]);
+                      context.go("/admin/view_feedback?id=${context
+                          .read<AdminFeedbackListBloc>()
+                          .state
+                          .tableData
+                          .element[i].id}");
                     },
                     divider: BorderSide(
                       width: 1,

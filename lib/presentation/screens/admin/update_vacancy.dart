@@ -37,6 +37,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
   Period? dropdownPeriod;
   Currency? dropdownCurrency;
   Company? dropdownCompany;
+  String? id;
   final List<TextEditingController> _questionControllers = [];
 
   final AdminViewVacancyCubit _adminViewVacancyCubit = AdminViewVacancyCubit(adminVacancyRepository: sl<AdminVacancyRepository>());
@@ -111,6 +112,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
           _descriptionController = TextEditingController(text: state.description);
           _companyController = TextEditingController(text: state.company.name);
           _cityController = TextEditingController(text: state.city);
+          id = state.id;
           dropdownCompany = state.company;
           dropdownJobArea = JobAreas.values.where((e) => e.text == state.area).firstOrNull;
           dropdownJobType = JobTypes.values.where((e) => e.value == state.jobType).firstOrNull;
@@ -119,7 +121,6 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
           for(var question in state.questions){
             _addTextField(question);
           }
-          setState(() {});
         }
       },
       bloc: _adminViewVacancyCubit,
@@ -166,7 +167,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                           ),
                           Text(
                             " / Update",
-                            style: TextStyle(fontSize: 18),
+                           style: TextStyle(fontSize: 18),
                           )
                         ],
                       ),
@@ -300,25 +301,6 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                         controller: _companyController!,
                                         isSavePressed: false,
                                         hintText: 'Company name*',
-                                        validator: (val) {
-                                          final emptyErrorMsg =
-                                          Validator.validate(val);
-                                          if (emptyErrorMsg != null) {
-                                            return emptyErrorMsg;
-                                          }
-                                          if (state
-                                              .where((e) => e.name == val)
-                                              .isEmpty) {
-                                            return "Choose a valid company from list";
-                                          } else {
-                                            setState(() {
-                                              dropdownCompany = state
-                                                  .where(
-                                                      (e) => e.name == val)
-                                                  .firstOrNull;
-                                            });
-                                          }
-                                        },
                                         onChanged: (value) {
                                           setState(() {
                                             dropdownCompany = state
@@ -530,7 +512,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                         _adminUpdateVacancyBloc.add(
                                             AdminUpdateVacancyEvent
                                                 .updateVacancy(
-                                                id: "",
+                                                id: id!,
                                                 title: title,
                                                 company:
                                                 dropdownCompany!,

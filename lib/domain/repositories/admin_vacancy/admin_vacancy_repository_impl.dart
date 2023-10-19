@@ -54,10 +54,8 @@ class AdminVacancyRepositoryImpl implements AdminVacancyRepository {
   }
 
   @override
-  Future<List<Company>> listCompanies(
-      {required String searchTerm, required int count}) {
-    return _adminVacancyService.listCompanies(
-        searchTerm: searchTerm, count: count);
+  Future<List<Company>> listCompanies() {
+    return _adminVacancyService.listCompanies();
   }
 
   @override
@@ -67,6 +65,11 @@ class AdminVacancyRepositoryImpl implements AdminVacancyRepository {
       required String searchTerm}) {
     return _adminVacancyService.listVacancy(
         page: page, elementsPerPage: elementsPerPage, searchTerm: searchTerm);
+  }
+
+  @override
+  Future<Vacancy?> getVacancyById({required String vacancyId}) {
+    return _adminVacancyService.getVacancyById(vacancyId: vacancyId);
   }
 
   @override

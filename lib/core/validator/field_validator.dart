@@ -10,6 +10,13 @@ class Validator {
         : null;
   }
 
+  static String? validateNumber(String? value){
+    if(value == null || int.tryParse(value) == null){
+      return 'Must be a valid number';
+    }
+    return null;
+  }
+
   static String? validatePhone(String? value) {
     String pattern = r'^(\+\d{1,3})?\d{8,12}$';
     RegExp regExp = RegExp(pattern);

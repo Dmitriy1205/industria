@@ -34,7 +34,7 @@ class AdminVacancyListBloc
       final tableData = await _adminVacancyRepository.listVacancy(
           page: event.page,
           elementsPerPage: event.elementsPerPage,
-          searchTerm: 'event');
+          searchTerm: state.searchTerm);
       emit(AdminVacancyListState.loaded(
           tableData: tableData, searchTerm: state.searchTerm));
     } catch (e) {
@@ -46,6 +46,6 @@ class AdminVacancyListBloc
       _ChangeSearchTermEvent event, Emitter<AdminVacancyListState> emit) async {
     emit(AdminVacancyListState.loaded(
         tableData: state.tableData, searchTerm: event.searchTerm));
-    add(AdminVacancyListEvent.fetchData(page: 0, elementsPerPage: 5));
+    add(AdminVacancyListEvent.fetchData(page: 0, elementsPerPage: 7));
   }
 }

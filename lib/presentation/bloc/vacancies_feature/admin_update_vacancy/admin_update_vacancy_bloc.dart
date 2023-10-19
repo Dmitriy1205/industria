@@ -23,10 +23,10 @@ class AdminUpdateVacancyBloc
 
   Future<void> _mapEventToState(AdminUpdateVacancyEvent event,
           Emitter<AdminUpdateVacancyState> emit) =>
-      event.map(updateEmployee: (e) => _updateEmployee(e, emit));
+      event.map(updateVacancy: (e) => _updateEmployee(e, emit));
 
   Future<void> _updateEmployee(
-      _UpdateEmployeeEvent event, Emitter<AdminUpdateVacancyState> emit) async {
+      _UpdateVacancyEvent event, Emitter<AdminUpdateVacancyState> emit) async {
     try {
       emit(const AdminUpdateVacancyState.loading());
       await _adminVacancyRepository.updateVacancy(

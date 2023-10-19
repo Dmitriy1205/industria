@@ -11,16 +11,16 @@ class Vacancy with _$Vacancy {
   const factory Vacancy({
     String? id,
     required String title,
-    required Company company,
-    required String type,
-    required String salary,
-    required String currency,
-    required String period,
-    required String location,
+    required String jobType,
+    required String companyId,
+    required String companyName,
     required String area,
+    required Company company,
+    required String location,
     required String city,
+    required String salary,
     required String description,
-    required List<String> questions,
+    @Default([]) List<String> questions,
     @JsonKey(
         fromJson: FirebaseTimestampConverters.fromTimestamp,
         toJson: FirebaseTimestampConverters.toTimestampString)

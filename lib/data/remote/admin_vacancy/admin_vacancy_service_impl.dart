@@ -24,17 +24,17 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
       required int elementsPerPage,
       required String searchTerm}) async {
     try {
-      final index = _algolia.index("dev_vac");
+      final index = _algolia.index("dev_jobs");
       AlgoliaQuery currentQuery = index.query(searchTerm);
       currentQuery = currentQuery.setHitsPerPage(elementsPerPage).setPage(page);
       final objects = await currentQuery.getObjects();
-      final employees =
+      final vacancies =
           objects.hits.map((e) => Vacancy.fromJson(e.data)).toList();
       return TableData(
           numberOfPages: objects.nbPages,
           totalElementCounts: objects.nbHits,
           currentPage: objects.page,
-          element: employees);
+          element: vacancies);
     } catch (e) {
       print(e);
       rethrow;
@@ -66,19 +66,20 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
       required String description,
       required List<String> questions}) async {
     final doc = _db.collection(FirestoreCollections.jobs).doc(id);
-    final json = JobOffer.firestoreJson(
-        docId: doc.id,
-        company: company,
-        title: title,
-        jobType: type,
-        salary: salary,
-        currency: currency,
-        period: period,
-        location: location,
-        area: area,
-        city: city,
-        description: description,
-        questions: questions);
+    final json = {
+      'title': title,
+      'company': company.toJson(),
+      'companyId': company.id,
+      'companyName': company.name,
+      'jobType': type,
+      'salary': "$salary$currency / ${period.toLowerCase()}",
+      'location': location,
+      'area': area,
+      'city': city,
+      'description': description,
+      'questions': questions,
+    };
+    print(json);
     await doc.update(json);
   }
 
@@ -97,17 +98,18 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
       required List<String> questions}) async {
     final doc = _db.collection(FirestoreCollections.jobs).doc();
     final json = {
+      'id': doc.id,
       'title': title,
-      'company': company,
-      'type': type,
-      'salary': salary,
-      'currency': currency,
-      'period': period,
+      'company': company.toJson(),
+      'companyId': company.id,
+      'companyName': company.name,
+      'jobType': type,
+      'salary': "$salary$currency / ${period.toLowerCase()}",
       'location': location,
       'area': area,
       'city': city,
       'description': description,
-      'createdAt': DateTime.now().toUtc().toIso8601String(),
+      'createdAt': FieldValue.serverTimestamp(),
       'questions': questions,
     };
     await doc.set(json);
@@ -123,14 +125,23 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
         "companies/pictures/${doc.id}.${photoName.split(".").last}";
     final storageRef = _storage.ref(storageRefPath);
     await storageRef.putData(Uint8List.fromList(photoBytes));
-    await doc.set({"name": companyName, "id": doc.id, "logo": storageRef});
+    await doc.set({"name": companyName, "id": doc.id, "createdAt": FieldValue.serverTimestamp(), "logo": storageRefPath});
   }
 
   @override
-  Future<List<Company>> listCompanies({required String searchTerm, required int count}) async{
-    final doc = await _db.collection(FirestoreCollections.companies).where('name', isGreaterThanOrEqualTo: searchTerm)
-        .where('name', isLessThan: '${searchTerm}z').limit(count).get();
+  Future<List<Company>> listCompanies() async{
+    final doc = await _db.collection(FirestoreCollections.companies).get();
     return doc.docs.map((e) => Company.fromJson(e.data())).toList();
+  }
+
+  @override
+  Future<Vacancy?> getVacancyById({required String vacancyId}) async{
+    final doc = await _db.collection(FirestoreCollections.jobs).doc(vacancyId).get();
+    if(doc.exists){
+      return Vacancy.fromJson(doc.data()!);
+    }else{
+      return null;
+    }
   }
 
   AdminVacancyServiceImpl({
@@ -142,4 +153,5 @@ class AdminVacancyServiceImpl implements AdminVacancyService {
         _db = db,
         _storage = storage,
         _algolia = algolia;
+
 }

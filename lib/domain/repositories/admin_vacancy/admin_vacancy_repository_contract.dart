@@ -37,8 +37,8 @@ abstract class AdminVacancyRepository {
       required int elementsPerPage,
       required String searchTerm});
 
-  Future<List<Company>> listCompanies(
-      {required String searchTerm, required int count});
+  Future<List<Company>> listCompanies();
+  Future<Vacancy?> getVacancyById({required String vacancyId});
 
   Future<void> createCompany(
       {required String companyName,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../core/constants/colors.dart';
 
@@ -33,9 +34,9 @@ class CustomDropdownField<T> extends StatelessWidget {
           icon: const Padding(
             padding: EdgeInsets.only(left: 8.0, top: 2),
             child: Icon(
-              Icons.arrow_drop_down,
-              size: 25,
-              color: Colors.black,
+              FontAwesomeIcons.caretDown,
+              size: 15,
+              color: AppColors.darkGrey,
             ),
           ),
           underline: const SizedBox(),

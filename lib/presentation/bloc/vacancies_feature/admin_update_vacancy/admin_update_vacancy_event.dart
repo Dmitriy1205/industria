@@ -2,7 +2,7 @@ part of 'admin_update_vacancy_bloc.dart';
 
 @freezed
 class AdminUpdateVacancyEvent with _$AdminUpdateVacancyEvent {
-  const factory AdminUpdateVacancyEvent.updateEmployee(
+  const factory AdminUpdateVacancyEvent.updateVacancy(
       {required String id,
       required String title,
       required Company company,
@@ -14,5 +14,5 @@ class AdminUpdateVacancyEvent with _$AdminUpdateVacancyEvent {
       required String area,
       required String city,
       required String description,
-      required List<String> questions}) = _UpdateEmployeeEvent;
+      required List<String> questions}) = _UpdateVacancyEvent;
 }

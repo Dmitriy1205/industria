@@ -44,6 +44,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
   }
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     employee = context
         .read<AdminVacancyListBloc>()
         .state
@@ -82,7 +83,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
               showSuccessSnackBar(context, "Successfully deleted vacancy");
               context.read<AdminVacancyListBloc>().add(
                   const AdminVacancyListEvent.fetchData(
-                      page: 0, elementsPerPage: 5));
+                      page: 0, elementsPerPage: 7));
             },
             fail: (_) {
               showErrorSnackBar(context, "Failed to delete vacancy");
@@ -132,7 +133,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                       ),
                       textStyle: const TextStyle(fontSize: 14),
                       onPressed: () {
-                        context.push('/admin/create_vacancy', extra: 'Create vacancy');
+                        context.go('/admin/create_vacancy');
                       },
                       verticalPadding: 15,
                     ))
@@ -171,7 +172,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                         ),
                         textStyle: const TextStyle(fontSize: 14),
                         onPressed: () {
-                          context.push('/admin/create_vacancy', extra: 'Create vacancy');
+                          context.go('/admin/create_vacancy');
                         },
                         verticalPadding: 15,
                       ))
@@ -242,7 +243,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                 onPageChanged: (i) {
                   context.read<AdminVacancyListBloc>().add(
                       AdminVacancyListEvent.fetchData(
-                          page: i, elementsPerPage: 5));
+                          page: i, elementsPerPage: 7));
                 },
               ),
               fixedHeight: 500,
@@ -289,12 +290,11 @@ class _AdminVacanciesState extends State<AdminVacancies> {
               ),
               content: PTableViewContent(
                   onTap: (i) {
-                    context.go("/admin/view_vacancy",
-                        extra: context
-                            .read<AdminVacancyListBloc>()
-                            .state
-                            .tableData
-                            .element[i]);
+                    context.go("/admin/view_vacancy?id=${context
+                        .read<AdminVacancyListBloc>()
+                        .state
+                        .tableData
+                        .element[i].id}");
                   },
                   divider: BorderSide(
                     width: 1,
@@ -310,7 +310,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                       .asMap()
                       .entries
                       .map((e) =>
-                      _feedbackList(vacancy: e.value,
+                      _vacanciesList(vacancy: e.value,
                           index: e.key,
                           checkable: checkable))
                       .toList()),
@@ -321,7 +321,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
     );
   }
 
-  PTableViewColumn _feedbackList({required Vacancy vacancy,
+  PTableViewColumn _vacanciesList({required Vacancy vacancy,
     required int index,
     required List<bool> checkable}) {
     return PTableViewColumn(rows: [
@@ -378,7 +378,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                 title: 'Change vacancy',
                 icon: FontAwesomeIcons.solidPenToSquare,
                 onTap: () {
-                  context.push("/admin/edit_vacancy");
+                  context.go("/admin/edit_vacancy?id=${vacancy.id}");
                 }),
           )),
     ]);

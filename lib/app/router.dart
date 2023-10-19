@@ -162,7 +162,7 @@ final GoRouter router = GoRouter(
             pageBuilder: (context, state) => pageTransition<void>(
               context: context,
               state: state,
-              child: const EditVacancy(),
+              child: const UpdateVacancy(),
             ),
           ),
           GoRoute(

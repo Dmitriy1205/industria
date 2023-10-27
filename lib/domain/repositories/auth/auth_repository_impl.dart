@@ -15,6 +15,12 @@ class AuthRepositoryImpl implements AuthRepository {
       {required String email, required String password}) async {
     final user =
         await auth.signInWithEmailAndPassword(email: email, password: password);
+    if(user.user != null){
+      final isEmployeeAccount = (await user.user!.getIdTokenResult()).claims!.entries
+          .where((e) => e.key == "employee" && e.value == true)
+          .isNotEmpty;
+      if(isEmployeeAccount) throw FirebaseAuthException(code: "invalid-credentials", message: "You can't use employee account to log in to admin account.");
+    }
   }
 
   @override
@@ -54,6 +60,12 @@ class AuthRepositoryImpl implements AuthRepository {
       {required String email, required String password}) async {
     final user =
         await auth.signInWithEmailAndPassword(email: email, password: password);
+    if(user.user != null){
+      final isAdminAccount = (await user.user!.getIdTokenResult()).claims!.entries
+          .where((e) => e.key == "employee" && e.value == true)
+          .isEmpty;
+      if(isAdminAccount) throw FirebaseAuthException(code: "invalid-credentials", message: "You can't use admin account to log in to employee account.");
+    }
   }
 
   const AuthRepositoryImpl({

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'auth_bloc.dart';
+part of 'admin_auth_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,25 +15,25 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$AuthEvent {
+mixin _$AdminAuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
-    required TResult Function(Employee? user) employeeChanged,
+    required TResult Function(User? user) adminChanged,
     required TResult Function() logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
-    TResult? Function(Employee? user)? employeeChanged,
+    TResult? Function(User? user)? adminChanged,
     TResult? Function()? logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
-    TResult Function(Employee? user)? employeeChanged,
+    TResult Function(User? user)? adminChanged,
     TResult Function()? logout,
     required TResult orElse(),
   }) =>
@@ -41,21 +41,21 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginEvent value) login,
-    required TResult Function(_EmployeeChangedEvent value) employeeChanged,
+    required TResult Function(_AdminChangedEvent value) adminChanged,
     required TResult Function(_LogoutEvent value) logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginEvent value)? login,
-    TResult? Function(_EmployeeChangedEvent value)? employeeChanged,
+    TResult? Function(_AdminChangedEvent value)? adminChanged,
     TResult? Function(_LogoutEvent value)? logout,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginEvent value)? login,
-    TResult Function(_EmployeeChangedEvent value)? employeeChanged,
+    TResult Function(_AdminChangedEvent value)? adminChanged,
     TResult Function(_LogoutEvent value)? logout,
     required TResult orElse(),
   }) =>
@@ -63,15 +63,16 @@ mixin _$AuthEvent {
 }
 
 /// @nodoc
-abstract class $AuthEventCopyWith<$Res> {
-  factory $AuthEventCopyWith(AuthEvent value, $Res Function(AuthEvent) then) =
-      _$AuthEventCopyWithImpl<$Res, AuthEvent>;
+abstract class $AdminAuthEventCopyWith<$Res> {
+  factory $AdminAuthEventCopyWith(
+          AdminAuthEvent value, $Res Function(AdminAuthEvent) then) =
+      _$AdminAuthEventCopyWithImpl<$Res, AdminAuthEvent>;
 }
 
 /// @nodoc
-class _$AuthEventCopyWithImpl<$Res, $Val extends AuthEvent>
-    implements $AuthEventCopyWith<$Res> {
-  _$AuthEventCopyWithImpl(this._value, this._then);
+class _$AdminAuthEventCopyWithImpl<$Res, $Val extends AdminAuthEvent>
+    implements $AdminAuthEventCopyWith<$Res> {
+  _$AdminAuthEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -90,7 +91,7 @@ abstract class _$$_LoginEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LoginEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$_LoginEvent>
+    extends _$AdminAuthEventCopyWithImpl<$Res, _$_LoginEvent>
     implements _$$_LoginEventCopyWith<$Res> {
   __$$_LoginEventCopyWithImpl(
       _$_LoginEvent _value, $Res Function(_$_LoginEvent) _then)
@@ -127,7 +128,7 @@ class _$_LoginEvent implements _LoginEvent {
 
   @override
   String toString() {
-    return 'AuthEvent.login(email: $email, password: $password)';
+    return 'AdminAuthEvent.login(email: $email, password: $password)';
   }
 
   @override
@@ -153,7 +154,7 @@ class _$_LoginEvent implements _LoginEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
-    required TResult Function(Employee? user) employeeChanged,
+    required TResult Function(User? user) adminChanged,
     required TResult Function() logout,
   }) {
     return login(email, password);
@@ -163,7 +164,7 @@ class _$_LoginEvent implements _LoginEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
-    TResult? Function(Employee? user)? employeeChanged,
+    TResult? Function(User? user)? adminChanged,
     TResult? Function()? logout,
   }) {
     return login?.call(email, password);
@@ -173,7 +174,7 @@ class _$_LoginEvent implements _LoginEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
-    TResult Function(Employee? user)? employeeChanged,
+    TResult Function(User? user)? adminChanged,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
@@ -187,7 +188,7 @@ class _$_LoginEvent implements _LoginEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginEvent value) login,
-    required TResult Function(_EmployeeChangedEvent value) employeeChanged,
+    required TResult Function(_AdminChangedEvent value) adminChanged,
     required TResult Function(_LogoutEvent value) logout,
   }) {
     return login(this);
@@ -197,7 +198,7 @@ class _$_LoginEvent implements _LoginEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginEvent value)? login,
-    TResult? Function(_EmployeeChangedEvent value)? employeeChanged,
+    TResult? Function(_AdminChangedEvent value)? adminChanged,
     TResult? Function(_LogoutEvent value)? logout,
   }) {
     return login?.call(this);
@@ -207,7 +208,7 @@ class _$_LoginEvent implements _LoginEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginEvent value)? login,
-    TResult Function(_EmployeeChangedEvent value)? employeeChanged,
+    TResult Function(_AdminChangedEvent value)? adminChanged,
     TResult Function(_LogoutEvent value)? logout,
     required TResult orElse(),
   }) {
@@ -218,7 +219,7 @@ class _$_LoginEvent implements _LoginEvent {
   }
 }
 
-abstract class _LoginEvent implements AuthEvent {
+abstract class _LoginEvent implements AdminAuthEvent {
   const factory _LoginEvent(
       {required final String email,
       required final String password}) = _$_LoginEvent;
@@ -231,22 +232,20 @@ abstract class _LoginEvent implements AuthEvent {
 }
 
 /// @nodoc
-abstract class _$$_EmployeeChangedEventCopyWith<$Res> {
-  factory _$$_EmployeeChangedEventCopyWith(_$_EmployeeChangedEvent value,
-          $Res Function(_$_EmployeeChangedEvent) then) =
-      __$$_EmployeeChangedEventCopyWithImpl<$Res>;
+abstract class _$$_AdminChangedEventCopyWith<$Res> {
+  factory _$$_AdminChangedEventCopyWith(_$_AdminChangedEvent value,
+          $Res Function(_$_AdminChangedEvent) then) =
+      __$$_AdminChangedEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({Employee? user});
-
-  $EmployeeCopyWith<$Res>? get user;
+  $Res call({User? user});
 }
 
 /// @nodoc
-class __$$_EmployeeChangedEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$_EmployeeChangedEvent>
-    implements _$$_EmployeeChangedEventCopyWith<$Res> {
-  __$$_EmployeeChangedEventCopyWithImpl(_$_EmployeeChangedEvent _value,
-      $Res Function(_$_EmployeeChangedEvent) _then)
+class __$$_AdminChangedEventCopyWithImpl<$Res>
+    extends _$AdminAuthEventCopyWithImpl<$Res, _$_AdminChangedEvent>
+    implements _$$_AdminChangedEventCopyWith<$Res> {
+  __$$_AdminChangedEventCopyWithImpl(
+      _$_AdminChangedEvent _value, $Res Function(_$_AdminChangedEvent) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -254,45 +253,33 @@ class __$$_EmployeeChangedEventCopyWithImpl<$Res>
   $Res call({
     Object? user = freezed,
   }) {
-    return _then(_$_EmployeeChangedEvent(
+    return _then(_$_AdminChangedEvent(
       user: freezed == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as Employee?,
+              as User?,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $EmployeeCopyWith<$Res>? get user {
-    if (_value.user == null) {
-      return null;
-    }
-
-    return $EmployeeCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value));
-    });
   }
 }
 
 /// @nodoc
 
-class _$_EmployeeChangedEvent implements _EmployeeChangedEvent {
-  const _$_EmployeeChangedEvent({required this.user});
+class _$_AdminChangedEvent implements _AdminChangedEvent {
+  const _$_AdminChangedEvent({required this.user});
 
   @override
-  final Employee? user;
+  final User? user;
 
   @override
   String toString() {
-    return 'AuthEvent.employeeChanged(user: $user)';
+    return 'AdminAuthEvent.adminChanged(user: $user)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_EmployeeChangedEvent &&
+            other is _$_AdminChangedEvent &&
             (identical(other.user, user) || other.user == user));
   }
 
@@ -302,40 +289,40 @@ class _$_EmployeeChangedEvent implements _EmployeeChangedEvent {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_EmployeeChangedEventCopyWith<_$_EmployeeChangedEvent> get copyWith =>
-      __$$_EmployeeChangedEventCopyWithImpl<_$_EmployeeChangedEvent>(
+  _$$_AdminChangedEventCopyWith<_$_AdminChangedEvent> get copyWith =>
+      __$$_AdminChangedEventCopyWithImpl<_$_AdminChangedEvent>(
           this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
-    required TResult Function(Employee? user) employeeChanged,
+    required TResult Function(User? user) adminChanged,
     required TResult Function() logout,
   }) {
-    return employeeChanged(user);
+    return adminChanged(user);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
-    TResult? Function(Employee? user)? employeeChanged,
+    TResult? Function(User? user)? adminChanged,
     TResult? Function()? logout,
   }) {
-    return employeeChanged?.call(user);
+    return adminChanged?.call(user);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
-    TResult Function(Employee? user)? employeeChanged,
+    TResult Function(User? user)? adminChanged,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
-    if (employeeChanged != null) {
-      return employeeChanged(user);
+    if (adminChanged != null) {
+      return adminChanged(user);
     }
     return orElse();
   }
@@ -344,44 +331,44 @@ class _$_EmployeeChangedEvent implements _EmployeeChangedEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginEvent value) login,
-    required TResult Function(_EmployeeChangedEvent value) employeeChanged,
+    required TResult Function(_AdminChangedEvent value) adminChanged,
     required TResult Function(_LogoutEvent value) logout,
   }) {
-    return employeeChanged(this);
+    return adminChanged(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginEvent value)? login,
-    TResult? Function(_EmployeeChangedEvent value)? employeeChanged,
+    TResult? Function(_AdminChangedEvent value)? adminChanged,
     TResult? Function(_LogoutEvent value)? logout,
   }) {
-    return employeeChanged?.call(this);
+    return adminChanged?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginEvent value)? login,
-    TResult Function(_EmployeeChangedEvent value)? employeeChanged,
+    TResult Function(_AdminChangedEvent value)? adminChanged,
     TResult Function(_LogoutEvent value)? logout,
     required TResult orElse(),
   }) {
-    if (employeeChanged != null) {
-      return employeeChanged(this);
+    if (adminChanged != null) {
+      return adminChanged(this);
     }
     return orElse();
   }
 }
 
-abstract class _EmployeeChangedEvent implements AuthEvent {
-  const factory _EmployeeChangedEvent({required final Employee? user}) =
-      _$_EmployeeChangedEvent;
+abstract class _AdminChangedEvent implements AdminAuthEvent {
+  const factory _AdminChangedEvent({required final User? user}) =
+      _$_AdminChangedEvent;
 
-  Employee? get user;
+  User? get user;
   @JsonKey(ignore: true)
-  _$$_EmployeeChangedEventCopyWith<_$_EmployeeChangedEvent> get copyWith =>
+  _$$_AdminChangedEventCopyWith<_$_AdminChangedEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -394,7 +381,7 @@ abstract class _$$_LogoutEventCopyWith<$Res> {
 
 /// @nodoc
 class __$$_LogoutEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$_LogoutEvent>
+    extends _$AdminAuthEventCopyWithImpl<$Res, _$_LogoutEvent>
     implements _$$_LogoutEventCopyWith<$Res> {
   __$$_LogoutEventCopyWithImpl(
       _$_LogoutEvent _value, $Res Function(_$_LogoutEvent) _then)
@@ -408,7 +395,7 @@ class _$_LogoutEvent implements _LogoutEvent {
 
   @override
   String toString() {
-    return 'AuthEvent.logout()';
+    return 'AdminAuthEvent.logout()';
   }
 
   @override
@@ -424,7 +411,7 @@ class _$_LogoutEvent implements _LogoutEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email, String password) login,
-    required TResult Function(Employee? user) employeeChanged,
+    required TResult Function(User? user) adminChanged,
     required TResult Function() logout,
   }) {
     return logout();
@@ -434,7 +421,7 @@ class _$_LogoutEvent implements _LogoutEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email, String password)? login,
-    TResult? Function(Employee? user)? employeeChanged,
+    TResult? Function(User? user)? adminChanged,
     TResult? Function()? logout,
   }) {
     return logout?.call();
@@ -444,7 +431,7 @@ class _$_LogoutEvent implements _LogoutEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email, String password)? login,
-    TResult Function(Employee? user)? employeeChanged,
+    TResult Function(User? user)? adminChanged,
     TResult Function()? logout,
     required TResult orElse(),
   }) {
@@ -458,7 +445,7 @@ class _$_LogoutEvent implements _LogoutEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_LoginEvent value) login,
-    required TResult Function(_EmployeeChangedEvent value) employeeChanged,
+    required TResult Function(_AdminChangedEvent value) adminChanged,
     required TResult Function(_LogoutEvent value) logout,
   }) {
     return logout(this);
@@ -468,7 +455,7 @@ class _$_LogoutEvent implements _LogoutEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LoginEvent value)? login,
-    TResult? Function(_EmployeeChangedEvent value)? employeeChanged,
+    TResult? Function(_AdminChangedEvent value)? adminChanged,
     TResult? Function(_LogoutEvent value)? logout,
   }) {
     return logout?.call(this);
@@ -478,7 +465,7 @@ class _$_LogoutEvent implements _LogoutEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LoginEvent value)? login,
-    TResult Function(_EmployeeChangedEvent value)? employeeChanged,
+    TResult Function(_AdminChangedEvent value)? adminChanged,
     TResult Function(_LogoutEvent value)? logout,
     required TResult orElse(),
   }) {
@@ -489,17 +476,17 @@ class _$_LogoutEvent implements _LogoutEvent {
   }
 }
 
-abstract class _LogoutEvent implements AuthEvent {
+abstract class _LogoutEvent implements AdminAuthEvent {
   const factory _LogoutEvent() = _$_LogoutEvent;
 }
 
 /// @nodoc
-mixin _$AuthState {
+mixin _$AdminAuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(Employee employee) authenticated,
+    required TResult Function() authenticated,
     required TResult Function() authenticationFailed,
   }) =>
       throw _privateConstructorUsedError;
@@ -507,7 +494,7 @@ mixin _$AuthState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(Employee employee)? authenticated,
+    TResult? Function()? authenticated,
     TResult? Function()? authenticationFailed,
   }) =>
       throw _privateConstructorUsedError;
@@ -515,7 +502,7 @@ mixin _$AuthState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(Employee employee)? authenticated,
+    TResult Function()? authenticated,
     TResult Function()? authenticationFailed,
     required TResult orElse(),
   }) =>
@@ -524,7 +511,7 @@ mixin _$AuthState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialState value) initial,
     required TResult Function(_UnauthenticatedState value) unauthenticated,
-    required TResult Function(_AuthenticatedState value) authenticated,
+    required TResult Function(_AuthenticatedAdminState value) authenticated,
     required TResult Function(_AuthenticationFailedState value)
         authenticationFailed,
   }) =>
@@ -533,7 +520,7 @@ mixin _$AuthState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialState value)? initial,
     TResult? Function(_UnauthenticatedState value)? unauthenticated,
-    TResult? Function(_AuthenticatedState value)? authenticated,
+    TResult? Function(_AuthenticatedAdminState value)? authenticated,
     TResult? Function(_AuthenticationFailedState value)? authenticationFailed,
   }) =>
       throw _privateConstructorUsedError;
@@ -541,7 +528,7 @@ mixin _$AuthState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialState value)? initial,
     TResult Function(_UnauthenticatedState value)? unauthenticated,
-    TResult Function(_AuthenticatedState value)? authenticated,
+    TResult Function(_AuthenticatedAdminState value)? authenticated,
     TResult Function(_AuthenticationFailedState value)? authenticationFailed,
     required TResult orElse(),
   }) =>
@@ -549,15 +536,16 @@ mixin _$AuthState {
 }
 
 /// @nodoc
-abstract class $AuthStateCopyWith<$Res> {
-  factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
-      _$AuthStateCopyWithImpl<$Res, AuthState>;
+abstract class $AdminAuthStateCopyWith<$Res> {
+  factory $AdminAuthStateCopyWith(
+          AdminAuthState value, $Res Function(AdminAuthState) then) =
+      _$AdminAuthStateCopyWithImpl<$Res, AdminAuthState>;
 }
 
 /// @nodoc
-class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
-    implements $AuthStateCopyWith<$Res> {
-  _$AuthStateCopyWithImpl(this._value, this._then);
+class _$AdminAuthStateCopyWithImpl<$Res, $Val extends AdminAuthState>
+    implements $AdminAuthStateCopyWith<$Res> {
+  _$AdminAuthStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -574,7 +562,7 @@ abstract class _$$_InitialStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_InitialStateCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$_InitialState>
+    extends _$AdminAuthStateCopyWithImpl<$Res, _$_InitialState>
     implements _$$_InitialStateCopyWith<$Res> {
   __$$_InitialStateCopyWithImpl(
       _$_InitialState _value, $Res Function(_$_InitialState) _then)
@@ -588,7 +576,7 @@ class _$_InitialState extends _InitialState {
 
   @override
   String toString() {
-    return 'AuthState.initial()';
+    return 'AdminAuthState.initial()';
   }
 
   @override
@@ -605,7 +593,7 @@ class _$_InitialState extends _InitialState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(Employee employee) authenticated,
+    required TResult Function() authenticated,
     required TResult Function() authenticationFailed,
   }) {
     return initial();
@@ -616,7 +604,7 @@ class _$_InitialState extends _InitialState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(Employee employee)? authenticated,
+    TResult? Function()? authenticated,
     TResult? Function()? authenticationFailed,
   }) {
     return initial?.call();
@@ -627,7 +615,7 @@ class _$_InitialState extends _InitialState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(Employee employee)? authenticated,
+    TResult Function()? authenticated,
     TResult Function()? authenticationFailed,
     required TResult orElse(),
   }) {
@@ -642,7 +630,7 @@ class _$_InitialState extends _InitialState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialState value) initial,
     required TResult Function(_UnauthenticatedState value) unauthenticated,
-    required TResult Function(_AuthenticatedState value) authenticated,
+    required TResult Function(_AuthenticatedAdminState value) authenticated,
     required TResult Function(_AuthenticationFailedState value)
         authenticationFailed,
   }) {
@@ -654,7 +642,7 @@ class _$_InitialState extends _InitialState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialState value)? initial,
     TResult? Function(_UnauthenticatedState value)? unauthenticated,
-    TResult? Function(_AuthenticatedState value)? authenticated,
+    TResult? Function(_AuthenticatedAdminState value)? authenticated,
     TResult? Function(_AuthenticationFailedState value)? authenticationFailed,
   }) {
     return initial?.call(this);
@@ -665,7 +653,7 @@ class _$_InitialState extends _InitialState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialState value)? initial,
     TResult Function(_UnauthenticatedState value)? unauthenticated,
-    TResult Function(_AuthenticatedState value)? authenticated,
+    TResult Function(_AuthenticatedAdminState value)? authenticated,
     TResult Function(_AuthenticationFailedState value)? authenticationFailed,
     required TResult orElse(),
   }) {
@@ -676,7 +664,7 @@ class _$_InitialState extends _InitialState {
   }
 }
 
-abstract class _InitialState extends AuthState {
+abstract class _InitialState extends AdminAuthState {
   const factory _InitialState() = _$_InitialState;
   const _InitialState._() : super._();
 }
@@ -690,7 +678,7 @@ abstract class _$$_UnauthenticatedStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_UnauthenticatedStateCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$_UnauthenticatedState>
+    extends _$AdminAuthStateCopyWithImpl<$Res, _$_UnauthenticatedState>
     implements _$$_UnauthenticatedStateCopyWith<$Res> {
   __$$_UnauthenticatedStateCopyWithImpl(_$_UnauthenticatedState _value,
       $Res Function(_$_UnauthenticatedState) _then)
@@ -704,7 +692,7 @@ class _$_UnauthenticatedState extends _UnauthenticatedState {
 
   @override
   String toString() {
-    return 'AuthState.unauthenticated()';
+    return 'AdminAuthState.unauthenticated()';
   }
 
   @override
@@ -721,7 +709,7 @@ class _$_UnauthenticatedState extends _UnauthenticatedState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(Employee employee) authenticated,
+    required TResult Function() authenticated,
     required TResult Function() authenticationFailed,
   }) {
     return unauthenticated();
@@ -732,7 +720,7 @@ class _$_UnauthenticatedState extends _UnauthenticatedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(Employee employee)? authenticated,
+    TResult? Function()? authenticated,
     TResult? Function()? authenticationFailed,
   }) {
     return unauthenticated?.call();
@@ -743,7 +731,7 @@ class _$_UnauthenticatedState extends _UnauthenticatedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(Employee employee)? authenticated,
+    TResult Function()? authenticated,
     TResult Function()? authenticationFailed,
     required TResult orElse(),
   }) {
@@ -758,7 +746,7 @@ class _$_UnauthenticatedState extends _UnauthenticatedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialState value) initial,
     required TResult Function(_UnauthenticatedState value) unauthenticated,
-    required TResult Function(_AuthenticatedState value) authenticated,
+    required TResult Function(_AuthenticatedAdminState value) authenticated,
     required TResult Function(_AuthenticationFailedState value)
         authenticationFailed,
   }) {
@@ -770,7 +758,7 @@ class _$_UnauthenticatedState extends _UnauthenticatedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialState value)? initial,
     TResult? Function(_UnauthenticatedState value)? unauthenticated,
-    TResult? Function(_AuthenticatedState value)? authenticated,
+    TResult? Function(_AuthenticatedAdminState value)? authenticated,
     TResult? Function(_AuthenticationFailedState value)? authenticationFailed,
   }) {
     return unauthenticated?.call(this);
@@ -781,7 +769,7 @@ class _$_UnauthenticatedState extends _UnauthenticatedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialState value)? initial,
     TResult Function(_UnauthenticatedState value)? unauthenticated,
-    TResult Function(_AuthenticatedState value)? authenticated,
+    TResult Function(_AuthenticatedAdminState value)? authenticated,
     TResult Function(_AuthenticationFailedState value)? authenticationFailed,
     required TResult orElse(),
   }) {
@@ -792,93 +780,56 @@ class _$_UnauthenticatedState extends _UnauthenticatedState {
   }
 }
 
-abstract class _UnauthenticatedState extends AuthState {
+abstract class _UnauthenticatedState extends AdminAuthState {
   const factory _UnauthenticatedState() = _$_UnauthenticatedState;
   const _UnauthenticatedState._() : super._();
 }
 
 /// @nodoc
-abstract class _$$_AuthenticatedStateCopyWith<$Res> {
-  factory _$$_AuthenticatedStateCopyWith(_$_AuthenticatedState value,
-          $Res Function(_$_AuthenticatedState) then) =
-      __$$_AuthenticatedStateCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Employee employee});
-
-  $EmployeeCopyWith<$Res> get employee;
+abstract class _$$_AuthenticatedAdminStateCopyWith<$Res> {
+  factory _$$_AuthenticatedAdminStateCopyWith(_$_AuthenticatedAdminState value,
+          $Res Function(_$_AuthenticatedAdminState) then) =
+      __$$_AuthenticatedAdminStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_AuthenticatedStateCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$_AuthenticatedState>
-    implements _$$_AuthenticatedStateCopyWith<$Res> {
-  __$$_AuthenticatedStateCopyWithImpl(
-      _$_AuthenticatedState _value, $Res Function(_$_AuthenticatedState) _then)
+class __$$_AuthenticatedAdminStateCopyWithImpl<$Res>
+    extends _$AdminAuthStateCopyWithImpl<$Res, _$_AuthenticatedAdminState>
+    implements _$$_AuthenticatedAdminStateCopyWith<$Res> {
+  __$$_AuthenticatedAdminStateCopyWithImpl(_$_AuthenticatedAdminState _value,
+      $Res Function(_$_AuthenticatedAdminState) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? employee = null,
-  }) {
-    return _then(_$_AuthenticatedState(
-      employee: null == employee
-          ? _value.employee
-          : employee // ignore: cast_nullable_to_non_nullable
-              as Employee,
-    ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $EmployeeCopyWith<$Res> get employee {
-    return $EmployeeCopyWith<$Res>(_value.employee, (value) {
-      return _then(_value.copyWith(employee: value));
-    });
-  }
 }
 
 /// @nodoc
 
-class _$_AuthenticatedState extends _AuthenticatedState {
-  const _$_AuthenticatedState({required this.employee}) : super._();
-
-  @override
-  final Employee employee;
+class _$_AuthenticatedAdminState extends _AuthenticatedAdminState {
+  const _$_AuthenticatedAdminState() : super._();
 
   @override
   String toString() {
-    return 'AuthState.authenticated(employee: $employee)';
+    return 'AdminAuthState.authenticated()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AuthenticatedState &&
-            (identical(other.employee, employee) ||
-                other.employee == employee));
+            other is _$_AuthenticatedAdminState);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, employee);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_AuthenticatedStateCopyWith<_$_AuthenticatedState> get copyWith =>
-      __$$_AuthenticatedStateCopyWithImpl<_$_AuthenticatedState>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(Employee employee) authenticated,
+    required TResult Function() authenticated,
     required TResult Function() authenticationFailed,
   }) {
-    return authenticated(employee);
+    return authenticated();
   }
 
   @override
@@ -886,10 +837,10 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(Employee employee)? authenticated,
+    TResult? Function()? authenticated,
     TResult? Function()? authenticationFailed,
   }) {
-    return authenticated?.call(employee);
+    return authenticated?.call();
   }
 
   @override
@@ -897,12 +848,12 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(Employee employee)? authenticated,
+    TResult Function()? authenticated,
     TResult Function()? authenticationFailed,
     required TResult orElse(),
   }) {
     if (authenticated != null) {
-      return authenticated(employee);
+      return authenticated();
     }
     return orElse();
   }
@@ -912,7 +863,7 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialState value) initial,
     required TResult Function(_UnauthenticatedState value) unauthenticated,
-    required TResult Function(_AuthenticatedState value) authenticated,
+    required TResult Function(_AuthenticatedAdminState value) authenticated,
     required TResult Function(_AuthenticationFailedState value)
         authenticationFailed,
   }) {
@@ -924,7 +875,7 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialState value)? initial,
     TResult? Function(_UnauthenticatedState value)? unauthenticated,
-    TResult? Function(_AuthenticatedState value)? authenticated,
+    TResult? Function(_AuthenticatedAdminState value)? authenticated,
     TResult? Function(_AuthenticationFailedState value)? authenticationFailed,
   }) {
     return authenticated?.call(this);
@@ -935,7 +886,7 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialState value)? initial,
     TResult Function(_UnauthenticatedState value)? unauthenticated,
-    TResult Function(_AuthenticatedState value)? authenticated,
+    TResult Function(_AuthenticatedAdminState value)? authenticated,
     TResult Function(_AuthenticationFailedState value)? authenticationFailed,
     required TResult orElse(),
   }) {
@@ -946,15 +897,9 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   }
 }
 
-abstract class _AuthenticatedState extends AuthState {
-  const factory _AuthenticatedState({required final Employee employee}) =
-      _$_AuthenticatedState;
-  const _AuthenticatedState._() : super._();
-
-  Employee get employee;
-  @JsonKey(ignore: true)
-  _$$_AuthenticatedStateCopyWith<_$_AuthenticatedState> get copyWith =>
-      throw _privateConstructorUsedError;
+abstract class _AuthenticatedAdminState extends AdminAuthState {
+  const factory _AuthenticatedAdminState() = _$_AuthenticatedAdminState;
+  const _AuthenticatedAdminState._() : super._();
 }
 
 /// @nodoc
@@ -967,7 +912,7 @@ abstract class _$$_AuthenticationFailedStateCopyWith<$Res> {
 
 /// @nodoc
 class __$$_AuthenticationFailedStateCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$_AuthenticationFailedState>
+    extends _$AdminAuthStateCopyWithImpl<$Res, _$_AuthenticationFailedState>
     implements _$$_AuthenticationFailedStateCopyWith<$Res> {
   __$$_AuthenticationFailedStateCopyWithImpl(
       _$_AuthenticationFailedState _value,
@@ -982,7 +927,7 @@ class _$_AuthenticationFailedState extends _AuthenticationFailedState {
 
   @override
   String toString() {
-    return 'AuthState.authenticationFailed()';
+    return 'AdminAuthState.authenticationFailed()';
   }
 
   @override
@@ -1000,7 +945,7 @@ class _$_AuthenticationFailedState extends _AuthenticationFailedState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(Employee employee) authenticated,
+    required TResult Function() authenticated,
     required TResult Function() authenticationFailed,
   }) {
     return authenticationFailed();
@@ -1011,7 +956,7 @@ class _$_AuthenticationFailedState extends _AuthenticationFailedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(Employee employee)? authenticated,
+    TResult? Function()? authenticated,
     TResult? Function()? authenticationFailed,
   }) {
     return authenticationFailed?.call();
@@ -1022,7 +967,7 @@ class _$_AuthenticationFailedState extends _AuthenticationFailedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(Employee employee)? authenticated,
+    TResult Function()? authenticated,
     TResult Function()? authenticationFailed,
     required TResult orElse(),
   }) {
@@ -1037,7 +982,7 @@ class _$_AuthenticationFailedState extends _AuthenticationFailedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_InitialState value) initial,
     required TResult Function(_UnauthenticatedState value) unauthenticated,
-    required TResult Function(_AuthenticatedState value) authenticated,
+    required TResult Function(_AuthenticatedAdminState value) authenticated,
     required TResult Function(_AuthenticationFailedState value)
         authenticationFailed,
   }) {
@@ -1049,7 +994,7 @@ class _$_AuthenticationFailedState extends _AuthenticationFailedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_InitialState value)? initial,
     TResult? Function(_UnauthenticatedState value)? unauthenticated,
-    TResult? Function(_AuthenticatedState value)? authenticated,
+    TResult? Function(_AuthenticatedAdminState value)? authenticated,
     TResult? Function(_AuthenticationFailedState value)? authenticationFailed,
   }) {
     return authenticationFailed?.call(this);
@@ -1060,7 +1005,7 @@ class _$_AuthenticationFailedState extends _AuthenticationFailedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_InitialState value)? initial,
     TResult Function(_UnauthenticatedState value)? unauthenticated,
-    TResult Function(_AuthenticatedState value)? authenticated,
+    TResult Function(_AuthenticatedAdminState value)? authenticated,
     TResult Function(_AuthenticationFailedState value)? authenticationFailed,
     required TResult orElse(),
   }) {
@@ -1071,7 +1016,7 @@ class _$_AuthenticationFailedState extends _AuthenticationFailedState {
   }
 }
 
-abstract class _AuthenticationFailedState extends AuthState {
+abstract class _AuthenticationFailedState extends AdminAuthState {
   const factory _AuthenticationFailedState() = _$_AuthenticationFailedState;
   const _AuthenticationFailedState._() : super._();
 }

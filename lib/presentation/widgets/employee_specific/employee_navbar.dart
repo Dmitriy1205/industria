@@ -10,17 +10,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/themes/theme.dart';
+import '../../bloc/auth/auth_bloc.dart';
 
-class AdminNavbar extends StatefulWidget {
-  const AdminNavbar({
+class EmployeeNavbar extends StatefulWidget {
+  const EmployeeNavbar({
     super.key,
   });
 
   @override
-  State<AdminNavbar> createState() => _AdminNavbarState();
+  State<EmployeeNavbar> createState() => _EmployeeNavbarState();
 }
 
-class _AdminNavbarState extends State<AdminNavbar> {
+class _EmployeeNavbarState extends State<EmployeeNavbar> {
   bool isHovered = false;
 
 
@@ -28,11 +29,11 @@ class _AdminNavbarState extends State<AdminNavbar> {
   Widget build(BuildContext context) {
     return AppBar(
       surfaceTintColor: Colors.white,
-      flexibleSpace: BlocListener<AdminAuthBloc,AdminAuthState>(
+      flexibleSpace: BlocListener<AuthBloc, AuthState>(
         listener: (context,state){
           state.maybeMap(
               unauthenticated: (_){
-                context.go('/admin/login');
+                context.go('/employees');
               },
               orElse: (){});
         },
@@ -94,13 +95,13 @@ class _AdminNavbarState extends State<AdminNavbar> {
                       onChanged: (String? newValue) {
                         final locale = newValue!.toLowerCase() == 'eng' ? 'en' : 'de';
                         context.read<LocalizationBloc>().add(
-                             LocalizationEvent.changeLang(
+                            LocalizationEvent.changeLang(
                                 locale: Locale(locale)));
                       },
                     ),
                   ),
-                  context.watch<AdminAuthBloc>().state.isAdminAuthenticated ? const SizedBox(width: 60,) : const SizedBox.shrink(),
-                  context.watch<AdminAuthBloc>().state.isAdminAuthenticated ? GestureDetector(
+                  context.watch<AuthBloc>().state.isEmployeeAuthenticated ? const SizedBox(width: 60,) : const SizedBox.shrink(),
+                  context.watch<AuthBloc>().state.isEmployeeAuthenticated ? GestureDetector(
                     onTapDown: (det){
                       _showMenu(context, det.globalPosition.translate(0.0, 10.0));
                     },
@@ -154,21 +155,3 @@ class _AdminNavbarState extends State<AdminNavbar> {
     );
   }
 }
-/*ClipPath(
-            clipper: ShapeBlue(context: context),
-            child: Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: AppColors.mainAccent,
-              ),
-            ),
-          ),
-          ClipPath(
-            clipper: ShapeYellow(),
-            child: Container(
-              width: double.infinity,
-              height: MediaQuery.of(context).size.height / 6.5,
-              decoration:
-                  const BoxDecoration(color: AppColors.secondaryAccent),
-            ),
-          ),*/

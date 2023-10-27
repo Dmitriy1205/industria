@@ -28,6 +28,7 @@ import 'package:industria/domain/repositories/job/job_repository_impl.dart';
 import 'package:industria/domain/repositories/job_application/job_application_repository_contract.dart';
 import 'package:industria/domain/repositories/job_application/job_application_repository_impl.dart';
 import 'package:industria/domain/repositories/language/language_repository_impl.dart';
+import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/contact_requests/contact_request_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
@@ -80,7 +81,8 @@ Future<void> init() async {
           db: FirebaseFirestore.instance,
           storage: FirebaseStorage.instance,
           algolia: algolia));
-  final authRepository = AuthRepositoryImpl(auth: FirebaseAuth.instance);
+  final authRepository = AuthRepositoryImpl(
+      auth: FirebaseAuth.instance, db: FirebaseFirestore.instance);
   final employeeRepository = AdminEmployeeRepositoryImpl(
       adminEmployeeService: AdminEmployeeServiceImpl(
           db: FirebaseFirestore.instance, dio: Dio(), algolia: algolia));
@@ -124,6 +126,7 @@ Future<void> init() async {
   sl.registerLazySingleton(() =>
       ContactRequestBloc(contactRequestsRepository: contactRequestsRepository));
   sl.registerLazySingleton(() => AuthBloc(authRepository: authRepository));
+  sl.registerLazySingleton(() => AdminAuthBloc(authRepository: authRepository));
   sl.registerLazySingleton(() => AdminJobApplicationsBloc(
       jobApplicationRepository: jobApplicationRepository));
   sl.registerLazySingleton(() => AdminHolidayRequestsListBloc(

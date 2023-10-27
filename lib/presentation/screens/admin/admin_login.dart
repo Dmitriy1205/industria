@@ -5,11 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/extensions/validation.dart';
 import 'package:industria/core/utils/toast.dart';
-import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
+import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 
-import '../../../app/router.dart';
 import '../../../core/constants/colors.dart';
-import '../../../core/services/service_locator.dart';
 import '../../../core/themes/theme.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/footer.dart';
@@ -41,7 +39,7 @@ class _AdminLoginState extends State<AdminLogin> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc,AuthState>(
+    return BlocListener<AdminAuthBloc,AdminAuthState>(
       listener: (context, state){
         state.maybeMap(
             authenticationFailed: (_){
@@ -255,7 +253,7 @@ class _AdminLoginState extends State<AdminLogin> {
                                             _formKey.currentState!.save();
                                             final email = _emailController.text;
                                             final password = _passwordController.text;
-                                            sl<AuthBloc>().add(AuthEvent.loginAdminPanel(email: email, password: password));
+                                            context.read<AdminAuthBloc>().add(AdminAuthEvent.login(email: email, password: password));
                                           })),
                                   const SizedBox(
                                     height: 16,

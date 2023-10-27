@@ -8,12 +8,12 @@ class AuthState with _$AuthState {
       initial: (_) => true,
       orElse: () => false);
 
-  bool get isAuthenticated => maybeMap(
+  bool get isEmployeeAuthenticated => maybeMap(
       authenticated: (_) => true,
       orElse: () => false);
 
   const factory AuthState.initial() = _InitialState;
   const factory AuthState.unauthenticated() = _UnauthenticatedState;
-  const factory AuthState.authenticated() = _AuthenticatedState;
+  const factory AuthState.authenticated({required Employee employee}) = _AuthenticatedState;
   const factory AuthState.authenticationFailed() = _AuthenticationFailedState;
 }

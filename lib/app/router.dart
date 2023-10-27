@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart'hide Feedback;
+import 'package:flutter/material.dart' hide Feedback;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
+import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/screens/admin/admin_feedbacks.dart';
 import 'package:industria/presentation/screens/admin/admin_job_applications.dart';
@@ -21,6 +22,8 @@ import 'package:industria/presentation/screens/admin/view_vacancy.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
 import 'package:industria/presentation/screens/data_protection.dart';
+import 'package:industria/presentation/screens/employee/employee_home.dart';
+import 'package:industria/presentation/screens/employee/employee_main_screen.dart';
 import 'package:industria/presentation/screens/for_employees.dart';
 import 'package:industria/presentation/screens/for_employers.dart';
 import 'package:industria/presentation/screens/job_description.dart';
@@ -37,23 +40,42 @@ import '../presentation/screens/contact.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/imprint.dart';
 
-String? _authRedirect(String fullPath, bool isAuthenticated){
-  if(fullPath == '/admin/login' && isAuthenticated){
+String? _authAdminRedirect(String fullPath, bool isAuthenticated) {
+  if (fullPath == '/admin/login' && isAuthenticated) {
     return '/admin/users';
-  }else if(fullPath.contains('/admin') && fullPath != '/admin/login' && !isAuthenticated){
+  } else if (fullPath.contains('/admin') &&
+      fullPath != '/admin/login' &&
+      !isAuthenticated) {
     return '/admin/login';
   }
   return null;
 }
+
+String? _authEmployeeRedirect(String fullPath, bool isAuthenticated) {
+  if (fullPath == '/employees' && isAuthenticated) {
+    return '/employees/home';
+  } else if (fullPath.contains('/employees') && !isAuthenticated) {
+    return '/employees';
+  }
+  return null;
+}
+
 final GoRouter router = GoRouter(
   redirect: (context, state) {
-    if(state.uri.toString() == "/admin"){
+    if (state.uri.toString() == "/admin") {
       return "/admin/login";
     }
-    bool isUndefined = context.read<AuthBloc>().state.isUndefined;
-    if(isUndefined) return null;
-    bool isAuthenticated = context.read<AuthBloc>().state.isAuthenticated;
-    return _authRedirect(state.fullPath!, isAuthenticated);
+    bool isUndefined = context.read<AdminAuthBloc>().state.isUndefined;
+    if (isUndefined) return null;
+    bool isAdminAuthenticated =
+        context.read<AdminAuthBloc>().state.isAdminAuthenticated;
+    final adminRedirect = _authAdminRedirect(state.fullPath!, isAdminAuthenticated);
+    if (adminRedirect != null) {
+      return adminRedirect;
+    }
+    bool isEmployeeAuthenticated =
+        context.read<AuthBloc>().state.isEmployeeAuthenticated;
+    return _authEmployeeRedirect(state.fullPath!, isEmployeeAuthenticated);
   },
   routes: [
     GoRoute(
@@ -61,143 +83,159 @@ final GoRouter router = GoRouter(
       pageBuilder: (c, s) =>
           const MaterialPage(child: MainScreen(child: Home())),
     ),
+    ShellRoute(routes: [
+      GoRoute(
+        path: '/employees/home',
+        pageBuilder: (c, s) =>
+        const MaterialPage(child: EmployeeHome()),
+      ),
+    ], builder: (context, state, child){
+      return Scaffold(
+        body: EmployeeMainScreen(
+          child: child,
+        ),
+      );
+    }),
     ShellRoute(
-        builder: (context, state, child) => Scaffold(
-              body: AdminMainScreen(
-                child: AdminDesktopDashboardLayout(isLoginScreen: state.fullPath != '/admin/login',child: child,),
-              ),
-            ),
-        routes: [
-          GoRoute(
-            path: '/admin/view_job_application',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: ViewJobApplication(),
-            ),
+      builder: (context, state, child) => Scaffold(
+        body: AdminMainScreen(
+          child: AdminDesktopDashboardLayout(
+            isLoginScreen: state.fullPath != '/admin/login',
+            child: child,
           ),
-          GoRoute(
-            path: '/admin/login',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: const AdminLogin(),
-            ),
+        ),
+      ),
+      routes: [
+        GoRoute(
+          path: '/admin/view_job_application',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: ViewJobApplication(),
           ),
-          GoRoute(
-            path: '/admin/users',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: const AdminUsers(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/login',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const AdminLogin(),
           ),
-          GoRoute(
-            path: '/admin/user',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: ChangeUserCredentials(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/users',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const AdminUsers(),
           ),
-          GoRoute(
-            path: '/admin/create_user',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: CreateUserCredentials(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/user',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: ChangeUserCredentials(),
           ),
-          GoRoute(
-            path: '/admin/view_user',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: ViewUserCredentials(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/create_user',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: CreateUserCredentials(),
           ),
-
-          GoRoute(
-            path: '/admin/job_applications',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: const AdminJobApplications(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/view_user',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: ViewUserCredentials(),
           ),
-          GoRoute(
-            path: '/admin/feedbacks',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: const AdminFeedbacks(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/job_applications',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const AdminJobApplications(),
           ),
-          GoRoute(
-            path: '/admin/view_feedback',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: ViewUserFeedback(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/feedbacks',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const AdminFeedbacks(),
           ),
-          GoRoute(
-            path: '/admin/vacancies',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: const AdminVacancies(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/view_feedback',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: ViewUserFeedback(),
           ),
-          GoRoute(
-            path: '/admin/create_vacancy',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: CreateVacancy(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/vacancies',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const AdminVacancies(),
           ),
-          GoRoute(
-            path: '/admin/edit_vacancy',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: const UpdateVacancy(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/create_vacancy',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: CreateVacancy(),
           ),
-          GoRoute(
-            path: '/admin/holiday',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: ViewHoliday(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/edit_vacancy',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const UpdateVacancy(),
           ),
-          GoRoute(
-            path: '/admin/holidays',
-            pageBuilder: (context, state) => fadePageTransition<void>(
-              context: context,
-              state: state,
-              child: AdminHolidays(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/holiday',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: ViewHoliday(),
           ),
-          GoRoute(
-            path: '/admin/view_vacancy',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: const ViewVacancy(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/holidays',
+          pageBuilder: (context, state) => fadePageTransition<void>(
+            context: context,
+            state: state,
+            child: AdminHolidays(),
           ),
-          GoRoute(
-            path: '/admin/create_company',
-            pageBuilder: (context, state) => pageTransition<void>(
-              context: context,
-              state: state,
-              child: const CreateCompany(),
-            ),
+        ),
+        GoRoute(
+          path: '/admin/view_vacancy',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const ViewVacancy(),
           ),
-        ],),
+        ),
+        GoRoute(
+          path: '/admin/create_company',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const CreateCompany(),
+          ),
+        ),
+      ],
+    ),
     ShellRoute(
       builder: (context, state, child) => Scaffold(
         body: MainScreen(
@@ -317,7 +355,8 @@ CustomTransitionPage fadePageTransition<T>({
       const begin = 0.0;
       const end = 1.0;
       const curve = Curves.ease;
-      final tween = Tween(begin: begin, end: end).chain(Tween(begin: end, end: begin));
+      final tween =
+          Tween(begin: begin, end: end).chain(Tween(begin: end, end: begin));
       final curvedAnimation = CurvedAnimation(
         parent: secondaryAnimation,
         curve: curve,

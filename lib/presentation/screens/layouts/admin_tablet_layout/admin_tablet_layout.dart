@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 import 'package:industria/presentation/screens/layouts/tablet_layout/tablet_navbar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -30,7 +31,7 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc,AuthState>(
+    return BlocListener<AdminAuthBloc,AdminAuthState>(
       listener: (context,state){
         context.go('/admin/login');
       },
@@ -74,6 +75,7 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
                 ),
             SizedBox(height: 20,),
                 _tab(
+                    show: context.watch<AdminAuthBloc>().state.isAdminAuthenticated,
                     title: AppLocalizations.of(context)!.employee,
                     icon: FontAwesomeIcons.users,
                     isSelected: GoRouterState.of(context).fullPath ==
@@ -87,6 +89,7 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
                       context.go('/admin/users');
                     }),
                 _tab(
+                    show: context.watch<AdminAuthBloc>().state.isAdminAuthenticated,
                     title: AppLocalizations.of(context)!.feedback,
                     icon: FontAwesomeIcons.bug,
                     isSelected: GoRouterState.of(context).fullPath ==
@@ -100,6 +103,7 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
                       context.go('/admin/feedbacks');
                     }),
                 _tab(
+                    show: context.watch<AdminAuthBloc>().state.isAdminAuthenticated,
                     title: AppLocalizations.of(context)!.jobApplication,
                     icon: FontAwesomeIcons.solidFileLines,
                     isSelected: GoRouterState.of(context).fullPath ==
@@ -113,6 +117,7 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
                       context.go('/admin/job_applications');
                     }),
                 _tab(
+                    show: context.watch<AdminAuthBloc>().state.isAdminAuthenticated,
                     title: AppLocalizations.of(context)!.vacancies,
                     icon: FontAwesomeIcons.table,
                     isSelected: GoRouterState.of(context).fullPath ==
@@ -126,6 +131,7 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
                       context.go('/admin/vacancies');
                     }),
                 _tab(
+                    show: context.watch<AdminAuthBloc>().state.isAdminAuthenticated,
                     title: AppLocalizations.of(context)!.holidays,
                     icon: FontAwesomeIcons.userClock,
                     isSelected: GoRouterState.of(context).fullPath ==
@@ -139,7 +145,7 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
                       context.go('/admin/holidays');
                     }),
             Spacer(),
-            MouseRegion(
+            !context.watch<AdminAuthBloc>().state.isAdminAuthenticated ? SizedBox.shrink() : MouseRegion(
               cursor: SystemMouseCursors.click,
               onEnter: (_) {
                 setState(() {
@@ -153,7 +159,8 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
               },
               child: GestureDetector(
                 onTap: () {
-                  context.read<AuthBloc>().add(const AuthEvent.logout());
+                  context.read<AdminAuthBloc>().add(const AdminAuthEvent.logout());
+                  scaffoldState.currentState!.closeDrawer();
                 },
                 child: Container(
                   height: 45,
@@ -190,8 +197,9 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
       {required String title,
         required IconData icon,
         bool isSelected = false,
+        bool show = true,
         required VoidCallback onTap}) {
-    return GestureDetector(
+    return !show ? SizedBox.shrink() :  GestureDetector(
       onTap: onTap,
       child: MouseRegion(
         cursor: SystemMouseCursors.click,

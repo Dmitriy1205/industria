@@ -269,10 +269,10 @@ class EmployeeHome extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SvgPicture.asset('assets/icons/document.svg'),
+                              SvgPicture.asset('assets/icons/whatsApp.svg'),
                               SizedBox(height: 13,),
                               Text(
-                                'REPORTS',
+                                'CHAT',
                                 style: AppTheme.themeData.textTheme.labelMedium!
                                     .copyWith(color: Colors.white),
                               )

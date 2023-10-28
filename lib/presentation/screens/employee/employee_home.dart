@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:styled_text/styled_text.dart';
 
@@ -42,6 +43,9 @@ class EmployeeHome extends StatelessWidget {
                           .copyWith(color: Colors.black))
                 ]))
               ],
+            ),
+            SizedBox(
+              height: 37,
             ),
             ColoredBox(
               color: Colors.white,
@@ -229,7 +233,9 @@ class EmployeeHome extends StatelessWidget {
                             ])
                       ],
                     ),
-                    SizedBox(height: 45,),
+                    SizedBox(
+                      height: 45,
+                    ),
                     Row(
                       children: [
                         Container(
@@ -239,8 +245,9 @@ class EmployeeHome extends StatelessWidget {
                           width: 142,
                           height: 119,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset('assets/icons/document.svg'),
+                              SvgPicture.asset('assets/icons/document.svg'),
                               Text(
                                 'REPORTS',
                                 style: AppTheme.themeData.textTheme.labelMedium!
@@ -249,7 +256,9 @@ class EmployeeHome extends StatelessWidget {
                             ],
                           ),
                         ),
-                        SizedBox(width: 33,),
+                        SizedBox(
+                          width: 33,
+                        ),
                         Container(
                           decoration: BoxDecoration(
                               color: AppColors.mainAccent,
@@ -257,8 +266,9 @@ class EmployeeHome extends StatelessWidget {
                           width: 142,
                           height: 119,
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset('assets/icons/document.svg'),
+                              SvgPicture.asset('assets/icons/document.svg'),
                               Text(
                                 'REPORTS',
                                 style: AppTheme.themeData.textTheme.labelMedium!

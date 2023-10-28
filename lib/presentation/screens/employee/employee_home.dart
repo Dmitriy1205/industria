@@ -248,6 +248,7 @@ class EmployeeHome extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset('assets/icons/document.svg'),
+                              SizedBox(height: 13,),
                               Text(
                                 'REPORTS',
                                 style: AppTheme.themeData.textTheme.labelMedium!
@@ -269,6 +270,7 @@ class EmployeeHome extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SvgPicture.asset('assets/icons/document.svg'),
+                              SizedBox(height: 13,),
                               Text(
                                 'REPORTS',
                                 style: AppTheme.themeData.textTheme.labelMedium!

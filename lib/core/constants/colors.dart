@@ -9,4 +9,6 @@ class AppColors {
   static const Color mainDarkAccent = Color(0xFF17558E);
   static const Color danger = Color(0xFFBD0000);
   static const Color red = Color(0xFFBD3D3D);
+  static const Color yellow = Color(0xFFFFC200);
+  static const Color background = Color(0xFFEEF3F8);
 }

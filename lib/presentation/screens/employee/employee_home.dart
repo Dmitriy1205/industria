@@ -296,8 +296,9 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: AppColors.mainAccent,
-                                  borderRadius: BorderRadius.circular(4)),
+                                  color: isHoveredReportsButton
+                                      ? AppColors.mainDarkAccent
+                                      : AppColors.mainAccent,                                  borderRadius: BorderRadius.circular(4)),
                               width: 142,
                               height: 119,
                               child: Column(
@@ -334,8 +335,9 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             },
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: AppColors.mainAccent,
-                                  borderRadius: BorderRadius.circular(4)),
+                                  color: isHoveredChatButton
+                                      ? AppColors.mainDarkAccent
+                                      : AppColors.mainAccent,                                  borderRadius: BorderRadius.circular(4)),
                               width: 142,
                               height: 119,
                               child: Column(

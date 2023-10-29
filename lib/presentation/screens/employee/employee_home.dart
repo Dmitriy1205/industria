@@ -99,11 +99,13 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 6, horizontal: 18),
-                                  child: Text(
-                                    'STOP BREAK',
-                                    style: AppTheme
-                                        .themeData.textTheme.labelMedium!
-                                        .copyWith(color: Colors.white),
+                                  child: SelectionContainer.disabled(
+                                    child: Text(
+                                      'STOP BREAK',
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(color: Colors.white),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -136,11 +138,13 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 6, horizontal: 18),
-                                    child: Text(
-                                      'FINISH DAY',
-                                      style: AppTheme
-                                          .themeData.textTheme.labelMedium!
-                                          .copyWith(color: Colors.white),
+                                    child: SelectionContainer.disabled(
+                                      child: Text(
+                                        'FINISH DAY',
+                                        style: AppTheme
+                                            .themeData.textTheme.labelMedium!
+                                            .copyWith(color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -298,7 +302,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               decoration: BoxDecoration(
                                   color: isHoveredReportsButton
                                       ? AppColors.mainDarkAccent
-                                      : AppColors.mainAccent,                                  borderRadius: BorderRadius.circular(4)),
+                                      : AppColors.mainAccent,
+                                  borderRadius: BorderRadius.circular(4)),
                               width: 142,
                               height: 119,
                               child: Column(
@@ -308,11 +313,13 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                   SizedBox(
                                     height: 13,
                                   ),
-                                  Text(
-                                    'REPORTS',
-                                    style: AppTheme
-                                        .themeData.textTheme.labelMedium!
-                                        .copyWith(color: Colors.white),
+                                  SelectionContainer.disabled(
+                                    child: Text(
+                                      'REPORTS',
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(color: Colors.white),
+                                    ),
                                   )
                                 ],
                               ),
@@ -337,7 +344,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               decoration: BoxDecoration(
                                   color: isHoveredChatButton
                                       ? AppColors.mainDarkAccent
-                                      : AppColors.mainAccent,                                  borderRadius: BorderRadius.circular(4)),
+                                      : AppColors.mainAccent,
+                                  borderRadius: BorderRadius.circular(4)),
                               width: 142,
                               height: 119,
                               child: Column(
@@ -347,11 +355,13 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                   SizedBox(
                                     height: 13,
                                   ),
-                                  Text(
-                                    'CHAT',
-                                    style: AppTheme
-                                        .themeData.textTheme.labelMedium!
-                                        .copyWith(color: Colors.white),
+                                  SelectionContainer.disabled(
+                                    child: Text(
+                                      'CHAT',
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(color: Colors.white),
+                                    ),
                                   )
                                 ],
                               ),

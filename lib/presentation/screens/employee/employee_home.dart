@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:industria/core/constants/colors.dart';
-import 'package:styled_text/styled_text.dart';
-
 import '../../../core/themes/theme.dart';
-import '../../widgets/app_elevated_button.dart';
 import '../../widgets/bold_text_widget.dart';
 
-class EmployeeHome extends StatelessWidget {
+class EmployeeHome extends StatefulWidget {
   const EmployeeHome({Key? key}) : super(key: key);
+
+  @override
+  State<EmployeeHome> createState() => _EmployeeHomeState();
+}
+
+class _EmployeeHomeState extends State<EmployeeHome> {
+  bool isHoveredStopBreakButton = false;
+  bool isHoveredFinishDayButton = false;
+  bool isHoveredChatButton = false;
+  bool isHoveredReportsButton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -58,21 +65,37 @@ class EmployeeHome extends StatelessWidget {
                         children: [
                           BoldTextWidget(
                             text: '8:56 PM',
-                            style:
-                                AppTheme.themeData.textTheme.labelLarge!.copyWith(
+                            style: AppTheme.themeData.textTheme.labelLarge!
+                                .copyWith(
                               color: Color(0xFF091312),
                             ),
                           ),
                           Spacer(),
-                          GestureDetector(
-                            child: Container(
-                              decoration: BoxDecoration(
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (_) {
+                              setState(() {
+                                isHoveredStopBreakButton =
+                                    !isHoveredStopBreakButton;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                isHoveredStopBreakButton =
+                                    !isHoveredStopBreakButton;
+                              });
+                            },
+                            child: GestureDetector(
+                              child: Container(
+                                decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(
                                     Radius.circular(4),
                                   ),
-                                  color: AppColors.mainAccent),
-                              height: 32,
-                              child: Center(
+                                  color: isHoveredStopBreakButton
+                                      ? AppColors.mainDarkAccent
+                                      : AppColors.mainAccent,
+                                ),
+                                height: 32,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 6, horizontal: 18),
@@ -87,23 +110,38 @@ class EmployeeHome extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 28),
-                          GestureDetector(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(4),
-                                  ),
-                                  color: AppColors.darkGrey),
-                              height: 32,
-                              child: Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 6, horizontal: 18),
-                                  child: Text(
-                                    'FINISH DAY',
-                                    style: AppTheme
-                                        .themeData.textTheme.labelMedium!
-                                        .copyWith(color: Colors.white),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (_) {
+                              setState(() {
+                                isHoveredFinishDayButton =
+                                    !isHoveredFinishDayButton;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                isHoveredFinishDayButton =
+                                    !isHoveredFinishDayButton;
+                              });
+                            },
+                            child: GestureDetector(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(4),
+                                    ),
+                                    color: AppColors.darkGrey),
+                                height: 32,
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 6, horizontal: 18),
+                                    child: Text(
+                                      'FINISH DAY',
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(color: Colors.white),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -136,7 +174,8 @@ class EmployeeHome extends StatelessWidget {
                           BoldTextWidget(
                             text: 'NOT AVAILABLE',
                             style: AppTheme.themeData.textTheme.labelLarge!
-                                .copyWith(color: Color(0xFF091312), fontSize: 12),
+                                .copyWith(
+                                    color: Color(0xFF091312), fontSize: 12),
                           ),
                           SizedBox(
                             width: 36,
@@ -154,7 +193,8 @@ class EmployeeHome extends StatelessWidget {
                           BoldTextWidget(
                             text: 'WORKING',
                             style: AppTheme.themeData.textTheme.labelLarge!
-                                .copyWith(color: Color(0xFF091312), fontSize: 12),
+                                .copyWith(
+                                    color: Color(0xFF091312), fontSize: 12),
                           ),
                           SizedBox(
                             width: 36,
@@ -172,7 +212,8 @@ class EmployeeHome extends StatelessWidget {
                           BoldTextWidget(
                             text: 'BREAK',
                             style: AppTheme.themeData.textTheme.labelLarge!
-                                .copyWith(color: Color(0xFF091312), fontSize: 12),
+                                .copyWith(
+                                    color: Color(0xFF091312), fontSize: 12),
                           ),
                         ],
                       ),
@@ -239,45 +280,79 @@ class EmployeeHome extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: AppColors.mainAccent,
-                                borderRadius: BorderRadius.circular(4)),
-                            width: 142,
-                            height: 119,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset('assets/icons/document.svg'),
-                                SizedBox(height: 13,),
-                                Text(
-                                  'REPORTS',
-                                  style: AppTheme.themeData.textTheme.labelMedium!
-                                      .copyWith(color: Colors.white),
-                                )
-                              ],
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (_) {
+                              setState(() {
+                                isHoveredReportsButton =
+                                    !isHoveredReportsButton;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                isHoveredReportsButton =
+                                    !isHoveredReportsButton;
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.mainAccent,
+                                  borderRadius: BorderRadius.circular(4)),
+                              width: 142,
+                              height: 119,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset('assets/icons/document.svg'),
+                                  SizedBox(
+                                    height: 13,
+                                  ),
+                                  Text(
+                                    'REPORTS',
+                                    style: AppTheme
+                                        .themeData.textTheme.labelMedium!
+                                        .copyWith(color: Colors.white),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                           SizedBox(
                             width: 33,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: AppColors.mainAccent,
-                                borderRadius: BorderRadius.circular(4)),
-                            width: 142,
-                            height: 119,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset('assets/icons/whatsApp.svg'),
-                                SizedBox(height: 13,),
-                                Text(
-                                  'CHAT',
-                                  style: AppTheme.themeData.textTheme.labelMedium!
-                                      .copyWith(color: Colors.white),
-                                )
-                              ],
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (_) {
+                              setState(() {
+                                isHoveredChatButton = !isHoveredChatButton;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                isHoveredChatButton = !isHoveredChatButton;
+                              });
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: AppColors.mainAccent,
+                                  borderRadius: BorderRadius.circular(4)),
+                              width: 142,
+                              height: 119,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset('assets/icons/whatsApp.svg'),
+                                  SizedBox(
+                                    height: 13,
+                                  ),
+                                  Text(
+                                    'CHAT',
+                                    style: AppTheme
+                                        .themeData.textTheme.labelMedium!
+                                        .copyWith(color: Colors.white),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ],

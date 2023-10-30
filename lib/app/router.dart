@@ -30,6 +30,7 @@ import 'package:industria/presentation/screens/job_description.dart';
 import 'package:industria/presentation/screens/jobs.dart';
 import 'package:industria/presentation/screens/layouts/admin/admin_desktop_dashboard_layout.dart';
 import 'package:industria/presentation/screens/main_screen.dart';
+import 'package:industria/presentation/screens/messaging.dart';
 import 'package:industria/presentation/screens/our_team.dart';
 
 import '../domain/entities/feedback/feedback.dart';
@@ -332,6 +333,14 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: JobDescription(),
+          ),
+        ),
+        GoRoute(
+          path: '/messaging',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const Messaging(),
           ),
         ),
       ],

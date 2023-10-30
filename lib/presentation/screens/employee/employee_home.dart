@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:industria/core/constants/colors.dart';
+import '../../../app/router.dart';
 import '../../../core/themes/theme.dart';
 import '../../widgets/bold_text_widget.dart';
 
@@ -26,17 +27,17 @@ class _EmployeeHomeState extends State<EmployeeHome> {
           padding: const EdgeInsets.symmetric(horizontal: 54),
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 51,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(width: 100),
+                  const SizedBox(width: 100),
                   BoldTextWidget(
                     text: 'February 23, 2023',
                     style: AppTheme.themeData.textTheme.labelLarge!.copyWith(
-                      color: Color(0xFF091312),
+                      color: const Color(0xFF091312),
                     ),
                   ),
                   RichText(
@@ -52,7 +53,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                   ]))
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 37,
               ),
               ColoredBox(
@@ -67,10 +68,10 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             text: '8:56 PM',
                             style: AppTheme.themeData.textTheme.labelLarge!
                                 .copyWith(
-                              color: Color(0xFF091312),
+                              color: const Color(0xFF091312),
                             ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             onEnter: (_) {
@@ -88,7 +89,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             child: GestureDetector(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(4),
                                   ),
                                   color: isHoveredStopBreakButton
@@ -111,7 +112,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               ),
                             ),
                           ),
-                          SizedBox(width: 28),
+                          const SizedBox(width: 28),
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             onEnter: (_) {
@@ -128,7 +129,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             },
                             child: GestureDetector(
                               child: Container(
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(4),
                                     ),
@@ -153,16 +154,16 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 55,
                       ),
-                      LinearProgressIndicator(color: Colors.black),
-                      SizedBox(
+                      const LinearProgressIndicator(color: Colors.black),
+                      const SizedBox(
                         height: 68,
                       ),
                       Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 29,
                           ),
                           Container(
@@ -172,16 +173,16 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                 color: AppColors.darkGrey,
                                 borderRadius: BorderRadius.circular(15)),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 13,
                           ),
                           BoldTextWidget(
                             text: 'NOT AVAILABLE',
                             style: AppTheme.themeData.textTheme.labelLarge!
                                 .copyWith(
-                                    color: Color(0xFF091312), fontSize: 12),
+                                    color: const Color(0xFF091312), fontSize: 12),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 36,
                           ),
                           Container(
@@ -191,16 +192,16 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                 color: AppColors.mainAccent,
                                 borderRadius: BorderRadius.circular(15)),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 13,
                           ),
                           BoldTextWidget(
                             text: 'WORKING',
                             style: AppTheme.themeData.textTheme.labelLarge!
                                 .copyWith(
-                                    color: Color(0xFF091312), fontSize: 12),
+                                    color: const Color(0xFF091312), fontSize: 12),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 36,
                           ),
                           Container(
@@ -210,18 +211,18 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                 color: AppColors.yellow,
                                 borderRadius: BorderRadius.circular(15)),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 13,
                           ),
                           BoldTextWidget(
                             text: 'BREAK',
                             style: AppTheme.themeData.textTheme.labelLarge!
                                 .copyWith(
-                                    color: Color(0xFF091312), fontSize: 12),
+                                    color: const Color(0xFF091312), fontSize: 12),
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 35,
                       ),
                       Row(
@@ -241,7 +242,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         .copyWith(
                                             color: Colors.black, fontSize: 12))
                               ]),
-                          SizedBox(
+                          const SizedBox(
                             width: 52,
                           ),
                           Column(
@@ -259,7 +260,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         .copyWith(
                                             color: Colors.black, fontSize: 12))
                               ]),
-                          SizedBox(
+                          const SizedBox(
                             width: 52,
                           ),
                           Column(
@@ -279,7 +280,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               ])
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 45,
                       ),
                       Row(
@@ -310,7 +311,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SvgPicture.asset('assets/icons/document.svg'),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 13,
                                   ),
                                   SelectionContainer.disabled(
@@ -325,7 +326,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 33,
                           ),
                           MouseRegion(
@@ -340,36 +341,41 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                 isHoveredChatButton = !isHoveredChatButton;
                               });
                             },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: isHoveredChatButton
-                                      ? AppColors.mainDarkAccent
-                                      : AppColors.mainAccent,
-                                  borderRadius: BorderRadius.circular(4)),
-                              width: 142,
-                              height: 119,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset('assets/icons/whatsApp.svg'),
-                                  SizedBox(
-                                    height: 13,
-                                  ),
-                                  SelectionContainer.disabled(
-                                    child: Text(
-                                      'CHAT',
-                                      style: AppTheme
-                                          .themeData.textTheme.labelMedium!
-                                          .copyWith(color: Colors.white),
+                            child: GestureDetector(
+                              onTap: () {
+                                router.go('/messaging');
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: isHoveredChatButton
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    borderRadius: BorderRadius.circular(4)),
+                                width: 142,
+                                height: 119,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset('assets/icons/whatsApp.svg'),
+                                    const SizedBox(
+                                      height: 13,
                                     ),
-                                  )
-                                ],
+                                    SelectionContainer.disabled(
+                                      child: Text(
+                                        'CHAT',
+                                        style: AppTheme
+                                            .themeData.textTheme.labelMedium!
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       ),
                     ],

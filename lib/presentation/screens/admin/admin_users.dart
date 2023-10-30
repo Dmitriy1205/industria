@@ -9,16 +9,13 @@ import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/utils/debounce.dart';
 import 'package:industria/core/utils/toast.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
-import 'package:industria/domain/repositories/attendance/attendance_repository_contract.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_delete_employee/admin_delete_employee_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
 import 'package:pandas_tableview/p_tableview.dart';
-
 import '../../../core/services/service_locator.dart';
 import '../../../domain/entities/employee/employee.dart';
-import '../../bloc/attendance/attendance_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdminUsers extends StatefulWidget {

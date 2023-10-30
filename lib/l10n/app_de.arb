@@ -177,5 +177,11 @@
    "createVacancy": "Stellenangebot erstellen",
    "name": "Name",
    "changeVacancy": "Stellenangebot ändern",
-   "message": "Nachricht"
+   "message": "Nachricht",
+   "messaging": "Nachrichtenübermittlung",
+   "phone": "Telefon",
+   "workedThisWeek": "Hat diese Woche funktioniert:",
+   "notAvailable": "Nicht verfügbar",
+   "working": "arbeiten",
+   "break": "brechen"
 }

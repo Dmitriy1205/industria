@@ -176,5 +176,11 @@
  "createVacancy": "Create vacancy",
  "name": "Name",
  "changeVacancy": "Change vacancy",
- "message": "Message"
+ "message": "Message",
+ "messaging": "Messaging",
+ "phone": "Phone",
+ "workedThisWeek": "Worked this week:",
+ "notAvailable": "not available",
+ "working": "working",
+ "break": "break"
 }

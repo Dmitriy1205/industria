@@ -9,6 +9,7 @@ import 'package:pandas_tableview/p_tableview.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/images.dart';
 import '../../core/themes/theme.dart';
+import '../../core/utils/debounce.dart';
 import '../../domain/entities/employee/employee.dart';
 import '../bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import '../widgets/app_elevated_button.dart';
@@ -24,6 +25,16 @@ class Messaging extends StatefulWidget {
 
 class _MessagingState extends State<Messaging> {
   int currentPage = 0;
+  final Debouncer _debouncer = Debouncer(milliseconds: 500);
+
+  @override
+  void initState() {
+    super.initState();
+    if (context.read<AdminEmployeeListBloc>().state.tableData.element.isEmpty) {
+      context.read<AdminEmployeeListBloc>().add(
+          const AdminEmployeeListEvent.fetchData(elementsPerPage: 7, page: 0));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +57,13 @@ class _MessagingState extends State<Messaging> {
                         ),
                         _tableTitle(
                             title: AppLocalizations.of(context)!.messaging,
-                            subtitle: '20'),
+                            subtitle: context
+                                .read<AdminEmployeeListBloc>()
+                                .state
+                                .tableData
+                                .element
+                                .length
+                                .toString()),
                         const SizedBox(
                           height: 20,
                         ),
@@ -70,12 +87,22 @@ class _MessagingState extends State<Messaging> {
                           ),
                           _tableTitle(
                               title: AppLocalizations.of(context)!.messaging,
-                              subtitle: '20'),
+                              subtitle: context
+                                  .read<AdminEmployeeListBloc>()
+                                  .state
+                                  .tableData
+                                  .element
+                                  .length
+                                  .toString()),
                           const SizedBox(
                             width: 60,
                           ),
                           Expanded(child: _search(onTextChanged: (val) {
-                            print(val);
+                            _debouncer.run(() {
+                              context.read<AdminEmployeeListBloc>().add(
+                                  AdminEmployeeListEvent.changeSearchTerm(
+                                      searchTerm: val));
+                            });
                           })),
                           const SizedBox(
                             width: 60,
@@ -93,10 +120,20 @@ class _MessagingState extends State<Messaging> {
               padding: EdgeInsets.symmetric(horizontal: 142),
               child: PTableView(
                 pagination: PTableViewPagination(
-                  currentPage: currentPage,
-                  pagesCount: 5,
+                  currentPage: context
+                      .watch<AdminEmployeeListBloc>()
+                      .state
+                      .tableData
+                      .currentPage,
+                  pagesCount: context
+                      .watch<AdminEmployeeListBloc>()
+                      .state
+                      .tableData
+                      .numberOfPages,
                   onPageChanged: (i) {
-                    currentPage = i;
+                    context.read<AdminEmployeeListBloc>().add(
+                        AdminEmployeeListEvent.fetchData(
+                            page: i, elementsPerPage: 7));
                   },
                 ),
                 fixedHeight: 500,
@@ -172,26 +209,24 @@ class _MessagingState extends State<Messaging> {
                   width: 12,
                 ),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "${employee.firstname} ${employee.lastname}",
-                        style: const TextStyle(fontWeight: FontWeight.w600),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "${employee.firstname} ${employee.lastname}",
+                      style: const TextStyle(fontWeight: FontWeight.w600),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 )
               ],
             ),
           )),
       PTableViewRowFixed(
-          width: 340,
+          width: 345,
           child: SizedBox(
             height: 60,
             child: Container(
+              alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
               child: Text(
                 employee.email,
@@ -209,6 +244,7 @@ class _MessagingState extends State<Messaging> {
           child: SizedBox(
             height: 60,
             child: Container(
+              alignment: Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 7),
               child: Text(
                 employee.phoneNumber,
@@ -222,7 +258,7 @@ class _MessagingState extends State<Messaging> {
             ),
           )),
       PTableViewRowFixed(
-          width: 300,
+          width: 240,
           child: Padding(
             padding: const EdgeInsets.only(right: 34),
             child: SizedBox(
@@ -264,20 +300,26 @@ class _MessagingState extends State<Messaging> {
             width: 109,
             child: Center(
               child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 6, horizontal: 18),
+                padding: const EdgeInsets.only(left: 18, right: 18),
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const SizedBox(width: 18,height: 18,
-                      child: Icon(
-                        FontAwesomeIcons.whatsapp,
-                        color: Colors.white,
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 5),
+                      child: SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: Icon(
+                          FontAwesomeIcons.whatsapp,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                    SizedBox(width: 17,),
+                    SizedBox(
+                      width: 17,
+                    ),
                     SelectionContainer.disabled(
                       child: Text(
                         AppLocalizations.of(context)!.chat,

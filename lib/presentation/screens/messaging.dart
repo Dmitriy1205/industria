@@ -125,7 +125,8 @@ class _MessagingState extends State<Messaging> {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 340),
+              padding: MediaQuery.of(context).size.width > 1350 ? EdgeInsets
+                  .symmetric(horizontal: 340) : EdgeInsets.symmetric(horizontal: 24),
               child: PTableView(
                 pagination: PTableViewPagination(
                   currentPage: context

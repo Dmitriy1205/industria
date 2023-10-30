@@ -6,14 +6,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pandas_tableview/p_tableview.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../core/constants/colors.dart';
 import '../../core/constants/images.dart';
 import '../../core/themes/theme.dart';
 import '../../core/utils/debounce.dart';
 import '../../domain/entities/employee/employee.dart';
 import '../bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
-import '../widgets/app_elevated_button.dart';
-import '../widgets/bold_text_widget.dart';
 import '../widgets/firebase_image.dart';
 
 class Messaging extends StatefulWidget {
@@ -45,11 +44,11 @@ class _MessagingState extends State<Messaging> {
           const SizedBox(
             height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 172, right: 373),
-            child: LayoutBuilder(builder: (context, constraints) {
-              return constraints.maxWidth < 700
-                  ? Column(
+          LayoutBuilder(builder: (context, constraints) {
+            return constraints.maxWidth < 950
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 24, right: 24),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
@@ -61,8 +60,7 @@ class _MessagingState extends State<Messaging> {
                                 .read<AdminEmployeeListBloc>()
                                 .state
                                 .tableData
-                                .element
-                                .length
+                                .totalElementCounts
                                 .toString()),
                         const SizedBox(
                           height: 20,
@@ -70,15 +68,22 @@ class _MessagingState extends State<Messaging> {
                         SizedBox(
                           height: 40,
                           child: _search(onTextChanged: (val) {
-                            print(val);
+                            _debouncer.run(() {
+                              context.read<AdminEmployeeListBloc>().add(
+                                  AdminEmployeeListEvent.changeSearchTerm(
+                                      searchTerm: val));
+                            });
                           }),
                         ),
                         const SizedBox(
                           height: 15,
                         ),
                       ],
-                    )
-                  : SizedBox(
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(left: 172, right: 373),
+                    child: SizedBox(
                       height: 52,
                       child: Row(
                         children: [
@@ -91,13 +96,16 @@ class _MessagingState extends State<Messaging> {
                                   .read<AdminEmployeeListBloc>()
                                   .state
                                   .tableData
-                                  .element
-                                  .length
+                                  .totalElementCounts
                                   .toString()),
                           const SizedBox(
                             width: 60,
                           ),
                           Expanded(child: _search(onTextChanged: (val) {
+                            var a = () => context.read<AdminEmployeeListBloc>().add(
+                                AdminEmployeeListEvent.changeSearchTerm(
+                                    searchTerm: val));
+                            print(a);
                             _debouncer.run(() {
                               context.read<AdminEmployeeListBloc>().add(
                                   AdminEmployeeListEvent.changeSearchTerm(
@@ -109,15 +117,15 @@ class _MessagingState extends State<Messaging> {
                           ),
                         ],
                       ),
-                    );
-            }),
-          ),
+                    ),
+                  );
+          }),
           const SizedBox(
             height: 10,
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 142),
+              padding: EdgeInsets.symmetric(horizontal: 340),
               child: PTableView(
                 pagination: PTableViewPagination(
                   currentPage: context
@@ -269,14 +277,8 @@ class _MessagingState extends State<Messaging> {
                   _tableAction(
                       title: '_tableAction',
                       onTap: () async {
-                        final response = await showOkCancelAlertDialog(
-                            context: context,
-                            title: 'response',
-                            message: 'message',
-                            okLabel: 'confirm');
-                        if (response == OkCancelResult.ok) {
-                          if (!mounted) return;
-                        }
+                        await launchUrl(
+                          Uri(scheme: 'https', host: 'wa.me', path: employee.phoneNumber));
                       }),
                 ],
               ),
@@ -289,6 +291,7 @@ class _MessagingState extends State<Messaging> {
     return MouseRegion(
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
+          onTap: onTap,
           child: Container(
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
@@ -307,7 +310,7 @@ class _MessagingState extends State<Messaging> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Padding(
-                      padding: EdgeInsets.only(bottom: 5),
+                      padding: EdgeInsets.only(bottom: 7),
                       child: SizedBox(
                         width: 18,
                         height: 18,

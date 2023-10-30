@@ -273,8 +273,8 @@ class _MessagingState extends State<Messaging> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(width: 18,height: 18,
-                        child: const Icon(
+                      const SizedBox(width: 18,height: 18,
+                        child: Icon(
                           FontAwesomeIcons.whatsapp,
                           color: Colors.white,
                         ),

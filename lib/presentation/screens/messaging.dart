@@ -82,7 +82,7 @@ class _MessagingState extends State<Messaging> {
                     ),
                   )
                 : Padding(
-                    padding: const EdgeInsets.only(left: 172, right: 373),
+                    padding: const EdgeInsets.only(left: 142, right: 142),
                     child: SizedBox(
                       height: 52,
                       child: Row(
@@ -102,7 +102,7 @@ class _MessagingState extends State<Messaging> {
                             width: 60,
                           ),
                           Expanded(child: _search(onTextChanged: (val) {
-                            var a = () => context.read<AdminEmployeeListBloc>().add(
+                            a() => context.read<AdminEmployeeListBloc>().add(
                                 AdminEmployeeListEvent.changeSearchTerm(
                                     searchTerm: val));
                             print(a);
@@ -123,10 +123,11 @@ class _MessagingState extends State<Messaging> {
           const SizedBox(
             height: 10,
           ),
-          Expanded(
-            child: Padding(
-              padding: MediaQuery.of(context).size.width > 1350 ? EdgeInsets
-                  .symmetric(horizontal: 340) : EdgeInsets.symmetric(horizontal: 24),
+          Padding(
+            padding: MediaQuery.of(context).size.width > 1350
+                ? EdgeInsets.only(left: 142, right: 142)
+                : EdgeInsets.symmetric(horizontal: 24),
+            child: Expanded(
               child: PTableView(
                 pagination: PTableViewPagination(
                   currentPage: context
@@ -267,7 +268,7 @@ class _MessagingState extends State<Messaging> {
             ),
           )),
       PTableViewRowFixed(
-          width: 240,
+          width: 550,
           child: Padding(
             padding: const EdgeInsets.only(right: 34),
             child: SizedBox(
@@ -278,8 +279,10 @@ class _MessagingState extends State<Messaging> {
                   _tableAction(
                       title: '_tableAction',
                       onTap: () async {
-                        await launchUrl(
-                          Uri(scheme: 'https', host: 'wa.me', path: employee.phoneNumber));
+                        await launchUrl(Uri(
+                            scheme: 'https',
+                            host: 'wa.me',
+                            path: employee.phoneNumber));
                       }),
                 ],
               ),

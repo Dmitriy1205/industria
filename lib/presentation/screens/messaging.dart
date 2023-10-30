@@ -37,22 +37,57 @@ class _MessagingState extends State<Messaging> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ColoredBox(
-        color: AppColors.background,
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            LayoutBuilder(builder: (context, constraints) {
-              return constraints.maxWidth < 950
-                  ? Padding(
-                      padding: const EdgeInsets.only(left: 24, right: 24),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+    return ColoredBox(
+      color: AppColors.background,
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          LayoutBuilder(builder: (context, constraints) {
+            return constraints.maxWidth < 950
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 24, right: 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: 16,
+                        ),
+                        _tableTitle(
+                            title: AppLocalizations.of(context)!.messaging,
+                            subtitle: context
+                                .read<AdminEmployeeListBloc>()
+                                .state
+                                .tableData
+                                .totalElementCounts
+                                .toString()),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          height: 40,
+                          child: _search(onTextChanged: (val) {
+                            _debouncer.run(() {
+                              context.read<AdminEmployeeListBloc>().add(
+                                  AdminEmployeeListEvent.changeSearchTerm(
+                                      searchTerm: val));
+                            });
+                          }),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                      ],
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.only(left: 142, right: 142),
+                    child: SizedBox(
+                      height: 52,
+                      child: Row(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 16,
                           ),
                           _tableTitle(
@@ -64,142 +99,105 @@ class _MessagingState extends State<Messaging> {
                                   .totalElementCounts
                                   .toString()),
                           const SizedBox(
-                            height: 20,
+                            width: 60,
                           ),
-                          SizedBox(
-                            height: 40,
-                            child: _search(onTextChanged: (val) {
-                              _debouncer.run(() {
-                                context.read<AdminEmployeeListBloc>().add(
-                                    AdminEmployeeListEvent.changeSearchTerm(
-                                        searchTerm: val));
-                              });
-                            }),
-                          ),
+                          Expanded(child: _search(onTextChanged: (val) {
+                            a() => context.read<AdminEmployeeListBloc>().add(
+                                AdminEmployeeListEvent.changeSearchTerm(
+                                    searchTerm: val));
+                            print(a);
+                            _debouncer.run(() {
+                              context.read<AdminEmployeeListBloc>().add(
+                                  AdminEmployeeListEvent.changeSearchTerm(
+                                      searchTerm: val));
+                            });
+                          })),
                           const SizedBox(
-                            height: 15,
+                            width: 60,
                           ),
                         ],
                       ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(left: 142, right: 142),
-                      child: SizedBox(
-                        height: 52,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 16,
-                            ),
-                            _tableTitle(
-                                title: AppLocalizations.of(context)!.messaging,
-                                subtitle: context
-                                    .read<AdminEmployeeListBloc>()
-                                    .state
-                                    .tableData
-                                    .totalElementCounts
-                                    .toString()),
-                            const SizedBox(
-                              width: 60,
-                            ),
-                            Expanded(child: _search(onTextChanged: (val) {
-                              a() => context.read<AdminEmployeeListBloc>().add(
-                                  AdminEmployeeListEvent.changeSearchTerm(
-                                      searchTerm: val));
-                              print(a);
-                              _debouncer.run(() {
-                                context.read<AdminEmployeeListBloc>().add(
-                                    AdminEmployeeListEvent.changeSearchTerm(
-                                        searchTerm: val));
-                              });
-                            })),
-                            const SizedBox(
-                              width: 60,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-            }),
-            const SizedBox(
-              height: 10,
-            ),
-            Padding(
+                    ),
+                  );
+          }),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: Padding(
               padding: MediaQuery.of(context).size.width > 1350
                   ? EdgeInsets.only(left: 142, right: 142)
                   : EdgeInsets.symmetric(horizontal: 24),
-              child: Expanded(
-                child: PTableView(
-                  pagination: PTableViewPagination(
-                    currentPage: context
-                        .watch<AdminEmployeeListBloc>()
-                        .state
-                        .tableData
-                        .currentPage,
-                    pagesCount: context
-                        .watch<AdminEmployeeListBloc>()
-                        .state
-                        .tableData
-                        .numberOfPages,
-                    onPageChanged: (i) {
-                      context.read<AdminEmployeeListBloc>().add(
-                          AdminEmployeeListEvent.fetchData(
-                              page: i, elementsPerPage: 7));
-                    },
-                  ),
-                  fixedHeight: 500,
-                  borderRadius: BorderRadius.circular(4),
-                  headerHeight: 45,
-                  header: PTableViewHeader(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                    backgroundColor: Color(0xFFF1F1F1),
-                    rows: [
-                      PTableViewRowFixed(
-                        width: 380,
+              child: PTableView(
+                pagination: PTableViewPagination(
+                  currentPage: context
+                      .watch<AdminEmployeeListBloc>()
+                      .state
+                      .tableData
+                      .currentPage,
+                  pagesCount: context
+                      .watch<AdminEmployeeListBloc>()
+                      .state
+                      .tableData
+                      .numberOfPages,
+                  onPageChanged: (i) {
+                    context.read<AdminEmployeeListBloc>().add(
+                        AdminEmployeeListEvent.fetchData(
+                            page: i, elementsPerPage: 7));
+                  },
+                ),
+                fixedHeight: 500,
+                borderRadius: BorderRadius.circular(4),
+                headerHeight: 45,
+                header: PTableViewHeader(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                  backgroundColor: Color(0xFFF1F1F1),
+                  rows: [
+                    PTableViewRowFixed(
+                      width: 380,
+                      child: Text(
+                        AppLocalizations.of(context)!.employee.toUpperCase(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12),
+                      ),
+                    ),
+                    PTableViewRowFixed(
+                        width: 350,
                         child: Text(
-                          AppLocalizations.of(context)!.employee.toUpperCase(),
+                          AppLocalizations.of(context)!.email.toUpperCase(),
                           style: TextStyle(
                               fontWeight: FontWeight.w500, fontSize: 12),
-                        ),
-                      ),
-                      PTableViewRowFixed(
-                          width: 350,
-                          child: Text(
-                            AppLocalizations.of(context)!.email.toUpperCase(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12),
-                          )),
-                      PTableViewRowFixed(
-                          width: 120,
-                          child: Text(
-                            AppLocalizations.of(context)!.phone.toUpperCase(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12),
-                          )),
-                    ],
-                  ),
-                  content: PTableViewContent(
-                      onTap: (i) {
-                        print('i');
-                      },
-                      divider: BorderSide(
-                        width: 1,
-                        color: Colors.grey,
-                      ),
-                      backgroundColor: Colors.white,
-                      horizontalPadding: 30,
-                      columns: context
-                          .watch<AdminEmployeeListBloc>()
-                          .state
-                          .tableData
-                          .element
-                          .map((e) => _employeesList(employee: e))
-                          .toList()),
+                        )),
+                    PTableViewRowFixed(
+                        width: 120,
+                        child: Text(
+                          AppLocalizations.of(context)!.phone.toUpperCase(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 12),
+                        )),
+                  ],
                 ),
+                content: PTableViewContent(
+                    onTap: (i) {
+                      print('i');
+                    },
+                    divider: BorderSide(
+                      width: 1,
+                      color: Colors.grey,
+                    ),
+                    backgroundColor: Colors.white,
+                    horizontalPadding: 30,
+                    columns: context
+                        .watch<AdminEmployeeListBloc>()
+                        .state
+                        .tableData
+                        .element
+                        .map((e) => _employeesList(employee: e))
+                        .toList()),
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

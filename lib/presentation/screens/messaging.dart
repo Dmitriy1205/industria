@@ -158,7 +158,7 @@ class _MessagingState extends State<Messaging> {
   PTableViewColumn _employeesList({required Employee employee}) {
     return PTableViewColumn(rows: [
       PTableViewRowFixed(
-          width: 350,
+          width: 360,
           child: SizedBox(
             height: 60,
             child: Row(
@@ -188,7 +188,7 @@ class _MessagingState extends State<Messaging> {
             ),
           )),
       PTableViewRowFixed(
-          width: 380,
+          width: 340,
           child: SizedBox(
             height: 60,
             child: Container(
@@ -205,7 +205,7 @@ class _MessagingState extends State<Messaging> {
             ),
           )),
       PTableViewRowFixed(
-          width: 120,
+          width: 150,
           child: SizedBox(
             height: 60,
             child: Container(
@@ -222,7 +222,7 @@ class _MessagingState extends State<Messaging> {
             ),
           )),
       PTableViewRowFixed(
-          width: 600,
+          width: 300,
           child: Padding(
             padding: const EdgeInsets.only(right: 34),
             child: SizedBox(
@@ -252,43 +252,40 @@ class _MessagingState extends State<Messaging> {
   Widget _tableAction({required String title, required VoidCallback onTap}) {
     return MouseRegion(
         cursor: SystemMouseCursors.click,
-        child: SizedBox(
-          width: 109,
-          height: 32,
-          child: GestureDetector(
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(12),
-                ),
-                color: AppColors.mainAccent,
+        child: GestureDetector(
+          child: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(12),
               ),
-              height: 32,
-              child: Center(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 18),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(width: 18,height: 18,
-                        child: Icon(
-                          FontAwesomeIcons.whatsapp,
-                          color: Colors.white,
-                        ),
+              color: AppColors.mainAccent,
+            ),
+            height: 32,
+            width: 109,
+            child: Center(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 6, horizontal: 18),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(width: 18,height: 18,
+                      child: Icon(
+                        FontAwesomeIcons.whatsapp,
+                        color: Colors.white,
                       ),
-                      SizedBox(width: 17,),
-                      SelectionContainer.disabled(
-                        child: Text(
-                          AppLocalizations.of(context)!.chat,
-                          style: AppTheme.themeData.textTheme.labelMedium!
-                              .copyWith(color: Colors.white, fontSize: 12),
-                        ),
+                    ),
+                    SizedBox(width: 17,),
+                    SelectionContainer.disabled(
+                      child: Text(
+                        AppLocalizations.of(context)!.chat,
+                        style: AppTheme.themeData.textTheme.labelMedium!
+                            .copyWith(color: Colors.white, fontSize: 12),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

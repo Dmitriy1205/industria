@@ -181,7 +181,8 @@
    "messaging": "Nachrichtenübermittlung",
    "phone": "Telefon",
    "workedThisWeek": "Hat diese Woche funktioniert:",
-   "notAvailable": "Nicht verfügbar",
+   "notAvailable": "nicht verfügbar",
    "working": "arbeiten",
-   "brea": "brechen"
+   "brea": "brechen",
+   "type": "Typ"
 }

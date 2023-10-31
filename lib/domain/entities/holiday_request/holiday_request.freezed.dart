@@ -26,6 +26,7 @@ mixin _$HolidayRequest {
   String get reason => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get employeeId => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
   @JsonKey(
       fromJson: FirebaseTimestampConverters.fromTimestamp,
       toJson: FirebaseTimestampConverters.toTimestamp)
@@ -60,6 +61,7 @@ abstract class $HolidayRequestCopyWith<$Res> {
       String reason,
       String id,
       String employeeId,
+      String type,
       @JsonKey(
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           toJson: FirebaseTimestampConverters.toTimestamp)
@@ -95,6 +97,7 @@ class _$HolidayRequestCopyWithImpl<$Res, $Val extends HolidayRequest>
     Object? reason = null,
     Object? id = null,
     Object? employeeId = null,
+    Object? type = null,
     Object? createdAt = null,
     Object? unavailableFrom = null,
     Object? unavailableTo = null,
@@ -125,6 +128,10 @@ class _$HolidayRequestCopyWithImpl<$Res, $Val extends HolidayRequest>
       employeeId: null == employeeId
           ? _value.employeeId
           : employeeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
           ? _value.createdAt
@@ -165,6 +172,7 @@ abstract class _$$_HolidayRequestCopyWith<$Res>
       String reason,
       String id,
       String employeeId,
+      String type,
       @JsonKey(
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           toJson: FirebaseTimestampConverters.toTimestamp)
@@ -198,6 +206,7 @@ class __$$_HolidayRequestCopyWithImpl<$Res>
     Object? reason = null,
     Object? id = null,
     Object? employeeId = null,
+    Object? type = null,
     Object? createdAt = null,
     Object? unavailableFrom = null,
     Object? unavailableTo = null,
@@ -228,6 +237,10 @@ class __$$_HolidayRequestCopyWithImpl<$Res>
       employeeId: null == employeeId
           ? _value.employeeId
           : employeeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
       createdAt: null == createdAt
           ? _value.createdAt
@@ -265,6 +278,7 @@ class _$_HolidayRequest
       required this.reason,
       required this.id,
       required this.employeeId,
+      this.type = "Holiday request",
       @JsonKey(
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           toJson: FirebaseTimestampConverters.toTimestamp)
@@ -296,6 +310,9 @@ class _$_HolidayRequest
   @override
   final String employeeId;
   @override
+  @JsonKey()
+  final String type;
+  @override
   @JsonKey(
       fromJson: FirebaseTimestampConverters.fromTimestamp,
       toJson: FirebaseTimestampConverters.toTimestamp)
@@ -319,7 +336,7 @@ class _$_HolidayRequest
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'HolidayRequest(firstname: $firstname, lastname: $lastname, photoRef: $photoRef, reason: $reason, id: $id, employeeId: $employeeId, createdAt: $createdAt, unavailableFrom: $unavailableFrom, unavailableTo: $unavailableTo, status: $status, read: $read)';
+    return 'HolidayRequest(firstname: $firstname, lastname: $lastname, photoRef: $photoRef, reason: $reason, id: $id, employeeId: $employeeId, type: $type, createdAt: $createdAt, unavailableFrom: $unavailableFrom, unavailableTo: $unavailableTo, status: $status, read: $read)';
   }
 
   @override
@@ -333,6 +350,7 @@ class _$_HolidayRequest
       ..add(DiagnosticsProperty('reason', reason))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('employeeId', employeeId))
+      ..add(DiagnosticsProperty('type', type))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('unavailableFrom', unavailableFrom))
       ..add(DiagnosticsProperty('unavailableTo', unavailableTo))
@@ -355,6 +373,7 @@ class _$_HolidayRequest
             (identical(other.id, id) || other.id == id) &&
             (identical(other.employeeId, employeeId) ||
                 other.employeeId == employeeId) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.unavailableFrom, unavailableFrom) ||
@@ -375,6 +394,7 @@ class _$_HolidayRequest
       reason,
       id,
       employeeId,
+      type,
       createdAt,
       unavailableFrom,
       unavailableTo,
@@ -403,6 +423,7 @@ abstract class _HolidayRequest implements HolidayRequest {
       required final String reason,
       required final String id,
       required final String employeeId,
+      final String type,
       @JsonKey(
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           toJson: FirebaseTimestampConverters.toTimestamp)
@@ -433,6 +454,8 @@ abstract class _HolidayRequest implements HolidayRequest {
   String get id;
   @override
   String get employeeId;
+  @override
+  String get type;
   @override
   @JsonKey(
       fromJson: FirebaseTimestampConverters.fromTimestamp,

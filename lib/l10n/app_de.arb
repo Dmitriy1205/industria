@@ -183,8 +183,5 @@
    "workedThisWeek": "Hat diese Woche funktioniert:",
    "notAvailable": "Nicht verfügbar",
    "working": "arbeiten",
-   "brea": "brechen",
-   "createReport": "Bericht erstellen",
-   "type": "Typ",
-   "reason": "Grund"
+   "brea": "brechen"
 }

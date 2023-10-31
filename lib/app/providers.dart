@@ -6,6 +6,7 @@ import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
 import 'package:industria/presentation/bloc/feedback_feature/admin_feedback_list/admin_feedback_list_bloc.dart';
+import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 
 import '../core/services/service_locator.dart';
@@ -32,6 +33,7 @@ class Providers extends StatelessWidget {
           lazy: false,
         ),
         BlocProvider(create: (context) => sl<AuthBloc>()),
+        BlocProvider(create: (context) => sl<JobsBloc>()),
         BlocProvider(create: (context) => sl<AdminAuthBloc>()),
         BlocProvider(create: (context) => sl<AdminEmployeeListBloc>()),
         BlocProvider(create: (context) => sl<AdminJobApplicationsBloc>()),

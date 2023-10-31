@@ -12,6 +12,7 @@ import 'package:industria/domain/entities/job_filters/job_filters.dart';
 import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_checkbox.dart';
+import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../core/constants/colors.dart';
 import '../../core/services/service_locator.dart';
@@ -37,11 +38,13 @@ class _JobsState extends State<Jobs> {
   bool isHoveredButton = false;
   List<JobTypes> _jobTypes = [];
 
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     sl<JobsBloc>().add(JobsEvent.fetchJobs(
-        filter: JobFilters(count: 10, keyword: widget.initialKeyword, page: 0, city: widget.initialCountry)));
+        filter: JobFilters(count: 5, keyword: widget.initialKeyword, page: 0, city: widget.initialCountry)));
   }
 
   void _onSearchClicked() {
@@ -66,6 +69,7 @@ class _JobsState extends State<Jobs> {
   @override
   void dispose() {
     textController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -86,17 +90,265 @@ class _JobsState extends State<Jobs> {
 
   Widget desktop(BuildContext context) {
     return CustomScrollView(
+      controller: _scrollController,
       slivers: <Widget>[
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.only(top: 43.0),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: MediaQuery.of(context).size.width / 5),
-                  child: Container(
-                    height: 84,
+            child: BlocBuilder<JobsBloc,JobsState>(
+              builder: (context,state) => Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width / 5),
+                    child: Container(
+                      height: 84,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(1, 2),
+                              color: Colors.black.withOpacity(0.25),
+                              blurRadius: 6),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 34),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: 200,
+                              child: TextField(
+                                controller: textController,
+                                style: AppTheme.themeData.textTheme.labelMedium!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                        fontSize: 14),
+                                decoration: InputDecoration(
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  hintText:
+                                      AppLocalizations.of(context)!.jobTitle,
+                                  hintStyle: AppTheme
+                                      .themeData.textTheme.labelMedium!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: AppColors.darkGrey,
+                                          fontSize: 14),
+                                  prefixIcon: const Padding(
+                                    padding: EdgeInsets.only(right: 28.5, top: 2),
+                                    child: FaIcon(
+                                      FontAwesomeIcons.solidBuilding,
+                                      color: AppColors.darkGrey,
+                                      size: 20,
+                                    ),
+                                  ),
+                                  prefixIconConstraints: const BoxConstraints(
+                                      maxWidth: 50, minHeight: 0),
+                                ),
+                              ),
+                            ),
+                            const Spacer(),
+                            Container(
+                              height: 39,
+                              width: 2,
+                              color: AppColors.lightGrey, // Color of the divider
+                            ),
+                            const SizedBox(
+                              width: 42,
+                            ),
+                            Theme(
+                              data: Theme.of(context).copyWith(
+                                hoverColor: Colors.white,
+                              ),
+                              child: DropdownButton<String>(
+                                focusColor: Colors.white,
+                                icon: const Padding(
+                                  padding: EdgeInsets.only(left: 8.0, top: 2),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    size: 17,
+                                    color: AppColors.darkGrey,
+                                  ),
+                                ),
+                                underline: const SizedBox(),
+                                value: dropdownValue,
+                                borderRadius: BorderRadius.circular(10),
+                                items: <String>[
+                                  AppLocalizations.of(context)!.allGermany,
+                                  'Berlin',
+                                  'Munich'
+                                ].map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.darkGrey,
+                                              fontSize: 14),
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownValue = newValue!;
+                                  });
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 42,
+                            ),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              onEnter: (_) {
+                                setState(() {
+                                  isHovered = !isHovered;
+                                });
+                              },
+                              onExit: (_) {
+                                setState(() {
+                                  isHovered = !isHovered;
+                                });
+                              },
+                              child: GestureDetector(
+                                onTap: _onSearchClicked,
+                                child: Container(
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: isHovered
+                                          ? AppColors.mainDarkAccent
+                                          : AppColors.mainAccent,
+                                      borderRadius: const BorderRadius.only(
+                                          topRight: Radius.circular(12),
+                                          bottomRight: Radius.circular(12))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                                    child: Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          AppImages.search,
+                                          width: 21,
+                                          height: 21,
+                                          color: Colors.white,
+                                        ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        Text(
+                                          AppLocalizations.of(context)!.search,
+                                          style: AppTheme
+                                              .themeData.textTheme.labelMedium!
+                                              .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.white,
+                                                  fontSize: 14),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 56.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        desktopFilter(context),
+                        const SizedBox(
+                          width: 75,
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 44.0),
+                                child: state.map(initial: (state) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }, loaded: (state) {
+                                  return ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: state.jobs.element.length,
+                                    itemBuilder: (context, i) {
+                                      final e = state.jobs.element[i];
+                                      return Container(
+                                        margin: const EdgeInsets.only(bottom: 30),
+                                        child: JobCard(
+                                            icon: e.company.logo,
+                                            date: getTimeAgo(e.createdAt ,context.watch<LocalizationBloc>().state.locale.languageCode),
+                                            vacancy: e.title,
+                                            address: e.location,
+                                            description: e.description,
+                                            salary: e.salary,
+                                            goToDescription: () {
+                                              context.go('/job_description?id=${e.id}');
+                                            }),
+                                      );
+                                    },
+                                  );
+                                }),
+                              ),
+                              state.map(initial: (_){
+                                return Center(child: CircularProgressIndicator(),);
+                              }, loaded: (state){
+                                return PTableViewPagination(currentPage: state.jobs.currentPage, pagesCount: state.jobs.numberOfPages, onPageChanged: (v){
+                                  _scrollController.animateTo(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
+                                  context.read<JobsBloc>().add(JobsEvent.fetchJobs(filter: state.filter.copyWith(page: v)));
+                                });
+                              }),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 161,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        const Footer(),
+      ],
+    );
+  }
+
+  Widget tablet(BuildContext context) {
+    return BlocBuilder<JobsBloc,JobsState>(
+      builder: (context,state) => CustomScrollView(
+        controller: _scrollController,
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 43),
+              child: Column(
+                children: [
+                  Container(
+                    height: 70,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -113,95 +365,43 @@ class _JobsState extends State<Jobs> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            width: 200,
-                            child: TextField(
-                              controller: textController,
-                              style: AppTheme.themeData.textTheme.labelMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.black,
-                                      fontSize: 14),
-                              decoration: InputDecoration(
-                                enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                hintText:
-                                    AppLocalizations.of(context)!.jobTitle,
-                                hintStyle: AppTheme
-                                    .themeData.textTheme.labelMedium!
+                          Expanded(
+                            child: SizedBox(
+                              child: TextField(
+                                controller: textController,
+                                style: AppTheme.themeData.textTheme.labelMedium!
                                     .copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        color: AppColors.darkGrey,
-                                        fontSize: 14),
-                                prefixIcon: const Padding(
-                                  padding: EdgeInsets.only(right: 28.5, top: 2),
-                                  child: FaIcon(
-                                    FontAwesomeIcons.solidBuilding,
-                                    color: AppColors.darkGrey,
-                                    size: 20,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
+                                    fontSize: 14),
+                                decoration: InputDecoration(
+                                  enabledBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide.none),
+                                  hintText:
+                                  AppLocalizations.of(context)!.jobTitle,
+                                  hintStyle: AppTheme
+                                      .themeData.textTheme.labelMedium!
+                                      .copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.darkGrey,
+                                      fontSize: 14),
+                                  prefixIcon: const Padding(
+                                    padding: EdgeInsets.only(right: 28.5, top: 2),
+                                    child: FaIcon(
+                                      FontAwesomeIcons.solidBuilding,
+                                      color: AppColors.darkGrey,
+                                      size: 20,
+                                    ),
                                   ),
-                                ),
-                                prefixIconConstraints: const BoxConstraints(
-                                    maxWidth: 50, minHeight: 0),
-                              ),
-                            ),
-                          ),
-                          const Spacer(),
-                          Container(
-                            height: 39,
-                            width: 2,
-                            color: AppColors.lightGrey, // Color of the divider
-                          ),
-                          const SizedBox(
-                            width: 42,
-                          ),
-                          Theme(
-                            data: Theme.of(context).copyWith(
-                              hoverColor: Colors.white,
-                            ),
-                            child: DropdownButton<String>(
-                              focusColor: Colors.white,
-                              icon: const Padding(
-                                padding: EdgeInsets.only(left: 8.0, top: 2),
-                                child: Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  size: 17,
-                                  color: AppColors.darkGrey,
+                                  prefixIconConstraints: const BoxConstraints(
+                                      maxWidth: 50, minHeight: 0),
                                 ),
                               ),
-                              underline: const SizedBox(),
-                              value: dropdownValue,
-                              borderRadius: BorderRadius.circular(10),
-                              items: <String>[
-                                AppLocalizations.of(context)!.allGermany,
-                                'Berlin',
-                                'Munich'
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: AppTheme
-                                        .themeData.textTheme.labelMedium!
-                                        .copyWith(
-                                            fontWeight: FontWeight.w400,
-                                            color: AppColors.darkGrey,
-                                            fontSize: 14),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  dropdownValue = newValue!;
-                                });
-                              },
                             ),
                           ),
-                          const SizedBox(
-                            width: 42,
-                          ),
+                          SizedBox(width: 16,),
                           MouseRegion(
                             cursor: SystemMouseCursors.click,
                             onEnter: (_) {
@@ -226,7 +426,7 @@ class _JobsState extends State<Jobs> {
                                         topRight: Radius.circular(12),
                                         bottomRight: Radius.circular(12))),
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
@@ -243,9 +443,9 @@ class _JobsState extends State<Jobs> {
                                         style: AppTheme
                                             .themeData.textTheme.labelMedium!
                                             .copyWith(
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.white,
-                                                fontSize: 14),
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.white,
+                                            fontSize: 14),
                                       ),
                                     ],
                                   ),
@@ -257,281 +457,103 @@ class _JobsState extends State<Jobs> {
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 56.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      desktopFilter(context),
-                      const SizedBox(
-                        width: 75,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 44.0),
-                          child: BlocBuilder<JobsBloc, JobsState>(
-                            bloc: sl<JobsBloc>(),
-                            builder: (context, state) =>
-                                state.map(initial: (state) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }, loaded: (state) {
-                              return ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: state.jobs.length,
-                                itemBuilder: (context, i) {
-                                  final e = state.jobs[i];
-                                  return Container(
-                                    margin: const EdgeInsets.only(bottom: 30),
-                                    child: JobCard(
-                                        icon: e.company.logo,
-                                        date: getTimeAgo(e.createdAt ,context.watch<LocalizationBloc>().state.locale.languageCode),
-                                        vacancy: e.title,
-                                        address: e.location,
-                                        description: e.description,
-                                        salary: e.salary,
-                                        goToDescription: () {
-                                          context.go('/job_description?id=${e.id}');
-                                        }),
-                                  );
-                                },
-                              );
-                            }),
-                          ),
+                  const SizedBox(height: 15,),
+                  Theme(
+                    data: Theme.of(context).copyWith(
+                      hoverColor: Colors.white,
+                    ),
+                    child: DropdownButton<String>(
+                      focusColor: Colors.white,
+                      icon: const Padding(
+                        padding: EdgeInsets.only(left: 8.0, top: 2),
+                        child: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          size: 17,
+                          color: AppColors.darkGrey,
                         ),
                       ),
-                    ],
+                      underline: const SizedBox(),
+                      value: dropdownValue,
+                      borderRadius: BorderRadius.circular(10),
+                      items: <String>[
+                        AppLocalizations.of(context)!.allGermany,
+                        'Berlin',
+                        'Munich'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: AppTheme
+                                .themeData.textTheme.labelMedium!
+                                .copyWith(
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.darkGrey,
+                                fontSize: 14),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 161,
-                ),
-              ],
+                  const SizedBox(
+                    height: 53,
+                  ),
+                  mobileFilter(context),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 44.0),
+                      child: state.map(initial: (state) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }, loaded: (state) {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: state.jobs.element.length,
+                          itemBuilder: (context, i) {
+                            final e = state.jobs.element[i];
+                            return Container(
+                              margin: const EdgeInsets.only(bottom: 30),
+                              child: JobCard(
+                                  icon: e.company.logo,
+                                  date: getTimeAgo(e.createdAt, context.watch<LocalizationBloc>().state.locale.languageCode),
+                                  vacancy: e.title,
+                                  address: e.location,
+                                  description: e.description,
+                                  salary: e.salary,
+                                  goToDescription: () {
+                                    context.go('/job_description?id=${e.id}');
+                                  }),
+                            );
+                          },
+                        );
+                      }),
+                    ),
+                  ),
+                  state.map(initial: (_){
+                    return SizedBox.shrink();
+                  }, loaded: (state){
+                    return PTableViewPagination(currentPage: state.jobs.currentPage, pagesCount: state.jobs.numberOfPages, onPageChanged: (v){
+                      _scrollController.animateTo(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
+                      context.read<JobsBloc>().add(JobsEvent.fetchJobs(filter: state.filter.copyWith(page: v)));
+                    });
+                  }),
+                  const SizedBox(
+                    height: 161,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const Footer(),
-      ],
-    );
-  }
-
-  Widget tablet(BuildContext context) {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverToBoxAdapter(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 43),
-            child: Column(
-              children: [
-                Container(
-                  height: 70,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                          offset: const Offset(1, 2),
-                          color: Colors.black.withOpacity(0.25),
-                          blurRadius: 6),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 34),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: SizedBox(
-                            child: TextField(
-                              controller: textController,
-                              style: AppTheme.themeData.textTheme.labelMedium!
-                                  .copyWith(
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black,
-                                  fontSize: 14),
-                              decoration: InputDecoration(
-                                enabledBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                focusedBorder: const OutlineInputBorder(
-                                    borderSide: BorderSide.none),
-                                hintText:
-                                AppLocalizations.of(context)!.jobTitle,
-                                hintStyle: AppTheme
-                                    .themeData.textTheme.labelMedium!
-                                    .copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.darkGrey,
-                                    fontSize: 14),
-                                prefixIcon: const Padding(
-                                  padding: EdgeInsets.only(right: 28.5, top: 2),
-                                  child: FaIcon(
-                                    FontAwesomeIcons.solidBuilding,
-                                    color: AppColors.darkGrey,
-                                    size: 20,
-                                  ),
-                                ),
-                                prefixIconConstraints: const BoxConstraints(
-                                    maxWidth: 50, minHeight: 0),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 16,),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          onEnter: (_) {
-                            setState(() {
-                              isHovered = !isHovered;
-                            });
-                          },
-                          onExit: (_) {
-                            setState(() {
-                              isHovered = !isHovered;
-                            });
-                          },
-                          child: GestureDetector(
-                            onTap: _onSearchClicked,
-                            child: Container(
-                              height: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: isHovered
-                                      ? AppColors.mainDarkAccent
-                                      : AppColors.mainAccent,
-                                  borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(12),
-                                      bottomRight: Radius.circular(12))),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      AppImages.search,
-                                      width: 21,
-                                      height: 21,
-                                      color: Colors.white,
-                                    ),
-                                    const SizedBox(
-                                      width: 16,
-                                    ),
-                                    Text(
-                                      AppLocalizations.of(context)!.search,
-                                      style: AppTheme
-                                          .themeData.textTheme.labelMedium!
-                                          .copyWith(
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.white,
-                                          fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 15,),
-                Theme(
-                  data: Theme.of(context).copyWith(
-                    hoverColor: Colors.white,
-                  ),
-                  child: DropdownButton<String>(
-                    focusColor: Colors.white,
-                    icon: const Padding(
-                      padding: EdgeInsets.only(left: 8.0, top: 2),
-                      child: Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        size: 17,
-                        color: AppColors.darkGrey,
-                      ),
-                    ),
-                    underline: const SizedBox(),
-                    value: dropdownValue,
-                    borderRadius: BorderRadius.circular(10),
-                    items: <String>[
-                      AppLocalizations.of(context)!.allGermany,
-                      'Berlin',
-                      'Munich'
-                    ].map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(
-                          value,
-                          style: AppTheme
-                              .themeData.textTheme.labelMedium!
-                              .copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.darkGrey,
-                              fontSize: 14),
-                        ),
-                      );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                      });
-                    },
-                  ),
-                ),
-                const SizedBox(
-                  height: 53,
-                ),
-                mobileFilter(context),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 44.0),
-                    child: BlocBuilder<JobsBloc, JobsState>(
-                      bloc: sl<JobsBloc>(),
-                      builder: (context, state) =>
-                          state.map(initial: (state) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }, loaded: (state) {
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: state.jobs.length,
-                              itemBuilder: (context, i) {
-                                final e = state.jobs[i];
-                                return Container(
-                                  margin: const EdgeInsets.only(bottom: 30),
-                                  child: JobCard(
-                                      icon: e.company.logo,
-                                      date: getTimeAgo(e.createdAt, context.watch<LocalizationBloc>().state.locale.languageCode),
-                                      vacancy: e.title,
-                                      address: e.location,
-                                      description: e.description,
-                                      salary: e.salary,
-                                      goToDescription: () {
-                                        context.go('/job_description?id=${e.id}');
-                                      }),
-                                );
-                              },
-                            );
-                          }),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 161,
-                ),
-              ],
-            ),
-          ),
-        ),
-        const Footer(),
-      ],
+          const Footer(),
+        ],
+      ),
     );
   }
 

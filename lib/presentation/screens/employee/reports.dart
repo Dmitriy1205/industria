@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:pandas_tableview/p_tableview.dart';
@@ -64,7 +63,7 @@ class _ReportsState extends State<Reports> {
             return constraints.maxWidth < 950
                 ? Padding(
                     padding: const EdgeInsets.only(left: 24, right: 24),
-                    child: Column(
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
@@ -80,7 +79,7 @@ class _ReportsState extends State<Reports> {
                                 .toString()),
                         Spacer(),
                         SizedBox(
-                            width: 100,
+                            width: 172,
                             child: AppElevatedButton(
                               text: AppLocalizations.of(context)!.createReport,
                               prefixIcon: const Icon(

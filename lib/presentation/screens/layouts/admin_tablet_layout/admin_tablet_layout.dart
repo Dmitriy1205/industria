@@ -132,7 +132,7 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
                     }),
                 _tab(
                     show: context.watch<AdminAuthBloc>().state.isAdminAuthenticated,
-                    title: AppLocalizations.of(context)!.holidays,
+                    title: AppLocalizations.of(context)!.reports,
                     icon: FontAwesomeIcons.userClock,
                     isSelected: GoRouterState.of(context).fullPath ==
                         '/admin/holidays',

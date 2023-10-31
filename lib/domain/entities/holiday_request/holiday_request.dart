@@ -14,6 +14,7 @@ class HolidayRequest with _$HolidayRequest {
     required String reason,
     required String id,
     required String employeeId,
+    @Default("Holiday request") String type,
     @JsonKey(fromJson: FirebaseTimestampConverters.fromTimestamp, toJson: FirebaseTimestampConverters.toTimestamp) required DateTime createdAt,
     @JsonKey(fromJson: FirebaseTimestampConverters.fromTimestamp, toJson: FirebaseTimestampConverters.toTimestamp) required DateTime unavailableFrom,
     @JsonKey(fromJson: FirebaseTimestampConverters.fromTimestamp, toJson: FirebaseTimestampConverters.toTimestamp) required DateTime unavailableTo,

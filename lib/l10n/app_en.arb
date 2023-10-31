@@ -182,5 +182,8 @@
  "workedThisWeek": "Worked this week:",
  "notAvailable": "not available",
  "working": "working",
- "brea": "break"
+ "brea": "break",
+ "createReport": "Create report",
+ "type": "Type",
+ "reason": "Reason"
 }

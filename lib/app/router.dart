@@ -40,6 +40,7 @@ import '../presentation/screens/admin/view_holiday.dart';
 import '../presentation/screens/contact.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/imprint.dart';
+import '../presentation/screens/reports.dart';
 
 String? _authAdminRedirect(String fullPath, bool isAuthenticated) {
   if (fullPath == '/admin/login' && isAuthenticated) {
@@ -341,6 +342,14 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: const Messaging(),
+          ),
+        ),
+        GoRoute(
+          path: '/reports',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const Reports(),
           ),
         ),
       ],

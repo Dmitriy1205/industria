@@ -180,7 +180,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             text: 'NOT AVAILABLE',
                             style: AppTheme.themeData.textTheme.labelLarge!
                                 .copyWith(
-                                    color: const Color(0xFF091312), fontSize: 12),
+                                    color: const Color(0xFF091312),
+                                    fontSize: 12),
                           ),
                           const SizedBox(
                             width: 36,
@@ -199,7 +200,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             text: 'WORKING',
                             style: AppTheme.themeData.textTheme.labelLarge!
                                 .copyWith(
-                                    color: const Color(0xFF091312), fontSize: 12),
+                                    color: const Color(0xFF091312),
+                                    fontSize: 12),
                           ),
                           const SizedBox(
                             width: 36,
@@ -218,7 +220,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             text: 'BREAK',
                             style: AppTheme.themeData.textTheme.labelLarge!
                                 .copyWith(
-                                    color: const Color(0xFF091312), fontSize: 12),
+                                    color: const Color(0xFF091312),
+                                    fontSize: 12),
                           ),
                         ],
                       ),
@@ -299,30 +302,34 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                     !isHoveredReportsButton;
                               });
                             },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: isHoveredReportsButton
-                                      ? AppColors.mainDarkAccent
-                                      : AppColors.mainAccent,
-                                  borderRadius: BorderRadius.circular(4)),
-                              width: 142,
-                              height: 119,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset('assets/icons/document.svg'),
-                                  const SizedBox(
-                                    height: 13,
-                                  ),
-                                  SelectionContainer.disabled(
-                                    child: Text(
-                                      'REPORTS',
-                                      style: AppTheme
-                                          .themeData.textTheme.labelMedium!
-                                          .copyWith(color: Colors.white),
+                            child: GestureDetector(
+                              onTap: () => router.go('/reports'),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: isHoveredReportsButton
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    borderRadius: BorderRadius.circular(4)),
+                                width: 142,
+                                height: 119,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                        'assets/icons/document.svg'),
+                                    const SizedBox(
+                                      height: 13,
                                     ),
-                                  )
-                                ],
+                                    SelectionContainer.disabled(
+                                      child: Text(
+                                        'REPORTS',
+                                        style: AppTheme
+                                            .themeData.textTheme.labelMedium!
+                                            .copyWith(color: Colors.white),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -356,7 +363,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SvgPicture.asset('assets/icons/whatsApp.svg'),
+                                    SvgPicture.asset(
+                                        'assets/icons/whatsApp.svg'),
                                     const SizedBox(
                                       height: 13,
                                     ),

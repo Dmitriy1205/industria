@@ -5,12 +5,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:pandas_tableview/p_tableview.dart';
-import '../../core/constants/colors.dart';
-import '../../domain/entities/holiday_request/holiday_request.dart';
-import '../bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
-import '../bloc/localization/localization_bloc.dart';
-import '../widgets/app_elevated_button.dart';
-import '../widgets/custom_checkbox.dart';
+import '../../../core/constants/colors.dart';
+import '../../../domain/entities/holiday_request/holiday_request.dart';
+import '../../bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
+import '../../bloc/localization/localization_bloc.dart';
+import '../../widgets/app_elevated_button.dart';
+import '../../widgets/custom_checkbox.dart';
 
 class Reports extends StatefulWidget {
   const Reports({Key? key}) : super(key: key);

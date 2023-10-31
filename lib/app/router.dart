@@ -30,7 +30,7 @@ import 'package:industria/presentation/screens/job_description.dart';
 import 'package:industria/presentation/screens/jobs.dart';
 import 'package:industria/presentation/screens/layouts/admin/admin_desktop_dashboard_layout.dart';
 import 'package:industria/presentation/screens/main_screen.dart';
-import 'package:industria/presentation/screens/messaging.dart';
+import 'package:industria/presentation/screens/employee/messaging.dart';
 import 'package:industria/presentation/screens/our_team.dart';
 
 import '../domain/entities/feedback/feedback.dart';
@@ -40,7 +40,7 @@ import '../presentation/screens/admin/view_holiday.dart';
 import '../presentation/screens/contact.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/imprint.dart';
-import '../presentation/screens/reports.dart';
+import '../presentation/screens/employee/reports.dart';
 
 String? _authAdminRedirect(String fullPath, bool isAuthenticated) {
   if (fullPath == '/admin/login' && isAuthenticated) {

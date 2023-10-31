@@ -183,5 +183,8 @@
  "notAvailable": "not available",
  "working": "working",
  "brea": "break",
- "type": "Type"
+ "createReport": "Create report",
+ "type": "Type",
+ "reason": "Reason"
+
 }

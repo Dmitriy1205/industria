@@ -80,7 +80,7 @@ class _ReportsState extends State<Reports> {
                                 .toString()),
                         Spacer(),
                         SizedBox(
-                            width: 200,
+                            width: 100,
                             child: AppElevatedButton(
                               text: AppLocalizations.of(context)!.createReport,
                               prefixIcon: const Icon(
@@ -267,7 +267,7 @@ class _ReportsState extends State<Reports> {
                   width: 13,
                 ),
                 Text(
-                  "${holidayRequest.id}",
+                  "${holidayRequest.type}",
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: holidayRequest.read

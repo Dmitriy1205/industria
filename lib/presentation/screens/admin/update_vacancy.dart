@@ -312,25 +312,8 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                         },
                                       ),
                                     ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          router
-                                              .go('/admin/create_company');
-                                        },
-                                        child: Text(
-                                          AppLocalizations.of(context)!.createCompany,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.mainAccent,
-                                              decoration:
-                                              TextDecoration.underline,
-                                              decorationColor:
-                                              AppColors.mainAccent),
-                                        ),
-                                      ),
+                                    const SizedBox(
+                                      width: 25,
                                     ),
                                     Padding(
                                       padding: EdgeInsets.symmetric(

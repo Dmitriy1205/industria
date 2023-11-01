@@ -182,5 +182,6 @@
    "delete": "Löschen",
    "change": "Ändern",
    "questionDeleteCompany": "Sind Sie sicher, dass Sie das Unternehmen löschen möchten?",
-   "updateCompany": "Firma aktualisieren"
+   "updateCompany": "Firma aktualisieren",
+   "answer": "Antwort"
 }

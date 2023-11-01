@@ -42,6 +42,7 @@ class JobOffer with _$JobOffer {
     required String city,
     required String salary,
     required String description,
+    @Default([]) List<String> questions,
     @JsonKey(fromJson: FirebaseTimestampConverters.fromTimestamp, includeToJson: false) required DateTime createdAt,
   }) = _JobOffer;
 

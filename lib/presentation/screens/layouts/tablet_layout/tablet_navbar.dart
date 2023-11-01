@@ -33,9 +33,9 @@ class _TabletNavbarState extends State<TabletNavbar> {
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                  padding: EdgeInsets.only(left: 40),
+                  padding: const EdgeInsets.only(left: 40),
                   child: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.reorder,
                       size: 36,
                     ),
@@ -49,9 +49,12 @@ class _TabletNavbarState extends State<TabletNavbar> {
                   )),
             ),
             Center(
-              child: Image.asset(
-                AppImages.logo,
-                scale: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Image.asset(
+                  AppImages.logo,
+                  scale: 2,
+                ),
               ),
             ),
             Column(

@@ -18,6 +18,10 @@ _$_JobOffer _$$_JobOfferFromJson(Map<String, dynamic> json) => _$_JobOffer(
       city: json['city'] as String,
       salary: json['salary'] as String,
       description: json['description'] as String,
+      questions: (json['questions'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
       createdAt: FirebaseTimestampConverters.fromTimestamp(json['createdAt']),
     );
 
@@ -34,4 +38,5 @@ Map<String, dynamic> _$$_JobOfferToJson(_$_JobOffer instance) =>
       'city': instance.city,
       'salary': instance.salary,
       'description': instance.description,
+      'questions': instance.questions,
     };

@@ -181,5 +181,6 @@
  "delete": "Delete",
  "change": "Change",
  "questionDeleteCompany": "Are you sure you want to delete the company?",
- "updateCompany": "Update company"
+ "updateCompany": "Update company",
+ "answer": "Answer"
 }

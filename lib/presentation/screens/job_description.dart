@@ -63,6 +63,9 @@ class _JobDescriptionState extends State<JobDescription> {
   final FocusNode _availableDateFocus = FocusNode();
   DateTime? _availableDate;
 
+  List<TextEditingController> _questionsTextEditingControllers = [];
+  List<FocusNode> _questionsFocusNodes = [];
+
   final _formKey = GlobalKey<FormState>();
 
   bool isSavePressed = false;
@@ -124,6 +127,12 @@ class _JobDescriptionState extends State<JobDescription> {
     _availableDateController.dispose();
     _availableDateFocus.dispose();
     _genderController.dispose();
+    for (var controller in _questionsTextEditingControllers) {
+      controller.dispose();
+    }
+    for (var focusNode in _questionsFocusNodes) {
+      focusNode.dispose();
+    }
     super.dispose();
   }
 
@@ -145,10 +154,18 @@ class _JobDescriptionState extends State<JobDescription> {
             },
             orElse: () {});
       },
-      child: BlocBuilder<JobDetailsCubit, JobOffer?>(
+      child: BlocConsumer<JobDetailsCubit, JobOffer?>(
+        listener: (context, state) {
+          if (state != null) {
+            _questionsTextEditingControllers = List.generate(
+                state.questions.length, (index) => TextEditingController());
+            _questionsFocusNodes =
+                List.generate(state.questions.length, (index) => FocusNode());
+          }
+        },
         bloc: jobDetailsCubit,
         builder: (context, state) => state == null
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(),
               )
             : SelectionArea(
@@ -215,8 +232,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                                     fontSize: 32),
                                           ),
                                           Text(
-                                            JobTypes.fromString(
-                                                    state.jobType)!
+                                            JobTypes.fromString(state.jobType)!
                                                 .localizedString(context),
                                             style: Theme.of(context)
                                                 .textTheme
@@ -245,8 +261,8 @@ class _JobDescriptionState extends State<JobDescription> {
                                   const SizedBox(
                                     height: 12,
                                   ),
-                                  _iconTextTile(FontAwesomeIcons.moneyBill,
-                                      state.salary),
+                                  _iconTextTile(
+                                      FontAwesomeIcons.moneyBill, state.salary),
                                   const SizedBox(
                                     height: 12,
                                   ),
@@ -268,7 +284,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .headlineLarge
-                                        ?.copyWith(fontSize: 24),
+                                        ?.copyWith(fontSize: 16),
                                   ),
                                   const SizedBox(
                                     height: 18,
@@ -532,7 +548,37 @@ class _JobDescriptionState extends State<JobDescription> {
                                     maxLines: 1,
                                   ),
                                   const SizedBox(
-                                    height: 5,
+                                    height: 25,
+                                  ),
+                                  Text(
+                                    AppLocalizations.of(context)!.questions,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  ...state.questions
+                                      .asMap()
+                                      .entries
+                                      .map((e) => Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              _questionInput(
+                                                focusNode: _questionsFocusNodes[e.key],
+                                                  controller:
+                                                      _questionsTextEditingControllers[
+                                                          e.key],
+                                                  question: e.value),
+                                              const SizedBox(
+                                                height: 15,
+                                              ),
+                                            ],
+                                          )),
+                                  const SizedBox(
+                                    height: 30,
                                   ),
                                   Wrap(
                                     runSpacing: 5,
@@ -758,6 +804,33 @@ class _JobDescriptionState extends State<JobDescription> {
                 ),
               ),
       ),
+    );
+  }
+
+  Widget _questionInput(
+      {required String question,
+      required TextEditingController controller,
+      required FocusNode focusNode}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(question),
+        SizedBox(
+          height: 15,
+        ),
+        CustomTextFormField(
+          textController: controller,
+          focusNode: focusNode,
+          labelText: "${AppLocalizations.of(context)!.answer}*",
+          validator: Validator.validate,
+          textInputType: TextInputType.text,
+          isSavePressed: isSavePressed,
+          onChange: (v) {
+            _clickable(v);
+          },
+          maxLines: 1,
+        ),
+      ],
     );
   }
 

@@ -185,6 +185,10 @@
  "brea": "break",
  "createReport": "Create report",
  "type": "Type",
- "reason": "Reason"
+ "reason": "Reason",
+ "createReport": "Create report",
+ "startDate": "Start date",
+ "endDate": "End date",
+ "absenceReport": "Absence report"
 
 }

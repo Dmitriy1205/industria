@@ -22,6 +22,7 @@ import 'package:industria/presentation/screens/admin/view_vacancy.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
 import 'package:industria/presentation/screens/data_protection.dart';
+import 'package:industria/presentation/screens/employee/create_report.dart';
 import 'package:industria/presentation/screens/employee/employee_home.dart';
 import 'package:industria/presentation/screens/employee/employee_main_screen.dart';
 import 'package:industria/presentation/screens/for_employees.dart';
@@ -350,6 +351,14 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: const Reports(),
+          ),
+        ),
+        GoRoute(
+          path: '/create_report',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const CreateReport(),
           ),
         ),
       ],

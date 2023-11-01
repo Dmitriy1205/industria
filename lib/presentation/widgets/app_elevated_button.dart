@@ -8,6 +8,7 @@ class AppElevatedButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget? prefixIcon;
   final Color? color;
+  final double? borderRadius;
 
   const AppElevatedButton({
     required this.text,
@@ -18,6 +19,7 @@ class AppElevatedButton extends StatelessWidget {
     this.borderColor,
     this.textStyle,
     this.verticalPadding,
+    this.borderRadius,
   });
 
   final Color? borderColor;
@@ -34,7 +36,10 @@ class AppElevatedButton extends StatelessWidget {
         side: borderColor == null
             ? BorderSide.none
             : BorderSide(color: borderColor!),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+            borderRadius: borderRadius == null
+                ? BorderRadius.circular(10)
+                : BorderRadius.circular(borderRadius!)),
         backgroundColor: color ?? AppColors.mainAccent,
       ),
       child: Row(
@@ -42,7 +47,11 @@ class AppElevatedButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           prefixIcon ?? SizedBox.shrink(),
-          prefixIcon != null ? SizedBox(width: 16,) : SizedBox.shrink(),
+          prefixIcon != null
+              ? SizedBox(
+                  width: 16,
+                )
+              : SizedBox.shrink(),
           Flexible(
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: verticalPadding ?? 15),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 import '../../../core/constants/colors.dart';
@@ -89,7 +90,7 @@ class _ReportsState extends State<Reports> {
                               ),
                               textStyle: const TextStyle(fontSize: 14),
                               onPressed: () {
-                                // context.go('/admin');
+                                context.go('/create_report');
                               },
                               verticalPadding: 15,
                             ))
@@ -126,7 +127,7 @@ class _ReportsState extends State<Reports> {
                                 ),
                                 textStyle: const TextStyle(fontSize: 14),
                                 onPressed: () {
-                                  // context.go('/admin');
+                                  context.go('/create_report');
                                 },
                                 verticalPadding: 15,
                               ))

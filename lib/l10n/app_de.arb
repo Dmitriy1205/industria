@@ -186,5 +186,9 @@
    "brea": "brechen",
    "createReport": "Bericht erstellen",
    "type": "Typ",
-   "reason": "Grund"
+   "reason": "Grund",
+   "createReport": "Bericht erstellen",
+   "startDate": "Startdatum",
+   "endDate": "Endtermin",
+   "absenceReport": "Abwesenheitsbericht"
 }

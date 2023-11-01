@@ -49,6 +49,7 @@ dependencies:
   adaptive_dialog: ^1.9.0+2
   pdf: ^3.10.4
   url_launcher: ^6.1.14
+  mime_type: ^1.0.0
 
   pandas_tableview:
     git:

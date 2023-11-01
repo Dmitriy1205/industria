@@ -176,5 +176,10 @@
  "createVacancy": "Create vacancy",
  "name": "Name",
  "changeVacancy": "Change vacancy",
- "message": "Message"
+ "message": "Message",
+ "companies": "Companies",
+ "delete": "Delete",
+ "change": "Change",
+ "questionDeleteCompany": "Are you sure you want to delete the company?",
+ "updateCompany": "Update company"
 }

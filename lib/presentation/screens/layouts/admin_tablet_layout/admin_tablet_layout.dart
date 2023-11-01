@@ -144,6 +144,20 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
                       scaffoldState.currentState?.closeDrawer();
                       context.go('/admin/holidays');
                     }),
+                _tab(
+                    show: context.watch<AdminAuthBloc>().state.isAdminAuthenticated,
+                    title: AppLocalizations.of(context)!.companies,
+                    icon: FontAwesomeIcons.solidBuilding,
+                    isSelected: GoRouterState.of(context).fullPath ==
+                        '/admin/companies',
+                    onTap: () {
+                      if (GoRouterState.of(context).fullPath ==
+                          '/admin/companies') {
+                        return;
+                      }
+                      scaffoldState.currentState?.closeDrawer();
+                      context.go('/admin/companies');
+                    }),
             Spacer(),
             !context.watch<AdminAuthBloc>().state.isAdminAuthenticated ? SizedBox.shrink() : MouseRegion(
               cursor: SystemMouseCursors.click,

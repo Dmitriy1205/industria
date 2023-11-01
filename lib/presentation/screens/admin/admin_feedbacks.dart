@@ -66,7 +66,7 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
               showProgressSnackBar(context, "Deleting feedback ...");
             },
             success: (_) {
-              showSuccessSnackBar(context, "Successfully deleted Feedback");
+              showSuccessSnackBar(context, "Successfully deleted feedback");
               context.read<AdminFeedbackListBloc>().add(
                   const AdminFeedbackListEvent.fetchData(
                       page: 0, elementsPerPage: 5));
@@ -223,7 +223,7 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
                     },
                     divider: BorderSide(
                       width: 1,
-                      color: Colors.grey,
+                      color: AppColors.lightGrey,
                     ),
                     backgroundColor: Colors.white,
                     horizontalPadding: 17,

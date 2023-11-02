@@ -173,15 +173,22 @@ class _CreateReportState extends State<CreateReport> {
                                         width: 350,
                                         child: CustomTextFormField(
                                           focusNode: endDate,
+                                          type: CustomTextFormFieldType.date,
+                                          onChange: (val) {
+                                            setState(() {
+                                              endDateController.text =
+                                                  (val as DateTime).formatted;
+                                              // _startDate = val;
+                                            });
+                                          },
                                           textController: endDateController,
                                           labelText:
-                                              AppLocalizations.of(context)!
-                                                  .endDate,
+                                          AppLocalizations.of(context)!
+                                              .endDate,
                                           validator: (String? _) {},
                                           textInputType: TextInputType.datetime,
                                           isSavePressed: false,
-                                        ),
-                                      )
+                                        ),                                      )
                                     ],
                                   ),
                                   const SizedBox(

@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:industria/core/extensions/date.dart';
-import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/domain/models/holiday_request_model.dart';
 import 'package:industria/presentation/bloc/create_report/create_report_bloc.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/themes/theme.dart';
+import '../../../core/utils/toast.dart';
+import '../../../core/validator/field_validator.dart';
 import '../../bloc/auth/auth_bloc.dart';
 import '../../widgets/app_elevated_button.dart';
 import '../../widgets/custom_text_form_field.dart';
@@ -39,7 +41,20 @@ class _CreateReportState extends State<CreateReport> {
   Widget build(BuildContext context) {
     return BlocListener<CreateReportBloc, CreateReportState>(
       bloc: sl<CreateReportBloc>(),
-      listener: (BuildContext context, CreateReportState state) {},
+      listener: (context, CreateReportState state) {
+        state.map(
+            initial: (_) {},
+            loading: (_) {
+              showProgressSnackBar(context);
+            },
+            success: (_) {
+              showSuccessSnackBar(context, "Created Report successfully!");
+              context.go('/employee/reports');
+            },
+            error: (value) {
+              showErrorSnackBar(context, "Failed to create Report!");
+            });
+      },
       child: ColoredBox(
           color: AppColors.background,
           child: Padding(
@@ -166,7 +181,7 @@ class _CreateReportState extends State<CreateReport> {
                                             labelText:
                                                 AppLocalizations.of(context)!
                                                     .startDate,
-                                            validator: (String? _) {},
+                                            validator: Validator.validate,
                                             textInputType:
                                                 TextInputType.datetime,
                                             isSavePressed: false,
@@ -191,7 +206,7 @@ class _CreateReportState extends State<CreateReport> {
                                             labelText:
                                                 AppLocalizations.of(context)!
                                                     .endDate,
-                                            validator: (String? _) {},
+                                            validator: Validator.validate,
                                             textInputType:
                                                 TextInputType.datetime,
                                             isSavePressed: false,
@@ -210,7 +225,7 @@ class _CreateReportState extends State<CreateReport> {
                                       textController: reasonController,
                                       labelText:
                                           AppLocalizations.of(context)!.reason,
-                                      validator: (String? _) {},
+                                      validator: Validator.validate,
                                       textInputType: TextInputType.datetime,
                                       onChange: (_) {},
                                       isSavePressed: false,
@@ -255,6 +270,9 @@ class _CreateReportState extends State<CreateReport> {
                                           read: false,
                                           status: 'Pending',
                                         ));
+                                        reasonController.clear();
+                                        startDateController.clear();
+                                        endDateController.clear();
                                       },
                                       verticalPadding: 15,
                                     ),

@@ -303,7 +303,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               });
                             },
                             child: GestureDetector(
-                              onTap: () => router.go('/reports'),
+                              onTap: () => router.go('/employee/reports'),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: isHoveredReportsButton
@@ -350,7 +350,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                             },
                             child: GestureDetector(
                               onTap: () {
-                                router.go('/messaging');
+                                router.go('/employee/messaging');
                               },
                               child: Container(
                                 decoration: BoxDecoration(

@@ -2,6 +2,7 @@ import 'package:algolia/algolia.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:industria/data/remote/holiday_requests/holiday_requests_service_contract.dart';
 import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
+import 'package:industria/domain/models/holiday_request_model.dart';
 
 import '../../../core/constants/firestore_collections.dart';
 import '../../../core/table_data/table_data.dart';
@@ -55,12 +56,12 @@ class HolidayRequestsServiceImpl implements HolidayRequestsService{
   });
 
   @override
-  Future<void> createReport({required HolidayRequest report}) async {
+  Future<void> createReport({required HolidayRequestModel report}) async {
     print('sending');
     final docRef = db.collection(FirestoreCollections.holidays).doc();
-    final json = HolidayRequest.jsonFromRequest(
+    final json = HolidayRequestModel.jsonFromRequest(
          docId: docRef.id,
-         holidayRequest: report);
+         holidayRequest: report, createdAt: FieldValue.serverTimestamp());
     await docRef.set(json);
     print('sent');
 

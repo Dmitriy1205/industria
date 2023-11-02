@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
+import 'package:industria/domain/models/holiday_request_model.dart';
 import 'package:industria/presentation/bloc/create_report/create_report_bloc.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/services/service_locator.dart';
@@ -103,7 +104,8 @@ class _CreateReportState extends State<CreateReport> {
                                               leading: Radio(
                                                 value: 1,
                                                 groupValue: _value,
-                                                activeColor: AppColors.mainAccent,
+                                                activeColor:
+                                                    AppColors.mainAccent,
                                                 onChanged: (value) {
                                                   setState(() {
                                                     reportType =
@@ -128,10 +130,12 @@ class _CreateReportState extends State<CreateReport> {
                                               leading: Radio(
                                                 value: 2,
                                                 groupValue: _value,
-                                                activeColor: AppColors.mainAccent,
+                                                activeColor:
+                                                    AppColors.mainAccent,
                                                 onChanged: (value) {
                                                   setState(() {
-                                                    reportType = 'Absence report';
+                                                    reportType =
+                                                        'Absence report';
                                                     _value = value!;
                                                   });
                                                 },
@@ -147,7 +151,7 @@ class _CreateReportState extends State<CreateReport> {
                                     Row(
                                       children: [
                                         SizedBox(
-                                          width: 350,
+                                          width: 340,
                                           child: CustomTextFormField(
                                             focusNode: startDate,
                                             type: CustomTextFormFieldType.date,
@@ -163,7 +167,8 @@ class _CreateReportState extends State<CreateReport> {
                                                 AppLocalizations.of(context)!
                                                     .startDate,
                                             validator: (String? _) {},
-                                            textInputType: TextInputType.datetime,
+                                            textInputType:
+                                                TextInputType.datetime,
                                             isSavePressed: false,
                                           ),
                                         ),
@@ -171,7 +176,7 @@ class _CreateReportState extends State<CreateReport> {
                                           width: 48,
                                         ),
                                         SizedBox(
-                                          width: 350,
+                                          width: 340,
                                           child: CustomTextFormField(
                                             focusNode: endDate,
                                             type: CustomTextFormFieldType.date,
@@ -184,12 +189,14 @@ class _CreateReportState extends State<CreateReport> {
                                             },
                                             textController: endDateController,
                                             labelText:
-                                            AppLocalizations.of(context)!
-                                                .endDate,
+                                                AppLocalizations.of(context)!
+                                                    .endDate,
                                             validator: (String? _) {},
-                                            textInputType: TextInputType.datetime,
+                                            textInputType:
+                                                TextInputType.datetime,
                                             isSavePressed: false,
-                                          ),                                      )
+                                          ),
+                                        )
                                       ],
                                     ),
                                     const SizedBox(
@@ -204,7 +211,8 @@ class _CreateReportState extends State<CreateReport> {
                                       labelText:
                                           AppLocalizations.of(context)!.reason,
                                       validator: (String? _) {},
-                                      textInputType: TextInputType.datetime,onChange: (_){},
+                                      textInputType: TextInputType.datetime,
+                                      onChange: (_) {},
                                       isSavePressed: false,
                                     ),
                                     const SizedBox(
@@ -216,33 +224,37 @@ class _CreateReportState extends State<CreateReport> {
                                           .createReport,
                                       textStyle: const TextStyle(fontSize: 14),
                                       onPressed: () {
-                                        sl<CreateReportBloc>().createReport(
-                                            HolidayRequest(
-                                                lastname: context
-                                                    .read<AuthBloc>()
-                                                    .state
-                                                    .employee!
-                                                    .lastname,
-                                                firstname: context
-                                                    .read<AuthBloc>()
-                                                    .state
-                                                    .employee!
-                                                    .firstname,
-                                                photoRef: context
-                                                    .read<AuthBloc>()
-                                                    .state
-                                                    .employee!.photoRef,
-                                                reason: reasonController.text,
-                                                id: '',
-                                                employeeId: context
-                                                    .read<AuthBloc>()
-                                                    .state
-                                                    .employee!
-                                                    .id!,
-                                                createdAt: date,
-                                                unavailableFrom: date,
-                                                unavailableTo: date,
-                                                type: reportType, read: false,));
+                                        sl<CreateReportBloc>()
+                                            .createReport(HolidayRequestModel(
+                                          lastname: context
+                                              .read<AuthBloc>()
+                                              .state
+                                              .employee!
+                                              .lastname,
+                                          firstname: context
+                                              .read<AuthBloc>()
+                                              .state
+                                              .employee!
+                                              .firstname,
+                                          photoRef: context
+                                              .read<AuthBloc>()
+                                              .state
+                                              .employee!
+                                              .photoRef,
+                                          reason: reasonController.text,
+                                          employeeId: context
+                                              .read<AuthBloc>()
+                                              .state
+                                              .employee!
+                                              .id!,
+                                          unavailableFrom: DateTime.parse(
+                                              startDateController.text),
+                                          unavailableTo: DateTime.parse(
+                                              endDateController.text),
+                                          type: reportType,
+                                          read: false,
+                                          status: 'Pending',
+                                        ));
                                       },
                                       verticalPadding: 15,
                                     ),

@@ -24,6 +24,10 @@ class HolidayRequestsRepositoryImpl implements HolidayRequestsRepository{
   Future<void> setHolidayStatus({required String id, required String status}) {
     return db.setHolidayStatus(id: id, status: status);
   }
+  @override
+  Future<void> createReport({required HolidayRequest report}) async {
+    await db.createReport(report: report);
+  }
 
   const HolidayRequestsRepositoryImpl({
     required this.db,

@@ -26,6 +26,7 @@ class HolidayRequestsServiceImpl implements HolidayRequestsService{
     final snapshot =
     await db.collection(FirestoreCollections.holidays).doc(id).get();
     if (snapshot.exists) {
+      print(snapshot.data());
       return HolidayRequest.fromJson(snapshot.data()!);
     } else {
       return null;
@@ -52,4 +53,16 @@ class HolidayRequestsServiceImpl implements HolidayRequestsService{
     required this.algolia,
     required this.db,
   });
+
+  @override
+  Future<void> createReport({required HolidayRequest report}) async {
+    print('sending');
+    final docRef = db.collection(FirestoreCollections.holidays).doc();
+    final json = HolidayRequest.jsonFromRequest(
+         docId: docRef.id,
+         holidayRequest: report);
+    await docRef.set(json);
+    print('sent');
+
+  }
 }

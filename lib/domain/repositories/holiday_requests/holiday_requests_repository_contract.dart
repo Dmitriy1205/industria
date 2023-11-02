@@ -6,4 +6,5 @@ abstract class HolidayRequestsRepository{
   Future<HolidayRequest?> getHolidayById({required String id});
   Future<void> setHolidayStatus({required String id, required String status});
   Future<void> markedAsRead({required String id});
+  Future<void> createReport({required HolidayRequest report});
 }

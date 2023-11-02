@@ -24,4 +24,23 @@ class HolidayRequest with _$HolidayRequest {
 
   factory HolidayRequest.fromJson(Map<String, Object?> json)
       => _$HolidayRequestFromJson(json);
+
+  static Map<String, dynamic> jsonFromRequest(
+      {
+        required HolidayRequest holidayRequest, String? docId}) {
+    return {
+      "firstname": holidayRequest.firstname,
+      "lastname": holidayRequest.lastname,
+      "reason": holidayRequest.reason,
+      "status": holidayRequest.status,
+      "type": holidayRequest.type.toString(),
+      "id": docId,
+      "employeeId": holidayRequest.employeeId,
+      "createdAt": holidayRequest.createdAt,
+      "unavailableFrom": holidayRequest.unavailableFrom,
+      "unavailableTo": holidayRequest.unavailableTo,
+      "photoRef": ''
+    };
+  }
+
 }

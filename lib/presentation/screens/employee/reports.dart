@@ -27,16 +27,9 @@ class _ReportsState extends State<Reports> {
   @override
   void initState() {
     super.initState();
-    if (context
-        .read<AdminHolidayRequestsListBloc>()
-        .state
-        .tableData
-        .element
-        .isEmpty) {
       context.read<AdminHolidayRequestsListBloc>().add(
           const AdminHolidayRequestsListEvent.fetchData(
               elementsPerPage: 7, page: 0));
-    }
   }
 
   @override

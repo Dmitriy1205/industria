@@ -76,110 +76,114 @@ class _CreateReportState extends State<CreateReport> {
                     ? EdgeInsets.only(left: 351, right: 253, top: 88)
                     : EdgeInsets.symmetric(horizontal: 24),
                 child: SingleChildScrollView(
-                  child: SizedBox(
-                    height: 700,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.createReport,
-                          style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                        SizedBox(
-                          height: 22,
-                        ),
-                        Expanded(
-                          child: ColoredBox(
-                            color: Colors.white,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 37, right: 51, top: 32, bottom: 41),
-                              child: Form(
-                                key: _formKey,
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        AppLocalizations.of(context)!.type,
-                                        style: AppTheme
-                                            .themeData.textTheme.labelMedium!
-                                            .copyWith(
-                                                color: AppColors.mainDarkAccent,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
-                                      ),
-                                      SizedBox(
-                                        height: 18,
-                                      ),
-                                      Column(
-                                        children: <Widget>[
-                                          Column(
-                                            children: <Widget>[
-                                              ListTile(
-                                                title: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .holiday_requests,
-                                                  style: AppTheme.themeData
-                                                      .textTheme.labelMedium!
-                                                      .copyWith(
-                                                          color: Colors.black,
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: IntrinsicHeight(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(
+                              AppLocalizations.of(context)!.createReport,
+                              style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 22,
+                          ),
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 37, right: 51, top: 32, bottom: 41),
+                                child: Form(
+                                  key: _formKey,
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          AppLocalizations.of(context)!.type,
+                                          style: AppTheme
+                                              .themeData.textTheme.labelMedium!
+                                              .copyWith(
+                                                  color: AppColors.mainDarkAccent,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600),
+                                        ),
+                                        SizedBox(
+                                          height: 18,
+                                        ),
+                                        Column(
+                                          children: <Widget>[
+                                            Column(
+                                              children: <Widget>[
+                                                ListTile(
+                                                  title: Text(
+                                                    AppLocalizations.of(context)!
+                                                        .holiday_requests,
+                                                    style: AppTheme.themeData
+                                                        .textTheme.labelMedium!
+                                                        .copyWith(
+                                                            color: Colors.black,
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400),
+                                                  ),
+                                                  leading: Radio(
+                                                    value: 1,
+                                                    groupValue: _value,
+                                                    activeColor:
+                                                        AppColors.mainAccent,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        reportType =
+                                                            'Holiday request';
+                                                        _value = value!;
+                                                      });
+                                                    },
+                                                  ),
                                                 ),
-                                                leading: Radio(
-                                                  value: 1,
-                                                  groupValue: _value,
-                                                  activeColor:
-                                                      AppColors.mainAccent,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      reportType =
-                                                          'Holiday request';
-                                                      _value = value!;
-                                                    });
-                                                  },
+                                                ListTile(
+                                                  title: Text(
+                                                    AppLocalizations.of(context)!
+                                                        .absenceReport,
+                                                    style: AppTheme.themeData
+                                                        .textTheme.labelMedium!
+                                                        .copyWith(
+                                                            color: Colors.black,
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.w400),
+                                                  ),
+                                                  leading: Radio(
+                                                    value: 2,
+                                                    groupValue: _value,
+                                                    activeColor:
+                                                        AppColors.mainAccent,
+                                                    onChanged: (value) {
+                                                      setState(() {
+                                                        reportType =
+                                                            'Absence report';
+                                                        _value = value!;
+                                                      });
+                                                    },
+                                                  ),
                                                 ),
-                                              ),
-                                              ListTile(
-                                                title: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .absenceReport,
-                                                  style: AppTheme.themeData
-                                                      .textTheme.labelMedium!
-                                                      .copyWith(
-                                                          color: Colors.black,
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                ),
-                                                leading: Radio(
-                                                  value: 2,
-                                                  groupValue: _value,
-                                                  activeColor:
-                                                      AppColors.mainAccent,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      reportType =
-                                                          'Absence report';
-                                                      _value = value!;
-                                                    });
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 38,
-                                      ),
-                                      Expanded(
-                                        child: Row(
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 24,),
+                                        Row(
                                           children: [
                                             SizedBox(
                                               width: MediaQuery.of(context)
@@ -262,82 +266,80 @@ class _CreateReportState extends State<CreateReport> {
                                             )
                                           ],
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        height: 51,
-                                      ),
-                                      CustomTextFormField(
-                                        maxLines: 10,
-                                        height: 166,
-                                        width: 748,
-                                        focusNode: reason,
-                                        textController: reasonController,
-                                        labelText: AppLocalizations.of(context)!
-                                            .reason,
-                                        validator: Validator.validate,
-                                        textInputType: TextInputType.text,
-                                        onChange: (_) {},
-                                        isSavePressed: false,
-                                      ),
-                                      const SizedBox(
-                                        height: 51,
-                                      ),
-                                      AppElevatedButton(
-                                        borderRadius: 15,
-                                        text: AppLocalizations.of(context)!
-                                            .createReport,
-                                        textStyle:
-                                            const TextStyle(fontSize: 14),
-                                        onPressed: () {
-                                          if (!_formKey.currentState!
-                                              .validate()) {
-                                            print('notValid');
-                                            return;
-                                          }
-                                          _createReportBloc.add(
-                                              CreateReportEvent.createReport(
-                                            lastname: context
-                                                .read<AuthBloc>()
-                                                .state
-                                                .employee!
-                                                .lastname,
-                                            firstname: context
-                                                .read<AuthBloc>()
-                                                .state
-                                                .employee!
-                                                .firstname,
-                                            photoRef: context
-                                                .read<AuthBloc>()
-                                                .state
-                                                .employee!
-                                                .photoRef,
-                                            reason: reasonController.text,
-                                            employeeId: context
-                                                .read<AuthBloc>()
-                                                .state
-                                                .employee!
-                                                .id!,
-                                            unavailableFrom: DateTime.parse(
-                                                startDateController.text),
-                                            unavailableTo: DateTime.parse(
-                                                endDateController.text),
-                                            type: reportType,
-                                            read: false,
-                                            status: 'Pending',
-                                          ));
-                                          reasonController.clear();
-                                          startDateController.clear();
-                                          endDateController.clear();
-                                        },
-                                        verticalPadding: 15,
-                                      ),
-                                      // SizedBox(height: 50,)
-                                    ]),
+                                        SizedBox(height: 24,),
+                                        CustomTextFormField(
+                                          maxLines: 10,
+                                          height: 166,
+                                          width: 748,
+                                          focusNode: reason,
+                                          textController: reasonController,
+                                          labelText: AppLocalizations.of(context)!
+                                              .reason,
+                                          validator: Validator.validate,
+                                          textInputType: TextInputType.text,
+                                          onChange: (_) {},
+                                          isSavePressed: false,
+                                        ),
+                                        const SizedBox(
+                                          height: 51,
+                                        ),
+                                        AppElevatedButton(
+                                          borderRadius: 15,
+                                          text: AppLocalizations.of(context)!
+                                              .createReport,
+                                          textStyle:
+                                              const TextStyle(fontSize: 14),
+                                          onPressed: () {
+                                            if (!_formKey.currentState!
+                                                .validate()) {
+                                              print('notValid');
+                                              return;
+                                            }
+                                            _createReportBloc.add(
+                                                CreateReportEvent.createReport(
+                                              lastname: context
+                                                  .read<AuthBloc>()
+                                                  .state
+                                                  .employee!
+                                                  .lastname,
+                                              firstname: context
+                                                  .read<AuthBloc>()
+                                                  .state
+                                                  .employee!
+                                                  .firstname,
+                                              photoRef: context
+                                                  .read<AuthBloc>()
+                                                  .state
+                                                  .employee!
+                                                  .photoRef,
+                                              reason: reasonController.text,
+                                              employeeId: context
+                                                  .read<AuthBloc>()
+                                                  .state
+                                                  .employee!
+                                                  .id!,
+                                              unavailableFrom: DateTime.parse(
+                                                  startDateController.text),
+                                              unavailableTo: DateTime.parse(
+                                                  endDateController.text),
+                                              type: reportType,
+                                              read: false,
+                                              status: 'Pending',
+                                            ));
+                                            reasonController.clear();
+                                            startDateController.clear();
+                                            endDateController.clear();
+                                          },
+                                          verticalPadding: 10,
+                                        ),
+                                        // SizedBox(height: 50,)
+                                      ]),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

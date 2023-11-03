@@ -302,9 +302,12 @@ class _CreateReportState extends State<CreateReport> {
                                                 read: false,
                                                 status: 'Pending',
                                               ));
-                                          reasonController.clear();
-                                          startDateController.clear();
-                                          endDateController.clear();
+                                          reasonController.dispose();
+                                          startDateController.dispose();
+                                          endDateController.dispose();
+                                          startDate.dispose();
+                                          endDate.dispose();
+                                          reason.dispose();
                                         },
                                         verticalPadding: 15,
                                       ),

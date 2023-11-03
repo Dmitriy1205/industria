@@ -306,7 +306,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                           textController: _firstnameController,
                                           labelText:
                                               AppLocalizations.of(context)!
-                                                  .firstname,
+                                                  .firstname + "*",
                                           validator: Validator.validate,
                                           textInputType: TextInputType.text,
                                           isSavePressed: isSavePressed,
@@ -323,7 +323,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                           textController: _lastnameController,
                                           labelText:
                                               AppLocalizations.of(context)!
-                                                  .lastname,
+                                                  .lastname + "*",
                                           validator: Validator.validate,
                                           textInputType: TextInputType.text,
                                           isSavePressed: isSavePressed,
@@ -355,7 +355,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                                   labelText:
                                                       AppLocalizations.of(
                                                               context)!
-                                                          .dateOfBirth,
+                                                          .dateOfBirth + "*",
                                                   validator: Validator.validate,
                                                   textInputType:
                                                       TextInputType.text,
@@ -393,7 +393,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                                   onChanged: _clickable,
                                                   hintText: AppLocalizations.of(
                                                           context)!
-                                                      .gender,
+                                                      .gender + "*",
                                                   width:
                                                       constraints.maxWidth / 2 -
                                                           8,
@@ -423,7 +423,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                               variants: Nationalities.list,
                                               hintText:
                                                   AppLocalizations.of(context)!
-                                                      .citizenship,
+                                                      .citizenship + "*",
                                               width: constraints.maxWidth,
                                             ),
                                           ],
@@ -441,7 +441,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                             type: CustomTextFormFieldType.date,
                                             labelText:
                                                 AppLocalizations.of(context)!
-                                                    .dateOfBirth,
+                                                    .dateOfBirth + "*",
                                             validator: Validator.validate,
                                             textInputType: TextInputType.text,
                                             isSavePressed: isSavePressed,
@@ -477,7 +477,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                             variants: Nationalities.list,
                                             hintText:
                                                 AppLocalizations.of(context)!
-                                                    .citizenship,
+                                                    .citizenship + "*",
                                             width:
                                                 constraints.maxWidth / 2 - 16,
                                           ),
@@ -503,7 +503,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                             onChanged: _clickable,
                                             hintText:
                                                 AppLocalizations.of(context)!
-                                                    .gender,
+                                                    .gender + "*",
                                             width:
                                                 constraints.maxWidth / 4 - 16,
                                           ),
@@ -518,7 +518,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                     focusNode: _addressFocus,
                                     textController: _addressController,
                                     labelText:
-                                        AppLocalizations.of(context)!.address,
+                                        AppLocalizations.of(context)!.address + "*",
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
@@ -533,7 +533,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                     textController: _availableDateController,
                                     type: CustomTextFormFieldType.date,
                                     labelText: AppLocalizations.of(context)!
-                                        .availabilityDate,
+                                        .availabilityDate + "*",
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
@@ -751,6 +751,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                         if (!valid) return;
 
                                         final jobApplicationRequest = JobApplicationRequest(
+                                            questionAnswers: state.questions.asMap().entries.map((e) => {e.value: _questionsTextEditingControllers[e.key].text}).fold({}, (previousValue, element) => {...previousValue,...element}),
                                             offer: state,
                                             firstname:
                                                 _firstnameController.text,

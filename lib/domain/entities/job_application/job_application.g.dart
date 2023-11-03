@@ -25,6 +25,10 @@ _$_JobApplication _$$_JobApplicationFromJson(Map<String, dynamic> json) =>
       jobOfferId: json['jobOfferId'] as String,
       jobOfferName: json['jobOfferName'] as String,
       status: json['status'] as String? ?? "Pending",
+      questionAnswers: (json['questionAnswers'] as Map<String, dynamic>?)?.map(
+            (k, e) => MapEntry(k, e as String),
+          ) ??
+          const {},
       read: json['read'] as bool? ?? false,
     );
 
@@ -45,5 +49,6 @@ Map<String, dynamic> _$$_JobApplicationToJson(_$_JobApplication instance) =>
       'jobOfferId': instance.jobOfferId,
       'jobOfferName': instance.jobOfferName,
       'status': instance.status,
+      'questionAnswers': instance.questionAnswers,
       'read': instance.read,
     };

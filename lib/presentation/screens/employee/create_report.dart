@@ -250,7 +250,7 @@ class _CreateReportState extends State<CreateReport> {
                                               AppLocalizations.of(context)!
                                                   .reason,
                                           validator: Validator.validate,
-                                          textInputType: TextInputType.datetime,
+                                          textInputType: TextInputType.text,
                                           onChange: (_) {},
                                           isSavePressed: false,
                                         ),

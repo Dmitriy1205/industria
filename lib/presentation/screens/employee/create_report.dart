@@ -54,47 +54,46 @@ class _CreateReportState extends State<CreateReport> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocListener<CreateReportBloc, CreateReportState>(
-        bloc: _createReportBloc,
-        listener: (context, CreateReportState state) {
-          state.maybeMap(
-              loading: (_) {
-                showProgressSnackBar(context);
-              },
-              success: (_) {
-                showSuccessSnackBar(context, "Created Report successfully!");
-                context.go('/employee/reports');
-              },
-              error: (value) {
-                showErrorSnackBar(context, "Failed to create Report!");
-              },
-              orElse: () {});
-        },
-        child: ColoredBox(
-            color: AppColors.background,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 351, right: 253, top: 88),
-              child: SingleChildScrollView(
-                child: SizedBox(
-                  height: 700,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.createReport,
-                        style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      SizedBox(
-                        height: 22,
-                      ),
-                      Expanded(
-                        child: ColoredBox(
-                          color: Colors.white,
-                          child: Container(
-                            height: 563,
-                            width: 836,
+          bloc: _createReportBloc,
+          listener: (context, CreateReportState state) {
+            state.maybeMap(
+                loading: (_) {
+                  showProgressSnackBar(context);
+                },
+                success: (_) {
+                  showSuccessSnackBar(context, "Created Report successfully!");
+                  context.go('/employee/reports');
+                },
+                error: (value) {
+                  showErrorSnackBar(context, "Failed to create Report!");
+                },
+                orElse: () {});
+          },
+          child: ColoredBox(
+              color: AppColors.background,
+              child: Padding(
+                padding: MediaQuery.of(context).size.width > 1350
+                    ? EdgeInsets.only(left: 351, right: 253, top: 88)
+                    : EdgeInsets.symmetric(horizontal: 24),
+                child: SingleChildScrollView(
+                  child: SizedBox(
+                    height: 700,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.createReport,
+                          style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                        SizedBox(
+                          height: 22,
+                        ),
+                        Expanded(
+                          child: ColoredBox(
+                            color: Colors.white,
                             child: Padding(
                               padding: const EdgeInsets.only(
                                   left: 37, right: 51, top: 32, bottom: 41),
@@ -179,61 +178,82 @@ class _CreateReportState extends State<CreateReport> {
                                       SizedBox(
                                         height: 38,
                                       ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 340,
-                                            child: CustomTextFormField(
-                                              focusNode: startDate,
-                                              type:
-                                                  CustomTextFormFieldType.date,
-                                              onChange: (val) {
-                                                setState(() {
-                                                  startDateController.text =
-                                                      (val as DateTime)
-                                                          .formatted;
-                                                  // _startDate = val;
-                                                });
-                                              },
-                                              textController:
-                                                  startDateController,
-                                              labelText:
-                                                  AppLocalizations.of(context)!
-                                                      .startDate,
-                                              validator: Validator.validate,
-                                              textInputType:
-                                                  TextInputType.datetime,
-                                              isSavePressed: false,
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width >
+                                                  1200
+                                                  ? 340
+                                                  : MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.3,
+                                              child: CustomTextFormField(
+                                                focusNode: startDate,
+                                                type: CustomTextFormFieldType
+                                                    .date,
+                                                onChange: (val) {
+                                                  setState(() {
+                                                    startDateController.text =
+                                                        (val as DateTime)
+                                                            .formatted;
+                                                    // _startDate = val;
+                                                  });
+                                                },
+                                                textController:
+                                                    startDateController,
+                                                labelText:
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .startDate,
+                                                validator: Validator.validate,
+                                                textInputType:
+                                                    TextInputType.datetime,
+                                                isSavePressed: false,
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            width: 48,
-                                          ),
-                                          SizedBox(
-                                            width: 340,
-                                            child: CustomTextFormField(
-                                              focusNode: endDate,
-                                              type:
-                                                  CustomTextFormFieldType.date,
-                                              onChange: (val) {
-                                                setState(() {
-                                                  endDateController.text =
-                                                      (val as DateTime)
-                                                          .formatted;
-                                                  // _startDate = val;
-                                                });
-                                              },
-                                              textController: endDateController,
-                                              labelText:
-                                                  AppLocalizations.of(context)!
-                                                      .endDate,
-                                              validator: Validator.validate,
-                                              textInputType:
-                                                  TextInputType.datetime,
-                                              isSavePressed: false,
+                                            const SizedBox(
+                                              width: 48,
                                             ),
-                                          )
-                                        ],
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                          .size
+                                                          .width >
+                                                      1200
+                                                  ? 340
+                                                  : MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.3,
+                                              child: CustomTextFormField(
+                                                focusNode: endDate,
+                                                type: CustomTextFormFieldType
+                                                    .date,
+                                                onChange: (val) {
+                                                  setState(() {
+                                                    endDateController.text =
+                                                        (val as DateTime)
+                                                            .formatted;
+                                                    // _startDate = val;
+                                                  });
+                                                },
+                                                textController:
+                                                    endDateController,
+                                                labelText:
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .endDate,
+                                                validator: Validator.validate,
+                                                textInputType:
+                                                    TextInputType.datetime,
+                                                isSavePressed: false,
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 51,
@@ -244,9 +264,8 @@ class _CreateReportState extends State<CreateReport> {
                                         width: 748,
                                         focusNode: reason,
                                         textController: reasonController,
-                                        labelText:
-                                            AppLocalizations.of(context)!
-                                                .reason,
+                                        labelText: AppLocalizations.of(context)!
+                                            .reason,
                                         validator: Validator.validate,
                                         textInputType: TextInputType.text,
                                         onChange: (_) {},
@@ -310,13 +329,11 @@ class _CreateReportState extends State<CreateReport> {
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )),
-      ),
+              ))),
     );
   }
 }

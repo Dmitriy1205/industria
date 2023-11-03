@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/extensions/date.dart';
-import 'package:industria/domain/models/holiday_request_model.dart';
 import 'package:industria/domain/repositories/holiday_requests/holiday_requests_repository_contract.dart';
 import 'package:industria/presentation/bloc/create_report/create_report_bloc.dart';
 import '../../../core/constants/colors.dart';
@@ -33,7 +32,7 @@ class _CreateReportState extends State<CreateReport> {
   FocusNode endDate = FocusNode();
   FocusNode reason = FocusNode();
 
-  // DateTime? _startDate;
+  final _formKey = GlobalKey<FormState>();
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
   TextEditingController reasonController = TextEditingController();
@@ -53,11 +52,12 @@ class _CreateReportState extends State<CreateReport> {
               success: (_) {
                 showSuccessSnackBar(context, "Created Report successfully!");
                 Future.delayed(Duration(seconds: 5));
-                 context.go('/employee/reports');
+                context.go('/employee/reports');
               },
               error: (value) {
                 showErrorSnackBar(context, "Failed to create Report!");
-              }, orElse: () {  });
+              },
+              orElse: () {});
         },
         child: ColoredBox(
             color: AppColors.background,
@@ -90,14 +90,16 @@ class _CreateReportState extends State<CreateReport> {
                                   left: 37, right: 51, top: 32, bottom: 41),
                               child: Form(
                                 child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         AppLocalizations.of(context)!.type,
                                         style: AppTheme
                                             .themeData.textTheme.labelMedium!
                                             .copyWith(
-                                                color: AppColors.mainDarkAccent,
+                                                color:
+                                                    AppColors.mainDarkAccent,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w600),
                                       ),
@@ -110,7 +112,8 @@ class _CreateReportState extends State<CreateReport> {
                                             children: <Widget>[
                                               ListTile(
                                                 title: Text(
-                                                  AppLocalizations.of(context)!
+                                                  AppLocalizations.of(
+                                                          context)!
                                                       .holiday_requests,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelMedium!
@@ -118,7 +121,8 @@ class _CreateReportState extends State<CreateReport> {
                                                           color: Colors.black,
                                                           fontSize: 14,
                                                           fontWeight:
-                                                              FontWeight.w400),
+                                                              FontWeight
+                                                                  .w400),
                                                 ),
                                                 leading: Radio(
                                                   value: 1,
@@ -136,7 +140,8 @@ class _CreateReportState extends State<CreateReport> {
                                               ),
                                               ListTile(
                                                 title: Text(
-                                                  AppLocalizations.of(context)!
+                                                  AppLocalizations.of(
+                                                          context)!
                                                       .absenceReport,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelMedium!
@@ -144,7 +149,8 @@ class _CreateReportState extends State<CreateReport> {
                                                           color: Colors.black,
                                                           fontSize: 14,
                                                           fontWeight:
-                                                              FontWeight.w400),
+                                                              FontWeight
+                                                                  .w400),
                                                 ),
                                                 leading: Radio(
                                                   value: 2,
@@ -173,18 +179,21 @@ class _CreateReportState extends State<CreateReport> {
                                             width: 340,
                                             child: CustomTextFormField(
                                               focusNode: startDate,
-                                              type: CustomTextFormFieldType.date,
+                                              type: CustomTextFormFieldType
+                                                  .date,
                                               onChange: (val) {
                                                 setState(() {
                                                   startDateController.text =
-                                                      (val as DateTime).formatted;
+                                                      (val as DateTime)
+                                                          .formatted;
                                                   // _startDate = val;
                                                 });
                                               },
-                                              textController: startDateController,
-                                              labelText:
-                                                  AppLocalizations.of(context)!
-                                                      .startDate,
+                                              textController:
+                                                  startDateController,
+                                              labelText: AppLocalizations.of(
+                                                      context)!
+                                                  .startDate,
                                               validator: Validator.validate,
                                               textInputType:
                                                   TextInputType.datetime,
@@ -198,18 +207,21 @@ class _CreateReportState extends State<CreateReport> {
                                             width: 340,
                                             child: CustomTextFormField(
                                               focusNode: endDate,
-                                              type: CustomTextFormFieldType.date,
+                                              type: CustomTextFormFieldType
+                                                  .date,
                                               onChange: (val) {
                                                 setState(() {
                                                   endDateController.text =
-                                                      (val as DateTime).formatted;
+                                                      (val as DateTime)
+                                                          .formatted;
                                                   // _startDate = val;
                                                 });
                                               },
-                                              textController: endDateController,
-                                              labelText:
-                                                  AppLocalizations.of(context)!
-                                                      .endDate,
+                                              textController:
+                                                  endDateController,
+                                              labelText: AppLocalizations.of(
+                                                      context)!
+                                                  .endDate,
                                               validator: Validator.validate,
                                               textInputType:
                                                   TextInputType.datetime,
@@ -221,18 +233,27 @@ class _CreateReportState extends State<CreateReport> {
                                       const SizedBox(
                                         height: 51,
                                       ),
-                                      CustomTextFormField(
-                                        maxLines: 10,
-                                        height: 166,
-                                        width: 748,
-                                        focusNode: reason,
-                                        textController: reasonController,
-                                        labelText:
-                                            AppLocalizations.of(context)!.reason,
-                                        validator: Validator.validate,
-                                        textInputType: TextInputType.datetime,
-                                        onChange: (_) {},
-                                        isSavePressed: false,
+                                      Form(
+                                        key: _formKey,
+                                        child: CustomTextFormField(
+                                          maxLines: 10,
+                                          height: 166,
+                                          width: 748,
+                                          focusNode: reason,
+                                          textController: reasonController,
+                                          labelText:
+                                              AppLocalizations.of(context)!
+                                                  .reason,
+                                          validator: (v){
+                                            if(v!.isEmpty){
+                                              return 'dsdssdsdds';
+                                            }
+                                            else return 'TTTTTTTTTTTT';
+                                          },
+                                          textInputType: TextInputType.datetime,
+                                          onChange: (_) {},
+                                          isSavePressed: false,
+                                        ),
                                       ),
                                       const SizedBox(
                                         height: 51,
@@ -241,38 +262,46 @@ class _CreateReportState extends State<CreateReport> {
                                         borderRadius: 15,
                                         text: AppLocalizations.of(context)!
                                             .createReport,
-                                        textStyle: const TextStyle(fontSize: 14),
+                                        textStyle:
+                                            const TextStyle(fontSize: 14),
                                         onPressed: () {
-                                          _createReportBloc.add(CreateReportEvent.createReport(
-                                            lastname: context
-                                                .read<AuthBloc>()
-                                                .state
-                                                .employee!
-                                                .lastname,
-                                            firstname: context
-                                                .read<AuthBloc>()
-                                                .state
-                                                .employee!
-                                                .firstname,
-                                            photoRef: context
-                                                .read<AuthBloc>()
-                                                .state
-                                                .employee!
-                                                .photoRef,
-                                            reason: reasonController.text,
-                                            employeeId: context
-                                                .read<AuthBloc>()
-                                                .state
-                                                .employee!
-                                                .id!,
-                                            unavailableFrom: DateTime.parse(
-                                                startDateController.text),
-                                            unavailableTo: DateTime.parse(
-                                                endDateController.text),
-                                            type: reportType,
-                                            read: false,
-                                            status: 'Pending',
-                                          ));
+                                          if (!_formKey.currentState!
+                                              .validate()){
+                                            print('notValid');
+                                            return;
+                                          }
+                                          _createReportBloc.add(
+                                              CreateReportEvent
+                                                  .createReport(
+                                                lastname: context
+                                                    .read<AuthBloc>()
+                                                    .state
+                                                    .employee!
+                                                    .lastname,
+                                                firstname: context
+                                                    .read<AuthBloc>()
+                                                    .state
+                                                    .employee!
+                                                    .firstname,
+                                                photoRef: context
+                                                    .read<AuthBloc>()
+                                                    .state
+                                                    .employee!
+                                                    .photoRef,
+                                                reason: reasonController.text,
+                                                employeeId: context
+                                                    .read<AuthBloc>()
+                                                    .state
+                                                    .employee!
+                                                    .id!,
+                                                unavailableFrom: DateTime.parse(
+                                                    startDateController.text),
+                                                unavailableTo: DateTime.parse(
+                                                    endDateController.text),
+                                                type: reportType,
+                                                read: false,
+                                                status: 'Pending',
+                                              ));
                                           reasonController.clear();
                                           startDateController.clear();
                                           endDateController.clear();
@@ -294,4 +323,7 @@ class _CreateReportState extends State<CreateReport> {
       ),
     );
   }
+
+
+
 }

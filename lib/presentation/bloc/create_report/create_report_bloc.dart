@@ -44,10 +44,7 @@ class CreateReportBloc extends Bloc<CreateReportEvent, CreateReportState> {
               status: event.status,
               read: event.read,
               photoRef: event.photoRef));
-      print ('success in bloc');
-
       emit(const CreateReportState.success());
-      print ('success in bloc2');
 
       await Future.delayed(const Duration(seconds: 3));
       emit(const CreateReportState.initial());

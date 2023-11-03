@@ -30,9 +30,13 @@ class Validator {
   }
 
   static String? validate(String? value) {
+    print('validate1');
     if (value == null || value.isEmpty) {
+      print('validate2');
       return "Field can't be empty";
     } else {
+      print('validate3');
+
       return null;
     }
   }

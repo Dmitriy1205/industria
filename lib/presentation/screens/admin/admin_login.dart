@@ -22,9 +22,9 @@ class AdminLogin extends StatefulWidget {
 class _AdminLoginState extends State<AdminLogin> {
   final _formKey = GlobalKey<FormState>();
 
-  final _emailController = TextEditingController();
+  final _emailController = TextEditingController(text: 'admin@industria.com');
 
-  final _passwordController = TextEditingController();
+  final _passwordController = TextEditingController(text: 'admin12345');
   bool isPassObscure = true;
   bool isHoveredButton = false;
   bool isHoveredEmail = false;

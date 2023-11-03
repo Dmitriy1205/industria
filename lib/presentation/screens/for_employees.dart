@@ -23,9 +23,9 @@ class ForEmployees extends StatefulWidget {
 class _ForEmployeesState extends State<ForEmployees> {
   final _formKey = GlobalKey<FormState>();
 
-  final _emailController = TextEditingController();
+  final _emailController = TextEditingController(text: 'test9@example.com');
 
-  final _passwordController = TextEditingController();
+  final _passwordController = TextEditingController(text: 'testpassword');
   bool isPassObscure = true;
   bool isHoveredButton = false;
   bool isHoveredEmail = false;

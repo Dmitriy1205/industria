@@ -22,6 +22,7 @@ import 'package:industria/presentation/screens/admin/view_vacancy.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
 import 'package:industria/presentation/screens/data_protection.dart';
+import 'package:industria/presentation/screens/employee/create_report.dart';
 import 'package:industria/presentation/screens/employee/employee_home.dart';
 import 'package:industria/presentation/screens/employee/employee_main_screen.dart';
 import 'package:industria/presentation/screens/for_employees.dart';
@@ -30,6 +31,7 @@ import 'package:industria/presentation/screens/job_description.dart';
 import 'package:industria/presentation/screens/jobs.dart';
 import 'package:industria/presentation/screens/layouts/admin/admin_desktop_dashboard_layout.dart';
 import 'package:industria/presentation/screens/main_screen.dart';
+import 'package:industria/presentation/screens/employee/messaging.dart';
 import 'package:industria/presentation/screens/our_team.dart';
 
 import '../domain/entities/feedback/feedback.dart';
@@ -39,6 +41,7 @@ import '../presentation/screens/admin/view_holiday.dart';
 import '../presentation/screens/contact.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/imprint.dart';
+import '../presentation/screens/employee/reports.dart';
 
 String? _authAdminRedirect(String fullPath, bool isAuthenticated) {
   if (fullPath == '/admin/login' && isAuthenticated) {
@@ -84,6 +87,30 @@ final GoRouter router = GoRouter(
           const MaterialPage(child: MainScreen(child: Home())),
     ),
     ShellRoute(routes: [
+      GoRoute(
+        path: '/employee/messaging',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const Messaging(),
+        ),
+      ),
+      GoRoute(
+        path: '/employee/reports',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const Reports(),
+        ),
+      ),
+      GoRoute(
+        path: '/employee/create_report',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const CreateReport(),
+        ),
+      ),
       GoRoute(
         path: '/employees/home',
         pageBuilder: (c, s) =>
@@ -334,6 +361,20 @@ final GoRouter router = GoRouter(
             child: JobDescription(),
           ),
         ),
+
+        // ShellRoute(routes: [
+        //   GoRoute(
+        //     path: '/employees/create_report',
+        //     pageBuilder: (c, s) =>
+        //     const MaterialPage(child: CreateReport()),
+        //   ),
+        // ], builder: (context, state, child){
+        //   return Scaffold(
+        //     body: EmployeeMainScreen(
+        //       child: child,
+        //     ),
+        //   );
+        // }),
       ],
     ),
   ],

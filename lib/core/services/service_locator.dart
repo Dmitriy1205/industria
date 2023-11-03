@@ -32,6 +32,7 @@ import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/contact_requests/contact_request_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
+import 'package:industria/presentation/bloc/create_report/create_report_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
 import 'package:industria/presentation/bloc/feedback_feature/admin_feedback_list/admin_feedback_list_bloc.dart';
@@ -145,4 +146,6 @@ Future<void> init() async {
       AdminUpdateVacancyBloc(adminVacancyRepository: adminVacancyRepository));
   sl.registerLazySingleton(() =>
       AdminDeleteVacancyBloc(adminVacancyRepository: adminVacancyRepository));
-}
+  sl.registerLazySingleton(() =>
+      CreateReportBloc(holidayRequestsRepository: holidayRequestsRepository));
+  }

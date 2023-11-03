@@ -88,7 +88,30 @@ final GoRouter router = GoRouter(
     ),
     ShellRoute(routes: [
       GoRoute(
-
+        path: '/employee/messaging',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const Messaging(),
+        ),
+      ),
+      GoRoute(
+        path: '/employee/reports',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const Reports(),
+        ),
+      ),
+      GoRoute(
+        path: '/employee/create_report',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const CreateReport(),
+        ),
+      ),
+      GoRoute(
         path: '/employees/home',
         pageBuilder: (c, s) =>
         const MaterialPage(child: EmployeeHome()),
@@ -336,30 +359,6 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: JobDescription(),
-          ),
-        ),
-        GoRoute(
-          path: '/employee/messaging',
-          pageBuilder: (context, state) => pageTransition<void>(
-            context: context,
-            state: state,
-            child: const Messaging(),
-          ),
-        ),
-        GoRoute(
-          path: '/employee/reports',
-          pageBuilder: (context, state) => pageTransition<void>(
-            context: context,
-            state: state,
-            child: const Reports(),
-          ),
-        ),
-        GoRoute(
-          path: '/employee/create_report',
-          pageBuilder: (context, state) => pageTransition<void>(
-            context: context,
-            state: state,
-            child: const CreateReport(),
           ),
         ),
 

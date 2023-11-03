@@ -14,6 +14,7 @@ _$_HolidayRequest _$$_HolidayRequestFromJson(Map<String, dynamic> json) =>
       reason: json['reason'] as String,
       id: json['id'] as String,
       employeeId: json['employeeId'] as String,
+      type: json['type'] as String? ?? "Holiday request",
       createdAt: FirebaseTimestampConverters.fromTimestamp(json['createdAt']),
       unavailableFrom:
           FirebaseTimestampConverters.fromTimestamp(json['unavailableFrom']),
@@ -31,6 +32,7 @@ Map<String, dynamic> _$$_HolidayRequestToJson(_$_HolidayRequest instance) =>
       'reason': instance.reason,
       'id': instance.id,
       'employeeId': instance.employeeId,
+      'type': instance.type,
       'createdAt': FirebaseTimestampConverters.toTimestamp(instance.createdAt),
       'unavailableFrom':
           FirebaseTimestampConverters.toTimestamp(instance.unavailableFrom),

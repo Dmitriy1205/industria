@@ -17,16 +17,16 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../bloc/localization/localization_bloc.dart';
 
-class ViewHoliday extends StatefulWidget{
-  const ViewHoliday({Key? key})
-      : super(key: key);
+class ViewHoliday extends StatefulWidget {
+  const ViewHoliday({Key? key}) : super(key: key);
 
   @override
   State<ViewHoliday> createState() => _ViewHolidayState();
 }
 
-class _ViewHolidayState extends State<ViewHoliday>{
-  final _viewHolidayBloc = ViewHolidayBloc(holidayRequestsRepository: sl<HolidayRequestsRepository>());
+class _ViewHolidayState extends State<ViewHoliday> {
+  final _viewHolidayBloc = ViewHolidayBloc(
+      holidayRequestsRepository: sl<HolidayRequestsRepository>());
 
   String? selectedStatus;
 
@@ -35,7 +35,7 @@ class _ViewHolidayState extends State<ViewHoliday>{
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final paramValue = routeValue(context, "id");
-      if(paramValue != null){
+      if (paramValue != null) {
         _viewHolidayBloc.add(ViewHolidayEvent.fetchHolidayById(id: paramValue));
       }
     });
@@ -44,36 +44,42 @@ class _ViewHolidayState extends State<ViewHoliday>{
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ViewHolidayBloc, ViewHolidayState>(
-      listener: (context,state){
+      listener: (context, state) {
         state.maybeMap(
-            loaded: (state){
+            loaded: (state) {
               setState(() {
                 selectedStatus = state.holiday.status;
               });
             },
-            changedStatus: (state){
-              context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.replaceHoliday(id: state.holiday.id, holiday: state.holiday));
+            changedStatus: (state) {
+              context.read<AdminHolidayRequestsListBloc>().add(
+                  AdminHolidayRequestsListEvent.replaceHoliday(
+                      id: state.holiday.id, holiday: state.holiday));
               showSuccessSnackBar(context, "Saved");
               context.go("/admin/holidays");
             },
-            markedAsRead: (state){
-              context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.replaceHoliday(id: state.holiday.id, holiday: state.holiday));
+            markedAsRead: (state) {
+              context.read<AdminHolidayRequestsListBloc>().add(
+                  AdminHolidayRequestsListEvent.replaceHoliday(
+                      id: state.holiday.id, holiday: state.holiday));
             },
-            orElse: (){});
+            orElse: () {});
       },
       bloc: _viewHolidayBloc,
       builder: (context, state) {
-        if(state.holiday == null){
+        if (state.holiday == null) {
           return const SizedBox.shrink();
         }
         return ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 880),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 18),
                     child: SizedBox(
@@ -82,7 +88,7 @@ class _ViewHolidayState extends State<ViewHoliday>{
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            AppLocalizations.of(context)!.jobApplication,
+                            AppLocalizations.of(context)!.reports,
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -102,47 +108,121 @@ class _ViewHolidayState extends State<ViewHoliday>{
                   const SizedBox(
                     height: 30,
                   ),
-                  IntrinsicHeight(
-                    child: Container(
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          border: Border.all(color: AppColors.lightGrey),
-                          color: Colors.white),
-                      padding: const EdgeInsets.symmetric(vertical: 35),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 39),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    FirebaseImage(storageRef: state.holiday!.photoRef, rounded: true,),
-                                    SizedBox(width: 24,),
-                                    _section(title: AppLocalizations.of(context)!.employee, subtitle: "${state.holiday!.firstname} ${state.holiday!.lastname}"),
-                                  ],
-                                ),
-                                const SizedBox(height: 30,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    _section(title: AppLocalizations.of(context)!.unavailable, subtitle: "${state.holiday!.unavailableFrom.formattedTexted(context.watch<LocalizationBloc>().state.locale)} - ${state.holiday!.unavailableTo.formattedTexted(context.watch<LocalizationBloc>().state.locale)}"),
-                                    _section(title: AppLocalizations.of(context)!.date, subtitle: state.holiday!.createdAt.formattedTextedWithTime(context.watch<LocalizationBloc>().state.locale)),
-                                  ],
-                                ),
-                                const SizedBox(height: 30,),
-                                _section(title: AppLocalizations.of(context)!.reason, subtitle: state.holiday!.reason),
-                              ],
+                  LayoutBuilder(
+                    builder: (context, constraints) => IntrinsicHeight(
+                      child: Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(color: AppColors.lightGrey),
+                            color: Colors.white),
+                        padding: const EdgeInsets.symmetric(vertical: 35),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 39),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      FirebaseImage(
+                                        storageRef: state.holiday!.photoRef,
+                                        rounded: true,
+                                      ),
+                                      SizedBox(
+                                        width: 24,
+                                      ),
+                                      _section(
+                                          title: AppLocalizations.of(context)!
+                                              .employee,
+                                          subtitle:
+                                              "${state.holiday!.firstname} ${state.holiday!.lastname}"),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  constraints.maxWidth > 900
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            _section(
+                                                title: AppLocalizations.of(
+                                                        context)!
+                                                    .unavailable,
+                                                subtitle:
+                                                    "${state.holiday!.unavailableFrom.formattedTexted(context.watch<LocalizationBloc>().state.locale)} - ${state.holiday!.unavailableTo.formattedTexted(context.watch<LocalizationBloc>().state.locale)}"),
+                                            _section(
+                                                title: AppLocalizations.of(
+                                                        context)!
+                                                    .type,
+                                                subtitle: state.holiday!.type),
+                                            _section(
+                                                title: AppLocalizations.of(
+                                                        context)!
+                                                    .date,
+                                                subtitle: state
+                                                    .holiday!.createdAt
+                                                    .formattedTextedWithTime(
+                                                        context
+                                                            .watch<
+                                                                LocalizationBloc>()
+                                                            .state
+                                                            .locale)),
+                                          ],
+                                        )
+                                      : Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            _section(
+                                                title: AppLocalizations.of(
+                                                        context)!
+                                                    .unavailable,
+                                                subtitle:
+                                                    "${state.holiday!.unavailableFrom.formattedTexted(context.watch<LocalizationBloc>().state.locale)} - ${state.holiday!.unavailableTo.formattedTexted(context.watch<LocalizationBloc>().state.locale)}"),
+                                            SizedBox(height: 30,),
+                                            _section(
+                                                title: AppLocalizations.of(
+                                                        context)!
+                                                    .type,
+                                                subtitle: state.holiday!.type),
+                                            SizedBox(height: 30,),
+                                            _section(
+                                                title: AppLocalizations.of(
+                                                        context)!
+                                                    .date,
+                                                subtitle: state
+                                                    .holiday!.createdAt
+                                                    .formattedTextedWithTime(
+                                                        context
+                                                            .watch<
+                                                                LocalizationBloc>()
+                                                            .state
+                                                            .locale)),
+                                          ],
+                                        ),
+                                  const SizedBox(
+                                    height: 30,
+                                  ),
+                                  _section(
+                                      title:
+                                          AppLocalizations.of(context)!.reason,
+                                      subtitle: state.holiday!.reason),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 25,),
+                  const SizedBox(
+                    height: 25,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -151,8 +231,7 @@ class _ViewHolidayState extends State<ViewHoliday>{
                         height: 40,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(12),
-                            color: Colors.white
-                        ),
+                            color: Colors.white),
                         child: Center(
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20),
@@ -183,7 +262,8 @@ class _ViewHolidayState extends State<ViewHoliday>{
                                     value: value,
                                     child: Text(
                                       value,
-                                      style: AppTheme.themeData.textTheme.titleSmall!
+                                      style: AppTheme
+                                          .themeData.textTheme.titleSmall!
                                           .copyWith(color: Color(0xFF575757)),
                                     ),
                                   );
@@ -198,15 +278,31 @@ class _ViewHolidayState extends State<ViewHoliday>{
                           ),
                         ),
                       ),
-                      SizedBox(width: 15,),
+                      SizedBox(
+                        width: 15,
+                      ),
                       SizedBox(
                           width: 160,
-                          child: AppElevatedButton(onPressed: (){
-                            _viewHolidayBloc.add(ViewHolidayEvent.changeStatus(id: state.holiday!.id, status: selectedStatus!));
-                          }, text: AppLocalizations.of(context)!.save, textStyle: TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.normal), color: Colors.white, verticalPadding: 8,)),
+                          child: AppElevatedButton(
+                            onPressed: () {
+                              _viewHolidayBloc.add(
+                                  ViewHolidayEvent.changeStatus(
+                                      id: state.holiday!.id,
+                                      status: selectedStatus!));
+                            },
+                            text: AppLocalizations.of(context)!.save,
+                            textStyle: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal),
+                            color: Colors.white,
+                            verticalPadding: 8,
+                          )),
                     ],
                   ),
-                  const SizedBox(height: 25,),
+                  const SizedBox(
+                    height: 25,
+                  ),
                 ],
               ),
             ),
@@ -216,13 +312,26 @@ class _ViewHolidayState extends State<ViewHoliday>{
     );
   }
 
-  Widget _section({required String title, required String subtitle, bool link = false}){
+  Widget _section(
+      {required String title, required String subtitle, bool link = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.darkGrey),),
-        const SizedBox(height: 14,),
-        Text(subtitle.replaceAll(r"\\n", "\n"), style: TextStyle(fontSize: 14, color: link ? AppColors.mainAccent : Colors.black),),
+        Text(
+          title,
+          style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.darkGrey),
+        ),
+        const SizedBox(
+          height: 14,
+        ),
+        Text(
+          subtitle.replaceAll(r"\\n", "\n"),
+          style: TextStyle(
+              fontSize: 14, color: link ? AppColors.mainAccent : Colors.black),
+        ),
       ],
     );
   }

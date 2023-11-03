@@ -183,4 +183,17 @@
  "questionDeleteCompany": "Are you sure you want to delete the company?",
  "updateCompany": "Update company",
  "answer": "Answer"
+ "messaging": "Messaging",
+ "phone": "Phone",
+ "workedThisWeek": "Worked this week:",
+ "notAvailable": "not available",
+ "working": "working",
+ "brea": "break",
+ "createReport": "Create report",
+ "type": "Type",
+ "reason": "Reason",
+ "createReport": "Create report",
+ "startDate": "Start date",
+ "endDate": "End date",
+ "absenceReport": "Absence report"
 }

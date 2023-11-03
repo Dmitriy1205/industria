@@ -109,6 +109,7 @@ class AppTheme {
         fontSize: 14,
         color: Color(0xFF8B8B8B),
       ),
+
     ),
   );
 }

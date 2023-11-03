@@ -1,6 +1,7 @@
 import 'package:industria/core/table_data/table_data.dart';
 import 'package:industria/data/remote/holiday_requests/holiday_requests_service_contract.dart';
 import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
+import 'package:industria/domain/models/holiday_request_model.dart';
 import 'package:industria/domain/repositories/holiday_requests/holiday_requests_repository_contract.dart';
 
 class HolidayRequestsRepositoryImpl implements HolidayRequestsRepository{
@@ -23,6 +24,10 @@ class HolidayRequestsRepositoryImpl implements HolidayRequestsRepository{
   @override
   Future<void> setHolidayStatus({required String id, required String status}) {
     return db.setHolidayStatus(id: id, status: status);
+  }
+  @override
+  Future<void> createReport({required HolidayRequestModel report}) async {
+    await db.createReport(report: report);
   }
 
   const HolidayRequestsRepositoryImpl({

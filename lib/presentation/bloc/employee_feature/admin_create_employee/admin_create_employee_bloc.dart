@@ -21,7 +21,7 @@ class AdminCreateEmployeeBloc
   }
 
   Future<void> _mapEventToState(AdminCreateEmployeeEvent event,
-          Emitter<AdminCreateEmployeeState> emit) =>
+      Emitter<AdminCreateEmployeeState> emit) =>
       event.map(createEmployee: (e) => _createEmployee(e, emit));
 
   Future<void> _createEmployee(_CreateEmployeeEvent event,

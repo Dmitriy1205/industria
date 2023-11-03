@@ -88,6 +88,7 @@ final GoRouter router = GoRouter(
     ),
     ShellRoute(routes: [
       GoRoute(
+
         path: '/employees/home',
         pageBuilder: (c, s) =>
         const MaterialPage(child: EmployeeHome()),

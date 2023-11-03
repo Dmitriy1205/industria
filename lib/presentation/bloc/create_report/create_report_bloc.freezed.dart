@@ -545,29 +545,60 @@ abstract class _SuccessState implements CreateReportState {
 /// @nodoc
 mixin _$CreateReportEvent {
   String get type => throw _privateConstructorUsedError;
-  String get startDate => throw _privateConstructorUsedError;
-  String get endDate => throw _privateConstructorUsedError;
   String get reason => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
   String get employeeId => throw _privateConstructorUsedError;
+  String get lastname => throw _privateConstructorUsedError;
+  String get firstname => throw _privateConstructorUsedError;
+  String get photoRef => throw _privateConstructorUsedError;
+  DateTime get unavailableFrom => throw _privateConstructorUsedError;
+  DateTime get unavailableTo => throw _privateConstructorUsedError;
+  bool get read => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String type, String startDate, String endDate,
-            String reason, String description, String employeeId)
+    required TResult Function(
+            String type,
+            String reason,
+            String employeeId,
+            String lastname,
+            String firstname,
+            String photoRef,
+            DateTime unavailableFrom,
+            DateTime unavailableTo,
+            bool read,
+            String status)
         createReport,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String type, String startDate, String endDate,
-            String reason, String description, String employeeId)?
+    TResult? Function(
+            String type,
+            String reason,
+            String employeeId,
+            String lastname,
+            String firstname,
+            String photoRef,
+            DateTime unavailableFrom,
+            DateTime unavailableTo,
+            bool read,
+            String status)?
         createReport,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String type, String startDate, String endDate,
-            String reason, String description, String employeeId)?
+    TResult Function(
+            String type,
+            String reason,
+            String employeeId,
+            String lastname,
+            String firstname,
+            String photoRef,
+            DateTime unavailableFrom,
+            DateTime unavailableTo,
+            bool read,
+            String status)?
         createReport,
     required TResult orElse(),
   }) =>
@@ -602,11 +633,15 @@ abstract class $CreateReportEventCopyWith<$Res> {
   @useResult
   $Res call(
       {String type,
-      String startDate,
-      String endDate,
       String reason,
-      String description,
-      String employeeId});
+      String employeeId,
+      String lastname,
+      String firstname,
+      String photoRef,
+      DateTime unavailableFrom,
+      DateTime unavailableTo,
+      bool read,
+      String status});
 }
 
 /// @nodoc
@@ -623,36 +658,56 @@ class _$CreateReportEventCopyWithImpl<$Res, $Val extends CreateReportEvent>
   @override
   $Res call({
     Object? type = null,
-    Object? startDate = null,
-    Object? endDate = null,
     Object? reason = null,
-    Object? description = null,
     Object? employeeId = null,
+    Object? lastname = null,
+    Object? firstname = null,
+    Object? photoRef = null,
+    Object? unavailableFrom = null,
+    Object? unavailableTo = null,
+    Object? read = null,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      endDate: null == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as String,
       reason: null == reason
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
       employeeId: null == employeeId
           ? _value.employeeId
           : employeeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastname: null == lastname
+          ? _value.lastname
+          : lastname // ignore: cast_nullable_to_non_nullable
+              as String,
+      firstname: null == firstname
+          ? _value.firstname
+          : firstname // ignore: cast_nullable_to_non_nullable
+              as String,
+      photoRef: null == photoRef
+          ? _value.photoRef
+          : photoRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      unavailableFrom: null == unavailableFrom
+          ? _value.unavailableFrom
+          : unavailableFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      unavailableTo: null == unavailableTo
+          ? _value.unavailableTo
+          : unavailableTo // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      read: null == read
+          ? _value.read
+          : read // ignore: cast_nullable_to_non_nullable
+              as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -668,11 +723,15 @@ abstract class _$$_CreateReportEventCopyWith<$Res>
   @useResult
   $Res call(
       {String type,
-      String startDate,
-      String endDate,
       String reason,
-      String description,
-      String employeeId});
+      String employeeId,
+      String lastname,
+      String firstname,
+      String photoRef,
+      DateTime unavailableFrom,
+      DateTime unavailableTo,
+      bool read,
+      String status});
 }
 
 /// @nodoc
@@ -687,36 +746,56 @@ class __$$_CreateReportEventCopyWithImpl<$Res>
   @override
   $Res call({
     Object? type = null,
-    Object? startDate = null,
-    Object? endDate = null,
     Object? reason = null,
-    Object? description = null,
     Object? employeeId = null,
+    Object? lastname = null,
+    Object? firstname = null,
+    Object? photoRef = null,
+    Object? unavailableFrom = null,
+    Object? unavailableTo = null,
+    Object? read = null,
+    Object? status = null,
   }) {
     return _then(_$_CreateReportEvent(
       type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      startDate: null == startDate
-          ? _value.startDate
-          : startDate // ignore: cast_nullable_to_non_nullable
-              as String,
-      endDate: null == endDate
-          ? _value.endDate
-          : endDate // ignore: cast_nullable_to_non_nullable
-              as String,
       reason: null == reason
           ? _value.reason
           : reason // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
       employeeId: null == employeeId
           ? _value.employeeId
           : employeeId // ignore: cast_nullable_to_non_nullable
+              as String,
+      lastname: null == lastname
+          ? _value.lastname
+          : lastname // ignore: cast_nullable_to_non_nullable
+              as String,
+      firstname: null == firstname
+          ? _value.firstname
+          : firstname // ignore: cast_nullable_to_non_nullable
+              as String,
+      photoRef: null == photoRef
+          ? _value.photoRef
+          : photoRef // ignore: cast_nullable_to_non_nullable
+              as String,
+      unavailableFrom: null == unavailableFrom
+          ? _value.unavailableFrom
+          : unavailableFrom // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      unavailableTo: null == unavailableTo
+          ? _value.unavailableTo
+          : unavailableTo // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      read: null == read
+          ? _value.read
+          : read // ignore: cast_nullable_to_non_nullable
+              as bool,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -727,28 +806,40 @@ class __$$_CreateReportEventCopyWithImpl<$Res>
 class _$_CreateReportEvent implements _CreateReportEvent {
   const _$_CreateReportEvent(
       {required this.type,
-      required this.startDate,
-      required this.endDate,
       required this.reason,
-      required this.description,
-      required this.employeeId});
+      required this.employeeId,
+      required this.lastname,
+      required this.firstname,
+      required this.photoRef,
+      required this.unavailableFrom,
+      required this.unavailableTo,
+      required this.read,
+      required this.status});
 
   @override
   final String type;
   @override
-  final String startDate;
-  @override
-  final String endDate;
-  @override
   final String reason;
   @override
-  final String description;
-  @override
   final String employeeId;
+  @override
+  final String lastname;
+  @override
+  final String firstname;
+  @override
+  final String photoRef;
+  @override
+  final DateTime unavailableFrom;
+  @override
+  final DateTime unavailableTo;
+  @override
+  final bool read;
+  @override
+  final String status;
 
   @override
   String toString() {
-    return 'CreateReportEvent.createReport(type: $type, startDate: $startDate, endDate: $endDate, reason: $reason, description: $description, employeeId: $employeeId)';
+    return 'CreateReportEvent.createReport(type: $type, reason: $reason, employeeId: $employeeId, lastname: $lastname, firstname: $firstname, photoRef: $photoRef, unavailableFrom: $unavailableFrom, unavailableTo: $unavailableTo, read: $read, status: $status)';
   }
 
   @override
@@ -757,19 +848,36 @@ class _$_CreateReportEvent implements _CreateReportEvent {
         (other.runtimeType == runtimeType &&
             other is _$_CreateReportEvent &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.startDate, startDate) ||
-                other.startDate == startDate) &&
-            (identical(other.endDate, endDate) || other.endDate == endDate) &&
             (identical(other.reason, reason) || other.reason == reason) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
             (identical(other.employeeId, employeeId) ||
-                other.employeeId == employeeId));
+                other.employeeId == employeeId) &&
+            (identical(other.lastname, lastname) ||
+                other.lastname == lastname) &&
+            (identical(other.firstname, firstname) ||
+                other.firstname == firstname) &&
+            (identical(other.photoRef, photoRef) ||
+                other.photoRef == photoRef) &&
+            (identical(other.unavailableFrom, unavailableFrom) ||
+                other.unavailableFrom == unavailableFrom) &&
+            (identical(other.unavailableTo, unavailableTo) ||
+                other.unavailableTo == unavailableTo) &&
+            (identical(other.read, read) || other.read == read) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, type, startDate, endDate, reason, description, employeeId);
+      runtimeType,
+      type,
+      reason,
+      employeeId,
+      lastname,
+      firstname,
+      photoRef,
+      unavailableFrom,
+      unavailableTo,
+      read,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -781,36 +889,63 @@ class _$_CreateReportEvent implements _CreateReportEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String type, String startDate, String endDate,
-            String reason, String description, String employeeId)
+    required TResult Function(
+            String type,
+            String reason,
+            String employeeId,
+            String lastname,
+            String firstname,
+            String photoRef,
+            DateTime unavailableFrom,
+            DateTime unavailableTo,
+            bool read,
+            String status)
         createReport,
   }) {
-    return createReport(
-        type, startDate, endDate, reason, description, employeeId);
+    return createReport(type, reason, employeeId, lastname, firstname, photoRef,
+        unavailableFrom, unavailableTo, read, status);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String type, String startDate, String endDate,
-            String reason, String description, String employeeId)?
+    TResult? Function(
+            String type,
+            String reason,
+            String employeeId,
+            String lastname,
+            String firstname,
+            String photoRef,
+            DateTime unavailableFrom,
+            DateTime unavailableTo,
+            bool read,
+            String status)?
         createReport,
   }) {
-    return createReport?.call(
-        type, startDate, endDate, reason, description, employeeId);
+    return createReport?.call(type, reason, employeeId, lastname, firstname,
+        photoRef, unavailableFrom, unavailableTo, read, status);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String type, String startDate, String endDate,
-            String reason, String description, String employeeId)?
+    TResult Function(
+            String type,
+            String reason,
+            String employeeId,
+            String lastname,
+            String firstname,
+            String photoRef,
+            DateTime unavailableFrom,
+            DateTime unavailableTo,
+            bool read,
+            String status)?
         createReport,
     required TResult orElse(),
   }) {
     if (createReport != null) {
-      return createReport(
-          type, startDate, endDate, reason, description, employeeId);
+      return createReport(type, reason, employeeId, lastname, firstname,
+          photoRef, unavailableFrom, unavailableTo, read, status);
     }
     return orElse();
   }
@@ -847,24 +982,36 @@ class _$_CreateReportEvent implements _CreateReportEvent {
 abstract class _CreateReportEvent implements CreateReportEvent {
   const factory _CreateReportEvent(
       {required final String type,
-      required final String startDate,
-      required final String endDate,
       required final String reason,
-      required final String description,
-      required final String employeeId}) = _$_CreateReportEvent;
+      required final String employeeId,
+      required final String lastname,
+      required final String firstname,
+      required final String photoRef,
+      required final DateTime unavailableFrom,
+      required final DateTime unavailableTo,
+      required final bool read,
+      required final String status}) = _$_CreateReportEvent;
 
   @override
   String get type;
   @override
-  String get startDate;
-  @override
-  String get endDate;
-  @override
   String get reason;
   @override
-  String get description;
-  @override
   String get employeeId;
+  @override
+  String get lastname;
+  @override
+  String get firstname;
+  @override
+  String get photoRef;
+  @override
+  DateTime get unavailableFrom;
+  @override
+  DateTime get unavailableTo;
+  @override
+  bool get read;
+  @override
+  String get status;
   @override
   @JsonKey(ignore: true)
   _$$_CreateReportEventCopyWith<_$_CreateReportEvent> get copyWith =>

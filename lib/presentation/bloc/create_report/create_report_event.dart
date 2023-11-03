@@ -4,10 +4,14 @@ part of 'create_report_bloc.dart';
 class CreateReportEvent with _$CreateReportEvent {
   const factory CreateReportEvent.createReport({
     required String type,
-    required String startDate,
-    required String endDate,
     required String reason,
-    required String description,
     required String employeeId,
+    required String lastname,
+    required String firstname,
+    required String photoRef,
+    required DateTime unavailableFrom,
+    required DateTime unavailableTo,
+    required bool read,
+    required String status,
   }) = _CreateReportEvent;
 }

@@ -147,5 +147,5 @@ Future<void> init() async {
   sl.registerLazySingleton(() =>
       AdminDeleteVacancyBloc(adminVacancyRepository: adminVacancyRepository));
   sl.registerLazySingleton(() =>
-      CreateReportBloc(holidayRequestsRepository));
+      CreateReportBloc(holidayRequestsRepository: holidayRequestsRepository));
   }

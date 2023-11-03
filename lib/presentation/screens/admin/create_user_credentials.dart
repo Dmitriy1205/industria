@@ -18,9 +18,7 @@ import '../../bloc/employee_feature/admin_create_employee/admin_create_employee_
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CreateUserCredentials extends StatefulWidget {
-
-  const CreateUserCredentials({Key? key})
-      : super(key: key);
+  const CreateUserCredentials({Key? key}) : super(key: key);
 
   @override
   State<CreateUserCredentials> createState() => _CreateUserCredentialsState();
@@ -43,23 +41,17 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
 
   final _passwordNode = FocusNode();
 
-  late final _firstnameController =
-      TextEditingController();
+  late final _firstnameController = TextEditingController();
 
-  late final _lastnameController =
-      TextEditingController();
+  late final _lastnameController = TextEditingController();
 
-  late final _phoneController =
-      TextEditingController();
+  late final _phoneController = TextEditingController();
 
-  late final _roleController =
-      TextEditingController();
+  late final _roleController = TextEditingController();
 
-  late final _dateOfBirtController =
-      TextEditingController();
+  late final _dateOfBirtController = TextEditingController();
 
-  late final _worksSinceController =
-      TextEditingController();
+  late final _worksSinceController = TextEditingController();
 
   late final _passwordController = TextEditingController();
 
@@ -88,7 +80,9 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
             },
             success: (_) {
               showSuccessSnackBar(context, "Created user successfully!");
-              context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(page: 0, elementsPerPage: 5));
+              context.read<AdminEmployeeListBloc>().add(
+                  AdminEmployeeListEvent.fetchData(
+                      page: 0, elementsPerPage: 5));
               context.pop();
             },
             fail: (_) {
@@ -113,8 +107,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                       ),
                       Text(
                         AppLocalizations.of(context)!.employee,
-                        style:
-                            TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         " / ${AppLocalizations.of(context)!.createAccount}",
@@ -147,22 +141,37 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                   children: [
                                     CircleAvatar(
                                         backgroundColor: AppColors.lightGrey,
-                                        backgroundImage: _photoBytes == null ? null : Image.memory(Uint8List.fromList(_photoBytes!)).image
-                                    ),
+                                        backgroundImage: _photoBytes == null
+                                            ? null
+                                            : Image.memory(Uint8List.fromList(
+                                                    _photoBytes!))
+                                                .image),
                                     const SizedBox(
                                       width: 15,
                                     ),
                                     TextButton(
-                                        onPressed: () async{
-                                          final pickedFiles = await FilePicker.platform.pickFiles(allowMultiple: false, type: FileType.custom, allowedExtensions: ["png","jpg","jpeg"]);
-                                          if(pickedFiles == null) return;
+                                        onPressed: () async {
+                                          final pickedFiles = await FilePicker
+                                              .platform
+                                              .pickFiles(
+                                                  allowMultiple: false,
+                                                  type: FileType.custom,
+                                                  allowedExtensions: [
+                                                "png",
+                                                "jpg",
+                                                "jpeg"
+                                              ]);
+                                          if (pickedFiles == null) return;
                                           setState(() {
-                                            _photoFileName = pickedFiles.files.first.name;
-                                            _photoBytes = pickedFiles.files.first.bytes;
+                                            _photoFileName =
+                                                pickedFiles.files.first.name;
+                                            _photoBytes =
+                                                pickedFiles.files.first.bytes;
                                           });
                                         },
                                         child: Text(
-                                          AppLocalizations.of(context)!.addPhoto,
+                                          AppLocalizations.of(context)!
+                                              .addPhoto,
                                           style: TextStyle(
                                               decoration:
                                                   TextDecoration.underline,
@@ -194,7 +203,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                 CustomTextFormField(
                                   focusNode: _emailNode,
                                   textController: _emailController,
-                                  labelText: '${AppLocalizations.of(context)!.email}*',
+                                  labelText:
+                                      '${AppLocalizations.of(context)!.email}*',
                                   textInputType: TextInputType.emailAddress,
                                   validator: Validator.validateEmail,
                                   isSavePressed: true,
@@ -205,7 +215,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                 CustomTextFormField(
                                   focusNode: _passwordNode,
                                   textController: _passwordController,
-                                  labelText: '${AppLocalizations.of(context)!.password}*',
+                                  labelText:
+                                      '${AppLocalizations.of(context)!.password}*',
                                   textInputType: TextInputType.emailAddress,
                                   validator: Validator.validate,
                                   isSavePressed: true,
@@ -219,7 +230,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _firstnameNode,
                                       textController: _firstnameController,
-                                      labelText: '${AppLocalizations.of(context)!.firstname}*',
+                                      labelText:
+                                          '${AppLocalizations.of(context)!.firstname}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -231,7 +243,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _lastnameNode,
                                       textController: _lastnameController,
-                                      labelText: '${AppLocalizations.of(context)!.lastname}*',
+                                      labelText:
+                                          '${AppLocalizations.of(context)!.lastname}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -247,7 +260,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _phoneNode,
                                       textController: _phoneController,
-                                      labelText: '${AppLocalizations.of(context)!.phoneNumber}*',
+                                      labelText:
+                                          '${AppLocalizations.of(context)!.phoneNumber}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validatePhone,
                                       isSavePressed: true,
@@ -259,7 +273,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _roleNode,
                                       textController: _roleController,
-                                      labelText: '${AppLocalizations.of(context)!.role}*',
+                                      labelText:
+                                          '${AppLocalizations.of(context)!.role}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -276,7 +291,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                       focusNode: _dateOfBirthNode,
                                       type: CustomTextFormFieldType.date,
                                       textController: _dateOfBirtController,
-                                      labelText: '${AppLocalizations.of(context)!.dateOfBirth}*',
+                                      labelText:
+                                          '${AppLocalizations.of(context)!.dateOfBirth}*',
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
                                       isSavePressed: true,
@@ -295,7 +311,8 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                         child: CustomTextFormField(
                                       focusNode: _worksSinceNode,
                                       textController: _worksSinceController,
-                                      labelText: '${AppLocalizations.of(context)!.worksSince}*',
+                                      labelText:
+                                          '${AppLocalizations.of(context)!.worksSince}*',
                                       type: CustomTextFormFieldType.date,
                                       textInputType: TextInputType.name,
                                       validator: Validator.validate,
@@ -325,11 +342,24 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                     final lastname = _lastnameController.text;
                                     final phoneNumber = _phoneController.text;
                                     final role = _roleController.text;
-                                    if(_photoBytes == null || _photoFileName == null){
-                                      showErrorSnackBar(context, "No photo is specified");
+                                    if (_photoBytes == null ||
+                                        _photoFileName == null) {
+                                      showErrorSnackBar(
+                                          context, "No photo is specified");
                                       return;
                                     }
-                                    _adminCreateEmployeeBloc.add(AdminCreateEmployeeEvent.createEmployee(email: email, password: password, firstname: firstname, lastname: lastname, phoneNumber: phoneNumber, role: role, dateOfBirth: _dateOfBirth!, worksSince: _worksSince!, imgFilename: _photoFileName!, imgBytes: _photoBytes!));
+                                    _adminCreateEmployeeBloc.add(
+                                        AdminCreateEmployeeEvent.createEmployee(
+                                            email: email,
+                                            password: password,
+                                            firstname: firstname,
+                                            lastname: lastname,
+                                            phoneNumber: phoneNumber,
+                                            role: role,
+                                            dateOfBirth: _dateOfBirth!,
+                                            worksSince: _worksSince!,
+                                            imgFilename: _photoFileName!,
+                                            imgBytes: _photoBytes!));
                                   },
                                   verticalPadding: 10,
                                   textStyle: const TextStyle(

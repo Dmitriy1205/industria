@@ -62,7 +62,6 @@ class _CreateReportState extends State<CreateReport> {
               },
               success: (_) {
                 showSuccessSnackBar(context, "Created Report successfully!");
-                Future.delayed(Duration(seconds: 5));
                 context.go('/employee/reports');
               },
               error: (value) {

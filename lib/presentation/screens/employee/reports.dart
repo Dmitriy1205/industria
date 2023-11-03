@@ -120,7 +120,7 @@ class _ReportsState extends State<Reports> {
                                 ),
                                 textStyle: const TextStyle(fontSize: 14),
                                 onPressed: () {
-                                  context.pushReplacement('/employee/create_report');
+                                  context.go('/employee/create_report');
                                 },
                                 verticalPadding: 15,
                               ))

@@ -190,7 +190,7 @@ class _CreateReportState extends State<CreateReport> {
                                                   : MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                                  0.3,
+                                                  0.35,
                                               child: CustomTextFormField(
                                                 focusNode: startDate,
                                                 type: CustomTextFormFieldType
@@ -215,8 +215,16 @@ class _CreateReportState extends State<CreateReport> {
                                                 isSavePressed: false,
                                               ),
                                             ),
-                                            const SizedBox(
-                                              width: 48,
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width >
+                                                  1200
+                                                  ? 41
+                                                  : MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.02,
                                             ),
                                             SizedBox(
                                               width: MediaQuery.of(context)
@@ -227,7 +235,7 @@ class _CreateReportState extends State<CreateReport> {
                                                   : MediaQuery.of(context)
                                                           .size
                                                           .width *
-                                                      0.3,
+                                                      0.35,
                                               child: CustomTextFormField(
                                                 focusNode: endDate,
                                                 type: CustomTextFormFieldType

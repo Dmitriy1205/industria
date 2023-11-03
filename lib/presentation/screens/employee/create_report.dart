@@ -99,6 +99,7 @@ class _CreateReportState extends State<CreateReport> {
                               padding: const EdgeInsets.only(
                                   left: 37, right: 51, top: 32, bottom: 41),
                               child: Form(
+                                key: _formKey,
                                 child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -237,22 +238,19 @@ class _CreateReportState extends State<CreateReport> {
                                       const SizedBox(
                                         height: 51,
                                       ),
-                                      Form(
-                                        key: _formKey,
-                                        child: CustomTextFormField(
-                                          maxLines: 10,
-                                          height: 166,
-                                          width: 748,
-                                          focusNode: reason,
-                                          textController: reasonController,
-                                          labelText:
-                                              AppLocalizations.of(context)!
-                                                  .reason,
-                                          validator: Validator.validate,
-                                          textInputType: TextInputType.text,
-                                          onChange: (_) {},
-                                          isSavePressed: false,
-                                        ),
+                                      CustomTextFormField(
+                                        maxLines: 10,
+                                        height: 166,
+                                        width: 748,
+                                        focusNode: reason,
+                                        textController: reasonController,
+                                        labelText:
+                                            AppLocalizations.of(context)!
+                                                .reason,
+                                        validator: Validator.validate,
+                                        textInputType: TextInputType.text,
+                                        onChange: (_) {},
+                                        isSavePressed: false,
                                       ),
                                       const SizedBox(
                                         height: 51,

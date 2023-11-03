@@ -13,6 +13,7 @@ class JobApplicationRequest{
   final Company company;
   final JobOffer offer;
   final JobApplicationRequestDocuments documents;
+  final Map<String,String> questionAnswers;
 
   const JobApplicationRequest({
     required this.firstname,
@@ -24,7 +25,8 @@ class JobApplicationRequest{
     required this.availableDate,
     required this.company,
     required this.documents,
-    required this.offer
+    required this.offer,
+    required this.questionAnswers
   });
 }
 

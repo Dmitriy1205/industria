@@ -45,9 +45,12 @@ class _EmployeeTabletNavbarState extends State<EmployeeTabletNavbar> {
                   )),
             ),
             Center(
-              child: Image.asset(
-                AppImages.logo,
-                scale: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Image.asset(
+                  AppImages.logo,
+                  scale: 2,
+                ),
               ),
             ),
             Column(

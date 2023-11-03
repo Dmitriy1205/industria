@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:industria/core/table_data/table_data.dart';
 import 'package:industria/domain/entities/job_filters/job_filters.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 

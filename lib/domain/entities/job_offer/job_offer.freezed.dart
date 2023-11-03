@@ -31,6 +31,7 @@ mixin _$JobOffer {
   String get city => throw _privateConstructorUsedError;
   String get salary => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  List<String> get questions => throw _privateConstructorUsedError;
   @JsonKey(
       fromJson: FirebaseTimestampConverters.fromTimestamp, includeToJson: false)
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -58,6 +59,7 @@ abstract class $JobOfferCopyWith<$Res> {
       String city,
       String salary,
       String description,
+      List<String> questions,
       @JsonKey(
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           includeToJson: false)
@@ -90,6 +92,7 @@ class _$JobOfferCopyWithImpl<$Res, $Val extends JobOffer>
     Object? city = null,
     Object? salary = null,
     Object? description = null,
+    Object? questions = null,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
@@ -137,6 +140,10 @@ class _$JobOfferCopyWithImpl<$Res, $Val extends JobOffer>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      questions: null == questions
+          ? _value.questions
+          : questions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -172,6 +179,7 @@ abstract class _$$_JobOfferCopyWith<$Res> implements $JobOfferCopyWith<$Res> {
       String city,
       String salary,
       String description,
+      List<String> questions,
       @JsonKey(
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           includeToJson: false)
@@ -203,6 +211,7 @@ class __$$_JobOfferCopyWithImpl<$Res>
     Object? city = null,
     Object? salary = null,
     Object? description = null,
+    Object? questions = null,
     Object? createdAt = null,
   }) {
     return _then(_$_JobOffer(
@@ -250,6 +259,10 @@ class __$$_JobOfferCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      questions: null == questions
+          ? _value._questions
+          : questions // ignore: cast_nullable_to_non_nullable
+              as List<String>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -273,11 +286,13 @@ class _$_JobOffer extends _JobOffer with DiagnosticableTreeMixin {
       required this.city,
       required this.salary,
       required this.description,
+      final List<String> questions = const [],
       @JsonKey(
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           includeToJson: false)
       required this.createdAt})
-      : super._();
+      : _questions = questions,
+        super._();
 
   factory _$_JobOffer.fromJson(Map<String, dynamic> json) =>
       _$$_JobOfferFromJson(json);
@@ -304,6 +319,15 @@ class _$_JobOffer extends _JobOffer with DiagnosticableTreeMixin {
   final String salary;
   @override
   final String description;
+  final List<String> _questions;
+  @override
+  @JsonKey()
+  List<String> get questions {
+    if (_questions is EqualUnmodifiableListView) return _questions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_questions);
+  }
+
   @override
   @JsonKey(
       fromJson: FirebaseTimestampConverters.fromTimestamp, includeToJson: false)
@@ -311,7 +335,7 @@ class _$_JobOffer extends _JobOffer with DiagnosticableTreeMixin {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'JobOffer(id: $id, title: $title, jobType: $jobType, companyId: $companyId, companyName: $companyName, area: $area, company: $company, location: $location, city: $city, salary: $salary, description: $description, createdAt: $createdAt)';
+    return 'JobOffer(id: $id, title: $title, jobType: $jobType, companyId: $companyId, companyName: $companyName, area: $area, company: $company, location: $location, city: $city, salary: $salary, description: $description, questions: $questions, createdAt: $createdAt)';
   }
 
   @override
@@ -330,6 +354,7 @@ class _$_JobOffer extends _JobOffer with DiagnosticableTreeMixin {
       ..add(DiagnosticsProperty('city', city))
       ..add(DiagnosticsProperty('salary', salary))
       ..add(DiagnosticsProperty('description', description))
+      ..add(DiagnosticsProperty('questions', questions))
       ..add(DiagnosticsProperty('createdAt', createdAt));
   }
 
@@ -353,6 +378,8 @@ class _$_JobOffer extends _JobOffer with DiagnosticableTreeMixin {
             (identical(other.salary, salary) || other.salary == salary) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            const DeepCollectionEquality()
+                .equals(other._questions, _questions) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
@@ -372,6 +399,7 @@ class _$_JobOffer extends _JobOffer with DiagnosticableTreeMixin {
       city,
       salary,
       description,
+      const DeepCollectionEquality().hash(_questions),
       createdAt);
 
   @JsonKey(ignore: true)
@@ -401,6 +429,7 @@ abstract class _JobOffer extends JobOffer {
       required final String city,
       required final String salary,
       required final String description,
+      final List<String> questions,
       @JsonKey(
           fromJson: FirebaseTimestampConverters.fromTimestamp,
           includeToJson: false)
@@ -431,6 +460,8 @@ abstract class _JobOffer extends JobOffer {
   String get salary;
   @override
   String get description;
+  @override
+  List<String> get questions;
   @override
   @JsonKey(
       fromJson: FirebaseTimestampConverters.fromTimestamp, includeToJson: false)

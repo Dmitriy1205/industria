@@ -221,7 +221,7 @@ class _AdminUsersState extends State<AdminUsers> {
                   },
                   divider: BorderSide(
                     width: 1,
-                    color: Colors.grey,
+                    color: AppColors.lightGrey,
                   ),
                   backgroundColor: Colors.white,
                   horizontalPadding: 30,

@@ -287,7 +287,7 @@ mixin _$CreateCompanyState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() successful,
-    required TResult Function() error,
+    required TResult Function(String code) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -295,7 +295,7 @@ mixin _$CreateCompanyState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? successful,
-    TResult? Function()? error,
+    TResult? Function(String code)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -303,7 +303,7 @@ mixin _$CreateCompanyState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? successful,
-    TResult Function()? error,
+    TResult Function(String code)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -393,7 +393,7 @@ class _$_InitialState implements _InitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() successful,
-    required TResult Function() error,
+    required TResult Function(String code) error,
   }) {
     return initial();
   }
@@ -404,7 +404,7 @@ class _$_InitialState implements _InitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? successful,
-    TResult? Function()? error,
+    TResult? Function(String code)? error,
   }) {
     return initial?.call();
   }
@@ -415,7 +415,7 @@ class _$_InitialState implements _InitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? successful,
-    TResult Function()? error,
+    TResult Function(String code)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -507,7 +507,7 @@ class _$_LoadingState implements _LoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() successful,
-    required TResult Function() error,
+    required TResult Function(String code) error,
   }) {
     return loading();
   }
@@ -518,7 +518,7 @@ class _$_LoadingState implements _LoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? successful,
-    TResult? Function()? error,
+    TResult? Function(String code)? error,
   }) {
     return loading?.call();
   }
@@ -529,7 +529,7 @@ class _$_LoadingState implements _LoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? successful,
-    TResult Function()? error,
+    TResult Function(String code)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -621,7 +621,7 @@ class _$_SuccessfulState implements _SuccessfulState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() successful,
-    required TResult Function() error,
+    required TResult Function(String code) error,
   }) {
     return successful();
   }
@@ -632,7 +632,7 @@ class _$_SuccessfulState implements _SuccessfulState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? successful,
-    TResult? Function()? error,
+    TResult? Function(String code)? error,
   }) {
     return successful?.call();
   }
@@ -643,7 +643,7 @@ class _$_SuccessfulState implements _SuccessfulState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? successful,
-    TResult Function()? error,
+    TResult Function(String code)? error,
     required TResult orElse(),
   }) {
     if (successful != null) {
@@ -699,6 +699,8 @@ abstract class _$$_ErrorStateCopyWith<$Res> {
   factory _$$_ErrorStateCopyWith(
           _$_ErrorState value, $Res Function(_$_ErrorState) then) =
       __$$_ErrorStateCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String code});
 }
 
 /// @nodoc
@@ -708,26 +710,50 @@ class __$$_ErrorStateCopyWithImpl<$Res>
   __$$_ErrorStateCopyWithImpl(
       _$_ErrorState _value, $Res Function(_$_ErrorState) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? code = null,
+  }) {
+    return _then(_$_ErrorState(
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$_ErrorState implements _ErrorState {
-  const _$_ErrorState();
+  const _$_ErrorState({required this.code});
+
+  @override
+  final String code;
 
   @override
   String toString() {
-    return 'CreateCompanyState.error()';
+    return 'CreateCompanyState.error(code: $code)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_ErrorState);
+        (other.runtimeType == runtimeType &&
+            other is _$_ErrorState &&
+            (identical(other.code, code) || other.code == code));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, code);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_ErrorStateCopyWith<_$_ErrorState> get copyWith =>
+      __$$_ErrorStateCopyWithImpl<_$_ErrorState>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -735,9 +761,9 @@ class _$_ErrorState implements _ErrorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() successful,
-    required TResult Function() error,
+    required TResult Function(String code) error,
   }) {
-    return error();
+    return error(code);
   }
 
   @override
@@ -746,9 +772,9 @@ class _$_ErrorState implements _ErrorState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? successful,
-    TResult? Function()? error,
+    TResult? Function(String code)? error,
   }) {
-    return error?.call();
+    return error?.call(code);
   }
 
   @override
@@ -757,11 +783,11 @@ class _$_ErrorState implements _ErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? successful,
-    TResult Function()? error,
+    TResult Function(String code)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error();
+      return error(code);
     }
     return orElse();
   }
@@ -805,5 +831,10 @@ class _$_ErrorState implements _ErrorState {
 }
 
 abstract class _ErrorState implements CreateCompanyState {
-  const factory _ErrorState() = _$_ErrorState;
+  const factory _ErrorState({required final String code}) = _$_ErrorState;
+
+  String get code;
+  @JsonKey(ignore: true)
+  _$$_ErrorStateCopyWith<_$_ErrorState> get copyWith =>
+      throw _privateConstructorUsedError;
 }

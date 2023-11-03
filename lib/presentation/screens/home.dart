@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/animations/fade_in_animation.dart';
+import 'package:video_player/video_player.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../../app/router.dart';
 import '../../core/constants/colors.dart';
@@ -49,7 +50,7 @@ class _HomeState extends State<Home> {
   @override
   void dispose() {
     textController.dispose();
-    scrollController.dispose();
+    //scrollController.dispose();
     super.dispose();
   }
 
@@ -67,11 +68,11 @@ class _HomeState extends State<Home> {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: 640,
+                        height: 600,
                         decoration: BoxDecoration(
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: Image.asset(AppImages.homeBg).image
+                                image: Image.asset("assets/videos/video.gif").image
                             )
                         ),
                         child: Column(
@@ -882,205 +883,208 @@ class _HomeState extends State<Home> {
         SliverToBoxAdapter(
           child: Column(
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 640,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: Image.asset(AppImages.homeBg).image
-                    )
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(height: 70,),
-                      Text(AppLocalizations.of(context)!.choosingRightCandidates, style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),),
-                      SizedBox(height: 15,),
-                      SizedBox(
-                        width: 320,
-                        child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
-                            style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Colors.white, letterSpacing: 1),
-                          children: [
-                            TextSpan(text: "${AppLocalizations.of(context)!.findYour} ", ),
-                            TextSpan(text: "${AppLocalizations.of(context)!.dream} ", style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: AppColors.mainAccent)),
-                            TextSpan(text: AppLocalizations.of(context)!.job, style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: AppColors.secondaryAccent)),
-                            TextSpan(text: " ${AppLocalizations.of(context)!.withUs}",),
-                          ]
-                        )),
-                      ),
-                      SizedBox(height: 15,),
-                      SizedBox(
-                          width: 430,
-                          child: Text(AppLocalizations.of(context)!.hrSoftware, textAlign: TextAlign.center, style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),)),
-                      SizedBox(height: 31,),
-                      Container(
-                        height: 84,
-                        width: 800,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(offset: Offset(1,2), blurRadius: 6, color: Colors.black.withOpacity(0.25))
-                          ]
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(width: 25,),
-                            SizedBox(
-                              width: 200,
-                              child: TextField(
-                                controller: textController,
-                                style: AppTheme.themeData.textTheme.labelMedium!
-                                    .copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                    fontSize: 14),
-                                decoration: InputDecoration(
-                                  enabledBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide.none),
-                                  hintText:
-                                  AppLocalizations.of(context)!.jobTitle,
-                                  hintStyle: AppTheme
-                                      .themeData.textTheme.labelMedium!
-                                      .copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.darkGrey,
-                                      fontSize: 14),
-                                  prefixIcon: const Padding(
-                                    padding: EdgeInsets.only(right: 28.5, top: 2),
-                                    child: FaIcon(
-                                      FontAwesomeIcons.solidBuilding,
-                                      color: AppColors.darkGrey,
-                                      size: 20,
-                                    ),
-                                  ),
-                                  prefixIconConstraints: const BoxConstraints(
-                                      maxWidth: 50, minHeight: 0),
-                                ),
-                              ),
+                Stack(
+                  children: [
+                    Container(
+                        width: double.infinity,
+                        height: 640,
+                        child: Image.asset("assets/videos/video.gif", fit: BoxFit.cover,)),
+                    Container(
+                      width: double.infinity,
+                      height: 640,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 70,),
+                          Text(AppLocalizations.of(context)!.choosingRightCandidates, style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),),
+                          SizedBox(height: 15,),
+                          SizedBox(
+                            width: 320,
+                            child: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Colors.white, letterSpacing: 1),
+                                    children: [
+                                      TextSpan(text: "${AppLocalizations.of(context)!.findYour} ", ),
+                                      TextSpan(text: "${AppLocalizations.of(context)!.dream} ", style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: AppColors.mainAccent)),
+                                      TextSpan(text: AppLocalizations.of(context)!.job, style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: AppColors.secondaryAccent)),
+                                      TextSpan(text: " ${AppLocalizations.of(context)!.withUs}",),
+                                    ]
+                                )),
+                          ),
+                          SizedBox(height: 15,),
+                          SizedBox(
+                              width: 430,
+                              child: Text(AppLocalizations.of(context)!.hrSoftware, textAlign: TextAlign.center, style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),)),
+                          SizedBox(height: 31,),
+                          Container(
+                            height: 84,
+                            width: 800,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(offset: Offset(1,2), blurRadius: 6, color: Colors.black.withOpacity(0.25))
+                                ]
                             ),
-                            const Spacer(),
-                            Container(
-                              height: 39,
-                              width: 2,
-                              color: AppColors.lightGrey, // Color of the divider
-                            ),
-                            const SizedBox(
-                              width: 42,
-                            ),
-                            Theme(
-                              data: Theme.of(context).copyWith(
-                                hoverColor: Colors.white,
-                              ),
-                              child: DropdownButton<String>(
-                                focusColor: Colors.white,
-                                icon: const Padding(
-                                  padding: EdgeInsets.only(left: 8.0, top: 2),
-                                  child: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    size: 17,
-                                    color: AppColors.darkGrey,
-                                  ),
-                                ),
-                                underline: const SizedBox(),
-                                value: dropdownValue,
-                                borderRadius: BorderRadius.circular(10),
-                                items: <String>[
-                                  AppLocalizations.of(context)!.allGermany,
-                                  'Berlin',
-                                  'Munich'
-                                ].map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: AppTheme
+                            child: Row(
+                              children: [
+                                SizedBox(width: 25,),
+                                SizedBox(
+                                  width: 200,
+                                  child: TextField(
+                                    controller: textController,
+                                    style: AppTheme.themeData.textTheme.labelMedium!
+                                        .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                        fontSize: 14),
+                                    decoration: InputDecoration(
+                                      enabledBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide.none),
+                                      focusedBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide.none),
+                                      hintText:
+                                      AppLocalizations.of(context)!.jobTitle,
+                                      hintStyle: AppTheme
                                           .themeData.textTheme.labelMedium!
                                           .copyWith(
                                           fontWeight: FontWeight.w400,
                                           color: AppColors.darkGrey,
                                           fontSize: 14),
+                                      prefixIcon: const Padding(
+                                        padding: EdgeInsets.only(right: 28.5, top: 2),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.solidBuilding,
+                                          color: AppColors.darkGrey,
+                                          size: 20,
+                                        ),
+                                      ),
+                                      prefixIconConstraints: const BoxConstraints(
+                                          maxWidth: 50, minHeight: 0),
                                     ),
-                                  );
-                                }).toList(),
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    dropdownValue = newValue!;
-                                  });
-                                },
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 42,
-                            ),
-                            MouseRegion(
-                              cursor: SystemMouseCursors.click,
-                              onEnter: (_) {
-                                setState(() {
-                                  isHovered = !isHovered;
-                                });
-                              },
-                              onExit: (_) {
-                                setState(() {
-                                  isHovered = !isHovered;
-                                });
-                              },
-                              child: GestureDetector(
-                                onTap: (){
-                                  router.go(Uri.parse("/jobs").replace(queryParameters: {
-                                    "country": dropdownValue.isEmpty || dropdownValue == AppLocalizations.of(context)!.allGermany ? null : dropdownValue,
-                                    "keyword": textController.text
-                                  }..removeWhere((key, value) => value == null)).toString());
-                                },
-                                child: Container(
-                                  height: double.infinity,
-                                  decoration: BoxDecoration(
-                                      color: isHovered
-                                          ? AppColors.mainDarkAccent
-                                          : AppColors.mainAccent,
-                                      borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(12),
-                                          bottomRight: Radius.circular(12))),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                                    child: Row(
-                                      children: [
-                                        SvgPicture.asset(
-                                          AppImages.search,
-                                          width: 21,
-                                          height: 21,
-                                          color: Colors.white,
-                                        ),
-                                        const SizedBox(
-                                          width: 16,
-                                        ),
-                                        Text(
-                                          AppLocalizations.of(context)!.search,
+                                  ),
+                                ),
+                                const Spacer(),
+                                Container(
+                                  height: 39,
+                                  width: 2,
+                                  color: AppColors.lightGrey, // Color of the divider
+                                ),
+                                const SizedBox(
+                                  width: 42,
+                                ),
+                                Theme(
+                                  data: Theme.of(context).copyWith(
+                                    hoverColor: Colors.white,
+                                  ),
+                                  child: DropdownButton<String>(
+                                    focusColor: Colors.white,
+                                    icon: const Padding(
+                                      padding: EdgeInsets.only(left: 8.0, top: 2),
+                                      child: Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        size: 17,
+                                        color: AppColors.darkGrey,
+                                      ),
+                                    ),
+                                    underline: const SizedBox(),
+                                    value: dropdownValue,
+                                    borderRadius: BorderRadius.circular(10),
+                                    items: <String>[
+                                      AppLocalizations.of(context)!.allGermany,
+                                      'Berlin',
+                                      'Munich'
+                                    ].map<DropdownMenuItem<String>>((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(
+                                          value,
                                           style: AppTheme
                                               .themeData.textTheme.labelMedium!
                                               .copyWith(
                                               fontWeight: FontWeight.w400,
-                                              color: Colors.white,
+                                              color: AppColors.darkGrey,
                                               fontSize: 14),
                                         ),
-                                      ],
+                                      );
+                                    }).toList(),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        dropdownValue = newValue!;
+                                      });
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 42,
+                                ),
+                                MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  onEnter: (_) {
+                                    setState(() {
+                                      isHovered = !isHovered;
+                                    });
+                                  },
+                                  onExit: (_) {
+                                    setState(() {
+                                      isHovered = !isHovered;
+                                    });
+                                  },
+                                  child: GestureDetector(
+                                    onTap: (){
+                                      router.go(Uri.parse("/jobs").replace(queryParameters: {
+                                        "country": dropdownValue.isEmpty || dropdownValue == AppLocalizations.of(context)!.allGermany ? null : dropdownValue,
+                                        "keyword": textController.text
+                                      }..removeWhere((key, value) => value == null)).toString());
+                                    },
+                                    child: Container(
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color: isHovered
+                                              ? AppColors.mainDarkAccent
+                                              : AppColors.mainAccent,
+                                          borderRadius: const BorderRadius.only(
+                                              topRight: Radius.circular(12),
+                                              bottomRight: Radius.circular(12))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 30),
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              AppImages.search,
+                                              width: 21,
+                                              height: 21,
+                                              color: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              width: 16,
+                                            ),
+                                            Text(
+                                              AppLocalizations.of(context)!.search,
+                                              style: AppTheme
+                                                  .themeData.textTheme.labelMedium!
+                                                  .copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.white,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(height: 25,),
+                          Text(AppLocalizations.of(context)!.typeYourKeyword, textAlign: TextAlign.center, style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400, fontSize: 12),)
+                        ],
                       ),
-                      SizedBox(height: 25,),
-                      Text(AppLocalizations.of(context)!.typeYourKeyword, textAlign: TextAlign.center, style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400, fontSize: 12),)
-                    ],
-                  ),
+                    ),
+
+                  ],
                 ),
                 Center(
                   child: ConstrainedBox(

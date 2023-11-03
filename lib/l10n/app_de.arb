@@ -178,6 +178,12 @@
    "name": "Name",
    "changeVacancy": "Stellenangebot ändern",
    "message": "Nachricht",
+   "companies": "Firmen",
+   "delete": "Löschen",
+   "change": "Ändern",
+   "questionDeleteCompany": "Sind Sie sicher, dass Sie das Unternehmen löschen möchten?",
+   "updateCompany": "Firma aktualisieren",
+   "answer": "Antwort"
    "messaging": "Nachrichtenübermittlung",
    "phone": "Telefon",
    "workedThisWeek": "Hat diese Woche funktioniert:",

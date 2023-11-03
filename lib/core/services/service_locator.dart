@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:industria/data/remote/admin_company/admin_company_service_impl.dart';
 import 'package:industria/data/remote/admin_employee/admin_employee_service_impl.dart';
 import 'package:industria/data/remote/admin_vacancy/admin_vacancy_service_impl.dart';
 import 'package:industria/data/remote/attendance/attendance_service_impl.dart';
@@ -11,6 +12,8 @@ import 'package:industria/data/remote/admin_feedback/admin_feedback_service_impl
 import 'package:industria/data/remote/contact_requests/contact_requests_service_impl.dart';
 import 'package:industria/data/remote/holiday_requests/holiday_requests_service_impl.dart';
 import 'package:industria/data/remote/job/job_service_impl.dart';
+import 'package:industria/domain/repositories/admin_company/admin_company_repository_contract.dart';
+import 'package:industria/domain/repositories/admin_company/admin_company_repository_impl.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_impl.dart';
 import 'package:industria/domain/repositories/admin_vacancy/admin_vacancy_repository_impl.dart';
 import 'package:industria/domain/repositories/attendance/attendance_repository_contract.dart';
@@ -30,6 +33,7 @@ import 'package:industria/domain/repositories/job_application/job_application_re
 import 'package:industria/domain/repositories/language/language_repository_impl.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
+import 'package:industria/presentation/bloc/companies_feature/admin_companies_list/admin_companies_list_bloc.dart';
 import 'package:industria/presentation/bloc/contact_requests/contact_request_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 import 'package:industria/presentation/bloc/create_report/create_report_bloc.dart';
@@ -101,6 +105,11 @@ Future<void> init() async {
           db: FirebaseFirestore.instance,
           storage: FirebaseStorage.instance,
           algolia: algolia));
+  final adminCompanyRepository = AdminCompanyRepositoryImpl(
+      db: AdminCompanyServiceImpl(
+          db: FirebaseFirestore.instance,
+          algolia: algolia,
+          storage: FirebaseStorage.instance));
 
   final initialCookie = await cookieRepository.fetchCookies();
   final initialLocale = await languageRepository.fetchLocale();
@@ -108,6 +117,7 @@ Future<void> init() async {
   ///Injecting
   sl.registerSingleton<CookieRepository>(cookieRepository);
   sl.registerSingleton<JobRepository>(jobRepository);
+  sl.registerSingleton<AdminCompanyRepository>(adminCompanyRepository);
   sl.registerSingleton<ContactRequestsRepository>(contactRequestsRepository);
   sl.registerSingleton<JobApplicationRepository>(jobApplicationRepository);
   sl.registerSingleton<AuthRepository>(authRepository);
@@ -138,6 +148,8 @@ Future<void> init() async {
       () => AdminFeedbackListBloc(adminFeedbackRepository: feedbackRepository));
   sl.registerLazySingleton(() =>
       AdminDeleteFeedbackBloc(adminFeedbackRepository: feedbackRepository));
+  sl.registerLazySingleton(() =>
+      AdminCompaniesListBloc(adminCompanyRepository: adminCompanyRepository));
   sl.registerLazySingleton(() =>
       AdminVacancyListBloc(adminVacancyRepository: adminVacancyRepository));
   sl.registerLazySingleton(() =>

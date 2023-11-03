@@ -140,7 +140,7 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
                 },
                 divider: BorderSide(
                   width: 1,
-                  color: Colors.grey,
+                  color: AppColors.lightGrey,
                 ),
                 backgroundColor: Colors.white,
                 horizontalPadding: 30,

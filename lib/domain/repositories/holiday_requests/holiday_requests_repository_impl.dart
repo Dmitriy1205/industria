@@ -29,6 +29,14 @@ class HolidayRequestsRepositoryImpl implements HolidayRequestsRepository{
   Future<void> createReport({required HolidayRequestModel report}) async {
     await db.createReport(report: report);
   }
+  @override
+  Future<void> deleteReport({required List<String> selectedIdList}) async {
+    print('repository1');
+    await db.deleteReport(ids: selectedIdList);
+    print('repository2');
+
+  }
+
 
   const HolidayRequestsRepositoryImpl({
     required this.db,

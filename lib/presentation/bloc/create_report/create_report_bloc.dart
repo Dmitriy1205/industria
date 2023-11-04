@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/domain/models/holiday_request_model.dart';
 
 import '../../../domain/repositories/holiday_requests/holiday_requests_repository_contract.dart';

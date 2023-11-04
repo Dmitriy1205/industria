@@ -14,4 +14,8 @@ abstract class HolidayRequestsService {
 
   Future<void> markedAsRead({required String id});
 
-  Future<void> createReport({required HolidayRequestModel report});}
+  Future<void> createReport({required HolidayRequestModel report});
+
+  Future<void> deleteReport({required List<String> ids});
+
+}

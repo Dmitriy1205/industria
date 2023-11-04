@@ -303,7 +303,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               });
                             },
                             child: GestureDetector(
-                              onTap: () => router.go('/employee/reports'),
+                              onTap: () => router.go('/employee/delete_reports'),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: isHoveredReportsButton

@@ -66,4 +66,27 @@ class HolidayRequestsServiceImpl implements HolidayRequestsService{
     print('sent');
 
   }
+
+  @override
+  Future<void> deleteReport({required List<String> ids}) {
+    print('success1');
+    return db.runTransaction((transaction) async {
+      print('success2');
+      final batch = db.batch();
+
+      for (var id in ids) {
+        final docRef = db.collection(FirestoreCollections.holidays).doc(id);
+        batch.delete(docRef);
+      }
+
+      await batch.commit();
+      print('success3');
+
+
+    //   for (var uid in id) {
+    //     var docRef = await db.collection(FirestoreCollections.holidays).doc(uid).delete();
+    //     // transaction.delete(docRef);
+    //   }
+    });
+  }
 }

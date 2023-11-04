@@ -190,5 +190,9 @@
    "createReport": "Bericht erstellen",
    "startDate": "Startdatum",
    "endDate": "Endtermin",
-   "absenceReport": "Abwesenheitsbericht"
+   "absenceReport": "Abwesenheitsbericht",
+   "selected": "Ausgewählt",
+   "deleteSelected": "Ausgewählte löschen"
+
+
 }

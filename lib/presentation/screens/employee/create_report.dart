@@ -62,7 +62,7 @@ class _CreateReportState extends State<CreateReport> {
                 },
                 success: (_) {
                   showSuccessSnackBar(context, "Created Report successfully!");
-                  context.go('/employee/reports');
+                  context.go('/employee/delete_reports');
                 },
                 error: (value) {
                   showErrorSnackBar(context, "Failed to create Report!");
@@ -183,14 +183,14 @@ class _CreateReportState extends State<CreateReport> {
                                           children: [
                                             SizedBox(
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .width >
-                                                  1200
+                                                          .size
+                                                          .width >
+                                                      1200
                                                   ? 340
                                                   : MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                                  0.35,
+                                                          .size
+                                                          .width *
+                                                      0.35,
                                               child: CustomTextFormField(
                                                 focusNode: startDate,
                                                 type: CustomTextFormFieldType
@@ -205,10 +205,9 @@ class _CreateReportState extends State<CreateReport> {
                                                 },
                                                 textController:
                                                     startDateController,
-                                                labelText:
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .startDate,
+                                                labelText: AppLocalizations.of(
+                                                        context)!
+                                                    .startDate,
                                                 validator: Validator.validate,
                                                 textInputType:
                                                     TextInputType.datetime,
@@ -217,14 +216,14 @@ class _CreateReportState extends State<CreateReport> {
                                             ),
                                             SizedBox(
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .width >
-                                                  1200
+                                                          .size
+                                                          .width >
+                                                      1200
                                                   ? 41
                                                   : MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                                  0.02,
+                                                          .size
+                                                          .width *
+                                                      0.02,
                                             ),
                                             SizedBox(
                                               width: MediaQuery.of(context)
@@ -250,10 +249,9 @@ class _CreateReportState extends State<CreateReport> {
                                                 },
                                                 textController:
                                                     endDateController,
-                                                labelText:
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .endDate,
+                                                labelText: AppLocalizations.of(
+                                                        context)!
+                                                    .endDate,
                                                 validator: Validator.validate,
                                                 textInputType:
                                                     TextInputType.datetime,

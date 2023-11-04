@@ -96,7 +96,7 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        path: '/employee/reports',
+        path: '/employee/delete_reports',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,

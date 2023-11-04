@@ -8,9 +8,9 @@ import 'package:industria/core/extensions/date.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/services/service_locator.dart';
+import '../../../core/themes/theme.dart';
 import '../../../core/utils/toast.dart';
 import '../../../domain/entities/holiday_request/holiday_request.dart';
-import '../../../domain/repositories/holiday_requests/holiday_requests_repository_contract.dart';
 import '../../bloc/delete_reports/delete_reports_bloc.dart';
 import '../../bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
 import '../../bloc/localization/localization_bloc.dart';
@@ -32,8 +32,8 @@ class _ReportsState extends State<Reports> {
   List<String> idReports = [];
   List checkable = [];
   bool value = false;
-  DeleteReportsBloc deleteReportsBloc = DeleteReportsBloc(
-      holidayRequestsRepository: sl<HolidayRequestsRepository>());
+  DeleteReportsBloc deleteReportsBloc = sl<DeleteReportsBloc>();
+  bool useFutureOnce = true;
 
   @override
   void initState() {
@@ -52,80 +52,61 @@ class _ReportsState extends State<Reports> {
     listReports.forEach((element) {
       idReports.add(element.id);
     });
+    if (useFutureOnce) {
+      Future.delayed(Duration(seconds: 1), () {
+        context.read<AdminHolidayRequestsListBloc>().add(
+            const AdminHolidayRequestsListEvent.fetchData(
+                elementsPerPage: 7, page: 0));
+      });
+      useFutureOnce = false;
+      selected.clear();
+      value = false;
+      _isVisible = false;
+    }
 
-    // checkable = List.generate(
-    //     context
-    //         .read<AdminHolidayRequestsListBloc>()
-    //         .state
-    //         .tableData
-    //         .totalElementCounts,
-    //     (index) => false);
   }
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
       color: AppColors.background,
-      child: BlocListener<DeleteReportsBloc, DeleteReportsState>(
+      child: BlocConsumer<DeleteReportsBloc, DeleteReportsState>(
           bloc: deleteReportsBloc,
           listener: (context, DeleteReportsState state) {
             state.maybeMap(
               success: (_) {
                 showSuccessSnackBar(context, "Report deleted successfully!");
+                Future.delayed(
+                  Duration(seconds: 1),
+                  () => context.read<AdminHolidayRequestsListBloc>().add(
+                      const AdminHolidayRequestsListEvent.fetchData(
+                          elementsPerPage: 7, page: 0)),
+                );
+              },
+              initial: (_) {},
+              loading: (_) {
+                showProgressSnackBar(context);
+              },
+              error: (_) {
+                showErrorSnackBar(context, 'Error: Report is not Deleted');
               },
               orElse: () {},
             );
           },
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              LayoutBuilder(builder: (context, constraints) {
-                return constraints.maxWidth < 950
-                    ? Padding(
-                        padding: const EdgeInsets.only(left: 24, right: 24),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 16,
-                            ),
-                            _tableTitle(
-                                title: AppLocalizations.of(context)!.reports,
-                                subtitle: context
-                                    .read<AdminHolidayRequestsListBloc>()
-                                    .state
-                                    .tableData
-                                    .totalElementCounts
-                                    .toString()),
-                            Spacer(),
-                            SizedBox(
-                                width: 172,
-                                child: AppElevatedButton(
-                                  text: AppLocalizations.of(context)!
-                                      .createReport,
-                                  prefixIcon: const Icon(
-                                    size: 15,
-                                    FontAwesomeIcons.plus,
-                                    color: Colors.white,
-                                  ),
-                                  textStyle: const TextStyle(fontSize: 14),
-                                  onPressed: () {
-                                    context.go('/employee/create_report');
-                                  },
-                                  verticalPadding: 15,
-                                ))
-                          ],
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.only(left: 142, right: 142),
-                        child: SizedBox(
-                          height: 52,
+          builder: (BuildContext context, DeleteReportsState state) {
+            return Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                LayoutBuilder(builder: (context, constraints) {
+                  return constraints.maxWidth < 950
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 24, right: 24),
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(
+                              SizedBox(
                                 width: 16,
                               ),
                               _tableTitle(
@@ -138,7 +119,7 @@ class _ReportsState extends State<Reports> {
                                       .toString()),
                               Spacer(),
                               SizedBox(
-                                  width: 173,
+                                  width: 172,
                                   child: AppElevatedButton(
                                     text: AppLocalizations.of(context)!
                                         .createReport,
@@ -155,176 +136,212 @@ class _ReportsState extends State<Reports> {
                                   ))
                             ],
                           ),
-                        ),
-                      );
-              }),
-              SizedBox(
-                height: 24,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 151),
-                    child: Visibility(
-                      visible: _isVisible,
-                      child: Row(
-                        children: [
-                          Text(
-                              '${selected.length} ${AppLocalizations.of(context)!.selected}',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 12)),
-                          SizedBox(
-                            width: 25,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              selected.forEach((element) {
-                                print('delete ${element}');
-                              });
-                              deleteReportsBloc.add(
-                                  DeleteReportsEvent.deleteReport(
-                                      reports: selected.toList()));
-                              print('delete2 ${selected.elementAt(0)}');
-
-                            },
-                            child: SizedBox(
-                              width: 90,
-                              height: 16,
-                              child: Text(
-                                  AppLocalizations.of(context)!.deleteSelected,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: AppColors.danger)),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(left: 142, right: 142),
+                          child: SizedBox(
+                            height: 52,
+                            child: Row(
+                              children: [
+                                const SizedBox(
+                                  width: 16,
+                                ),
+                                _tableTitle(
+                                    title:
+                                        AppLocalizations.of(context)!.reports,
+                                    subtitle: context
+                                        .read<AdminHolidayRequestsListBloc>()
+                                        .state
+                                        .tableData
+                                        .totalElementCounts
+                                        .toString()),
+                                Spacer(),
+                                SizedBox(
+                                    width: 173,
+                                    child: AppElevatedButton(
+                                      text: AppLocalizations.of(context)!
+                                          .createReport,
+                                      prefixIcon: const Icon(
+                                        size: 15,
+                                        FontAwesomeIcons.plus,
+                                        color: Colors.white,
+                                      ),
+                                      textStyle: const TextStyle(fontSize: 14),
+                                      onPressed: () {
+                                        context.go('/employee/create_report');
+                                      },
+                                      verticalPadding: 15,
+                                    ))
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        );
+                }),
+                SizedBox(
+                  height: 24,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 30,
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Expanded(
-                  child: Padding(
-                padding: MediaQuery.of(context).size.width > 1350
-                    ? EdgeInsets.only(left: 142, right: 142)
-                    : EdgeInsets.symmetric(horizontal: 24),
-                child: PTableView(
-                  pagination: PTableViewPagination(
-                    currentPage: context
-                        .watch<AdminHolidayRequestsListBloc>()
-                        .state
-                        .tableData
-                        .currentPage,
-                    pagesCount: context
-                        .watch<AdminHolidayRequestsListBloc>()
-                        .state
-                        .tableData
-                        .numberOfPages,
-                    onPageChanged: (i) {
-                      context.read<AdminHolidayRequestsListBloc>().add(
-                          AdminHolidayRequestsListEvent.fetchData(
-                              page: i, elementsPerPage: 7));
-                    },
-                  ),
-                  fixedHeight: 500,
-                  borderRadius: BorderRadius.circular(4),
-                  headerHeight: 45,
-                  header: PTableViewHeader(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                    backgroundColor: Color(0xFFF1F1F1),
-                    rows: [
-                      PTableViewRowFixed(
-                        width: 27,
-                        child: CustomCheckbox(
-                            value: value,
-                            onChanged: (v) {
-                              if (v == true) {
-                                value = true;
-                                selected.addAll(idReports);
-                              } else {
-                                value = false;
-                                selected.clear();
-                              }
-                              setState(() {
-                                _isVisible = selected.isNotEmpty;
-                                print("checkable every ${selected.length}");
-                              });
-                            }),
-                      ),
-                      PTableViewRowFixed(
-                        width: 13,
-                        child: SizedBox(),
-                      ),
-                      PTableViewRowFixed(
-                        width: 41,
-                        child: Text(
-                          AppLocalizations.of(context)!.type,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 12),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 151),
+                      child: Visibility(
+                        visible: _isVisible,
+                        child: Row(
+                          children: [
+                            Text(
+                                '${selected.length} ${AppLocalizations.of(context)!.selected}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 12)),
+                            SizedBox(
+                              width: 25,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                deleteBucketDialog(
+                                  context,
+                                  text:
+                                      'Are you sure you want to delete selected Reports?',
+                                );
+                              },
+                              child: SizedBox(
+                                height: 16,
+                                child: Text(
+                                    AppLocalizations.of(context)!
+                                        .deleteSelected,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12,
+                                        color: AppColors.danger)),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      PTableViewRowFixed(
-                        width: 208,
-                        child: SizedBox(),
-                      ),
-                      PTableViewRowFixed(
-                          width: 50,
-                          child: Text(
-                            AppLocalizations.of(context)!.reason,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12),
-                          )),
-                      PTableViewRowFixed(
-                        width: 300,
-                        child: SizedBox(),
-                      ),
-                      PTableViewRowFixed(
-                          width: 80,
-                          child: Text(
-                            AppLocalizations.of(context)!.unavailable,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12),
-                          )),
-                      PTableViewRowFixed(
-                        width: 300,
-                        child: SizedBox(),
-                      ),
-                      PTableViewRowFixed(
-                          width: 43,
-                          child: Text(
-                            AppLocalizations.of(context)!.status,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 12),
-                          )),
-                    ],
-                  ),
-                  content: PTableViewContent(
-                    onTap: (i) {
-                      print('i');
-                    },
-                    divider: BorderSide(
-                      width: 1,
-                      color: Colors.grey,
                     ),
-                    backgroundColor: Colors.white,
-                    horizontalPadding: 30,
-                    columns: listReports.map((e) {
-                      final index = listReports.indexOf(e);
-                      return _holidaysList(holidayRequest: e);
-                    }).toList(),
-                  ),
+                  ],
                 ),
-              ))
-            ],
-          )),
+                const SizedBox(
+                  height: 10,
+                ),
+                Expanded(
+                    child: Padding(
+                  padding: MediaQuery.of(context).size.width > 1350
+                      ? EdgeInsets.only(left: 142, right: 142)
+                      : EdgeInsets.symmetric(horizontal: 24),
+                  child: PTableView(
+                    pagination: PTableViewPagination(
+                      currentPage: context
+                          .watch<AdminHolidayRequestsListBloc>()
+                          .state
+                          .tableData
+                          .currentPage,
+                      pagesCount: context
+                          .watch<AdminHolidayRequestsListBloc>()
+                          .state
+                          .tableData
+                          .numberOfPages,
+                      onPageChanged: (i) {
+                        context.read<AdminHolidayRequestsListBloc>().add(
+                            AdminHolidayRequestsListEvent.fetchData(
+                                page: i, elementsPerPage: 7));
+                      },
+                    ),
+                    fixedHeight: 500,
+                    borderRadius: BorderRadius.circular(4),
+                    headerHeight: 45,
+                    header: PTableViewHeader(
+                      contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                      backgroundColor: Color(0xFFF1F1F1),
+                      rows: [
+                        PTableViewRowFixed(
+                          width: 27,
+                          child: CustomCheckbox(
+                              value: value,
+                              onChanged: (v) {
+                                if (v == true) {
+                                  value = true;
+                                  selected.addAll(idReports);
+                                } else {
+                                  value = false;
+                                  selected.clear();
+                                }
+                                setState(() {
+                                  _isVisible = selected.isNotEmpty;
+                                  print("checkable every ${selected.length}");
+                                });
+                              }),
+                        ),
+                        PTableViewRowFixed(
+                          width: 13,
+                          child: SizedBox(),
+                        ),
+                        PTableViewRowFixed(
+                          width: 41,
+                          child: Text(
+                            AppLocalizations.of(context)!.type,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 12),
+                          ),
+                        ),
+                        PTableViewRowFixed(
+                          width: 208,
+                          child: SizedBox(),
+                        ),
+                        PTableViewRowFixed(
+                            width: 50,
+                            child: Text(
+                              AppLocalizations.of(context)!.reason,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12),
+                            )),
+                        PTableViewRowFixed(
+                          width: 300,
+                          child: SizedBox(),
+                        ),
+                        PTableViewRowFixed(
+                            width: 80,
+                            child: Text(
+                              AppLocalizations.of(context)!.unavailable,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12),
+                            )),
+                        PTableViewRowFixed(
+                          width: 300,
+                          child: SizedBox(),
+                        ),
+                        PTableViewRowFixed(
+                            width: 43,
+                            child: Text(
+                              AppLocalizations.of(context)!.status,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 12),
+                            )),
+                      ],
+                    ),
+                    content: PTableViewContent(
+                      onTap: (i) {
+                        print('i');
+                      },
+                      divider: BorderSide(
+                        width: 1,
+                        color: Colors.grey,
+                      ),
+                      backgroundColor: Colors.white,
+                      horizontalPadding: 30,
+                      columns: listReports.map((e) {
+                        final index = listReports.indexOf(e);
+                        return _holidaysList(holidayRequest: e);
+                      }).toList(),
+                    ),
+                  ),
+                ))
+              ],
+            );
+          }),
     );
   }
 
@@ -454,6 +471,49 @@ class _ReportsState extends State<Reports> {
           )
         ],
       ),
+    );
+  }
+
+  deleteBucketDialog(BuildContext context, {required String text}) {
+    Widget cancelButton = TextButton(
+      child: const Text(
+        'Cancel',
+        style: TextStyle(color: AppColors.red),
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    );
+    Widget continueButton = TextButton(
+      child: const Text(
+        'Delete',
+        style: TextStyle(color: AppColors.mainAccent),
+      ),
+      onPressed: () {
+        useFutureOnce = true;
+        deleteReportsBloc
+            .add(DeleteReportsEvent.deleteReport(reports: selected.toList()));
+        Navigator.pop(context);
+      },
+    );
+    AlertDialog alert = AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      title: Text('Warning', style: AppTheme.themeData.textTheme.titleSmall),
+      content: Text(text, style: AppTheme.themeData.textTheme.bodySmall),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    showDialog(
+      useRootNavigator: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

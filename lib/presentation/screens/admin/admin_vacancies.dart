@@ -8,6 +8,7 @@ import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/utils/debounce.dart';
 import 'package:industria/core/utils/toast.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
+import 'package:industria/presentation/widgets/table_action.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/services/service_locator.dart';
@@ -247,7 +248,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                 backgroundColor: Color(0xFFF1F1F1),
                 rows: [
                   PTableViewRowFixed(
-                    width: 100,
+                    width: 300,
                     child: Row(
                       children: [
                         CustomCheckbox(
@@ -268,22 +269,17 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                   ),
                   PTableViewRowFixed(
                       width: 450,
-                      child: Center(
-                        child: Text(
-                          AppLocalizations.of(context)!.company.toUpperCase(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 12),
-                        ),
+                      child: Text(
+                        AppLocalizations.of(context)!.company.toUpperCase(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 12),
                       )),
                   PTableViewRowFixed(
-                      width: 800,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 350.0),
-                        child: Text(
-                          AppLocalizations.of(context)!.actions.toUpperCase(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 12),
-                        ),
+                      width: 300,
+                      child: Text(
+                        AppLocalizations.of(context)!.actions.toUpperCase(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 12),
                       )),
                 ],
               ),
@@ -350,35 +346,33 @@ class _AdminVacanciesState extends State<AdminVacancies> {
           width: 300,
           child: SizedBox(
             height: 60,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 38.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomCheckbox(
-                      value: checkable[index],
-                      onChanged: (v) {
-                        setState(() {
-                          checkable[index] = v!;
-                        });
-                      }),
-                  const SizedBox(
-                    width: 12,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CustomCheckbox(
+                    value: checkable[index],
+                    onChanged: (v) {
+                      setState(() {
+                        checkable[index] = v!;
+                      });
+                    }),
+                const SizedBox(
+                  width: 12,
+                ),
+                Expanded(
+                  child: Text(
+                    vacancy.title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w600, fontSize: 12),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
-                    child: Text(
-                      vacancy.title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w600, fontSize: 12),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           )),
       PTableViewRowFixed(
-          width: 601,
+          width: 450,
           child: SizedBox(
             height: 60,
             child: Align(
@@ -392,10 +386,11 @@ class _AdminVacanciesState extends State<AdminVacancies> {
             ),
           )),
       PTableViewRowFixed(
-          width: 400,
+          width: 300,
           child: SizedBox(
             height: 60,
-            child: _tableAction(
+            child: TableAction(
+                hoverColor: AppColors.mainAccent,
                 title: AppLocalizations.of(context)!.changeVacancy,
                 icon: FontAwesomeIcons.solidPenToSquare,
                 onTap: () {
@@ -404,39 +399,6 @@ class _AdminVacanciesState extends State<AdminVacancies> {
           )),
     ]);
   }
-}
-
-Widget _tableAction(
-    {required String title,
-    required IconData icon,
-    required VoidCallback onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: SelectionContainer.disabled(
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 18,
-              color: AppColors.darkGrey,
-            ),
-            const SizedBox(
-              width: 14,
-            ),
-            Text(
-              title,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.darkGrey,
-                  fontSize: 14),
-            )
-          ],
-        ),
-      ),
-    ),
-  );
 }
 
 Widget _tableTitle({required String title, required String subtitle}) {

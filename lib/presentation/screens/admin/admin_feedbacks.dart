@@ -315,37 +315,6 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
   }
 }
 
-Widget _tableAction(
-    {required String title,
-    required IconData icon,
-    required VoidCallback onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: SelectionContainer.disabled(
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 18,
-              color: AppColors.darkGrey,
-            ),
-            const SizedBox(
-              width: 14,
-            ),
-            Text(
-              title,
-              style: const TextStyle(
-                  fontWeight: FontWeight.w500, color: AppColors.darkGrey),
-            )
-          ],
-        ),
-      ),
-    ),
-  );
-}
-
 Widget _tableTitle({required String title, required String subtitle}) {
   return SizedBox(
     height: 25,

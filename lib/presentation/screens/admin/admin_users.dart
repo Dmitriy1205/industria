@@ -62,7 +62,7 @@ class _AdminUsersState extends State<AdminUsers> {
             orElse: () {});
       },
       child: Padding(
-        padding: const EdgeInsets.only(right: 16, bottom: 16),
+        padding: EdgeInsets.all(16),
         child: Column(
           children: [
             const SizedBox(

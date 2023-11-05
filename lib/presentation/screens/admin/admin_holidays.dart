@@ -41,7 +41,7 @@ class _AdminHolidaysState extends State<AdminHolidays> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 16, bottom: 16),
+      padding: EdgeInsets.all(16),
       child: Column(
         children: [
           const SizedBox(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/presentation/bloc/holiday_request_feature/viewReportCubit.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/services/service_locator.dart';
@@ -34,16 +33,15 @@ class _ViewReportState extends State<ViewReport> {
 
   @override
   Widget build(BuildContext context) {
-    print('${viewReportCubit.state.report!.reason}');
+    print('${viewReportCubit.state?.report!.reason}');
     return ColoredBox(
       color: AppColors.background,
-      child: BlocBuilder<ViewReportCubit, ViewReportState>(
+      child: BlocBuilder<ViewReportCubit, ViewReportState?>(
           bloc: viewReportCubit,
           builder: (context, state) {
-            if( state.isLoading && state.report!.id == null) {
+            if( state!.isLoading || state?.report!.id == null) {
               return CircularProgressIndicator();
             }
-
                 return Column(
                   children: [
                     Padding(

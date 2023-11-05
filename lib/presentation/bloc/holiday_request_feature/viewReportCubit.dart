@@ -2,14 +2,13 @@ import 'package:bloc/bloc.dart';
 import '../../../domain/entities/holiday_request/holiday_request.dart';
 import '../../../domain/repositories/holiday_requests/holiday_requests_repository_contract.dart';
 
-class ViewReportCubit extends Cubit<ViewReportState> {
+class ViewReportCubit extends Cubit<ViewReportState?> {
   final HolidayRequestsRepository holidayRequestsRepository;
 
   ViewReportCubit({required this.holidayRequestsRepository})
-      : super(ViewReportState.initial());
+      : super(null);
 
   Future<void> viewReport(String reportId) async {
-    emit(ViewReportState.loading());
     final HolidayRequest? report =
         await holidayRequestsRepository.getHolidayById(id: reportId);
     emit(ViewReportState.loaded(report!));

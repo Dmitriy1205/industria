@@ -118,7 +118,7 @@ final GoRouter router = GoRouter(
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
-          child: ViewReport(paramValue: state.extra as HolidayRequest ),
+          child: ViewReport(),
         ),
       ),
       GoRoute(

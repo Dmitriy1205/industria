@@ -327,7 +327,7 @@ class _ReportsState extends State<Reports> {
                         print(listReports[i]);
                         final HolidayRequest report = listReports[i];
                         print('String id ${report.id}');
-                        router.go("/employee/view_report", extra: report
+                        router.go("/employee/view_report?reportId=${report.id}",
                             // pathParameters: {'id': id}
                             );
 

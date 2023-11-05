@@ -8,10 +8,10 @@ class ViewReportCubit extends Cubit<ViewReportState> {
   ViewReportCubit({required this.holidayRequestsRepository})
       : super(ViewReportState.initial());
 
-  Future<void> viewReport(HolidayRequest reportData) async {
+  Future<void> viewReport(String reportId) async {
     emit(ViewReportState.loading());
     final HolidayRequest? report =
-        await holidayRequestsRepository.getHolidayById(id: reportData.id);
+        await holidayRequestsRepository.getHolidayById(id: reportId);
     emit(ViewReportState.loaded(report!));
   }
 }

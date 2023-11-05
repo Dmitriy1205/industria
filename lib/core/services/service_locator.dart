@@ -37,6 +37,7 @@ import 'package:industria/presentation/bloc/delete_reports/delete_reports_bloc.d
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
 import 'package:industria/presentation/bloc/feedback_feature/admin_feedback_list/admin_feedback_list_bloc.dart';
+import 'package:industria/presentation/bloc/holiday_request_feature/viewReportCubit.dart';
 import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/bloc/vacancies_feature/admin_vacancy_list/admin_vacancy_list_bloc.dart';
@@ -152,4 +153,8 @@ Future<void> init() async {
   sl.registerLazySingleton(() => DeleteReportsBloc(
       holidayRequestsRepository: holidayRequestsRepository,
       adminHolidayRequestsListBloc: sl()));
+  sl.registerLazySingleton(() =>
+      ViewReportCubit(holidayRequestsRepository: holidayRequestsRepository));
+
+
 }

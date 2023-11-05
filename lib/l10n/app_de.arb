@@ -192,7 +192,7 @@
    "endDate": "Endtermin",
    "absenceReport": "Abwesenheitsbericht",
    "selected": "Ausgewählt",
-   "deleteSelected": "Ausgewählte löschen"
-
-
+   "deleteSelected": "Ausgewählte löschen",
+   "report": "Bericht",
+    "view": "Sicht"
 }

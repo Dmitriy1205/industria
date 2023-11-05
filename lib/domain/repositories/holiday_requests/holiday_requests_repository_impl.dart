@@ -41,6 +41,8 @@ class HolidayRequestsRepositoryImpl implements HolidayRequestsRepository {
     await db.deleteReport(ids: selectedIdList);
   }
 
+
+
   const HolidayRequestsRepositoryImpl({
     required this.db,
   });

@@ -10,4 +10,5 @@ abstract class HolidayRequestsRepository{
   Future<void> markedAsRead({required String id});
   Future<void> createReport({required HolidayRequestModel report});
   Future<void> deleteReport({required List<String> selectedIdList});
+
 }

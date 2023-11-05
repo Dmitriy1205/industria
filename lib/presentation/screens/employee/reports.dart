@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -6,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:pandas_tableview/p_tableview.dart';
+import '../../../app/router.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/themes/theme.dart';
@@ -63,7 +63,6 @@ class _ReportsState extends State<Reports> {
       value = false;
       _isVisible = false;
     }
-
   }
 
   @override
@@ -324,7 +323,18 @@ class _ReportsState extends State<Reports> {
                     ),
                     content: PTableViewContent(
                       onTap: (i) {
-                        print('i');
+                        print(listReports.map((e) => e.id));
+                        print(listReports[i]);
+                        HolidayRequest report = listReports[i];
+                        router.goNamed("/employee/view_report",
+                            pathParameters: {'id': report}
+                        );
+
+                        // router.go(Uri.parse("/employee/view_report").replace(queryParameters: {
+                        //   "id": id,
+                        // }..removeWhere((key, value) => value == null)).toString());
+
+
                       },
                       divider: BorderSide(
                         width: 1,
@@ -333,7 +343,6 @@ class _ReportsState extends State<Reports> {
                       backgroundColor: Colors.white,
                       horizontalPadding: 30,
                       columns: listReports.map((e) {
-                        final index = listReports.indexOf(e);
                         return _holidaysList(holidayRequest: e);
                       }).toList(),
                     ),
@@ -360,10 +369,8 @@ class _ReportsState extends State<Reports> {
                       setState(() {
                         if (v!) {
                           selected.add(holidayRequest.id);
-                          print("add ${selected.length}");
                         } else {
                           selected.remove(holidayRequest.id);
-                          print("remove ${selected.length}");
                         }
                         _isVisible = selected.isNotEmpty; // Update _isVisible
                       });
@@ -437,10 +444,6 @@ class _ReportsState extends State<Reports> {
           )),
     ]);
   }
-
-  // Widget _customAlertDialog() {
-  //   return AlertDialog(title: ,);
-  // }
 
   Widget _tableTitle({required String title, required String subtitle}) {
     return SizedBox(

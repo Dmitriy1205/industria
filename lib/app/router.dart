@@ -39,6 +39,7 @@ import '../presentation/screens/admin/admin_holidays.dart';
 import '../presentation/screens/admin/admin_login.dart';
 import '../presentation/screens/admin/view_holiday.dart';
 import '../presentation/screens/contact.dart';
+import '../presentation/screens/employee/view_report.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/imprint.dart';
 import '../presentation/screens/employee/reports.dart';
@@ -109,6 +110,14 @@ final GoRouter router = GoRouter(
           context: context,
           state: state,
           child: const CreateReport(),
+        ),
+      ),
+      GoRoute(name: 'ViewReport',
+        path: '/employee/view_report',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: ViewReport(report: state.pathParameters['report']!),
         ),
       ),
       GoRoute(

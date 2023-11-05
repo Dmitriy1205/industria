@@ -84,4 +84,5 @@ class HolidayRequestsServiceImpl implements HolidayRequestsService {
       await batch.commit();
     });
   }
+
 }

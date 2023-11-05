@@ -13,6 +13,7 @@ import 'package:industria/presentation/bloc/employee_feature/admin_delete_employ
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
+import 'package:industria/presentation/widgets/table_action.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../domain/entities/employee/employee.dart';
@@ -304,7 +305,8 @@ class _AdminUsersState extends State<AdminUsers> {
             height: 60,
             child: Row(
               children: [
-                _tableAction(
+                TableAction(
+                    hoverColor: AppColors.mainAccent,
                     title: AppLocalizations.of(context)!
                         .changeCredentials
                         .toUpperCase(),
@@ -313,7 +315,8 @@ class _AdminUsersState extends State<AdminUsers> {
                       context.push("/admin/user?id=${employee.id}");
                     }),
                 const Spacer(),
-                _tableAction(
+                TableAction(
+                  hoverColor: AppColors.danger,
                     title: AppLocalizations.of(context)!
                         .deleteAccount
                         .toUpperCase(),
@@ -336,37 +339,6 @@ class _AdminUsersState extends State<AdminUsers> {
             ),
           )),
     ]);
-  }
-
-  Widget _tableAction(
-      {required String title,
-      required IconData icon,
-      required VoidCallback onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SelectionContainer.disabled(
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                size: 18,
-                color: AppColors.darkGrey,
-              ),
-              const SizedBox(
-                width: 14,
-              ),
-              Text(
-                title,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: AppColors.darkGrey),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   Widget _search({required Function(String) onTextChanged}) {

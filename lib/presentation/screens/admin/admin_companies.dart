@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/presentation/bloc/companies_feature/admin_companies_list/admin_companies_list_bloc.dart';
+import 'package:industria/presentation/widgets/table_action.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 
 import '../../../core/constants/colors.dart';
@@ -223,14 +224,16 @@ class _AdminCompaniesState extends State<AdminCompanies> {
                 height: 52,
                 child: Row(
                   children: [
-                    _tableAction(
+                    TableAction(
+                        hoverColor: AppColors.mainAccent,
                         title: AppLocalizations.of(context)!.change,
                         icon: FontAwesomeIcons.pencil,
                         onTap: () {
                           context.go("/admin/update_company?id=${company.id}");
                         }),
                     const Spacer(),
-                    _tableAction(
+                    TableAction(
+                        hoverColor: AppColors.danger,
                         title: AppLocalizations.of(context)!.delete,
                         icon: FontAwesomeIcons.solidTrashCan,
                         onTap: () async{
@@ -244,37 +247,6 @@ class _AdminCompaniesState extends State<AdminCompanies> {
                 ),
               )),
         ]);
-  }
-
-  Widget _tableAction(
-      {required String title,
-        required IconData icon,
-        required VoidCallback onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: SelectionContainer.disabled(
-        child: MouseRegion(
-          cursor: SystemMouseCursors.click,
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                size: 16,
-                color: AppColors.darkGrey,
-              ),
-              const SizedBox(
-                width: 14,
-              ),
-              Text(
-                title,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: AppColors.darkGrey, fontSize: 12),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   Widget _search({required Function(String) onTextChanged}) {

@@ -325,16 +325,18 @@ class _ReportsState extends State<Reports> {
                       onTap: (i) {
                         print(listReports.map((e) => e.id));
                         print(listReports[i]);
-                        HolidayRequest report = listReports[i];
-                        router.goNamed("/employee/view_report",
-                            pathParameters: {'id': report}
-                        );
+                        final HolidayRequest report = listReports[i];
+                        print('String id ${report.id}');
+                        router.go("/employee/view_report", extra: report
+                            // pathParameters: {'id': id}
+                            );
+
+                        // router.go("/employee/view_report",
+                        // );
 
                         // router.go(Uri.parse("/employee/view_report").replace(queryParameters: {
                         //   "id": id,
                         // }..removeWhere((key, value) => value == null)).toString());
-
-
                       },
                       divider: BorderSide(
                         width: 1,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide Feedback;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
+import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
@@ -117,7 +118,7 @@ final GoRouter router = GoRouter(
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
-          child: ViewReport(report: state.pathParameters['report']!),
+          child: ViewReport(paramValue: state.extra as HolidayRequest ),
         ),
       ),
       GoRoute(

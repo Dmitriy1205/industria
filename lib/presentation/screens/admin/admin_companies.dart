@@ -60,62 +60,32 @@ class _AdminCompaniesState extends State<AdminCompanies> {
               },
               orElse: (){});
         },
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            LayoutBuilder(builder: (context,constraints){
-              return constraints.maxWidth < 700 ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(width: 16,),
-                  _tableTitle(title: AppLocalizations.of(context)!.companies, subtitle: context.watch<AdminCompaniesListBloc>().state.tableData.totalElementCounts.toString()),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 40,
-                    child: _search(onTextChanged: (val){
-                      _debouncer.run(() {
-                        context.read<AdminCompaniesListBloc>().add(AdminCompaniesListEvent.changeSearchTerm(searchTerm: val));
-                      });
-                    }),
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  SizedBox(
-                      width: 200,
-                      child: AppElevatedButton(
-                        text: AppLocalizations.of(context)!.createCompany,
-                        prefixIcon: const Icon(
-                          FontAwesomeIcons.plus,
-                          color: Colors.white,
-                        ),
-                        textStyle: const TextStyle(fontSize: 14),
-                        onPressed: () {
-                          context.go('/admin/create_company');
-                        },
-                        verticalPadding: 15,
-                      ))
-                ],
-              )  : SizedBox(
-                height: 52,
-                child: Row(
+        child: Padding(
+          padding: const EdgeInsets.only(right: 16, bottom: 16),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 20,
+              ),
+              LayoutBuilder(builder: (context,constraints){
+                return constraints.maxWidth < 700 ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(width: 16,),
                     _tableTitle(title: AppLocalizations.of(context)!.companies, subtitle: context.watch<AdminCompaniesListBloc>().state.tableData.totalElementCounts.toString()),
                     const SizedBox(
-                      width: 60,
+                      height: 20,
                     ),
-                    Expanded(child: _search(onTextChanged: (val){
-                      _debouncer.run(() {
-                        context.read<AdminCompaniesListBloc>().add(AdminCompaniesListEvent.changeSearchTerm(searchTerm: val));
-                      });
-                    })),
+                    SizedBox(
+                      height: 40,
+                      child: _search(onTextChanged: (val){
+                        _debouncer.run(() {
+                          context.read<AdminCompaniesListBloc>().add(AdminCompaniesListEvent.changeSearchTerm(searchTerm: val));
+                        });
+                      }),
+                    ),
                     const SizedBox(
-                      width: 60,
+                      height: 15,
                     ),
                     SizedBox(
                         width: 200,
@@ -132,64 +102,97 @@ class _AdminCompaniesState extends State<AdminCompanies> {
                           verticalPadding: 15,
                         ))
                   ],
-                ),
-              );
-            }),
-            const SizedBox(
-              height: 10,
-            ),
-            Expanded(
-              child: PTableView(
-                pagination: PTableViewPagination(
-                  currentPage: context.watch<AdminCompaniesListBloc>().state.tableData.currentPage,
-                  pagesCount: context.watch<AdminCompaniesListBloc>().state.tableData.numberOfPages,
-                  onPageChanged: (i) {
-                    context.read<AdminCompaniesListBloc>().add(AdminCompaniesListEvent.fetchData(page: i, elementsPerPage: 7));
-                  },
-                ),
-                fixedHeight: 500,
-                borderRadius: BorderRadius.circular(4),
-                headerHeight: 45,
-                header: PTableViewHeader(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                  backgroundColor: Color(0xFFF1F1F1),
-                  rows: [
-                    PTableViewRowFixed(
-                      width: 450,
-                      child: Text(
-                        AppLocalizations.of(context)!.companyName.toUpperCase(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 12),
-                      ),),
-                    PTableViewRowFixed(
-                        width: 200,
-                        child: Text(
-                          AppLocalizations.of(context)!.actions.toUpperCase(),
-                          style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-                        )),
-                  ],
-                ),
-                content: PTableViewContent(
-                    onTap: (i){
-
-                    },
-                    divider: BorderSide(
-                      width: 1,
-                      color: AppColors.lightGrey,
-                    ),
-                    backgroundColor: Colors.white,
-                    horizontalPadding: 30,
-                    columns: context
-                        .watch<AdminCompaniesListBloc>()
-                        .state
-                        .tableData
-                        .element
-                        .map((e) => _companiesList(company: e))
-                        .toList()),
+                )  : SizedBox(
+                  height: 52,
+                  child: Row(
+                    children: [
+                      SizedBox(width: 16,),
+                      _tableTitle(title: AppLocalizations.of(context)!.companies, subtitle: context.watch<AdminCompaniesListBloc>().state.tableData.totalElementCounts.toString()),
+                      const SizedBox(
+                        width: 60,
+                      ),
+                      Expanded(child: _search(onTextChanged: (val){
+                        _debouncer.run(() {
+                          context.read<AdminCompaniesListBloc>().add(AdminCompaniesListEvent.changeSearchTerm(searchTerm: val));
+                        });
+                      })),
+                      const SizedBox(
+                        width: 60,
+                      ),
+                      SizedBox(
+                          width: 200,
+                          child: AppElevatedButton(
+                            text: AppLocalizations.of(context)!.createCompany,
+                            prefixIcon: const Icon(
+                              FontAwesomeIcons.plus,
+                              color: Colors.white,
+                            ),
+                            textStyle: const TextStyle(fontSize: 14),
+                            onPressed: () {
+                              context.go('/admin/create_company');
+                            },
+                            verticalPadding: 15,
+                          ))
+                    ],
+                  ),
+                );
+              }),
+              const SizedBox(
+                height: 10,
               ),
-            )
-          ],
+              Expanded(
+                child: PTableView(
+                  pagination: PTableViewPagination(
+                    currentPage: context.watch<AdminCompaniesListBloc>().state.tableData.currentPage,
+                    pagesCount: context.watch<AdminCompaniesListBloc>().state.tableData.numberOfPages,
+                    onPageChanged: (i) {
+                      context.read<AdminCompaniesListBloc>().add(AdminCompaniesListEvent.fetchData(page: i, elementsPerPage: 7));
+                    },
+                  ),
+                  fixedHeight: 500,
+                  borderRadius: BorderRadius.circular(4),
+                  headerHeight: 45,
+                  header: PTableViewHeader(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                    backgroundColor: Color(0xFFF1F1F1),
+                    rows: [
+                      PTableViewRowFixed(
+                        width: 600,
+                        child: Text(
+                          AppLocalizations.of(context)!.companyName.toUpperCase(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 12),
+                        ),),
+                      PTableViewRowFixed(
+                          width: 230,
+                          child: Text(
+                            AppLocalizations.of(context)!.actions.toUpperCase(),
+                            style:
+                            TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                          )),
+                    ],
+                  ),
+                  content: PTableViewContent(
+                      onTap: (i){
+
+                      },
+                      divider: BorderSide(
+                        width: 1,
+                        color: AppColors.lightGrey,
+                      ),
+                      backgroundColor: Colors.white,
+                      horizontalPadding: 30,
+                      columns: context
+                          .watch<AdminCompaniesListBloc>()
+                          .state
+                          .tableData
+                          .element
+                          .map((e) => _companiesList(company: e))
+                          .toList()),
+                ),
+              )
+            ],
+          ),
         ),);
   }
 
@@ -197,7 +200,7 @@ class _AdminCompaniesState extends State<AdminCompanies> {
     return PTableViewColumn(
         rows: [
           PTableViewRowFixed(
-              width: 450,
+              width: 600,
               child: SizedBox(
                 height: 52,
                 child: Row(
@@ -219,7 +222,7 @@ class _AdminCompaniesState extends State<AdminCompanies> {
                 ),
               )),
           PTableViewRowFixed(
-              width: 200,
+              width: 230,
               child: SizedBox(
                 height: 52,
                 child: Row(

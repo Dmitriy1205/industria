@@ -77,7 +77,7 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
             orElse: () {});
       },
       child: Padding(
-        padding: const EdgeInsets.only(top: 15),
+        padding: const EdgeInsets.only(right: 16, bottom: 16, top: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -80,62 +80,19 @@ class _AdminVacanciesState extends State<AdminVacancies> {
             },
             orElse: () {});
       },
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 20,
-          ),
-          LayoutBuilder(builder: (context, constraints) {
-            return constraints.maxWidth < 700
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _tableTitle(
-                          title: AppLocalizations.of(context)!.vacancies,
-                          subtitle: context
-                              .watch<AdminVacancyListBloc>()
-                              .state
-                              .tableData
-                              .totalElementCounts
-                              .toString()),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        height: 40,
-                        child: _search(onTextChanged: (val) {
-                          _debouncer.run(() {
-                            context.read<AdminVacancyListBloc>().add(
-                                AdminVacancyListEvent.changeSearchTerm(
-                                    searchTerm: val));
-                          });
-                        }),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                          width: 200,
-                          child: AppElevatedButton(
-                            text: AppLocalizations.of(context)!.createVacancy,
-                            prefixIcon: const Icon(
-                              FontAwesomeIcons.plus,
-                              color: Colors.white,
-                            ),
-                            textStyle: const TextStyle(fontSize: 14),
-                            onPressed: () {
-                              context.go('/admin/create_vacancy');
-                            },
-                            verticalPadding: 15,
-                          ))
-                    ],
-                  )
-                : SizedBox(
-                    height: 52,
-                    child: Row(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 16, bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            LayoutBuilder(builder: (context, constraints) {
+              return constraints.maxWidth < 700
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(width: 16,),
                         _tableTitle(
                             title: AppLocalizations.of(context)!.vacancies,
                             subtitle: context
@@ -145,17 +102,20 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                                 .totalElementCounts
                                 .toString()),
                         const SizedBox(
-                          width: 60,
+                          height: 20,
                         ),
-                        Expanded(child: _search(onTextChanged: (val) {
-                          _debouncer.run(() {
-                            context.read<AdminVacancyListBloc>().add(
-                                AdminVacancyListEvent.changeSearchTerm(
-                                    searchTerm: val));
-                          });
-                        })),
+                        SizedBox(
+                          height: 40,
+                          child: _search(onTextChanged: (val) {
+                            _debouncer.run(() {
+                              context.read<AdminVacancyListBloc>().add(
+                                  AdminVacancyListEvent.changeSearchTerm(
+                                      searchTerm: val));
+                            });
+                          }),
+                        ),
                         const SizedBox(
-                          width: 60,
+                          height: 15,
                         ),
                         SizedBox(
                             width: 200,
@@ -172,141 +132,184 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                               verticalPadding: 15,
                             ))
                       ],
-                    ),
-                  );
-          }),
-          const SizedBox(
-            height: 10,
-          ),
-          checkable.contains(true)
-              ? Row(
-                  children: [
-                    Text(
-                        '${checkable.where((value) => value).length == context.read<AdminVacancyListBloc>().state.tableData.totalElementCounts ? "All" : checkable.where((value) => value).length} selected',
-                        style: const TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.darkGrey,
-                        )),
-                    const SizedBox(
-                      width: 25,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        deleteVacancyDialog(context,
-                            text: 'Are you sure you want to delete vacancy?',
-                            vacancy: vacancies,
-                            checkable: checkable);
-                      },
-                      child: Text(
-                        checkable.where((value) => value).length ==
-                                context
-                                    .read<AdminVacancyListBloc>()
-                                    .state
-                                    .tableData
-                                    .totalElementCounts
-                            ? 'Delete All'
-                            : 'Delete Selected',
-                        style: const TextStyle(
+                    )
+                  : SizedBox(
+                      height: 52,
+                      child: Row(
+                        children: [
+                          SizedBox(width: 16,),
+                          _tableTitle(
+                              title: AppLocalizations.of(context)!.vacancies,
+                              subtitle: context
+                                  .watch<AdminVacancyListBloc>()
+                                  .state
+                                  .tableData
+                                  .totalElementCounts
+                                  .toString()),
+                          const SizedBox(
+                            width: 60,
+                          ),
+                          Expanded(child: _search(onTextChanged: (val) {
+                            _debouncer.run(() {
+                              context.read<AdminVacancyListBloc>().add(
+                                  AdminVacancyListEvent.changeSearchTerm(
+                                      searchTerm: val));
+                            });
+                          })),
+                          const SizedBox(
+                            width: 60,
+                          ),
+                          SizedBox(
+                              width: 200,
+                              child: AppElevatedButton(
+                                text: AppLocalizations.of(context)!.createVacancy,
+                                prefixIcon: const Icon(
+                                  FontAwesomeIcons.plus,
+                                  color: Colors.white,
+                                ),
+                                textStyle: const TextStyle(fontSize: 14),
+                                onPressed: () {
+                                  context.go('/admin/create_vacancy');
+                                },
+                                verticalPadding: 15,
+                              ))
+                        ],
+                      ),
+                    );
+            }),
+            const SizedBox(
+              height: 10,
+            ),
+            checkable.contains(true)
+                ? Row(
+                    children: [
+                      Text(
+                          '${checkable.where((value) => value).length == context.read<AdminVacancyListBloc>().state.tableData.totalElementCounts ? "All" : checkable.where((value) => value).length} selected',
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.red,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColors.red),
+                            color: AppColors.darkGrey,
+                          )),
+                      const SizedBox(
+                        width: 25,
                       ),
-                    ),
-                  ],
-                )
-              : const SizedBox(),
-          const SizedBox(
-            height: 10,
-          ),
-          Expanded(
-            child: PTableView(
-              pagination: PTableViewPagination(
-                currentPage: context
-                    .watch<AdminVacancyListBloc>()
-                    .state
-                    .tableData
-                    .currentPage,
-                pagesCount: context
-                    .watch<AdminVacancyListBloc>()
-                    .state
-                    .tableData
-                    .numberOfPages,
-                onPageChanged: (i) {
-                  context.read<AdminVacancyListBloc>().add(
-                      AdminVacancyListEvent.fetchData(
-                          page: i, elementsPerPage: 7));
-                },
-              ),
-              fixedHeight: 500,
-              borderRadius: BorderRadius.circular(4),
-              headerHeight: 45,
-              header: PTableViewHeader(
-                contentPadding: EdgeInsets.symmetric(horizontal: 18),
-                backgroundColor: Color(0xFFF1F1F1),
-                rows: [
-                  PTableViewRowFixed(
-                    width: 300,
-                    child: Row(
-                      children: [
-                        CustomCheckbox(
-                            value: checkable.every((value) => value == true),
-                            onChanged: (v) {
-                              toggleAllCheckboxes(v!);
-                            }),
-                        const SizedBox(
-                          width: 11,
+                      TextButton(
+                        onPressed: () {
+                          deleteVacancyDialog(context,
+                              text: 'Are you sure you want to delete vacancy?',
+                              vacancy: vacancies,
+                              checkable: checkable);
+                        },
+                        child: Text(
+                          checkable.where((value) => value).length ==
+                                  context
+                                      .read<AdminVacancyListBloc>()
+                                      .state
+                                      .tableData
+                                      .totalElementCounts
+                              ? 'Delete All'
+                              : 'Delete Selected',
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.red,
+                              decoration: TextDecoration.underline,
+                              decorationColor: AppColors.red),
                         ),
-                        Text(
-                          AppLocalizations.of(context)!.name.toUpperCase(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ),
-                  PTableViewRowFixed(
-                      width: 450,
-                      child: Text(
-                        AppLocalizations.of(context)!.company.toUpperCase(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 12),
-                      )),
-                  PTableViewRowFixed(
-                      width: 300,
-                      child: Text(
-                        AppLocalizations.of(context)!.actions.toUpperCase(),
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 12),
-                      )),
-                ],
-              ),
-              content: PTableViewContent(
-                  onTap: (i) {
-                    context.go(
-                        "/admin/view_vacancy?id=${context.read<AdminVacancyListBloc>().state.tableData.element[i].id}");
-                  },
-                  divider: BorderSide(
-                    width: 1,
-                    color: AppColors.lightGrey,
-                  ),
-                  backgroundColor: Colors.white,
-                  horizontalPadding: 18,
-                  columns: context
+                      ),
+                    ],
+                  )
+                : const SizedBox(),
+            const SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: PTableView(
+                pagination: PTableViewPagination(
+                  currentPage: context
                       .watch<AdminVacancyListBloc>()
                       .state
                       .tableData
-                      .element
-                      .asMap()
-                      .entries
-                      .map((e) => _vacanciesList(
-                          vacancy: e.value, index: e.key, checkable: checkable))
-                      .toList()),
-            ),
-          )
-        ],
+                      .currentPage,
+                  pagesCount: context
+                      .watch<AdminVacancyListBloc>()
+                      .state
+                      .tableData
+                      .numberOfPages,
+                  onPageChanged: (i) {
+                    context.read<AdminVacancyListBloc>().add(
+                        AdminVacancyListEvent.fetchData(
+                            page: i, elementsPerPage: 7));
+                  },
+                ),
+                fixedHeight: 500,
+                borderRadius: BorderRadius.circular(4),
+                headerHeight: 45,
+                header: PTableViewHeader(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 18),
+                  backgroundColor: Color(0xFFF1F1F1),
+                  rows: [
+                    PTableViewRowFixed(
+                      width: 300,
+                      child: Row(
+                        children: [
+                          CustomCheckbox(
+                              value: checkable.every((value) => value == true),
+                              onChanged: (v) {
+                                toggleAllCheckboxes(v!);
+                              }),
+                          const SizedBox(
+                            width: 11,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!.name.toUpperCase(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ),
+                    PTableViewRowFixed(
+                        width: 450,
+                        child: Text(
+                          AppLocalizations.of(context)!.company.toUpperCase(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 12),
+                        )),
+                    PTableViewRowFixed(
+                        width: 300,
+                        child: Text(
+                          AppLocalizations.of(context)!.actions.toUpperCase(),
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 12),
+                        )),
+                  ],
+                ),
+                content: PTableViewContent(
+                    onTap: (i) {
+                      context.go(
+                          "/admin/view_vacancy?id=${context.read<AdminVacancyListBloc>().state.tableData.element[i].id}");
+                    },
+                    divider: BorderSide(
+                      width: 1,
+                      color: AppColors.lightGrey,
+                    ),
+                    backgroundColor: Colors.white,
+                    horizontalPadding: 18,
+                    columns: context
+                        .watch<AdminVacancyListBloc>()
+                        .state
+                        .tableData
+                        .element
+                        .asMap()
+                        .entries
+                        .map((e) => _vacanciesList(
+                            vacancy: e.value, index: e.key, checkable: checkable))
+                        .toList()),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

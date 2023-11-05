@@ -43,33 +43,47 @@ class _AdminTabletLayoutState extends State<AdminTabletLayout> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(
-                  child: MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: GestureDetector(
-                      onTap: () {
-                        if (context.read<LocalizationBloc>().state.locale ==
-                            const Locale('en')) {
-                          context.read<LocalizationBloc>().add(
-                              const LocalizationEvent.changeLang(
-                                  locale: Locale('de')));
-                        } else {
-                          context.read<LocalizationBloc>().add(
-                              const LocalizationEvent.changeLang(
-                                  locale: Locale('en')));
-                        }
-                      },
-                      child: SizedBox(
-                        width: 55,
-                        height: 27,
-                        child: Image.asset(
-                          context.read<LocalizationBloc>().state.locale ==
-                                  const Locale('en')
-                              ? AppImages.engFlag
-                              : AppImages.gerFlag,
-                          fit: BoxFit.fill,
+                Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      hoverColor: Colors.white,
+                    ),
+                    child: DropdownButton<String>(
+                      focusColor: Colors.white,
+                      icon: const Padding(
+                        padding: EdgeInsets.only(left: 3.0),
+                        child: Icon(
+                          Icons.arrow_drop_down,
+                          size: 15,
+                          color: AppColors.darkGrey,
                         ),
                       ),
+                      underline: SizedBox(),
+                      value: context.read<LocalizationBloc>().state.locale ==
+                          const Locale('en')
+                          ? 'ENG'
+                          : 'DE',
+                      borderRadius: BorderRadius.circular(10),
+                      items: <String>[
+                        'ENG',
+                        'DE',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(
+                            value,
+                            style: AppTheme.themeData.textTheme.titleSmall!
+                                .copyWith(color: Color(0xFF575757)),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        final locale =
+                        newValue!.toLowerCase() == 'eng' ? 'en' : 'de';
+                        context.read<LocalizationBloc>().add(
+                            LocalizationEvent.changeLang(locale: Locale(locale)));
+                      },
                     ),
                   ),
                 ),

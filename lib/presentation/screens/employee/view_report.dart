@@ -45,10 +45,7 @@ class _ViewReportState extends State<ViewReport> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: MediaQuery
-                          .of(context)
-                          .size
-                          .width > 1350
+                      padding: MediaQuery.of(context).size.width > 1350
                           ? EdgeInsets.only(top: 129, left: 300, bottom: 31)
                           : EdgeInsets.only(left: 24, top: 24),
                       child: Row(
@@ -72,15 +69,13 @@ class _ViewReportState extends State<ViewReport> {
                       ),
                     ),
                     Padding(
-                      padding: MediaQuery
-                          .of(context)
-                          .size
-                          .width > 1350
+                      padding: MediaQuery.of(context).size.width > 1350
                           ? EdgeInsets.symmetric(horizontal: 282)
                           : EdgeInsets.only(left: 24, top: 24, right: 24),
                       child: Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15), color: Colors.white),
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white),
                         child: Padding(
                           padding: EdgeInsets.only(top: 35, left: 39),
                           child: Column(
@@ -91,20 +86,22 @@ class _ViewReportState extends State<ViewReport> {
                                   padding: const EdgeInsets.only(top: 10),
                                   child: _photoBytes != null
                                       ? SizedBox(
-                                    width: 46,
-                                    child: CircleAvatar(
-                                        backgroundImage: Image
-                                            .memory(
-                                            Uint8List.fromList(
-                                                _photoBytes!))
-                                            .image),
-                                  )
+                                          width: 46,
+                                          child: CircleAvatar(
+                                              backgroundImage: Image.memory(
+                                                      Uint8List.fromList(
+                                                          _photoBytes!))
+                                                  .image),
+                                        )
                                       : FirebaseImage(
-                                    storageRef: state.report!.photoRef,
-                                    rounded: true,
-                                  ),),
+                                          storageRef: state.report!.photoRef,
+                                          rounded: true,
+                                        ),
+                                ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 70,),
+                                  padding: const EdgeInsets.only(
+                                    left: 70,
+                                  ),
                                   child: Row(
                                     children: [
                                       Text(
@@ -117,39 +114,33 @@ class _ViewReportState extends State<ViewReport> {
                                       Spacer(),
                                       Padding(
                                         padding:
-                                        const EdgeInsets.only(right: 29),
+                                            const EdgeInsets.only(right: 29),
                                         child: Container(
-                                            padding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 20,
-                                                vertical: 7),
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 20, vertical: 7),
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(16),
-                                                color: state.report!
-                                                    .status ==
-                                                    "Pending"
+                                                    BorderRadius.circular(16),
+                                                color: state.report!.status ==
+                                                        "Pending"
                                                     ? Color(0xFFCAFFCF)
-                                                    : const Color(
-                                                    0xFFF1F1F1)),
+                                                    : const Color(0xFFF1F1F1)),
                                             child: Text(
                                               state.report!.status,
                                               style: const TextStyle(
-                                                  fontWeight: FontWeight
-                                                      .w600,
+                                                  fontWeight: FontWeight.w600,
                                                   color: Color(0xfF282828),
-                                              fontSize: 12),
+                                                  fontSize: 12),
                                             )),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 70, top: 33),
+                                  padding:
+                                      const EdgeInsets.only(left: 70, top: 33),
                                   child: Text(
-                                      '${state.report!.firstname} ${state
-                                          .report!.lastname}',
+                                      '${state.report!.firstname} ${state.report!.lastname}',
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w400,
                                           color: Color(0xfF282828),
@@ -159,127 +150,107 @@ class _ViewReportState extends State<ViewReport> {
                               SizedBox(
                                 height: 25,
                               ),
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width > 1150
+                              MediaQuery.of(context).size.width > 1150
                                   ? Row(
-                                children: [
-                                  Text(
-                                      AppLocalizations.of(context)!
-                                          .unavailable,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.darkGrey,
-                                          fontSize: 12)),
-                                  SizedBox(
-                                    width: 260,
-                                  ),
-                                  Text(
-                                      AppLocalizations.of(context)!
-                                          .type,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.darkGrey,
-                                          fontSize: 12)),
-                                ],
-                              )
+                                      children: [
+                                        Text(
+                                            AppLocalizations.of(context)!
+                                                .unavailable,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.darkGrey,
+                                                fontSize: 12)),
+                                        SizedBox(
+                                          width: 260,
+                                        ),
+                                        Text(AppLocalizations.of(context)!.type,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.darkGrey,
+                                                fontSize: 12)),
+                                      ],
+                                    )
                                   : SizedBox(),
                               SizedBox(
                                 height: 15,
                               ),
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width > 1150
-                                  ? Row(
-                                children: [
-                                  Text(
-                                      '${DateFormat('MMMM dd, y').format(
-                                          state.report!
-                                              .unavailableFrom)} - ',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black,
-                                          fontSize: 14)),
-                                  Text(
-                                      DateFormat('MMMM dd, y').format(
-                                          state
-                                              .report!.unavailableTo),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black,
-                                          fontSize: 14)),
-                                  SizedBox(
-                                    width: 55,
-                                  ),
-                                  Text('${state.report!.type}',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w400,
-                                          color: Colors.black,
-                                          fontSize: 14)),
-                                ],
-                              )
+                              MediaQuery.of(context).size.width > 1150
+                                  ? Stack(children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                              '${DateFormat('MMMM dd, y').format(state.report!.unavailableFrom)} - ',
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black,
+                                                  fontSize: 14)),
+                                          Text(
+                                              DateFormat('MMMM dd, y').format(
+                                                  state.report!.unavailableTo),
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black,
+                                                  fontSize: 14)),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 330),
+                                        child: Text('${state.report!.type}',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w400,
+                                                color: Colors.black,
+                                                fontSize: 14)),
+                                      ),
+                                    ])
                                   : Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        AppLocalizations.of(context)!
-                                            .unavailable,
-                                        style: const TextStyle(
-                                            fontWeight:
-                                            FontWeight.w600,
-                                            color:
-                                            AppColors.darkGrey)),
-                                    Text(
-                                        '${DateFormat('MMMM dd, y').format(
-                                            state.report!
-                                                .unavailableFrom)} - ',
-                                        style: const TextStyle(
-                                            fontWeight:
-                                            FontWeight.w400,
-                                            color: Colors.black,
-                                            fontSize: 14)),
-                                    Text(
-                                        DateFormat('MMMM dd, y')
-                                            .format(state.report!
-                                            .unavailableTo),
-                                        style: const TextStyle(
-                                            fontWeight:
-                                            FontWeight.w400,
-                                            color: Colors.black,
-                                            fontSize: 14)),
-                                    SizedBox(
-                                      height: 36,
-                                    ),
-                                    Text(
-                                        AppLocalizations.of(context)!
-                                            .type,
-                                        style: const TextStyle(
-                                            fontWeight:
-                                            FontWeight.w600,
-                                            color:
-                                            AppColors.darkGrey)),
-                                    SizedBox(
-                                      width: 55,
-                                    ),
-                                    Text('${state.report!.type}',
-                                        style: const TextStyle(
-                                            fontWeight:
-                                            FontWeight.w400,
-                                            color: Colors.black,
-                                            fontSize: 14))
-                                  ]),
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                          Text(
+                                              AppLocalizations.of(context)!
+                                                  .unavailable,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.darkGrey)),
+                                          Text(
+                                              '${DateFormat('MMMM dd, y').format(state.report!.unavailableFrom)} - ',
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black,
+                                                  fontSize: 14)),
+                                          Text(
+                                              DateFormat('MMMM dd, y').format(
+                                                  state.report!.unavailableTo),
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black,
+                                                  fontSize: 14)),
+                                          SizedBox(
+                                            height: 36,
+                                          ),
+                                          Text(
+                                              AppLocalizations.of(context)!
+                                                  .type,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  color: AppColors.darkGrey)),
+                                          SizedBox(
+                                            width: 55,
+                                          ),
+                                          Text('${state.report!.type}',
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black,
+                                                  fontSize: 14))
+                                        ]),
                               SizedBox(
                                 height: 27,
                               ),
                               Text(AppLocalizations.of(context)!.reason,
                                   style: const TextStyle(
-                                      fontWeight:
-                                      FontWeight.w600,
-                                      color:
-                                      AppColors.darkGrey, fontSize: 12)),
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColors.darkGrey,
+                                      fontSize: 12)),
                               SizedBox(
                                 height: 15,
                               ),
@@ -287,7 +258,6 @@ class _ViewReportState extends State<ViewReport> {
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       color: Colors.black,
-
                                       fontSize: 14)),
                               SizedBox(
                                 height: 49,
@@ -300,8 +270,7 @@ class _ViewReportState extends State<ViewReport> {
                                         bottom: 21, right: 29),
                                     child: Text(
                                         DateFormat('HH:mm | MMMM dd, y')
-                                            .format(
-                                            state.report!.createdAt),
+                                            .format(state.report!.createdAt),
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w400,
                                             color: Colors.black,

@@ -211,7 +211,8 @@ class _ViewReportState extends State<ViewReport> {
                                                   .unavailable,
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.w600,
-                                                  color: AppColors.darkGrey)),
+                                                  color: AppColors.darkGrey,
+                                              fontSize: 12)),
                                           Text(
                                               '${DateFormat('MMMM dd, y').format(state.report!.unavailableFrom)} - ',
                                               style: const TextStyle(
@@ -233,7 +234,8 @@ class _ViewReportState extends State<ViewReport> {
                                                   .type,
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.w600,
-                                                  color: AppColors.darkGrey)),
+                                                  color: AppColors.darkGrey,
+                                                  fontSize: 12)),
                                           SizedBox(
                                             width: 55,
                                           ),

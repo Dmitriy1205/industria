@@ -171,9 +171,9 @@ class _ViewReportState extends State<ViewReport> {
                                       ],
                                     )
                                   : SizedBox(),
-                              SizedBox(
-                                height: 15,
-                              ),
+                              // SizedBox(
+                              //   height: 15,
+                              // ),
                               MediaQuery.of(context).size.width > 1150
                                   ? Stack(children: [
                                       Row(
@@ -213,6 +213,7 @@ class _ViewReportState extends State<ViewReport> {
                                                   fontWeight: FontWeight.w600,
                                                   color: AppColors.darkGrey,
                                               fontSize: 12)),
+                                        SizedBox(height: 15,),
                                           Text(
                                               '${DateFormat('MMMM dd, y').format(state.report!.unavailableFrom)} - ',
                                               style: const TextStyle(
@@ -236,9 +237,7 @@ class _ViewReportState extends State<ViewReport> {
                                                   fontWeight: FontWeight.w600,
                                                   color: AppColors.darkGrey,
                                                   fontSize: 12)),
-                                          SizedBox(
-                                            width: 55,
-                                          ),
+                                        SizedBox(height: 15,),
                                           Text('${state.report!.type}',
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.w400,

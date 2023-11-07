@@ -283,6 +283,7 @@ class _ReportsState extends State<Reports> {
                                 onChanged: (v) {
                                   if (v == true) {
                                     value = true;
+                                    idReports.clear();
                                     idReports.addAll(context.read<AdminHolidayRequestsListBloc>().state.tableData.element.map((e) => e.id).toList());
                                   } else {
                                     value = false;

@@ -27,53 +27,43 @@ class Reports extends StatefulWidget {
 
 class _ReportsState extends State<Reports> {
   int currentPage = 0;
-  bool _isVisible = false;
-  Set<String> selected = {};
-  List<HolidayRequest> listReports = [];
+  bool get isVisible => idReports.isNotEmpty;
   List<String> idReports = [];
-  List checkable = [];
   bool value = false;
   DeleteReportsBloc deleteReportsBloc = sl<DeleteReportsBloc>();
-  bool useFutureOnce = true;
 
   @override
   void initState() {
     super.initState();
-    print('context.read<AuthBloc>().state.employee!.id ${context.read<AuthBloc>().state.employee!.id}');
-    context.read<AdminHolidayRequestsListBloc>().add(
-        AdminHolidayRequestsListEvent.fetchData(
-            elementsPerPage: 7,
-            page: 0,
-            employeeId: context.read<AuthBloc>().state.employee!.id));
+    if(context.read<AuthBloc>().state.employee != null){
+      context.read<AdminHolidayRequestsListBloc>().add(
+          AdminHolidayRequestsListEvent.fetchData(
+              elementsPerPage: 7,
+              page: 0,
+              employeeId: context.read<AuthBloc>().state.employee!.id));
+    }
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    listReports =
-        context.watch<AdminHolidayRequestsListBloc>().state.tableData.element;
-    idReports = [];
-    listReports.forEach((element) {
-      idReports.add(element.id);
-    });
-    if (useFutureOnce) {
-      Future.delayed(Duration(seconds: 1), () {
-        context.read<AdminHolidayRequestsListBloc>().add(
-            const AdminHolidayRequestsListEvent.fetchData(
-                elementsPerPage: 7, page: 0));
-      });
-      useFutureOnce = false;
-      selected.clear();
-      value = false;
-      _isVisible = false;
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
       color: AppColors.background,
-      child: BlocConsumer<DeleteReportsBloc, DeleteReportsState>(
+      child: BlocListener<AuthBloc, AuthState>(
+  listener: (context, state) {
+    if(state.isEmployeeAuthenticated){
+      context.read<AdminHolidayRequestsListBloc>().add(
+          AdminHolidayRequestsListEvent.fetchData(
+              elementsPerPage: 7,
+              page: 0,
+              employeeId: context.read<AuthBloc>().state.employee!.id));
+    }
+  },
+  child: BlocConsumer<DeleteReportsBloc, DeleteReportsState>(
           bloc: deleteReportsBloc,
           listener: (context, DeleteReportsState state) {
             state.maybeMap(
@@ -81,13 +71,17 @@ class _ReportsState extends State<Reports> {
                 showSuccessSnackBar(context, "Report deleted successfully!");
                 Future.delayed(
                   Duration(seconds: 1),
-                  () => context.read<AdminHolidayRequestsListBloc>().add(
+                  () {
+                    context.read<AdminHolidayRequestsListBloc>().add(
                       const AdminHolidayRequestsListEvent.fetchData(
-                          elementsPerPage: 7, page: 0)),
+                          elementsPerPage: 7, page: 0));
+                    setState(() {
+                      idReports.clear();
+                    });
+                  },
                 );
               },
               initial: (_) {
-                print('context.read<AuthBloc>().state.employee!.id ${context.read<AuthBloc>().state.employee!.id}');
                 context.read<AdminHolidayRequestsListBloc>().add(
                     AdminHolidayRequestsListEvent.fetchData(
                         elementsPerPage: 7,
@@ -199,11 +193,11 @@ class _ReportsState extends State<Reports> {
                     Padding(
                       padding: const EdgeInsets.only(left: 151),
                       child: Visibility(
-                        visible: _isVisible,
+                        visible: isVisible,
                         child: Row(
                           children: [
                             Text(
-                                '${selected.length} ${AppLocalizations.of(context)!.selected}',
+                                '${idReports.length} ${AppLocalizations.of(context)!.selected}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600, fontSize: 12)),
                             SizedBox(
@@ -274,15 +268,12 @@ class _ReportsState extends State<Reports> {
                               onChanged: (v) {
                                 if (v == true) {
                                   value = true;
-                                  selected.addAll(idReports);
+                                  idReports.addAll(idReports);
                                 } else {
                                   value = false;
-                                  selected.clear();
+                                  idReports.clear();
                                 }
-                                setState(() {
-                                  _isVisible = selected.isNotEmpty;
-                                  print("checkable every ${selected.length}");
-                                });
+                                setState(() {});
                               }),
                         ),
                         PTableViewRowFixed(
@@ -334,10 +325,7 @@ class _ReportsState extends State<Reports> {
                     ),
                     content: PTableViewContent(
                       onTap: (i) {
-                        print(listReports.map((e) => e.id));
-                        print(listReports[i]);
-                        final HolidayRequest report = listReports[i];
-                        print('String id ${report.id}');
+                        final HolidayRequest report = context.read<AdminHolidayRequestsListBloc>().state.tableData.element[i];
                         router.go(
                           "/employee/view_report?reportId=${report.id}",
                           // pathParameters: {'id': id}
@@ -356,7 +344,7 @@ class _ReportsState extends State<Reports> {
                       ),
                       backgroundColor: Colors.white,
                       horizontalPadding: 30,
-                      columns: listReports.map((e) {
+                      columns: context.watch<AdminHolidayRequestsListBloc>().state.tableData.element.map((e) {
                         return _holidaysList(holidayRequest: e);
                       }).toList(),
                     ),
@@ -365,6 +353,7 @@ class _ReportsState extends State<Reports> {
               ],
             );
           }),
+),
     );
   }
 
@@ -378,15 +367,14 @@ class _ReportsState extends State<Reports> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomCheckbox(
-                    value: selected.contains(holidayRequest.id),
+                    value: idReports.contains(holidayRequest.id),
                     onChanged: (v) {
                       setState(() {
                         if (v!) {
-                          selected.add(holidayRequest.id);
+                          idReports.add(holidayRequest.id);
                         } else {
-                          selected.remove(holidayRequest.id);
+                          idReports.remove(holidayRequest.id);
                         }
-                        _isVisible = selected.isNotEmpty; // Update _isVisible
                       });
                     }),
                 const SizedBox(
@@ -507,9 +495,8 @@ class _ReportsState extends State<Reports> {
         style: TextStyle(color: AppColors.mainAccent),
       ),
       onPressed: () {
-        useFutureOnce = true;
         deleteReportsBloc
-            .add(DeleteReportsEvent.deleteReport(reports: selected.toList()));
+            .add(DeleteReportsEvent.deleteReport(reports: idReports));
         Navigator.pop(context);
       },
     );

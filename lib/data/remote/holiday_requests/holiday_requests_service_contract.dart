@@ -6,7 +6,7 @@ abstract class HolidayRequestsService {
   Future<TableData<List<HolidayRequest>>> listHolidayRequests(
       {required int page,
       required int elementsPerPage,
-      required String searchTerm});
+      required String searchTerm, String? employeeId});
 
   Future<HolidayRequest?> getHolidayById({required String id});
 

@@ -11,9 +11,9 @@ class HolidayRequestsRepositoryImpl implements HolidayRequestsRepository {
   Future<TableData<List<HolidayRequest>>> listHolidayRequests(
       {required int page,
       required int elementsPerPage,
-      required String searchTerm}) {
+      required String searchTerm, String? employeeId}) {
     return db.listHolidayRequests(
-        page: page, elementsPerPage: elementsPerPage, searchTerm: searchTerm);
+        page: page, elementsPerPage: elementsPerPage, searchTerm: searchTerm, employeeId: employeeId);
   }
 
   @override

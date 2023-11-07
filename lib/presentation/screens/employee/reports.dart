@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/extensions/date.dart';
+import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:pandas_tableview/p_tableview.dart';
 import '../../../app/router.dart';
 import '../../../core/constants/colors.dart';
@@ -38,9 +39,12 @@ class _ReportsState extends State<Reports> {
   @override
   void initState() {
     super.initState();
+    print('context.read<AuthBloc>().state.employee!.id ${context.read<AuthBloc>().state.employee!.id}');
     context.read<AdminHolidayRequestsListBloc>().add(
-        const AdminHolidayRequestsListEvent.fetchData(
-            elementsPerPage: 7, page: 0));
+        AdminHolidayRequestsListEvent.fetchData(
+            elementsPerPage: 7,
+            page: 0,
+            employeeId: context.read<AuthBloc>().state.employee!.id));
   }
 
   @override
@@ -82,7 +86,14 @@ class _ReportsState extends State<Reports> {
                           elementsPerPage: 7, page: 0)),
                 );
               },
-              initial: (_) {},
+              initial: (_) {
+                print('context.read<AuthBloc>().state.employee!.id ${context.read<AuthBloc>().state.employee!.id}');
+                context.read<AdminHolidayRequestsListBloc>().add(
+                    AdminHolidayRequestsListEvent.fetchData(
+                        elementsPerPage: 7,
+                        page: 0,
+                        employeeId: context.read<AuthBloc>().state.employee!.id));
+              },
               loading: (_) {
                 showProgressSnackBar(context);
               },
@@ -327,9 +338,10 @@ class _ReportsState extends State<Reports> {
                         print(listReports[i]);
                         final HolidayRequest report = listReports[i];
                         print('String id ${report.id}');
-                        router.go("/employee/view_report?reportId=${report.id}",
-                            // pathParameters: {'id': id}
-                            );
+                        router.go(
+                          "/employee/view_report?reportId=${report.id}",
+                          // pathParameters: {'id': id}
+                        );
 
                         // router.go("/employee/view_report",
                         // );

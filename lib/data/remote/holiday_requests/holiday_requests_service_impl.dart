@@ -15,19 +15,69 @@ class HolidayRequestsServiceImpl implements HolidayRequestsService {
   Future<TableData<List<HolidayRequest>>> listHolidayRequests(
       {required int page,
       required int elementsPerPage,
-      required String searchTerm}) async {
+      required String searchTerm,
+      String? employeeId}) async {
     final index = algolia.index("dev_holidays");
+    AlgoliaQuerySnapshot objects;
+    final holidays;
+
     AlgoliaQuery currentQuery = index.query(searchTerm);
     currentQuery = currentQuery.setHitsPerPage(elementsPerPage).setPage(page);
-    final objects = await currentQuery.getObjects();
-    final holidays =
-        objects.hits.map((e) => HolidayRequest.fromJson(e.data)).toList();
+    objects = await currentQuery.getObjects();
+    print('employeeId ${employeeId}');
+
+    if (employeeId != null || employeeId!.isNotEmpty) {
+
+      currentQuery = currentQuery.filters('employeeId:$employeeId');
+      objects = await currentQuery.getObjects();
+      holidays =
+          objects.hits.map((e) => HolidayRequest.fromJson(e.data)).toList();
+    }
+   else  {
+      holidays =
+          objects.hits.map((e) => HolidayRequest.fromJson(e.data)).toList();
+    }
+   print('holidays ${holidays.length}');
+
     return TableData(
         numberOfPages: objects.nbPages,
         totalElementCounts: objects.nbHits,
         currentPage: objects.page,
         element: holidays);
   }
+
+  // @override
+  // Future<TableData<List<HolidayRequest>>> listHolidayRequests(
+  //     {required int page,
+  //     required int elementsPerPage,
+  //     required String searchTerm,
+  //     String? employeeId}) async {
+  //   final index = algolia.index("dev_holidays");
+  //   AlgoliaQuery currentQuery = index.facetFilter('employeeId:8SjsDfQyNQYy8w09Yeectvh4RT73');
+  // .query(searchTerm);
+
+  // Assuming you have an 'employeeId' field you want to filter on
+  // if (employeeId != null) {
+  // final employeeIdFacet = 'employeeId:8SjsDfQyNQYy8w09Yeectvh4RT73';
+  // currentQuery = currentQuery.facetFilter(employeeIdFacet);
+  // print('currentQuery ${currentQuery}');
+
+  // }
+
+  // currentQuery = currentQuery.setHitsPerPage(elementsPerPage).setPage(page);
+  //   final results = await currentQuery.getObjects();
+  //   print('results ${results.hits.length}');
+  //
+  //   final holidays =
+  //       results.hits.map((e) => HolidayRequest.fromJson(e.data)).toList();
+  //   print('holidays ${holidays.length}');
+  //
+  //   return TableData(
+  //       numberOfPages: results.nbPages,
+  //       totalElementCounts: results.nbHits,
+  //       currentPage: results.page,
+  //       element: holidays);
+  // }
 
   @override
   Future<HolidayRequest?> getHolidayById({required String id}) async {
@@ -84,5 +134,4 @@ class HolidayRequestsServiceImpl implements HolidayRequestsService {
       await batch.commit();
     });
   }
-
 }

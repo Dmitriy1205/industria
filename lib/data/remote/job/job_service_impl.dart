@@ -19,7 +19,7 @@ class JobServiceImpl implements JobService {
     final facet = _facetFromArrayOfParams(
         [jobTypesFacet, cityFacet, areaFacet].where((e) => e != null).toList());
     if(facet.isNotEmpty){
-      print(facet);
+      print('facet $facet');
       currentQuery = currentQuery.filters(facet);
     }
     currentQuery =

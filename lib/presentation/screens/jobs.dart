@@ -24,7 +24,8 @@ import '../widgets/job_card.dart';
 class Jobs extends StatefulWidget {
   final String initialKeyword;
   final String? initialCountry;
-  const Jobs({super.key, this.initialKeyword = "", this.initialCountry});
+  final JobAreas? area;
+  const Jobs({super.key, this.initialKeyword = "", this.area, this.initialCountry});
 
   @override
   State<Jobs> createState() => _JobsState();
@@ -32,8 +33,8 @@ class Jobs extends StatefulWidget {
 
 class _JobsState extends State<Jobs> {
   late final textController = TextEditingController(text: widget.initialKeyword);
-  late String dropdownValue = widget.initialCountry ?? AppLocalizations.of(context)!.allGermany;
-  JobAreas dropdownValueFilter = JobAreas.all;
+  late String dropdownValue = widget.initialCountry ?? "All Germany";
+  late JobAreas dropdownValueFilter = widget.area ?? JobAreas.all;
   bool isHovered = false;
   bool isHoveredButton = false;
   List<JobTypes> _jobTypes = [];
@@ -44,14 +45,14 @@ class _JobsState extends State<Jobs> {
   void initState() {
     super.initState();
     sl<JobsBloc>().add(JobsEvent.fetchJobs(
-        filter: JobFilters(count: 5, keyword: widget.initialKeyword, page: 0, city: widget.initialCountry)));
+        filter: JobFilters(count: 5, keyword: widget.initialKeyword, page: 0, city: widget.initialCountry, area: widget.area?.filteringValue)));
   }
 
   void _onSearchClicked() {
     sl<JobsBloc>().add(JobsEvent.search(
         query: textController.text,
         city: dropdownValue.isEmpty ||
-                dropdownValue == AppLocalizations.of(context)!.allGermany
+                dropdownValue == "All Germany"
             ? null
             : dropdownValue));
   }
@@ -61,7 +62,7 @@ class _JobsState extends State<Jobs> {
     setState(() {
       _jobTypes.clear();
       textController.clear();
-      dropdownValue = AppLocalizations.of(context)!.allGermany;
+      dropdownValue = "All Germany";
       dropdownValueFilter = JobAreas.all;
     });
   }
@@ -192,7 +193,7 @@ class _JobsState extends State<Jobs> {
                                                 value: dropdownValue,
                                                 borderRadius: BorderRadius.circular(10),
                                                 items: <String>[
-                                                  AppLocalizations.of(context)!.allGermany,
+                                                  "All Germany",
                                                   'Berlin',
                                                   'Munich'
                                                 ].map<DropdownMenuItem<String>>((String value) {
@@ -298,6 +299,9 @@ class _JobsState extends State<Jobs> {
                               state.map(initial: (_){
                                 return SizedBox.shrink();
                               }, loaded: (state){
+                                if(state.jobs.element.isEmpty){
+                                  return Text("No matches found");
+                                }
                                 return PTableViewPagination(currentPage: state.jobs.currentPage, pagesCount: state.jobs.numberOfPages, onPageChanged: (v){
                                   _scrollController.animateTo(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
                                   context.read<JobsBloc>().add(JobsEvent.fetchJobs(filter: state.filter.copyWith(page: v)));
@@ -402,7 +406,7 @@ class _JobsState extends State<Jobs> {
                           value: dropdownValue,
                           borderRadius: BorderRadius.circular(10),
                           items: <String>[
-                            AppLocalizations.of(context)!.allGermany,
+                            "All Germany",
                             'Berlin',
                             'Munich'
                           ].map<DropdownMenuItem<String>>((String value) {
@@ -594,7 +598,7 @@ class _JobsState extends State<Jobs> {
                         return DropdownMenuItem<JobAreas>(
                           value: value,
                           child: Text(
-                            value.text,
+                            value.localizedName(context.read<LocalizationBloc>().state.locale),
                             style: AppTheme.themeData.textTheme.labelMedium!
                                 .copyWith(
                                 fontWeight: FontWeight.w600,
@@ -680,7 +684,7 @@ class _JobsState extends State<Jobs> {
                       .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
                   onPressed: () {
                     sl<JobsBloc>().add(JobsEvent.applyFilters(
-                        types: _jobTypes.map((e) => e.value).toList(), area: dropdownValueFilter == JobAreas.all ? null : dropdownValueFilter.text));
+                        types: _jobTypes.map((e) => e.value).toList(), area: dropdownValueFilter == JobAreas.all ? null : dropdownValueFilter.filteringValue));
                   },
                   verticalPadding: 10,
                 ),
@@ -771,7 +775,7 @@ class _JobsState extends State<Jobs> {
                     return DropdownMenuItem<JobAreas>(
                       value: value,
                       child: Text(
-                        value.text,
+                        value.localizedName(context.read<LocalizationBloc>().state.locale),
                         style: AppTheme.themeData.textTheme.labelMedium!
                             .copyWith(
                             fontWeight: FontWeight.w600,
@@ -857,7 +861,7 @@ class _JobsState extends State<Jobs> {
                   .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
               onPressed: () {
                 sl<JobsBloc>().add(JobsEvent.applyFilters(
-                    types: _jobTypes.map((e) => e.value).toList(), area: dropdownValueFilter == JobAreas.all ? null : dropdownValueFilter.text));
+                    types: _jobTypes.map((e) => e.value).toList(), area: dropdownValueFilter == JobAreas.all ? null : dropdownValueFilter.filteringValue));
               },
               verticalPadding: 10,
             ),

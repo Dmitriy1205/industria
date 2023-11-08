@@ -10,6 +10,7 @@ import 'package:industria/core/enums/job_types.dart';
 import 'package:industria/core/utils/toast.dart';
 import 'package:industria/core/validator/field_validator.dart';
 import 'package:industria/presentation/bloc/companies/companies_cubit.dart';
+import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 import 'package:industria/presentation/widgets/dropdown_text_form_field.dart';
@@ -313,7 +314,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                               });
                                             },
                                             displayFunction: (area) {
-                                              return area.text;
+                                              return area.localizedName(context.read<LocalizationBloc>().state.locale);
                                             },
                                             hint: '${AppLocalizations.of(context)!.area}*',
                                           ),
@@ -495,7 +496,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                                             dropdownPeriod.text,
                                                         location: location,
                                                         area: dropdownJobArea
-                                                            .text,
+                                                            .localizedName(context.read<LocalizationBloc>().state.locale),
                                                         city: city,
                                                         description:
                                                             description,

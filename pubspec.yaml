@@ -51,10 +51,14 @@ dependencies:
   url_launcher: ^6.1.14
   mime_type: ^1.0.0
   video_player: ^2.8.1
+  flutter_native_splash: ^2.3.5
 
   pandas_tableview:
     git:
       url: https://github.com/PandasCodi/pandas_tableview.git
+
+#flutter_native_splash:
+#  image: "assets/images/logo_big.jpg"
 
 dev_dependencies:
   flutter_test:

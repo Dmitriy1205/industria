@@ -40,123 +40,126 @@ class _AdminHolidaysState extends State<AdminHolidays> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        LayoutBuilder(builder: (context,constraints){
-          return constraints.maxWidth < 700 ? Column(
-            children: [
-              _tableTitle(title: AppLocalizations.of(context)!.reports, subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 40,
-                child: _search(onTextChanged: (val){
-                  _debouncer.run(() {
-                    context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
-                  });
-                }),
-              ),
-            ],
-          )  : SizedBox(
-            height: 52,
-            child: Row(
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          LayoutBuilder(builder: (context,constraints){
+            return constraints.maxWidth < 700 ? Column(
               children: [
-                SizedBox(width: 16,),
                 _tableTitle(title: AppLocalizations.of(context)!.reports, subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
                 const SizedBox(
-                  width: 60,
+                  height: 20,
                 ),
-                Expanded(child: _search(onTextChanged: (val){
-                  _debouncer.run(() {
-                    context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
-                  });
-                })),
+                SizedBox(
+                  height: 40,
+                  child: _search(onTextChanged: (val){
+                    _debouncer.run(() {
+                      context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
+                    });
+                  }),
+                ),
               ],
-            ),
-          );
-        }),
-        const SizedBox(
-          height: 10,
-        ),
-        Expanded(
-          child: PTableView(
-            pagination: PTableViewPagination(
-              currentPage: context.watch<AdminHolidayRequestsListBloc>().state.tableData.currentPage,
-              pagesCount: context.watch<AdminHolidayRequestsListBloc>().state.tableData.numberOfPages,
-              onPageChanged: (i) {
-                context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.fetchData(page: i, elementsPerPage: 7));
-              },
-            ),
-            fixedHeight: 500,
-            borderRadius: BorderRadius.circular(4),
-            headerHeight: 45,
-            header: PTableViewHeader(
-              contentPadding: EdgeInsets.symmetric(horizontal: 30),
-              backgroundColor: Color(0xFFF1F1F1),
-              rows: [
-                PTableViewRowFixed(
-                  width: 300,
-                  child: Text(
-                    AppLocalizations.of(context)!.employee,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500, fontSize: 12),
-                  ),),
-                PTableViewRowFixed(
-                  width: 300,
-                  child: Text(
-                    AppLocalizations.of(context)!.type,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500, fontSize: 12),
-                  ),),
-                PTableViewRowFixed(
-                    width: 400,
+            )  : SizedBox(
+              height: 52,
+              child: Row(
+                children: [
+                  SizedBox(width: 16,),
+                  _tableTitle(title: AppLocalizations.of(context)!.reports, subtitle: context.watch<AdminHolidayRequestsListBloc>().state.tableData.totalElementCounts.toString()),
+                  const SizedBox(
+                    width: 60,
+                  ),
+                  Expanded(child: _search(onTextChanged: (val){
+                    _debouncer.run(() {
+                      context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.changeSearchTerm(searchTerm: val));
+                    });
+                  })),
+                ],
+              ),
+            );
+          }),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: PTableView(
+              pagination: PTableViewPagination(
+                currentPage: context.watch<AdminHolidayRequestsListBloc>().state.tableData.currentPage,
+                pagesCount: context.watch<AdminHolidayRequestsListBloc>().state.tableData.numberOfPages,
+                onPageChanged: (i) {
+                  context.read<AdminHolidayRequestsListBloc>().add(AdminHolidayRequestsListEvent.fetchData(page: i, elementsPerPage: 7));
+                },
+              ),
+              fixedHeight: 500,
+              borderRadius: BorderRadius.circular(4),
+              headerHeight: 45,
+              header: PTableViewHeader(
+                contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                backgroundColor: Color(0xFFF1F1F1),
+                rows: [
+                  PTableViewRowFixed(
+                    width: 300,
                     child: Text(
-                      AppLocalizations.of(context)!.unavailable,
+                      AppLocalizations.of(context)!.employee,
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 12),
-                    )),
-                PTableViewRowFixed(
-                    width: 300,
-                    child: Center(
-                      child: Text(
-                        AppLocalizations.of(context)!.status,
-                        style:
-                        TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-                      ),
-                    )),
-                PTableViewRowFixed(
+                    ),),
+                  PTableViewRowFixed(
                     width: 300,
                     child: Text(
-                      AppLocalizations.of(context)!.date,
-                      style:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-                    )),
-              ],
+                      AppLocalizations.of(context)!.type,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500, fontSize: 12),
+                    ),),
+                  PTableViewRowFixed(
+                      width: 400,
+                      child: Text(
+                        AppLocalizations.of(context)!.unavailable,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12),
+                      )),
+                  PTableViewRowFixed(
+                      width: 300,
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.status,
+                          style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                        ),
+                      )),
+                  PTableViewRowFixed(
+                      width: 300,
+                      child: Text(
+                        AppLocalizations.of(context)!.date,
+                        style:
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                      )),
+                ],
+              ),
+              content: PTableViewContent(
+                  onTap: (i){
+                    context.go("/admin/holiday?id=${context.read<AdminHolidayRequestsListBloc>().state.tableData.element[i].id}");
+                  },
+                  divider: BorderSide(
+                    width: 1,
+                    color: AppColors.lightGrey
+                  ),
+                  backgroundColor: Colors.white,
+                  horizontalPadding: 30,
+                  columns: context
+                      .watch<AdminHolidayRequestsListBloc>()
+                      .state
+                      .tableData
+                      .element
+                      .map((e) => _holidaysList(holidayRequest: e))
+                      .toList()),
             ),
-            content: PTableViewContent(
-                onTap: (i){
-                  context.go("/admin/holiday?id=${context.read<AdminHolidayRequestsListBloc>().state.tableData.element[i].id}");
-                },
-                divider: BorderSide(
-                  width: 1,
-                  color: AppColors.lightGrey
-                ),
-                backgroundColor: Colors.white,
-                horizontalPadding: 30,
-                columns: context
-                    .watch<AdminHolidayRequestsListBloc>()
-                    .state
-                    .tableData
-                    .element
-                    .map((e) => _holidaysList(holidayRequest: e))
-                    .toList()),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 

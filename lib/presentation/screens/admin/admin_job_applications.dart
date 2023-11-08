@@ -36,124 +36,127 @@ class _AdminJobApplicationsState extends State<AdminJobApplications> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        LayoutBuilder(builder: (context,constraints){
-          return constraints.maxWidth < 700 ? Column(
-            children: [
-              _tableTitle(title: AppLocalizations.of(context)!.job_applications, subtitle: context.watch<AdminJobApplicationsBloc>().state.tableData.totalElementCounts.toString()),
-              const SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 40,
-                child: _search(onTextChanged: (val){
-                  _debouncer.run(() {
-                    context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.changeSearchTerm(searchTerm: val));
-                  });
-                }),
-              ),
-            ],
-          )  : SizedBox(
-            height: 52,
-            child: Row(
+    return Padding(
+      padding: EdgeInsets.all(16),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 20,
+          ),
+          LayoutBuilder(builder: (context,constraints){
+            return constraints.maxWidth < 700 ? Column(
               children: [
-                SizedBox(width: 16,),
                 _tableTitle(title: AppLocalizations.of(context)!.job_applications, subtitle: context.watch<AdminJobApplicationsBloc>().state.tableData.totalElementCounts.toString()),
                 const SizedBox(
-                  width: 60,
+                  height: 20,
                 ),
-                Expanded(child: _search(onTextChanged: (val){
-                  _debouncer.run(() {
-                    context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.changeSearchTerm(searchTerm: val));
-                  });
-                })),
+                SizedBox(
+                  height: 40,
+                  child: _search(onTextChanged: (val){
+                    _debouncer.run(() {
+                      context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.changeSearchTerm(searchTerm: val));
+                    });
+                  }),
+                ),
               ],
-            ),
-          );
-        }),
-        const SizedBox(
-          height: 10,
-        ),
-        Expanded(
-          child: PTableView(
-            pagination: PTableViewPagination(
-              currentPage: context.watch<AdminJobApplicationsBloc>().state.tableData.currentPage,
-              pagesCount: context.watch<AdminJobApplicationsBloc>().state.tableData.numberOfPages,
-              onPageChanged: (i) {
-                context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.fetchJobApplications(page: i, elementsPerPage: 5,));
-              },
-            ),
-            fixedHeight: 500,
-            borderRadius: BorderRadius.circular(4),
-            headerHeight: 45,
-            header: PTableViewHeader(
-              contentPadding: EdgeInsets.symmetric(horizontal: 30),
-              backgroundColor: Color(0xFFF1F1F1),
-              rows: [
-                PTableViewRowFixed(
-                  width: 250,
-                  child: Text(
-                    AppLocalizations.of(context)!.applicant.toUpperCase(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500, fontSize: 12),
-                  ),),
-                PTableViewRowFixed(
+            )  : SizedBox(
+              height: 52,
+              child: Row(
+                children: [
+                  SizedBox(width: 16,),
+                  _tableTitle(title: AppLocalizations.of(context)!.job_applications, subtitle: context.watch<AdminJobApplicationsBloc>().state.tableData.totalElementCounts.toString()),
+                  const SizedBox(
+                    width: 60,
+                  ),
+                  Expanded(child: _search(onTextChanged: (val){
+                    _debouncer.run(() {
+                      context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.changeSearchTerm(searchTerm: val));
+                    });
+                  })),
+                ],
+              ),
+            );
+          }),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: PTableView(
+              pagination: PTableViewPagination(
+                currentPage: context.watch<AdminJobApplicationsBloc>().state.tableData.currentPage,
+                pagesCount: context.watch<AdminJobApplicationsBloc>().state.tableData.numberOfPages,
+                onPageChanged: (i) {
+                  context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.fetchJobApplications(page: i, elementsPerPage: 5,));
+                },
+              ),
+              fixedHeight: 500,
+              borderRadius: BorderRadius.circular(4),
+              headerHeight: 45,
+              header: PTableViewHeader(
+                contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                backgroundColor: Color(0xFFF1F1F1),
+                rows: [
+                  PTableViewRowFixed(
                     width: 250,
                     child: Text(
-                      AppLocalizations.of(context)!.vacancy.toUpperCase(),
+                      AppLocalizations.of(context)!.applicant.toUpperCase(),
                       style: TextStyle(
                           fontWeight: FontWeight.w500, fontSize: 12),
-                    )),
-                PTableViewRowFixed(
-                    width: 200,
-                    child: Text(
-                      AppLocalizations.of(context)!.company.toUpperCase(),
-                      style:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-                    )),
-                PTableViewRowFixed(
-                    width: 200,
-                    child: Center(
+                    ),),
+                  PTableViewRowFixed(
+                      width: 250,
                       child: Text(
-                        AppLocalizations.of(context)!.status.toUpperCase(),
+                        AppLocalizations.of(context)!.vacancy.toUpperCase(),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 12),
+                      )),
+                  PTableViewRowFixed(
+                      width: 200,
+                      child: Text(
+                        AppLocalizations.of(context)!.company.toUpperCase(),
                         style:
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-                      ),
-                    )),
-                PTableViewRowFixed(
-                    width: 500,
-                    child: Text(
-                      AppLocalizations.of(context)!.date.toUpperCase(),
-                      style:
-                      TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
-                    )),
-              ],
+                      )),
+                  PTableViewRowFixed(
+                      width: 200,
+                      child: Center(
+                        child: Text(
+                          AppLocalizations.of(context)!.status.toUpperCase(),
+                          style:
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                        ),
+                      )),
+                  PTableViewRowFixed(
+                      width: 500,
+                      child: Text(
+                        AppLocalizations.of(context)!.date.toUpperCase(),
+                        style:
+                        TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+                      )),
+                ],
+              ),
+              content: PTableViewContent(
+                  onTap: (i){
+                    final jobApplicationId = context.read<AdminJobApplicationsBloc>().state.tableData.element[i].id;
+                    context.go('/admin/view_job_application?id=$jobApplicationId');
+                  },
+                  divider: BorderSide(
+                    width: 1,
+                    color: AppColors.lightGrey,
+                  ),
+                  backgroundColor: Colors.white,
+                  horizontalPadding: 30,
+                  columns: context
+                      .watch<AdminJobApplicationsBloc>()
+                      .state
+                      .tableData
+                      .element
+                      .map((e) => _jobApplicationsList(jobApplication: e))
+                      .toList()),
             ),
-            content: PTableViewContent(
-                onTap: (i){
-                  final jobApplicationId = context.read<AdminJobApplicationsBloc>().state.tableData.element[i].id;
-                  context.go('/admin/view_job_application?id=$jobApplicationId');
-                },
-                divider: BorderSide(
-                  width: 1,
-                  color: AppColors.lightGrey,
-                ),
-                backgroundColor: Colors.white,
-                horizontalPadding: 30,
-                columns: context
-                    .watch<AdminJobApplicationsBloc>()
-                    .state
-                    .tableData
-                    .element
-                    .map((e) => _jobApplicationsList(jobApplication: e))
-                    .toList()),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 

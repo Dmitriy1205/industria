@@ -116,10 +116,7 @@ class AdminDesktopDashboardLayout extends StatelessWidget {
         )
                 : SizedBox.shrink(),
             Expanded(
-                child: Padding(
-              padding: const EdgeInsets.only(bottom: 16, top: 16, right: 16, left: 16),
-              child: child,
-            )),
+                child: child),
           ],
         ),
       ),

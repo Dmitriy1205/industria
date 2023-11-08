@@ -199,5 +199,6 @@
    "createReport": "Bericht erstellen",
    "startDate": "Startdatum",
    "endDate": "Endtermin",
-   "absenceReport": "Abwesenheitsbericht"
+   "absenceReport": "Abwesenheitsbericht",
+   "chooseByCategory": ""
 }

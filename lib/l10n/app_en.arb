@@ -198,6 +198,7 @@
  "createReport": "Create report",
  "startDate": "Start date",
  "endDate": "End date",
- "absenceReport": "Absence report"
+ "absenceReport": "Absence report",
+ "chooseByCategory": "Wählen Sie nach Kategorie"
 
 }

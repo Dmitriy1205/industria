@@ -1,15 +1,17 @@
-enum JobAreas {
-  all("All"),
-  it("IT"),
-  finance("Finance"),
-  humanResources("Human Resources"),
-  management("Management"),
-  logistics("Logistics"),
-  customerSupport("Customer support"),
-  security("Security");
+import 'package:flutter/cupertino.dart';
 
-  static JobAreas? fromString(String val){
-    return JobAreas.values.where((v) => v.text == val).firstOrNull;
+enum JobAreas {
+  all("All","Alle"),
+  it("IT", "IT"),
+  finance("Finance", "Finanzen"),
+  humanResources("Human Resources", "Personalwesen"),
+  management("Management","Management"),
+  logistics("Logistics","Logistik"),
+  customerSupport("Customer support","Kundendienst"),
+  security("Security","Sicherheit");
+
+  static JobAreas? fromString(String filteringValue){
+    return JobAreas.values.where((v) => v.filteringValue == filteringValue).firstOrNull;
   }
 
   static List<Map<JobAreas, String>> get homeAreas =>
@@ -24,7 +26,18 @@ enum JobAreas {
 
   static List<JobAreas> get elements => values.sublist(1,);
 
-  final String text;
+  String get filteringValue => germanText;
 
-  const JobAreas(this.text);
+  String localizedName(Locale locale){
+    if(locale.languageCode == "de"){
+      return germanText;
+    }else{
+      return englishText;
+    }
+  }
+
+  final String englishText;
+  final String germanText;
+
+  const JobAreas(this.englishText, this.germanText);
 }

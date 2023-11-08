@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -7,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/images.dart';
 import 'package:industria/core/animations/fade_in_animation.dart';
 import 'package:industria/core/enums/job_areas.dart';
+import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 import '../../app/router.dart';
 import '../../core/constants/colors.dart';
@@ -45,7 +47,7 @@ class _HomeState extends State<Home> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    dropdownValue = AppLocalizations.of(context)!.allGermany;
+    dropdownValue = "All Germany";
   }
 
   @override
@@ -168,7 +170,7 @@ class _HomeState extends State<Home> {
                                       child: GestureDetector(
                                         onTap: (){
                                           context.go("/jobs", extra: {
-                                            "country": dropdownValue.isEmpty || dropdownValue == AppLocalizations.of(context)!.allGermany ? null : dropdownValue,
+                                            "country": dropdownValue.isEmpty || dropdownValue =="All Germany" ? null : dropdownValue,
                                             "keyword": textController.text
                                           });
                                         },
@@ -233,7 +235,7 @@ class _HomeState extends State<Home> {
                                 value: dropdownValue,
                                 borderRadius: BorderRadius.circular(10),
                                 selectedItemBuilder: (context) => [
-                                  AppLocalizations.of(context)!.allGermany,
+                                 "All Germany",
                                   'Berlin',
                                   'Munich'
                                 ].map((e) => Center(
@@ -248,7 +250,7 @@ class _HomeState extends State<Home> {
                                   ),
                                 ),).toList(),
                                 items: <String>[
-                                  AppLocalizations.of(context)!.allGermany,
+                                 "All Germany",
                                   'Berlin',
                                   'Munich'
                                 ].map<DropdownMenuItem<String>>((String value) {
@@ -278,7 +280,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       const SizedBox(height: 50,),
-                      Center(child: const Text("Choose by category", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),)),
+                      Center(child: Text(AppLocalizations.of(context)!.chooseByCategory, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),)),
                       const SizedBox(height: 64,),
                       ...JobAreas.homeAreas.map((e) => Center(
                         child: Container(
@@ -1002,7 +1004,7 @@ class _HomeState extends State<Home> {
                                     value: dropdownValue,
                                     borderRadius: BorderRadius.circular(10),
                                     items: <String>[
-                                      AppLocalizations.of(context)!.allGermany,
+                                     "All Germany",
                                       'Berlin',
                                       'Munich'
                                     ].map<DropdownMenuItem<String>>((String value) {
@@ -1044,7 +1046,7 @@ class _HomeState extends State<Home> {
                                   child: GestureDetector(
                                     onTap: (){
                                       context.go("/jobs", extra: {
-                                        "country": dropdownValue.isEmpty || dropdownValue == AppLocalizations.of(context)!.allGermany ? null : dropdownValue,
+                                        "country": dropdownValue.isEmpty || dropdownValue =="All Germany" ? null : dropdownValue,
                                         "keyword": textController.text
                                       });
                                     },
@@ -1097,7 +1099,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 const SizedBox(height: 50,),
-                const Text("Choose by category", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),),
+                Text(AppLocalizations.of(context)!.chooseByCategory, style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),),
                 const SizedBox(height: 64,),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1672,7 +1674,7 @@ class _CategoryCardState extends State<_CategoryCard> {
         child: GestureDetector(
           onTap: (){
             context.go("/jobs", extra: {
-              "area": JobAreas.fromString(widget.category.text),
+              "area": JobAreas.fromString(widget.category.filteringValue),
             });
           },
           child: Container(
@@ -1699,9 +1701,9 @@ class _CategoryCardState extends State<_CategoryCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Spacer(),
-                      Text(widget.category.text, style: const TextStyle(fontSize: 14),),
+                      Text(widget.category.localizedName(context.read<LocalizationBloc>().state.locale), style: const TextStyle(fontSize: 14),),
                       const Spacer(),
-                      const Text("96 categories available", style: TextStyle(fontSize: 14, color: AppColors.darkGrey),),
+                      const Text("More >>", style: TextStyle(fontSize: 14, color: AppColors.mainAccent),),
                       const Spacer(),
                     ],
                   ),

@@ -41,7 +41,8 @@ class JobApplication with _$JobApplication {
       "companyId": request.company.id,
       "company": request.company.toJson(),
       "jobOfferId": request.offer.id,
-      "jobOfferName": request.offer.title
+      "jobOfferName": request.offer.title,
+      "questionAnswers": request.questionAnswers
     };
   }
 
@@ -70,6 +71,7 @@ class JobApplication with _$JobApplication {
     required String jobOfferId,
     required String jobOfferName,
     @Default("Pending") String status,
+    @Default({}) Map<String,String> questionAnswers,
     @Default(false) bool read,
   }) = _JobApplication;
 

@@ -61,7 +61,7 @@ class CustomDropdownField<T> extends StatelessWidget {
                 displayFunction(value),
                 // Modify this to display the appropriate property of your object
                 style: const TextStyle(
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w600,
                   color: Colors.black,
                   fontSize: 14,
                 ),

@@ -138,11 +138,17 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
                               ],
                             ),
                             const SizedBox(height: 30,),
-                            _section(title: AppLocalizations.of(context)!.address, subtitle: state.jobApplication!.gender),
+                            _section(title: AppLocalizations.of(context)!.address, subtitle: state.jobApplication!.address),
+                            const SizedBox(height: 30,),
+                            state.jobApplication!.questionAnswers.isEmpty ? SizedBox.shrink() : Text(AppLocalizations.of(context)!.answer, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.darkGrey),),
+                            state.jobApplication!.questionAnswers.isEmpty ? SizedBox.shrink() : const SizedBox(
+                              height: 14,
+                            ),
+                            state.jobApplication!.questionAnswers.isEmpty ? SizedBox.shrink() : _answers(questionAnswers: state.jobApplication!.questionAnswers),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 30,),
+                      const SizedBox(height: 20,),
                       Container(height: 1, width: double.infinity, color: AppColors.lightGrey,),
                       const SizedBox(height: 20,),
                       Padding(
@@ -318,6 +324,30 @@ class _ViewJobApplicationState extends State<ViewJobApplication>{
     );
   },
 );
+  }
+
+  Widget _answers({required Map<String,String> questionAnswers}){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: questionAnswers.entries.map((e){
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(radius: 4, backgroundColor: Color(0xFFD9D9D9),),
+                SizedBox(width: 11,),
+                Text(e.key, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14, color: Colors.black),),
+              ],
+            ),
+            SizedBox(height: 5,),
+            Text(e.value, style: TextStyle(fontSize: 14),),
+            SizedBox(height: 14,)
+          ],
+        );
+      }).toList()
+    );
   }
 
   Widget _section({required String title, required String subtitle, bool link = false}){

@@ -196,10 +196,47 @@ class _OurTeamState extends State<OurTeam> {
                     const SizedBox(
                       height: 58,
                     ),
-                    Text(
-                      AppLocalizations.of(context)!.meetBigText,
-                      style: AppTheme.themeData.textTheme.titleMedium!.copyWith(
-                        color: Colors.black,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppLocalizations.of(context)!.team_and_achievements,
+                        style: AppTheme.themeData.textTheme.titleMedium!.copyWith(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 13,),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppLocalizations.of(context)!.meetBigText1,
+                        style: AppTheme.themeData.textTheme.titleMedium!.copyWith(
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 13,),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppLocalizations.of(context)!.our_employees,
+                        style: AppTheme.themeData.textTheme.titleMedium!.copyWith(
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 13,),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        AppLocalizations.of(context)!.meetBigText2,
+                        style: AppTheme.themeData.textTheme.titleMedium!.copyWith(
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                     const SizedBox(

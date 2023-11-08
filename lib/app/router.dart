@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart' hide Feedback;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:industria/core/enums/job_areas.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
@@ -302,6 +303,7 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: Jobs(
+              area: state.uri.queryParameters["area"] == null ? null : JobAreas.fromString(state.uri.queryParameters["area"]!),
               initialCountry: state.uri.queryParameters["country"],
               initialKeyword: state.uri.queryParameters["keyword"] ?? "",
             ),

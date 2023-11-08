@@ -24,7 +24,8 @@ import '../widgets/job_card.dart';
 class Jobs extends StatefulWidget {
   final String initialKeyword;
   final String? initialCountry;
-  const Jobs({super.key, this.initialKeyword = "", this.initialCountry});
+  final JobAreas? area;
+  const Jobs({super.key, this.initialKeyword = "", this.area, this.initialCountry});
 
   @override
   State<Jobs> createState() => _JobsState();
@@ -33,7 +34,7 @@ class Jobs extends StatefulWidget {
 class _JobsState extends State<Jobs> {
   late final textController = TextEditingController(text: widget.initialKeyword);
   late String dropdownValue = widget.initialCountry ?? AppLocalizations.of(context)!.allGermany;
-  JobAreas dropdownValueFilter = JobAreas.all;
+  late JobAreas dropdownValueFilter = widget.area ?? JobAreas.all;
   bool isHovered = false;
   bool isHoveredButton = false;
   List<JobTypes> _jobTypes = [];
@@ -44,7 +45,7 @@ class _JobsState extends State<Jobs> {
   void initState() {
     super.initState();
     sl<JobsBloc>().add(JobsEvent.fetchJobs(
-        filter: JobFilters(count: 5, keyword: widget.initialKeyword, page: 0, city: widget.initialCountry)));
+        filter: JobFilters(count: 5, keyword: widget.initialKeyword, page: 0, city: widget.initialCountry, area: widget.area?.text)));
   }
 
   void _onSearchClicked() {

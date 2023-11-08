@@ -36,7 +36,10 @@ class _ReportsState extends State<Reports> {
   @override
   void initState() {
     super.initState();
+    print('initState1');
     if (context.read<AuthBloc>().state.employee != null) {
+      print('initState2');
+
       context.read<AdminHolidayRequestsListBloc>().add(
           AdminHolidayRequestsListEvent.fetchData(
               elementsPerPage: 7,
@@ -284,7 +287,13 @@ class _ReportsState extends State<Reports> {
                                   if (v == true) {
                                     value = true;
                                     idReports.clear();
-                                    idReports.addAll(context.read<AdminHolidayRequestsListBloc>().state.tableData.element.map((e) => e.id).toList());
+                                    idReports.addAll(context
+                                        .read<AdminHolidayRequestsListBloc>()
+                                        .state
+                                        .tableData
+                                        .element
+                                        .map((e) => e.id)
+                                        .toList());
                                   } else {
                                     value = false;
                                     idReports.clear();
@@ -327,7 +336,7 @@ class _ReportsState extends State<Reports> {
                                     fontWeight: FontWeight.w500, fontSize: 12),
                               )),
                           PTableViewRowFixed(
-                            width: 300,
+                            width: 370,
                             child: SizedBox(),
                           ),
                           PTableViewRowFixed(
@@ -434,7 +443,7 @@ class _ReportsState extends State<Reports> {
             ),
           )),
       PTableViewRowFixed(
-          width: 260,
+          width: 340,
           child: SizedBox(
             height: 60,
             child: Padding(

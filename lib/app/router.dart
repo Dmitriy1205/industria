@@ -303,9 +303,9 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: Jobs(
-              area: state.uri.queryParameters["area"] == null ? null : JobAreas.fromString(state.uri.queryParameters["area"]!),
-              initialCountry: state.uri.queryParameters["country"],
-              initialKeyword: state.uri.queryParameters["keyword"] ?? "",
+              area: (state.extra as Map<String,dynamic>?)?["area"],
+              initialCountry: (state.extra as Map<String,dynamic>?)?["country"],
+              initialKeyword: (state.extra as Map<String,dynamic>?)?["keyword"] ?? "",
             ),
           ),
         ),

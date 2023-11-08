@@ -167,10 +167,10 @@ class _HomeState extends State<Home> {
                                       },
                                       child: GestureDetector(
                                         onTap: (){
-                                          context.go(Uri.parse("/jobs").replace(queryParameters: {
+                                          context.go("/jobs", extra: {
                                             "country": dropdownValue.isEmpty || dropdownValue == AppLocalizations.of(context)!.allGermany ? null : dropdownValue,
                                             "keyword": textController.text
-                                          }..removeWhere((key, value) => value == null)).toString());
+                                          });
                                         },
                                         child: Container(
                                           height: double.infinity,
@@ -1043,10 +1043,10 @@ class _HomeState extends State<Home> {
                                   },
                                   child: GestureDetector(
                                     onTap: (){
-                                      context.go(Uri.parse("/jobs").replace(queryParameters: {
+                                      context.go("/jobs", extra: {
                                         "country": dropdownValue.isEmpty || dropdownValue == AppLocalizations.of(context)!.allGermany ? null : dropdownValue,
                                         "keyword": textController.text
-                                      }..removeWhere((key, value) => value == null)).toString());
+                                      });
                                     },
                                     child: Container(
                                       height: double.infinity,
@@ -1671,9 +1671,9 @@ class _CategoryCardState extends State<_CategoryCard> {
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
           onTap: (){
-            context.go(Uri.parse("/jobs").replace(queryParameters: {
-              "area": widget.category.text,
-            }..removeWhere((key, value) => value == null)).toString());
+            context.go("/jobs", extra: {
+              "area": JobAreas.fromString(widget.category.text),
+            });
           },
           child: Container(
               width: 300,

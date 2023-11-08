@@ -299,6 +299,9 @@ class _JobsState extends State<Jobs> {
                               state.map(initial: (_){
                                 return SizedBox.shrink();
                               }, loaded: (state){
+                                if(state.jobs.element.isEmpty){
+                                  return Text("No matches found");
+                                }
                                 return PTableViewPagination(currentPage: state.jobs.currentPage, pagesCount: state.jobs.numberOfPages, onPageChanged: (v){
                                   _scrollController.animateTo(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
                                   context.read<JobsBloc>().add(JobsEvent.fetchJobs(filter: state.filter.copyWith(page: v)));

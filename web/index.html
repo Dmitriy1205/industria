@@ -78,6 +78,9 @@
 
     .center {
       margin: 0;
+      min-width: 300px;
+      width: 40%;
+      height: auto;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -122,19 +125,312 @@
       right: 0;
     }
 
-    .loading-indicator {
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      border-top: 4px solid #094FA4; /* Set your desired loading indicator color */
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-    }
+    .drawing{
+    width: 300px;
+    height: 300px;
+    position: relative;
+    display: block;
+}
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
+
+
+
+/* -- Loading thingy --*/
+.loading-dot {
+    border-radius:100%;
+    height:10px;
+    width:10px;
+    background-color: #FFE587;
+    position:absolute;
+    left:0;
+    right:0;
+    margin:auto;
+    top:0;
+    bottom:0;
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+    -webkit-animation: load 3s infinite linear;
+    -moz-animation: load 3s infinite linear;
+    -o-animation: load 3s infinite linear;
+    animation:load 3s infinite linear;
+}
+
+
+@-webkit-keyframes load {
+  0%   {
+    -webkit-transform: translate(0px,0px),rotate(0deg);
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+  25%{
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    -20px -20px 0px 0px #BBC1E4,20px 20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4;
+  }
+
+  50%{
+    box-shadow: 0px -20px 0px 0px #BBC1E4,0px 20px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,
+    -20px -20px 0px 0px #BBC1E4,20px 20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4;
+  }
+
+  70%{
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+  }
+
+  75%{
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    height:10px;
+    width:10px;
+  }
+
+  80%{
+    -webkit-transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:20px;
+    width:20px;
+  }
+
+  85%{
+    -webkit-transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:20px;
+    width:20px;
+  }
+
+  90%{
+    -webkit-transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:10px;
+    width:10px;
+  }
+
+  95{
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+  100%{
+    -webkit-transform: rotate(360deg);
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+}
+
+@-moz-keyframes load {
+  0%   {
+    -moz-transform: translate(0px,0px),rotate(0deg);
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+  25%{
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    -20px -20px 0px 0px #BBC1E4,20px 20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4;
+  }
+
+  50%{
+    box-shadow: 0px -20px 0px 0px #BBC1E4,0px 20px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,
+    -20px -20px 0px 0px #BBC1E4,20px 20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4;
+  }
+
+  70%{
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+  }
+
+  75%{
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    height:10px;
+    width:10px;
+  }
+
+  80%{
+    -moz-transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:20px;
+    width:20px;
+  }
+
+  85%{
+    -moz-transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:20px;
+    width:20px;
+  }
+
+  90%{
+    -moz-transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:10px;
+    width:10px;
+  }
+
+  95{
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+  100%{
+    -moz-transform: rotate(360deg);
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+}
+
+@keyframes load {
+  0%   {
+    transform: translate(0px,0px),rotate(0deg);
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+  25%{
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    -20px -20px 0px 0px #BBC1E4,20px 20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4;
+  }
+
+  50%{
+    box-shadow: 0px -20px 0px 0px #BBC1E4,0px 20px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,
+    -20px -20px 0px 0px #BBC1E4,20px 20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4;
+  }
+
+  70%{
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+  }
+
+  75%{
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    height:10px;
+    width:10px;
+  }
+
+  80%{
+    transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:20px;
+    width:20px;
+  }
+
+  85%{
+    transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:20px;
+    width:20px;
+  }
+
+  90%{
+    transform: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:10px;
+    width:10px;
+  }
+
+  95{
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+  100%{
+    transform: rotate(360deg);
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+}
+@-o-keyframes load {
+  0%   {
+    -o-transforms: translate(0px,0px),rotate(0deg);
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+  25%{
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    -20px -20px 0px 0px #BBC1E4,20px 20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4;
+  }
+
+  50%{
+    box-shadow: 0px -20px 0px 0px #BBC1E4,0px 20px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,
+    -20px -20px 0px 0px #BBC1E4,20px 20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4;
+  }
+
+  70%{
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+  }
+
+  75%{
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    height:10px;
+    width:10px;
+  }
+
+  80%{
+    -o-transforms: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:20px;
+    width:20px;
+  }
+
+  85%{
+    -o-transforms: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:20px;
+    width:20px;
+  }
+
+  90%{
+    -o-transforms: translate(0px,0px) rotate(360deg);
+    box-shadow: 0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,
+    0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4,0px 0px 0px 0px #BBC1E4;
+    background-color: #BBC1E4;
+    height:10px;
+    width:10px;
+  }
+
+  95{
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+  100%{
+    -o-transforms: rotate(360deg);
+    box-shadow: 0px 20px 0px 0px #BBC1E4,0px -20px 0px 0px #BBC1E4,20px 0px 0px 0px #BBC1E4,-20px 0px 0px 0px #BBC1E4,
+    20px 20px 0px 0px #BBC1E4,-20px -20px 0px 0px #BBC1E4,20px -20px 0px 0px #BBC1E4,-20px 20px 0px 0px #BBC1E4;
+  }
+
+}
+
   </style>
   <script id="splash-screen-script">
     function removeSplashFromWeb() {
@@ -148,11 +444,18 @@
   <picture id="splash">
       <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
       <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
-
-      <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
-      <div style="position: absolute; bottom: 50px; left: 48%">
-        <div class="loading-indicator"></div>
+    <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
+    <div class="bottom">
+      <div class="drawing" id="loading">
+        <div class="loading-dot"></div>
       </div>
+    </div>
+    <div class="bottom">
+      <div style="padding-bottom: 20px">
+        <p>Powered by <span style="color: #094FA4">PandasCode</span></p>
+      </div>
+    </div>
+
   </picture>
   
   
@@ -163,10 +466,9 @@
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
+        onEntrypointLoaded: async function(engineInitializer) {
+          const appRunner = await engineInitializer.initializeEngine();
+          appRunner.runApp();
         }
       });
     });

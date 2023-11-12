@@ -24,5 +24,5 @@ Map<String, dynamic> _$$_AttendanceToJson(_$_Attendance instance) =>
       'employerName': instance.employerName,
       'end': FirebaseTimestampConverters.toTimestamp(instance.end),
       'start': FirebaseTimestampConverters.toTimestamp(instance.start),
-      'periods': instance.periods,
+      'periods': instance.periods.toJson(),
     };

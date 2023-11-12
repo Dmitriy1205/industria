@@ -9,6 +9,7 @@ import 'package:industria/data/remote/admin_employee/admin_employee_service_impl
 import 'package:industria/data/remote/admin_vacancy/admin_vacancy_service_impl.dart';
 import 'package:industria/data/remote/attendance/attendance_service_impl.dart';
 import 'package:industria/data/remote/admin_feedback/admin_feedback_service_impl.dart';
+import 'package:industria/data/remote/attendance_graph/attendance_graph_service_contract.dart';
 import 'package:industria/data/remote/contact_requests/contact_requests_service_impl.dart';
 import 'package:industria/data/remote/holiday_requests/holiday_requests_service_impl.dart';
 import 'package:industria/data/remote/job/job_service_impl.dart';
@@ -19,6 +20,8 @@ import 'package:industria/domain/repositories/admin_vacancy/admin_vacancy_reposi
 import 'package:industria/domain/repositories/attendance/attendance_repository_contract.dart';
 import 'package:industria/domain/repositories/attendance/attendance_repository_impl.dart';
 import 'package:industria/domain/repositories/admin_feedback/admin_feedback_repository_impl.dart';
+import 'package:industria/domain/repositories/attendance_graph/attendance_graph_repository_contract.dart';
+import 'package:industria/domain/repositories/attendance_graph/attendance_graph_repository_impl.dart';
 import 'package:industria/domain/repositories/auth/auth_repository_contract.dart';
 import 'package:industria/domain/repositories/auth/auth_repository_impl.dart';
 import 'package:industria/domain/repositories/contact_request/contact_request_repository_contract.dart';
@@ -32,6 +35,7 @@ import 'package:industria/domain/repositories/job_application/job_application_re
 import 'package:industria/domain/repositories/job_application/job_application_repository_impl.dart';
 import 'package:industria/domain/repositories/language/language_repository_impl.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
+import 'package:industria/presentation/bloc/attendance_graph/attendance_graph_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/companies_feature/admin_companies_list/admin_companies_list_bloc.dart';
 import 'package:industria/presentation/bloc/contact_requests/contact_request_bloc.dart';
@@ -48,6 +52,7 @@ import 'package:industria/presentation/bloc/vacancies_feature/admin_vacancy_list
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/local/cookie/cookie_service_impl.dart';
+import '../../data/remote/attendance_graph/attendance_graph_service_impl.dart';
 import '../../domain/repositories/admin_employee/admin_employee_repository_contract.dart';
 import '../../domain/repositories/admin_feedback/admin_feedback_repository_contract.dart';
 import '../../domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
@@ -113,6 +118,9 @@ Future<void> init() async {
           algolia: algolia,
           storage: FirebaseStorage.instance));
 
+  final attendanceGraphRepository = AttendanceGraphRepositoryImpl(
+      db: AttendanceGraphServiceImpl(db: FirebaseFirestore.instance));
+
   final initialCookie = await cookieRepository.fetchCookies();
   final initialLocale = await languageRepository.fetchLocale();
 
@@ -128,7 +136,11 @@ Future<void> init() async {
   sl.registerSingleton<AttendanceRepository>(attendanceRepository);
   sl.registerSingleton<AdminFeedbackRepository>(feedbackRepository);
   sl.registerSingleton<AdminVacancyRepository>(adminVacancyRepository);
+  sl.registerSingleton<AttendanceGraphRepository>(attendanceGraphRepository);
 
+
+  sl.registerLazySingleton(() => AttendanceGraphBloc(
+      attendanceGraphRepository: attendanceGraphRepository));
   sl.registerLazySingleton(() => LocalizationBloc(
       initialLocale: initialLocale, languageRepository: languageRepository));
   sl.registerLazySingleton(() => CookieBloc(
@@ -167,6 +179,4 @@ Future<void> init() async {
       adminHolidayRequestsListBloc: sl()));
   sl.registerLazySingleton(() =>
       ViewReportCubit(holidayRequestsRepository: holidayRequestsRepository));
-
-
 }

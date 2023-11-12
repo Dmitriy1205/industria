@@ -34,11 +34,11 @@ _$_AttendancePeriods _$$_AttendancePeriodsFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_AttendancePeriodsToJson(
         _$_AttendancePeriods instance) =>
     <String, dynamic>{
-      'mon': instance.mon,
-      'tue': instance.tue,
-      'wed': instance.wed,
-      'thu': instance.thu,
-      'fri': instance.fri,
-      'sat': instance.sat,
-      'sun': instance.sun,
+      'mon': instance.mon?.toJson(),
+      'tue': instance.tue?.toJson(),
+      'wed': instance.wed?.toJson(),
+      'thu': instance.thu?.toJson(),
+      'fri': instance.fri?.toJson(),
+      'sat': instance.sat?.toJson(),
+      'sun': instance.sun?.toJson(),
     };

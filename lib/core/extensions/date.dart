@@ -7,6 +7,15 @@ extension DateExtension on DateTime{
     return'${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
   }
 
+  String get pmAm{
+    if(hour <= 12){
+      return "$hour:${minute.toString().padLeft(2,'0')} AM";
+    }else{
+      final pmTime = hour - 12;
+      return "$pmTime:${minute.toString().padLeft(2,'0')} PM";
+    }
+  }
+
   String formattedTextedWithTime(Locale locale) {
     String formattedTime = '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}';
     String formattedMonth;

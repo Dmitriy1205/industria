@@ -10,7 +10,10 @@ admin.initializeApp({
   storageBucket: "gs://industria-a338a.appspot.com",
 });
 
+const firestore = admin.firestore();
+
 const app = express();
+
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -131,6 +134,100 @@ app.put("/employees", async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 });
+
+/**
+ * Adds days.
+ * @param {Date} date - The title of the book.
+ * @param {number} days - The author of the book.
+ * @return {Date}
+ */
+function addDays(date, days) {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+/**
+ * Subtracts days.
+ * @param {Date} date - The title of the book.
+ * @param {number} days - The author of the book.
+ * @return {Date}
+ */
+function subtractDays(date, days) {
+  const result = new Date(date);
+  result.setDate(result.getDate() - days);
+  return result;
+}
+
+exports.updateAttendance = functions.firestore
+    .document("attendance_graph/{documentId}")
+    .onUpdate(async (change, context) => {
+      const newValue = change.after.data();
+      const oldValue = change.before.data();
+
+      // Check if the 'status' field changed to 'finished'
+      if (newValue.status === "finished" && oldValue.status !== "finished") {
+        const date = newValue.date.toDate();
+        const dayOfWeek = date.getDay();
+
+        const daysMap = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+        const dayKey = daysMap[dayOfWeek];
+
+        const attendanceRef = await firestore
+            .collection("employees/" + newValue.userId + "/attendance");
+
+        const start = subtractDays(date,
+           dayOfWeek == 0 ? 7 : dayOfWeek - 1);
+
+        const attendanceQuery = await attendanceRef
+            .where("start", "==", start)
+            .get();
+
+        const workTimeStart = newValue.keys
+            .find((e) => e.status == "working").mark;
+        const workTimeEnd = newValue.keys
+            .find((e) => e.status == "finished").mark;
+        if (attendanceQuery.empty) {
+          const employeeRecord = await firestore
+              .collection("employees").doc(newValue.userId).get();
+          const employee = employeeRecord.data();
+          const newAttendanceReport = {
+            employeeId: newValue.userId,
+            employeeName: employee.firstname + " " + employee.lastname,
+            employerName: "",
+            start: start,
+            end: addDays(start, 6),
+            periods: {},
+          };
+          const periods = newAttendanceReport.periods;
+          periods[dayKey] = {
+            comment: newValue.comment,
+            date: date,
+            pause: newValue.totalPause,
+            workTimeStart: workTimeStart,
+            workTimeEnd: workTimeEnd,
+          },
+          await attendanceRef.doc().set(newAttendanceReport);
+        } else {
+          attendanceQuery.forEach(async (attendanceDoc) => {
+            const attendanceData = attendanceDoc.data();
+            const periods = attendanceData.periods;
+            periods[dayKey] = {
+              comment: newValue.comment,
+              date: addDays(attendanceData.start,
+                 dayOfWeek == 0 ? 7 : dayOfWeek - 1),
+              pause: newValue.totalPause,
+              workTimeStart: workTimeStart,
+              workTimeEnd: workTimeEnd,
+            };
+            await attendanceRef.doc(attendanceDoc.id).update({
+              periods: periods,
+            });
+          });
+        }
+      }
+    },
+    );
 
 app.get("/hello", async (req, res) => {
   res.send(200, "Hello");

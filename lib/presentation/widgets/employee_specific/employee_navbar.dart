@@ -7,6 +7,7 @@ import 'package:industria/core/constants/images.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:industria/presentation/widgets/firebase_image.dart';
 
 import '../../../core/constants/colors.dart';
 import '../../../core/themes/theme.dart';
@@ -105,14 +106,29 @@ class _EmployeeNavbarState extends State<EmployeeNavbar> {
                     onTapDown: (det){
                       _showMenu(context, det.globalPosition.translate(0.0, 10.0));
                     },
-                    child: const MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: Row(
-                        children: [
-                          Icon(FontAwesomeIcons.solidUser, color: AppColors.darkGrey, size: 20,),
-                          SizedBox(width: 4,),
-                          Icon(Icons.arrow_drop_down, color: AppColors.darkGrey, size: 16,),
-                        ],
+                    child: SelectionContainer.disabled(
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            FirebaseImage(storageRef: context.watch<AuthBloc>().state.employee!.photoRef, rounded: true,),
+                            SizedBox(width: 20,),
+                            SizedBox(
+                              width: 80,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(context.watch<AuthBloc>().state.employee!.firstname + " " + context.watch<AuthBloc>().state.employee!.lastname, style: TextStyle(fontSize: 14), maxLines: 1, overflow: TextOverflow.ellipsis,),
+                                  Text(context.watch<AuthBloc>().state.employee!.email.split("@").first, style: TextStyle(fontSize: 14, color: AppColors.darkGrey), maxLines: 1, overflow: TextOverflow.ellipsis),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Icon(Icons.arrow_drop_down, color: AppColors.darkGrey, size: 16,),
+                          ],
+                        ),
                       ),
                     ),
                   ) : const SizedBox.shrink()

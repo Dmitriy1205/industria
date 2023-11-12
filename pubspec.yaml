@@ -52,6 +52,8 @@ dependencies:
   mime_type: ^1.0.0
   video_player: ^2.8.1
   flutter_native_splash: ^2.3.5
+  bloc_test: ^9.1.5
+  mocktail: ^1.0.1
 
   pandas_tableview:
     git:

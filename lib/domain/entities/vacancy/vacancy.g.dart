@@ -33,7 +33,7 @@ Map<String, dynamic> _$$_VacancyToJson(_$_Vacancy instance) =>
       'companyId': instance.companyId,
       'companyName': instance.companyName,
       'area': instance.area,
-      'company': instance.company,
+      'company': instance.company.toJson(),
       'location': instance.location,
       'city': instance.city,
       'salary': instance.salary,

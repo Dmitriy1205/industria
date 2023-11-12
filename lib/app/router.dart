@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart' hide Feedback;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:industria/core/enums/job_areas.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
 import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
+import 'package:industria/presentation/screens/admin/admin_companies.dart';
 import 'package:industria/presentation/screens/admin/admin_feedbacks.dart';
 import 'package:industria/presentation/screens/admin/admin_job_applications.dart';
 import 'package:industria/presentation/screens/admin/admin_main_screen.dart';
@@ -15,6 +17,7 @@ import 'package:industria/presentation/screens/admin/change_user_credentials.dar
 import 'package:industria/presentation/screens/admin/create_company.dart';
 import 'package:industria/presentation/screens/admin/create_user_credentials.dart';
 import 'package:industria/presentation/screens/admin/create_vacancy.dart';
+import 'package:industria/presentation/screens/admin/update_company.dart';
 import 'package:industria/presentation/screens/admin/update_vacancy.dart';
 import 'package:industria/presentation/screens/admin/view_job_application.dart';
 import 'package:industria/presentation/screens/admin/view_user_credentials.dart';
@@ -160,6 +163,14 @@ final GoRouter router = GoRouter(
           ),
         ),
         GoRoute(
+          path: '/admin/companies',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const AdminCompanies(),
+          ),
+        ),
+        GoRoute(
           path: '/admin/users',
           pageBuilder: (context, state) => pageTransition<void>(
             context: context,
@@ -271,6 +282,14 @@ final GoRouter router = GoRouter(
             child: const CreateCompany(),
           ),
         ),
+        GoRoute(
+          path: '/admin/update_company',
+          pageBuilder: (context, state) => pageTransition<void>(
+            context: context,
+            state: state,
+            child: const UpdateCompany(),
+          ),
+        ),
       ],
     ),
     ShellRoute(
@@ -294,8 +313,9 @@ final GoRouter router = GoRouter(
             context: context,
             state: state,
             child: Jobs(
-              initialCountry: state.uri.queryParameters["country"],
-              initialKeyword: state.uri.queryParameters["keyword"] ?? "",
+              area: (state.extra as Map<String,dynamic>?)?["area"],
+              initialCountry: (state.extra as Map<String,dynamic>?)?["country"],
+              initialKeyword: (state.extra as Map<String,dynamic>?)?["keyword"] ?? "",
             ),
           ),
         ),

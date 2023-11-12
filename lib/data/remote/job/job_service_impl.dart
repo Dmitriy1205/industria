@@ -5,12 +5,14 @@ import 'package:industria/data/remote/job/job_service_contract.dart';
 import 'package:industria/domain/entities/job_filters/job_filters.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 
+import '../../../core/table_data/table_data.dart';
+
 class JobServiceImpl implements JobService {
   final Algolia algolia;
   final FirebaseFirestore db;
 
   @override
-  Future<List<JobOffer>> findJobOffers({required JobFilters filter}) async {
+  Future<TableData<List<JobOffer>>> findJobOffers({required JobFilters filter}) async {
     final index = algolia.index("dev_jobs");
     AlgoliaQuery currentQuery = index.query(filter.keyword);
     final jobTypesFacet = filter.jobTypes.map((e) => 'jobType:"$e"').toList();
@@ -24,8 +26,13 @@ class JobServiceImpl implements JobService {
     }
     currentQuery =
         currentQuery.setHitsPerPage(filter.count).setPage(filter.page);
-    final results = await currentQuery.getObjects();
-    return results.hits.map((e) => JobOffer.fromJson(e.data)).toList();
+    final objects = await currentQuery.getObjects();
+    final jobOffers = objects.hits.map((e) => JobOffer.fromJson(e.data)).toList();
+    return TableData(
+        numberOfPages: objects.nbPages,
+        totalElementCounts: objects.nbHits,
+        currentPage: objects.page,
+        element: jobOffers);
   }
 
   String _facetFromArrayOfParams(List values) {

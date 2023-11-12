@@ -3,6 +3,8 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:industria/domain/repositories/admin_vacancy/admin_vacancy_repository_contract.dart';
 
+import '../../../../core/constants/exceptions.dart';
+
 
 part 'create_company_event.dart';
 
@@ -33,8 +35,11 @@ class CreateCompanyBloc extends Bloc<CreateCompanyEvent, CreateCompanyState> {
           photoBytes: event.photoBytes);
       await Future.delayed(const Duration(seconds: 3));
       emit(const CreateCompanyState.successful());
+    } on BadRequestException catch(_){
+      emit(const CreateCompanyState.error(code: "name-exists"));
     } catch (e) {
-      emit(const CreateCompanyState.error());
+      emit(const CreateCompanyState.error(code: "error"));
+    } finally{
       await Future.delayed(const Duration(seconds: 3));
       emit(const CreateCompanyState.initial());
     }

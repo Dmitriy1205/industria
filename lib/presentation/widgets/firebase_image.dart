@@ -15,7 +15,7 @@ class FirebaseImage extends StatelessWidget {
             return const SizedBox();
           } else {
             if(rounded){
-              return CircleAvatar(backgroundImage: Image.network(state.data!, width: 60, height: 60,).image);
+              return CircleAvatar(backgroundImage: Image.network(state.data!, width: 60, height: 60, fit: BoxFit.fill,).image);
             }
             return Image.network(state.data!, width: 60, height: 60,);
           }

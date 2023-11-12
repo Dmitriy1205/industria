@@ -11,6 +11,7 @@ import 'package:industria/core/utils/toast.dart';
 import 'package:industria/core/validator/field_validator.dart';
 import 'package:industria/domain/entities/vacancy/vacancy.dart';
 import 'package:industria/presentation/bloc/companies/companies_cubit.dart';
+import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/bloc/vacancies_feature/admin_update_vacancy/admin_update_vacancy_bloc.dart';
 import 'package:industria/presentation/bloc/vacancies_feature/admin_view_vacancy/admin_view_vacancy_cubit.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
@@ -115,7 +116,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
           _cityController = TextEditingController(text: state.city);
           id = state.id;
           dropdownCompany = state.company;
-          dropdownJobArea = JobAreas.values.where((e) => e.text == state.area).firstOrNull;
+          dropdownJobArea = JobAreas.fromString(state.area);
           dropdownJobType = JobTypes.values.where((e) => e.value == state.jobType).firstOrNull;
           dropdownPeriod = Period.values.where((e) => state.salary.toLowerCase().contains(e.text.toLowerCase())).firstOrNull;
           dropdownCurrency = Currency.values.where((e) => state.salary.toLowerCase().contains(e.text.toLowerCase())).firstOrNull;
@@ -312,25 +313,8 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                         },
                                       ),
                                     ),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          router
-                                              .go('/admin/create_company');
-                                        },
-                                        child: Text(
-                                          AppLocalizations.of(context)!.createCompany,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600,
-                                              color: AppColors.mainAccent,
-                                              decoration:
-                                              TextDecoration.underline,
-                                              decorationColor:
-                                              AppColors.mainAccent),
-                                        ),
-                                      ),
+                                    const SizedBox(
+                                      width: 25,
                                     ),
                                     Padding(
                                       padding: EdgeInsets.symmetric(
@@ -344,7 +328,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                           });
                                         },
                                         displayFunction: (area) {
-                                          return area.text;
+                                          return area.localizedName(context.read<LocalizationBloc>().state.locale);
                                         },
                                         hint: '${AppLocalizations.of(context)!.area}*',
                                       ),
@@ -527,7 +511,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                                 dropdownPeriod!.text,
                                                 location: location,
                                                 area: dropdownJobArea
-                                                    !.text,
+                                                    !.localizedName(context.read<LocalizationBloc>().state.locale),
                                                 city: city,
                                                 description:
                                                 description,

@@ -5,5 +5,5 @@ class CreateCompanyState with _$CreateCompanyState {
   const factory CreateCompanyState.initial() = _InitialState;
   const factory CreateCompanyState.loading() = _LoadingState;
   const factory CreateCompanyState.successful() = _SuccessfulState;
-  const factory CreateCompanyState.error() = _ErrorState;
+  const factory CreateCompanyState.error({required String code}) = _ErrorState;
 }

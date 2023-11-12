@@ -29,6 +29,10 @@ class AppTheme {
       )
     ),
     scaffoldBackgroundColor: const Color(0xFFFFFFFF),
+    scrollbarTheme: ScrollbarThemeData(
+      thumbVisibility: MaterialStateProperty.all(true),
+      thumbColor: MaterialStateProperty.all(AppColors.darkGrey)
+    ),
     textSelectionTheme:
     TextSelectionThemeData(
         selectionColor: AppColors.mainAccent.withOpacity(0.25),

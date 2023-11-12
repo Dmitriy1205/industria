@@ -9,5 +9,5 @@ class JobsState with _$JobsState {
       orElse: () => null);
 
   const factory JobsState.initial() = _InitialState;
-  const factory JobsState.loaded({required List<JobOffer> jobs, required JobFilters filter}) = _LoadedState;
+  const factory JobsState.loaded({required TableData<List<JobOffer>> jobs, required JobFilters filter}) = _LoadedState;
 }

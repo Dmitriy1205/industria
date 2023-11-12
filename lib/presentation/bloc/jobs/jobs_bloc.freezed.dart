@@ -674,19 +674,21 @@ mixin _$JobsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<JobOffer> jobs, JobFilters filter) loaded,
+    required TResult Function(TableData<List<JobOffer>> jobs, JobFilters filter)
+        loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<JobOffer> jobs, JobFilters filter)? loaded,
+    TResult? Function(TableData<List<JobOffer>> jobs, JobFilters filter)?
+        loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<JobOffer> jobs, JobFilters filter)? loaded,
+    TResult Function(TableData<List<JobOffer>> jobs, JobFilters filter)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -767,7 +769,8 @@ class _$_InitialState extends _InitialState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<JobOffer> jobs, JobFilters filter) loaded,
+    required TResult Function(TableData<List<JobOffer>> jobs, JobFilters filter)
+        loaded,
   }) {
     return initial();
   }
@@ -776,7 +779,8 @@ class _$_InitialState extends _InitialState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<JobOffer> jobs, JobFilters filter)? loaded,
+    TResult? Function(TableData<List<JobOffer>> jobs, JobFilters filter)?
+        loaded,
   }) {
     return initial?.call();
   }
@@ -785,7 +789,7 @@ class _$_InitialState extends _InitialState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<JobOffer> jobs, JobFilters filter)? loaded,
+    TResult Function(TableData<List<JobOffer>> jobs, JobFilters filter)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -837,7 +841,7 @@ abstract class _$$_LoadedStateCopyWith<$Res> {
           _$_LoadedState value, $Res Function(_$_LoadedState) then) =
       __$$_LoadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<JobOffer> jobs, JobFilters filter});
+  $Res call({TableData<List<JobOffer>> jobs, JobFilters filter});
 }
 
 /// @nodoc
@@ -856,9 +860,9 @@ class __$$_LoadedStateCopyWithImpl<$Res>
   }) {
     return _then(_$_LoadedState(
       jobs: null == jobs
-          ? _value._jobs
+          ? _value.jobs
           : jobs // ignore: cast_nullable_to_non_nullable
-              as List<JobOffer>,
+              as TableData<List<JobOffer>>,
       filter: null == filter
           ? _value.filter
           : filter // ignore: cast_nullable_to_non_nullable
@@ -870,19 +874,10 @@ class __$$_LoadedStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoadedState extends _LoadedState {
-  const _$_LoadedState(
-      {required final List<JobOffer> jobs, required this.filter})
-      : _jobs = jobs,
-        super._();
+  const _$_LoadedState({required this.jobs, required this.filter}) : super._();
 
-  final List<JobOffer> _jobs;
   @override
-  List<JobOffer> get jobs {
-    if (_jobs is EqualUnmodifiableListView) return _jobs;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_jobs);
-  }
-
+  final TableData<List<JobOffer>> jobs;
   @override
   final JobFilters filter;
 
@@ -896,13 +891,12 @@ class _$_LoadedState extends _LoadedState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoadedState &&
-            const DeepCollectionEquality().equals(other._jobs, _jobs) &&
+            (identical(other.jobs, jobs) || other.jobs == jobs) &&
             (identical(other.filter, filter) || other.filter == filter));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_jobs), filter);
+  int get hashCode => Object.hash(runtimeType, jobs, filter);
 
   @JsonKey(ignore: true)
   @override
@@ -914,7 +908,8 @@ class _$_LoadedState extends _LoadedState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<JobOffer> jobs, JobFilters filter) loaded,
+    required TResult Function(TableData<List<JobOffer>> jobs, JobFilters filter)
+        loaded,
   }) {
     return loaded(jobs, filter);
   }
@@ -923,7 +918,8 @@ class _$_LoadedState extends _LoadedState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<JobOffer> jobs, JobFilters filter)? loaded,
+    TResult? Function(TableData<List<JobOffer>> jobs, JobFilters filter)?
+        loaded,
   }) {
     return loaded?.call(jobs, filter);
   }
@@ -932,7 +928,7 @@ class _$_LoadedState extends _LoadedState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<JobOffer> jobs, JobFilters filter)? loaded,
+    TResult Function(TableData<List<JobOffer>> jobs, JobFilters filter)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -975,11 +971,11 @@ class _$_LoadedState extends _LoadedState {
 
 abstract class _LoadedState extends JobsState {
   const factory _LoadedState(
-      {required final List<JobOffer> jobs,
+      {required final TableData<List<JobOffer>> jobs,
       required final JobFilters filter}) = _$_LoadedState;
   const _LoadedState._() : super._();
 
-  List<JobOffer> get jobs;
+  TableData<List<JobOffer>> get jobs;
   JobFilters get filter;
   @JsonKey(ignore: true)
   _$$_LoadedStateCopyWith<_$_LoadedState> get copyWith =>

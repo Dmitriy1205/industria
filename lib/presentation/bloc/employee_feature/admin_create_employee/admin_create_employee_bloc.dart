@@ -39,6 +39,7 @@ class AdminCreateEmployeeBloc
           worksSince: event.worksSince,
           imgFilename: event.imgFilename,
           imgBytes: event.imgBytes);
+      await Future.delayed(const Duration(seconds: 3));
       emit(const AdminCreateEmployeeState.success());
       await Future.delayed(const Duration(seconds: 3));
       emit(const AdminCreateEmployeeState.initial());

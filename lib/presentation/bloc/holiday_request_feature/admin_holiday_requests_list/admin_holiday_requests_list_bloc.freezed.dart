@@ -18,21 +18,24 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AdminHolidayRequestsListEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int page, int elementsPerPage) fetchData,
+    required TResult Function(int page, int elementsPerPage, String? employeeId)
+        fetchData,
     required TResult Function(String searchTerm) changeSearchTerm,
     required TResult Function(String id, HolidayRequest holiday) replaceHoliday,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int page, int elementsPerPage)? fetchData,
+    TResult? Function(int page, int elementsPerPage, String? employeeId)?
+        fetchData,
     TResult? Function(String searchTerm)? changeSearchTerm,
     TResult? Function(String id, HolidayRequest holiday)? replaceHoliday,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int page, int elementsPerPage)? fetchData,
+    TResult Function(int page, int elementsPerPage, String? employeeId)?
+        fetchData,
     TResult Function(String searchTerm)? changeSearchTerm,
     TResult Function(String id, HolidayRequest holiday)? replaceHoliday,
     required TResult orElse(),
@@ -89,7 +92,7 @@ abstract class _$$_FetchDataEventCopyWith<$Res> {
           _$_FetchDataEvent value, $Res Function(_$_FetchDataEvent) then) =
       __$$_FetchDataEventCopyWithImpl<$Res>;
   @useResult
-  $Res call({int page, int elementsPerPage});
+  $Res call({int page, int elementsPerPage, String? employeeId});
 }
 
 /// @nodoc
@@ -105,6 +108,7 @@ class __$$_FetchDataEventCopyWithImpl<$Res>
   $Res call({
     Object? page = null,
     Object? elementsPerPage = null,
+    Object? employeeId = freezed,
   }) {
     return _then(_$_FetchDataEvent(
       page: null == page
@@ -115,6 +119,10 @@ class __$$_FetchDataEventCopyWithImpl<$Res>
           ? _value.elementsPerPage
           : elementsPerPage // ignore: cast_nullable_to_non_nullable
               as int,
+      employeeId: freezed == employeeId
+          ? _value.employeeId
+          : employeeId // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -122,16 +130,19 @@ class __$$_FetchDataEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_FetchDataEvent implements _FetchDataEvent {
-  const _$_FetchDataEvent({required this.page, required this.elementsPerPage});
+  const _$_FetchDataEvent(
+      {required this.page, required this.elementsPerPage, this.employeeId});
 
   @override
   final int page;
   @override
   final int elementsPerPage;
+  @override
+  final String? employeeId;
 
   @override
   String toString() {
-    return 'AdminHolidayRequestsListEvent.fetchData(page: $page, elementsPerPage: $elementsPerPage)';
+    return 'AdminHolidayRequestsListEvent.fetchData(page: $page, elementsPerPage: $elementsPerPage, employeeId: $employeeId)';
   }
 
   @override
@@ -141,11 +152,14 @@ class _$_FetchDataEvent implements _FetchDataEvent {
             other is _$_FetchDataEvent &&
             (identical(other.page, page) || other.page == page) &&
             (identical(other.elementsPerPage, elementsPerPage) ||
-                other.elementsPerPage == elementsPerPage));
+                other.elementsPerPage == elementsPerPage) &&
+            (identical(other.employeeId, employeeId) ||
+                other.employeeId == employeeId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, page, elementsPerPage);
+  int get hashCode =>
+      Object.hash(runtimeType, page, elementsPerPage, employeeId);
 
   @JsonKey(ignore: true)
   @override
@@ -156,33 +170,36 @@ class _$_FetchDataEvent implements _FetchDataEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int page, int elementsPerPage) fetchData,
+    required TResult Function(int page, int elementsPerPage, String? employeeId)
+        fetchData,
     required TResult Function(String searchTerm) changeSearchTerm,
     required TResult Function(String id, HolidayRequest holiday) replaceHoliday,
   }) {
-    return fetchData(page, elementsPerPage);
+    return fetchData(page, elementsPerPage, employeeId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int page, int elementsPerPage)? fetchData,
+    TResult? Function(int page, int elementsPerPage, String? employeeId)?
+        fetchData,
     TResult? Function(String searchTerm)? changeSearchTerm,
     TResult? Function(String id, HolidayRequest holiday)? replaceHoliday,
   }) {
-    return fetchData?.call(page, elementsPerPage);
+    return fetchData?.call(page, elementsPerPage, employeeId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int page, int elementsPerPage)? fetchData,
+    TResult Function(int page, int elementsPerPage, String? employeeId)?
+        fetchData,
     TResult Function(String searchTerm)? changeSearchTerm,
     TResult Function(String id, HolidayRequest holiday)? replaceHoliday,
     required TResult orElse(),
   }) {
     if (fetchData != null) {
-      return fetchData(page, elementsPerPage);
+      return fetchData(page, elementsPerPage, employeeId);
     }
     return orElse();
   }
@@ -225,10 +242,12 @@ class _$_FetchDataEvent implements _FetchDataEvent {
 abstract class _FetchDataEvent implements AdminHolidayRequestsListEvent {
   const factory _FetchDataEvent(
       {required final int page,
-      required final int elementsPerPage}) = _$_FetchDataEvent;
+      required final int elementsPerPage,
+      final String? employeeId}) = _$_FetchDataEvent;
 
   int get page;
   int get elementsPerPage;
+  String? get employeeId;
   @JsonKey(ignore: true)
   _$$_FetchDataEventCopyWith<_$_FetchDataEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -301,7 +320,8 @@ class _$_ChangeSearchTermEvent implements _ChangeSearchTermEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int page, int elementsPerPage) fetchData,
+    required TResult Function(int page, int elementsPerPage, String? employeeId)
+        fetchData,
     required TResult Function(String searchTerm) changeSearchTerm,
     required TResult Function(String id, HolidayRequest holiday) replaceHoliday,
   }) {
@@ -311,7 +331,8 @@ class _$_ChangeSearchTermEvent implements _ChangeSearchTermEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int page, int elementsPerPage)? fetchData,
+    TResult? Function(int page, int elementsPerPage, String? employeeId)?
+        fetchData,
     TResult? Function(String searchTerm)? changeSearchTerm,
     TResult? Function(String id, HolidayRequest holiday)? replaceHoliday,
   }) {
@@ -321,7 +342,8 @@ class _$_ChangeSearchTermEvent implements _ChangeSearchTermEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int page, int elementsPerPage)? fetchData,
+    TResult Function(int page, int elementsPerPage, String? employeeId)?
+        fetchData,
     TResult Function(String searchTerm)? changeSearchTerm,
     TResult Function(String id, HolidayRequest holiday)? replaceHoliday,
     required TResult orElse(),
@@ -461,7 +483,8 @@ class _$_ReplaceHolidayEvent implements _ReplaceHolidayEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int page, int elementsPerPage) fetchData,
+    required TResult Function(int page, int elementsPerPage, String? employeeId)
+        fetchData,
     required TResult Function(String searchTerm) changeSearchTerm,
     required TResult Function(String id, HolidayRequest holiday) replaceHoliday,
   }) {
@@ -471,7 +494,8 @@ class _$_ReplaceHolidayEvent implements _ReplaceHolidayEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int page, int elementsPerPage)? fetchData,
+    TResult? Function(int page, int elementsPerPage, String? employeeId)?
+        fetchData,
     TResult? Function(String searchTerm)? changeSearchTerm,
     TResult? Function(String id, HolidayRequest holiday)? replaceHoliday,
   }) {
@@ -481,7 +505,8 @@ class _$_ReplaceHolidayEvent implements _ReplaceHolidayEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int page, int elementsPerPage)? fetchData,
+    TResult Function(int page, int elementsPerPage, String? employeeId)?
+        fetchData,
     TResult Function(String searchTerm)? changeSearchTerm,
     TResult Function(String id, HolidayRequest holiday)? replaceHoliday,
     required TResult orElse(),

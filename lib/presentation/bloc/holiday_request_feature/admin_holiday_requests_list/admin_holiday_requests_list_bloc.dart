@@ -32,7 +32,7 @@ class AdminHolidayRequestsListBloc
     final holidayRequests = await holidayRequestsRepository.listHolidayRequests(
         page: event.page,
         elementsPerPage: event.elementsPerPage,
-        searchTerm: state.searchTerm);
+        searchTerm: state.searchTerm, employeeId: event.employeeId);
     emit(AdminHolidayRequestsListState.loaded(
         tableData: holidayRequests, searchTerm: state.searchTerm));
   }

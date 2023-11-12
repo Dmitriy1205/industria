@@ -42,6 +42,7 @@ class AdminCreateVacancyBloc
           city: event.city,
           description: event.description,
           questions: event.questions);
+      await Future.delayed(const Duration(seconds: 3));
       emit(const AdminCreateVacancyState.success());
       await Future.delayed(const Duration(seconds: 3));
       emit(const AdminCreateVacancyState.initial());

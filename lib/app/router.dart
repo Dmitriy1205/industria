@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:industria/core/enums/job_areas.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
+import 'package:industria/domain/entities/holiday_request/holiday_request.dart';
 import 'package:industria/domain/entities/job_offer/job_offer.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
@@ -42,6 +43,7 @@ import '../presentation/screens/admin/admin_holidays.dart';
 import '../presentation/screens/admin/admin_login.dart';
 import '../presentation/screens/admin/view_holiday.dart';
 import '../presentation/screens/contact.dart';
+import '../presentation/screens/employee/view_report.dart';
 import '../presentation/screens/home.dart';
 import '../presentation/screens/imprint.dart';
 import '../presentation/screens/employee/reports.dart';
@@ -99,7 +101,7 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        path: '/employee/reports',
+        path: '/employee/delete_reports',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
@@ -112,6 +114,14 @@ final GoRouter router = GoRouter(
           context: context,
           state: state,
           child: const CreateReport(),
+        ),
+      ),
+      GoRoute(name: 'ViewReport',
+        path: '/employee/view_report',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: ViewReport(),
         ),
       ),
       GoRoute(

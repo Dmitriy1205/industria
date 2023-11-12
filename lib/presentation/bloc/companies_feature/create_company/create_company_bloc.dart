@@ -33,6 +33,7 @@ class CreateCompanyBloc extends Bloc<CreateCompanyEvent, CreateCompanyState> {
           companyName: event.companyName,
           photoName: event.photoName,
           photoBytes: event.photoBytes);
+      await Future.delayed(const Duration(seconds: 3));
       emit(const CreateCompanyState.successful());
     } on BadRequestException catch(_){
       emit(const CreateCompanyState.error(code: "name-exists"));

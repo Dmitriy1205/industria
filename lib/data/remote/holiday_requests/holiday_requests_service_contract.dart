@@ -6,7 +6,7 @@ abstract class HolidayRequestsService {
   Future<TableData<List<HolidayRequest>>> listHolidayRequests(
       {required int page,
       required int elementsPerPage,
-      required String searchTerm});
+      required String searchTerm, String? employeeId});
 
   Future<HolidayRequest?> getHolidayById({required String id});
 
@@ -14,4 +14,8 @@ abstract class HolidayRequestsService {
 
   Future<void> markedAsRead({required String id});
 
-  Future<void> createReport({required HolidayRequestModel report});}
+  Future<void> createReport({required HolidayRequestModel report});
+
+  Future<void> deleteReport({required List<String> ids});
+
+}

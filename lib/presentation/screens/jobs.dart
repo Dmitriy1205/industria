@@ -25,14 +25,17 @@ class Jobs extends StatefulWidget {
   final String initialKeyword;
   final String? initialCountry;
   final JobAreas? area;
-  const Jobs({super.key, this.initialKeyword = "", this.area, this.initialCountry});
+
+  const Jobs(
+      {super.key, this.initialKeyword = "", this.area, this.initialCountry});
 
   @override
   State<Jobs> createState() => _JobsState();
 }
 
 class _JobsState extends State<Jobs> {
-  late final textController = TextEditingController(text: widget.initialKeyword);
+  late final textController =
+  TextEditingController(text: widget.initialKeyword);
   late String dropdownValue = widget.initialCountry ?? "All Germany";
   late JobAreas dropdownValueFilter = widget.area ?? JobAreas.all;
   bool isHovered = false;
@@ -45,19 +48,23 @@ class _JobsState extends State<Jobs> {
   void initState() {
     super.initState();
     sl<JobsBloc>().add(JobsEvent.fetchJobs(
-        filter: JobFilters(count: 5, keyword: widget.initialKeyword, page: 0, city: widget.initialCountry, area: widget.area?.filteringValue)));
+        filter: JobFilters(
+            count: 5,
+            keyword: widget.initialKeyword,
+            page: 0,
+            city: widget.initialCountry,
+            area: widget.area?.filteringValue)));
   }
 
   void _onSearchClicked() {
     sl<JobsBloc>().add(JobsEvent.search(
         query: textController.text,
-        city: dropdownValue.isEmpty ||
-                dropdownValue == "All Germany"
+        city: dropdownValue.isEmpty || dropdownValue == "All Germany"
             ? null
             : dropdownValue));
   }
 
-  void _resetFilters(){
+  void _resetFilters() {
     sl<JobsBloc>().add(JobsEvent.resetFilters());
     setState(() {
       _jobTypes.clear();
@@ -95,229 +102,330 @@ class _JobsState extends State<Jobs> {
       slivers: <Widget>[
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.only(top: 43.0),
-            child: BlocBuilder<JobsBloc,JobsState>(
-              builder: (context,state) => Column(
-                children: [
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 56.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        desktopFilter(context),
-                        const SizedBox(
-                          width: 75,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Row(
+            padding: EdgeInsets.only(
+              top: 43.0,),
+            child: BlocBuilder<JobsBloc, JobsState>(
+              builder: (context, state) =>
+                  Column(
+                    children: [
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        constraints: const BoxConstraints(maxWidth: 1300),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            desktopFilter(context),
+                            const SizedBox(
+                              width: 75,
+                            ),
+                            Expanded(
+                              child: Column(
                                 children: [
-                                  Expanded(
-                                    child: Container(
-                                      height: 50,
-                                      width: MediaQuery.of(context).size.width,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFF8F8F8),
-                                        borderRadius: BorderRadius.circular(12),
-                                        border: Border.all(
-                                          color: Color(0xFFE7E7E7)
-                                        )
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(left: 34),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: TextField(
-                                                controller: textController,
-                                                style: AppTheme.themeData.textTheme.labelMedium!
-                                                    .copyWith(
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.black,
-                                                    fontSize: 14),
-                                                decoration: InputDecoration(
-                                                  enabledBorder: const OutlineInputBorder(
-                                                      borderSide: BorderSide.none),
-                                                  focusedBorder: const OutlineInputBorder(
-                                                      borderSide: BorderSide.none),
-                                                  hintText:
-                                                  AppLocalizations.of(context)!.jobTitle,
-                                                  hintStyle: AppTheme
-                                                      .themeData.textTheme.labelMedium!
-                                                      .copyWith(
-                                                      fontWeight: FontWeight.w400,
-                                                      color: AppColors.darkGrey,
-                                                      fontSize: 14),
-                                                  prefixIcon: Padding(
-                                                    padding: EdgeInsets.only(right: 28.5),
-                                                    child: SvgPicture.asset(
-                                                      AppImages.search,
-                                                      color: AppColors.darkGrey,
-                                                      width: 20,
-                                                      height: 20,
-                                                    ),
-                                                  ),
-                                                  prefixIconConstraints: const BoxConstraints(
-                                                      maxWidth: 50, minHeight: 0),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              height: 39,
-                                              width: 2,
-                                              color: AppColors.lightGrey, // Color of the divider
-                                            ),
-                                            const SizedBox(
-                                              width: 42,
-                                            ),
-                                            Theme(
-                                              data: Theme.of(context).copyWith(
-                                                hoverColor: Colors.white,
-                                              ),
-                                              child: DropdownButton<String>(
-                                                focusColor: Colors.white,
-                                                icon: const Padding(
-                                                  padding: EdgeInsets.only(left: 8.0, top: 2),
-                                                  child: Icon(
-                                                    Icons.keyboard_arrow_down_rounded,
-                                                    size: 17,
-                                                    color: Colors.black,
-                                                  ),
-                                                ),
-                                                underline: const SizedBox(),
-                                                value: dropdownValue,
-                                                borderRadius: BorderRadius.circular(10),
-                                                items: <String>[
-                                                  "All Germany",
-                                                  'Berlin',
-                                                  'Munich'
-                                                ].map<DropdownMenuItem<String>>((String value) {
-                                                  return DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text(
-                                                      value,
-                                                      style: AppTheme
-                                                          .themeData.textTheme.labelMedium!
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          height: 50,
+                                          width: MediaQuery
+                                              .of(context)
+                                              .size
+                                              .width,
+                                          decoration: BoxDecoration(
+                                              color: Color(0xFFF8F8F8),
+                                              borderRadius:
+                                              BorderRadius.circular(12),
+                                              border: Border.all(
+                                                  color: Color(
+                                                      0xFFE7E7E7))),
+                                          child: Padding(
+                                            padding:
+                                            const EdgeInsets.only(
+                                                left: 34),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment
+                                                  .spaceBetween,
+                                              children: [
+                                                Expanded(
+                                                  child: TextField(
+                                                    controller: textController,
+                                                    style: AppTheme
+                                                        .themeData
+                                                        .textTheme
+                                                        .labelMedium!
+                                                        .copyWith(
+                                                        fontWeight:
+                                                        FontWeight.w600,
+                                                        color: Colors
+                                                            .black,
+                                                        fontSize: 14),
+                                                    decoration: InputDecoration(
+                                                      enabledBorder:
+                                                      const OutlineInputBorder(
+                                                          borderSide:
+                                                          BorderSide
+                                                              .none),
+                                                      focusedBorder:
+                                                      const OutlineInputBorder(
+                                                          borderSide:
+                                                          BorderSide
+                                                              .none),
+                                                      hintText: AppLocalizations
+                                                          .of(
+                                                          context)!
+                                                          .jobTitle,
+                                                      hintStyle: AppTheme
+                                                          .themeData
+                                                          .textTheme
+                                                          .labelMedium!
                                                           .copyWith(
-                                                          fontWeight: FontWeight.w400,
-                                                          color: Colors.black,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .w400,
+                                                          color: AppColors
+                                                              .darkGrey,
                                                           fontSize: 14),
+                                                      prefixIcon: Padding(
+                                                        padding: EdgeInsets
+                                                            .only(
+                                                            right: 28.5),
+                                                        child: SvgPicture
+                                                            .asset(
+                                                          AppImages
+                                                              .search,
+                                                          color: AppColors
+                                                              .darkGrey,
+                                                          width: 20,
+                                                          height: 20,
+                                                        ),
+                                                      ),
+                                                      prefixIconConstraints:
+                                                      const BoxConstraints(
+                                                          maxWidth: 50,
+                                                          minHeight: 0),
                                                     ),
-                                                  );
-                                                }).toList(),
-                                                onChanged: (String? newValue) {
-                                                  setState(() {
-                                                    dropdownValue = newValue!;
-                                                  });
-                                                },
-                                              ),
-                                            ),
-                                            SizedBox(width: 30,)
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 24,
-                                  ),
-                                  MouseRegion(
-                                    cursor: SystemMouseCursors.click,
-                                    onEnter: (_) {
-                                      setState(() {
-                                        isHovered = !isHovered;
-                                      });
-                                    },
-                                    onExit: (_) {
-                                      setState(() {
-                                        isHovered = !isHovered;
-                                      });
-                                    },
-                                    child: GestureDetector(
-                                      onTap: _onSearchClicked,
-                                      child: Container(
-                                        width: 150,
-                                        height: 50,
-                                        decoration: BoxDecoration(
-                                            color: isHovered
-                                                ? AppColors.mainDarkAccent
-                                                : AppColors.mainAccent,
-                                            borderRadius: BorderRadius.circular(12)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(horizontal: 40),
-                                          child: Center(
-                                            child: Text(
-                                              AppLocalizations.of(context)!.search,
-                                              style: AppTheme
-                                                  .themeData.textTheme.labelMedium!
-                                                  .copyWith(
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Colors.white,
-                                                  fontSize: 14),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  height: 39,
+                                                  width: 2,
+                                                  color: AppColors
+                                                      .lightGrey, // Color of the divider
+                                                ),
+                                                const SizedBox(
+                                                  width: 42,
+                                                ),
+                                                Theme(
+                                                  data: Theme.of(
+                                                      context).copyWith(
+                                                    hoverColor: Colors
+                                                        .white,
+                                                  ),
+                                                  child: DropdownButton<
+                                                      String>(
+                                                    focusColor: Colors
+                                                        .white,
+                                                    icon: const Padding(
+                                                      padding: EdgeInsets
+                                                          .only(
+                                                          left: 8.0,
+                                                          top: 2),
+                                                      child: Icon(
+                                                        Icons
+                                                            .keyboard_arrow_down_rounded,
+                                                        size: 17,
+                                                        color: Colors
+                                                            .black,
+                                                      ),
+                                                    ),
+                                                    underline: const SizedBox(),
+                                                    value: dropdownValue,
+                                                    borderRadius:
+                                                    BorderRadius
+                                                        .circular(10),
+                                                    items: <String>[
+                                                      "All Germany",
+                                                      'Berlin',
+                                                      'Munich'
+                                                    ].map<
+                                                        DropdownMenuItem<
+                                                            String>>(
+                                                            (
+                                                            String value) {
+                                                          return DropdownMenuItem<
+                                                              String>(
+                                                            value: value,
+                                                            child: Text(
+                                                              value,
+                                                              style: AppTheme
+                                                                  .themeData
+                                                                  .textTheme
+                                                                  .labelMedium!
+                                                                  .copyWith(
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                                  color:
+                                                                  Colors
+                                                                      .black,
+                                                                  fontSize: 14),
+                                                            ),
+                                                          );
+                                                        }).toList(),
+                                                    onChanged: (
+                                                        String? newValue) {
+                                                      setState(() {
+                                                        dropdownValue =
+                                                        newValue!;
+                                                      });
+                                                    },
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 30,
+                                                )
+                                              ],
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
+                                      const SizedBox(
+                                        width: 24,
+                                      ),
+                                      MouseRegion(
+                                        cursor: SystemMouseCursors
+                                            .click,
+                                        onEnter: (_) {
+                                          setState(() {
+                                            isHovered = !isHovered;
+                                          });
+                                        },
+                                        onExit: (_) {
+                                          setState(() {
+                                            isHovered = !isHovered;
+                                          });
+                                        },
+                                        child: GestureDetector(
+                                          onTap: _onSearchClicked,
+                                          child: Container(
+                                            width: 150,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                                color: isHovered
+                                                    ? AppColors
+                                                    .mainDarkAccent
+                                                    : AppColors
+                                                    .mainAccent,
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    12)),
+                                            child: Padding(
+                                              padding: const EdgeInsets
+                                                  .symmetric(
+                                                  horizontal: 40),
+                                              child: Center(
+                                                child: Text(
+                                                  AppLocalizations.of(
+                                                      context)!
+                                                      .search,
+                                                  style: AppTheme
+                                                      .themeData
+                                                      .textTheme
+                                                      .labelMedium!
+                                                      .copyWith(
+                                                      fontWeight:
+                                                      FontWeight.w400,
+                                                      color: Colors
+                                                          .white,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 44.0),
+                                    child: state.map(initial: (state) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }, loaded: (state) {
+                                      return ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: state.jobs.element
+                                            .length,
+                                        itemBuilder: (context, i) {
+                                          final e = state.jobs
+                                              .element[i];
+                                          return Container(
+                                            margin:
+                                            const EdgeInsets.only(
+                                                bottom: 30),
+                                            child: JobCard(
+                                                icon: e.company.logo,
+                                                date: getTimeAgo(
+                                                    e.createdAt,
+                                                    context
+                                                        .watch<
+                                                        LocalizationBloc>()
+                                                        .state
+                                                        .locale
+                                                        .languageCode),
+                                                vacancy: e.title,
+                                                address: e.location,
+                                                description: e
+                                                    .description,
+                                                salary: e.salary,
+                                                goToDescription: () {
+                                                  context.go(
+                                                      '/job_description?id=${e
+                                                          .id}');
+                                                }),
+                                          );
+                                        },
+                                      );
+                                    }),
+                                  ),
+                                  state.map(initial: (_) {
+                                    return SizedBox.shrink();
+                                  }, loaded: (state) {
+                                    if (state.jobs.element.isEmpty) {
+                                      return Text("No matches found");
+                                    }
+                                    return PTableViewPagination(
+                                        currentPage: state.jobs
+                                            .currentPage,
+                                        pagesCount: state.jobs
+                                            .numberOfPages,
+                                        onPageChanged: (v) {
+                                          _scrollController.animateTo(0,
+                                              duration: Duration(
+                                                  milliseconds: 200),
+                                              curve: Curves.ease);
+                                          context.read<JobsBloc>().add(
+                                              JobsEvent.fetchJobs(
+                                                  filter: state.filter
+                                                      .copyWith(
+                                                      page: v)));
+                                        });
+                                  }),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 44.0),
-                                child: state.map(initial: (state) {
-                                  return const Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                }, loaded: (state) {
-                                  return ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: state.jobs.element.length,
-                                    itemBuilder: (context, i) {
-                                      final e = state.jobs.element[i];
-                                      return Container(
-                                        margin: const EdgeInsets.only(bottom: 30),
-                                        child: JobCard(
-                                            icon: e.company.logo,
-                                            date: getTimeAgo(e.createdAt ,context.watch<LocalizationBloc>().state.locale.languageCode),
-                                            vacancy: e.title,
-                                            address: e.location,
-                                            description: e.description,
-                                            salary: e.salary,
-                                            goToDescription: () {
-                                              context.go('/job_description?id=${e.id}');
-                                            }),
-                                      );
-                                    },
-                                  );
-                                }),
-                              ),
-                              state.map(initial: (_){
-                                return SizedBox.shrink();
-                              }, loaded: (state){
-                                if(state.jobs.element.isEmpty){
-                                  return Text("No matches found");
-                                }
-                                return PTableViewPagination(currentPage: state.jobs.currentPage, pagesCount: state.jobs.numberOfPages, onPageChanged: (v){
-                                  _scrollController.animateTo(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
-                                  context.read<JobsBloc>().add(JobsEvent.fetchJobs(filter: state.filter.copyWith(page: v)));
-                                });
-                              }),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(
+                        height: 161,
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 161,
-                  ),
-                ],
-              ),
             ),
           ),
         ),
@@ -327,205 +435,217 @@ class _JobsState extends State<Jobs> {
   }
 
   Widget tablet(BuildContext context) {
-    return BlocBuilder<JobsBloc,JobsState>(
-      builder: (context,state) => CustomScrollView(
-        controller: _scrollController,
-        slivers: <Widget>[
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 43),
-              child: Column(
-                children: [
-                  Container(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFF8F8F8),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            color: Color(0xFFE7E7E7)
-                        )
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 34),
-                      child: TextField(
-                        controller: textController,
-                        style: AppTheme.themeData.textTheme.labelMedium!
-                            .copyWith(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                            fontSize: 14),
-                        decoration: InputDecoration(
-                          enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide.none),
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide.none),
-                          hintText:
-                          AppLocalizations.of(context)!.jobTitle,
-                          hintStyle: AppTheme
-                              .themeData.textTheme.labelMedium!
-                              .copyWith(
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.darkGrey,
-                              fontSize: 14),
-                          prefixIcon: Padding(
-                            padding: EdgeInsets.only(right: 28.5),
-                            child: SvgPicture.asset(
-                              AppImages.search,
-                              color: AppColors.darkGrey,
-                              width: 20,
-                              height: 20,
-                            ),
-                          ),
-                          prefixIconConstraints: const BoxConstraints(
-                              maxWidth: 50, minHeight: 0),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15,),
-                  Row(
+    return BlocBuilder<JobsBloc, JobsState>(
+      builder: (context, state) =>
+          CustomScrollView(
+            controller: _scrollController,
+            slivers: <Widget>[
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 43),
+                  child: Column(
                     children: [
-                      Theme(
-                        data: Theme.of(context).copyWith(
-                          hoverColor: Colors.white,
-                        ),
-                        child: DropdownButton<String>(
-                          focusColor: Colors.white,
-                          icon: const Padding(
-                            padding: EdgeInsets.only(left: 8.0, top: 2),
-                            child: Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              size: 17,
-                              color: AppColors.darkGrey,
+                      Container(
+                        height: 50,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
+                        decoration: BoxDecoration(
+                            color: Color(0xFFF8F8F8),
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(color: Color(0xFFE7E7E7))),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 34),
+                          child: TextField(
+                            controller: textController,
+                            style: AppTheme.themeData.textTheme.labelMedium!
+                                .copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black,
+                                fontSize: 14),
+                            decoration: InputDecoration(
+                              enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              hintText: AppLocalizations.of(context)!.jobTitle,
+                              hintStyle: AppTheme.themeData.textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.darkGrey,
+                                  fontSize: 14),
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.only(right: 28.5),
+                                child: SvgPicture.asset(
+                                  AppImages.search,
+                                  color: AppColors.darkGrey,
+                                  width: 20,
+                                  height: 20,
+                                ),
+                              ),
+                              prefixIconConstraints:
+                              const BoxConstraints(maxWidth: 50, minHeight: 0),
                             ),
                           ),
-                          underline: const SizedBox(),
-                          value: dropdownValue,
-                          borderRadius: BorderRadius.circular(10),
-                          items: <String>[
-                            "All Germany",
-                            'Berlin',
-                            'Munich'
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: AppTheme
-                                    .themeData.textTheme.labelMedium!
-                                    .copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black,
-                                    fontSize: 14),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownValue = newValue!;
-                            });
-                          },
                         ),
                       ),
-                      Spacer(),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        onEnter: (_) {
-                          setState(() {
-                            isHovered = !isHovered;
-                          });
-                        },
-                        onExit: (_) {
-                          setState(() {
-                            isHovered = !isHovered;
-                          });
-                        },
-                        child: GestureDetector(
-                          onTap: _onSearchClicked,
-                          child: Container(
-                            width: 150,
-                            height: 50,
-                            decoration: BoxDecoration(
-                                color: isHovered
-                                    ? AppColors.mainDarkAccent
-                                    : AppColors.mainAccent,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 40),
-                              child: Center(
-                                child: Text(
-                                  AppLocalizations.of(context)!.search,
-                                  style: AppTheme
-                                      .themeData.textTheme.labelMedium!
-                                      .copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white,
-                                      fontSize: 14),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Row(
+                        children: [
+                          Theme(
+                            data: Theme.of(context).copyWith(
+                              hoverColor: Colors.white,
+                            ),
+                            child: DropdownButton<String>(
+                              focusColor: Colors.white,
+                              icon: const Padding(
+                                padding: EdgeInsets.only(left: 8.0, top: 2),
+                                child: Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  size: 17,
+                                  color: AppColors.darkGrey,
+                                ),
+                              ),
+                              underline: const SizedBox(),
+                              value: dropdownValue,
+                              borderRadius: BorderRadius.circular(10),
+                              items: <String>["All Germany", 'Berlin', 'Munich']
+                                  .map<DropdownMenuItem<String>>((
+                                  String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: AppTheme.themeData.textTheme
+                                        .labelMedium!
+                                        .copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black,
+                                        fontSize: 14),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  dropdownValue = newValue!;
+                                });
+                              },
+                            ),
+                          ),
+                          Spacer(),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            onEnter: (_) {
+                              setState(() {
+                                isHovered = !isHovered;
+                              });
+                            },
+                            onExit: (_) {
+                              setState(() {
+                                isHovered = !isHovered;
+                              });
+                            },
+                            child: GestureDetector(
+                              onTap: _onSearchClicked,
+                              child: Container(
+                                width: 150,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: isHovered
+                                        ? AppColors.mainDarkAccent
+                                        : AppColors.mainAccent,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Padding(
+                                  padding:
+                                  const EdgeInsets.symmetric(horizontal: 40),
+                                  child: Center(
+                                    child: Text(
+                                      AppLocalizations.of(context)!.search,
+                                      style: AppTheme
+                                          .themeData.textTheme.labelMedium!
+                                          .copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.white,
+                                          fontSize: 14),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 53,
+                      ),
+                      mobileFilter(context),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 44.0),
+                          child: state.map(initial: (state) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }, loaded: (state) {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: state.jobs.element.length,
+                              itemBuilder: (context, i) {
+                                final e = state.jobs.element[i];
+                                return Container(
+                                  margin: const EdgeInsets.only(bottom: 30),
+                                  child: JobCard(
+                                      icon: e.company.logo,
+                                      date: getTimeAgo(
+                                          e.createdAt,
+                                          context
+                                              .watch<LocalizationBloc>()
+                                              .state
+                                              .locale
+                                              .languageCode),
+                                      vacancy: e.title,
+                                      address: e.location,
+                                      description: e.description,
+                                      salary: e.salary,
+                                      goToDescription: () {
+                                        context.go(
+                                            '/job_description?id=${e.id}');
+                                      }),
+                                );
+                              },
+                            );
+                          }),
                         ),
+                      ),
+                      state.map(initial: (_) {
+                        return SizedBox.shrink();
+                      }, loaded: (state) {
+                        return PTableViewPagination(
+                            currentPage: state.jobs.currentPage,
+                            pagesCount: state.jobs.numberOfPages,
+                            onPageChanged: (v) {
+                              _scrollController.animateTo(0,
+                                  duration: Duration(milliseconds: 200),
+                                  curve: Curves.ease);
+                              context.read<JobsBloc>().add(JobsEvent.fetchJobs(
+                                  filter: state.filter.copyWith(page: v)));
+                            });
+                      }),
+                      const SizedBox(
+                        height: 161,
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 53,
-                  ),
-                  mobileFilter(context),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 44.0),
-                      child: state.map(initial: (state) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }, loaded: (state) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: state.jobs.element.length,
-                          itemBuilder: (context, i) {
-                            final e = state.jobs.element[i];
-                            return Container(
-                              margin: const EdgeInsets.only(bottom: 30),
-                              child: JobCard(
-                                  icon: e.company.logo,
-                                  date: getTimeAgo(e.createdAt, context.watch<LocalizationBloc>().state.locale.languageCode),
-                                  vacancy: e.title,
-                                  address: e.location,
-                                  description: e.description,
-                                  salary: e.salary,
-                                  goToDescription: () {
-                                    context.go('/job_description?id=${e.id}');
-                                  }),
-                            );
-                          },
-                        );
-                      }),
-                    ),
-                  ),
-                  state.map(initial: (_){
-                    return SizedBox.shrink();
-                  }, loaded: (state){
-                    return PTableViewPagination(currentPage: state.jobs.currentPage, pagesCount: state.jobs.numberOfPages, onPageChanged: (v){
-                      _scrollController.animateTo(0, duration: Duration(milliseconds: 200), curve: Curves.ease);
-                      context.read<JobsBloc>().add(JobsEvent.fetchJobs(filter: state.filter.copyWith(page: v)));
-                    });
-                  }),
-                  const SizedBox(
-                    height: 161,
-                  ),
-                ],
+                ),
               ),
-            ),
+              const Footer(),
+            ],
           ),
-          const Footer(),
-        ],
-      ),
     );
   }
 
@@ -534,7 +654,7 @@ class _JobsState extends State<Jobs> {
       title: Text(
         AppLocalizations.of(context)!.filter,
         style:
-            AppTheme.themeData.textTheme.headlineLarge!.copyWith(fontSize: 22),
+        AppTheme.themeData.textTheme.headlineLarge!.copyWith(fontSize: 22),
       ),
       trailing: const Icon(
         Icons.arrow_drop_down_rounded,
@@ -543,7 +663,10 @@ class _JobsState extends State<Jobs> {
       ),
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -569,7 +692,10 @@ class _JobsState extends State<Jobs> {
                   border: Border.all(color: AppColors.lightGrey),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 child: Padding(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 9),
@@ -585,20 +711,22 @@ class _JobsState extends State<Jobs> {
                       focusColor: Colors.white,
                       icon: const Padding(
                         padding: EdgeInsets.only(left: 8.0, top: 2),
-                        child: Icon(
-                            Icons.arrow_drop_down_rounded,
-                            size: 22,
-                            color: Colors.black
-                        ),
+                        child: Icon(Icons.arrow_drop_down_rounded,
+                            size: 22, color: Colors.black),
                       ),
                       underline: const SizedBox(),
                       value: dropdownValueFilter,
                       borderRadius: BorderRadius.circular(10),
-                      items: JobAreas.values.map<DropdownMenuItem<JobAreas>>((JobAreas value) {
+                      items: JobAreas.values
+                          .map<DropdownMenuItem<JobAreas>>((JobAreas value) {
                         return DropdownMenuItem<JobAreas>(
                           value: value,
                           child: Text(
-                            value.localizedName(context.read<LocalizationBloc>().state.locale),
+                            value.localizedName(
+                                context
+                                    .read<LocalizationBloc>()
+                                    .state
+                                    .locale),
                             style: AppTheme.themeData.textTheme.labelMedium!
                                 .copyWith(
                                 fontWeight: FontWeight.w600,
@@ -625,40 +753,41 @@ class _JobsState extends State<Jobs> {
                     fontWeight: FontWeight.w600, color: AppColors.darkGrey),
               ),
               ...JobTypes.values
-                  .map((e) => Container(
-                margin: const EdgeInsets.only(top: 22),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: CustomCheckbox(
-                        value: _jobTypes.contains(e),
-                        onChanged: (v) {
-                          setState(() {
-                            if (_jobTypes.contains(e)) {
-                              _jobTypes.remove(e);
-                            } else {
-                              _jobTypes.add(e);
-                            }
-                          });
-                        },
-                      ),
+                  .map((e) =>
+                  Container(
+                    margin: const EdgeInsets.only(top: 22),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: CustomCheckbox(
+                            value: _jobTypes.contains(e),
+                            onChanged: (v) {
+                              setState(() {
+                                if (_jobTypes.contains(e)) {
+                                  _jobTypes.remove(e);
+                                } else {
+                                  _jobTypes.add(e);
+                                }
+                              });
+                            },
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          e.value,
+                          style: AppTheme.themeData.textTheme.labelMedium!
+                              .copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                              fontSize: 14),
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      e.value,
-                      style: AppTheme.themeData.textTheme.labelMedium!
-                          .copyWith(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 14),
-                    ),
-                  ],
-                ),
-              ))
+                  ))
                   .toList(),
               const SizedBox(
                 height: 30,
@@ -680,11 +809,14 @@ class _JobsState extends State<Jobs> {
                   color: isHoveredButton
                       ? AppColors.mainDarkAccent
                       : AppColors.mainAccent,
-                  textStyle: AppTheme.themeData.textTheme.labelSmall!
-                      .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+                  textStyle: AppTheme.themeData.textTheme.labelSmall!.copyWith(
+                      fontWeight: FontWeight.w600, color: Colors.white),
                   onPressed: () {
                     sl<JobsBloc>().add(JobsEvent.applyFilters(
-                        types: _jobTypes.map((e) => e.value).toList(), area: dropdownValueFilter == JobAreas.all ? null : dropdownValueFilter.filteringValue));
+                        types: _jobTypes.map((e) => e.value).toList(),
+                        area: dropdownValueFilter == JobAreas.all
+                            ? null
+                            : dropdownValueFilter.filteringValue));
                   },
                   verticalPadding: 10,
                 ),
@@ -724,7 +856,13 @@ class _JobsState extends State<Jobs> {
               Spacer(),
               TextButton(
                   onPressed: _resetFilters,
-                  child: Text("Clear All", style: TextStyle(color: AppColors.mainAccent, fontSize: 14, fontWeight: FontWeight.w600),))
+                  child: Text(
+                    "Clear All",
+                    style: TextStyle(
+                        color: AppColors.mainAccent,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600),
+                  ))
             ],
           ),
           const Divider(
@@ -746,10 +884,13 @@ class _JobsState extends State<Jobs> {
               border: Border.all(color: AppColors.lightGrey),
               borderRadius: BorderRadius.circular(8),
             ),
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 9),
+              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 9),
               child: Theme(
                 data: Theme.of(context).copyWith(
                   hoverColor: Colors.white,
@@ -762,20 +903,22 @@ class _JobsState extends State<Jobs> {
                   focusColor: Colors.white,
                   icon: const Padding(
                     padding: EdgeInsets.only(left: 8.0, top: 2),
-                    child: Icon(
-                      Icons.arrow_drop_down_rounded,
-                      size: 22,
-                      color: Colors.black
-                    ),
+                    child: Icon(Icons.arrow_drop_down_rounded,
+                        size: 22, color: Colors.black),
                   ),
                   underline: const SizedBox(),
                   value: dropdownValueFilter,
                   borderRadius: BorderRadius.circular(10),
-                  items: JobAreas.values.map<DropdownMenuItem<JobAreas>>((JobAreas value) {
+                  items: JobAreas.values
+                      .map<DropdownMenuItem<JobAreas>>((JobAreas value) {
                     return DropdownMenuItem<JobAreas>(
                       value: value,
                       child: Text(
-                        value.localizedName(context.read<LocalizationBloc>().state.locale),
+                        value.localizedName(
+                            context
+                                .read<LocalizationBloc>()
+                                .state
+                                .locale),
                         style: AppTheme.themeData.textTheme.labelMedium!
                             .copyWith(
                             fontWeight: FontWeight.w600,
@@ -802,40 +945,41 @@ class _JobsState extends State<Jobs> {
                 fontWeight: FontWeight.w600, color: AppColors.darkGrey),
           ),
           ...JobTypes.values
-              .map((e) => Container(
-                    margin: const EdgeInsets.only(top: 22),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: CustomCheckbox(
-                            value: _jobTypes.contains(e),
-                            onChanged: (v) {
-                              setState(() {
-                                if (_jobTypes.contains(e)) {
-                                  _jobTypes.remove(e);
-                                } else {
-                                  _jobTypes.add(e);
-                                }
-                              });
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          e.value,
-                          style: AppTheme.themeData.textTheme.labelMedium!
-                              .copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.black,
-                                  fontSize: 14),
-                        ),
-                      ],
+              .map((e) =>
+              Container(
+                margin: const EdgeInsets.only(top: 22),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: CustomCheckbox(
+                        value: _jobTypes.contains(e),
+                        onChanged: (v) {
+                          setState(() {
+                            if (_jobTypes.contains(e)) {
+                              _jobTypes.remove(e);
+                            } else {
+                              _jobTypes.add(e);
+                            }
+                          });
+                        },
+                      ),
                     ),
-                  ))
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Text(
+                      e.value,
+                      style: AppTheme.themeData.textTheme.labelMedium!
+                          .copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                          fontSize: 14),
+                    ),
+                  ],
+                ),
+              ))
               .toList(),
           const SizedBox(
             height: 30,
@@ -861,7 +1005,10 @@ class _JobsState extends State<Jobs> {
                   .copyWith(fontWeight: FontWeight.w600, color: Colors.white),
               onPressed: () {
                 sl<JobsBloc>().add(JobsEvent.applyFilters(
-                    types: _jobTypes.map((e) => e.value).toList(), area: dropdownValueFilter == JobAreas.all ? null : dropdownValueFilter.filteringValue));
+                    types: _jobTypes.map((e) => e.value).toList(),
+                    area: dropdownValueFilter == JobAreas.all
+                        ? null
+                        : dropdownValueFilter.filteringValue));
               },
               verticalPadding: 10,
             ),

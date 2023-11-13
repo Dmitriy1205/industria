@@ -14,9 +14,6 @@ import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 import '../../core/utils/toast.dart';
 import '../../core/validator/field_validator.dart';
-import '../../data/remote/contact_requests/contact_requests_service_contract.dart';
-import '../../domain/repositories/contact_request/contact_request_repository_contract.dart';
-import '../../domain/repositories/contact_request/contact_request_repository_impl.dart';
 import '../widgets/app_elevated_button.dart';
 import '../widgets/footer.dart';
 
@@ -422,7 +419,7 @@ class _ContactState extends State<Contact> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 101.0, right: 120, top: 129),
+                      const EdgeInsets.only(left: 123.0, right: 120, top: 129),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -440,7 +437,7 @@ class _ContactState extends State<Contact> {
                                       .copyWith(
                                           color: Colors.black, fontSize: 24)),
                               const SizedBox(
-                                height: 15,
+                                height: 14,
                               ),
                               Text(
                                 AppLocalizations.of(context)!
@@ -448,9 +445,7 @@ class _ContactState extends State<Contact> {
                                 style: AppTheme.themeData.textTheme.titleMedium,
                                 overflow: TextOverflow.visible,
                               ),
-                              const SizedBox(
-                                height: 30,
-                              ),
+
                               const Steps()
                             ]),
                       ),
@@ -486,7 +481,7 @@ class _ContactState extends State<Contact> {
                             ],
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 14,
                           ),
                           Row(
                             children: [
@@ -516,7 +511,7 @@ class _ContactState extends State<Contact> {
                             ],
                           ),
                           const SizedBox(
-                            height: 26,
+                            height: 14,
                           ),
                           CustomTextFormField(
                               focusNode: _emailFocusNode,
@@ -528,7 +523,7 @@ class _ContactState extends State<Contact> {
                               onChange: _clickable,
                               width: 521),
                           const SizedBox(
-                            height: 35,
+                            height: 14,
                           ),
                           CustomTextFormField(
                             focusNode: _descriptionFocusNode,
@@ -540,8 +535,8 @@ class _ContactState extends State<Contact> {
                             isSavePressed: isSavePressed,
                             onChange: _clickable,
                             width: 521,
-                            height: 86,
-                            maxLines: 5,
+                            height: 119,
+                            maxLines: 6,
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 18),
@@ -558,7 +553,6 @@ class _ContactState extends State<Contact> {
                                       activeColor: AppColors.mainAccent,
                                       value: _checkboxValue,
                                       onChanged: (_checkbox) {
-                                        print('_checkboxValue $_checkboxValue');
                                         setState(() {
                                           _checkboxValue = _checkbox!;
                                         });
@@ -604,7 +598,7 @@ class _ContactState extends State<Contact> {
                             ),
                           ),
                           const SizedBox(
-                            height: 36,
+                            height: 25,
                           ),
                           SizedBox(
                             width: 521,

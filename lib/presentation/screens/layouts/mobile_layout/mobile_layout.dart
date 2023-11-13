@@ -27,7 +27,9 @@ class _MobileLayoutState extends State<MobileLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldState,
-      drawer: Drawer(
+      drawer: Drawer(shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero
+      ),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 40),
           child: Column(
@@ -156,6 +158,7 @@ class _MobileLayoutState extends State<MobileLayout> {
                   ),
                 ),
               ),
+              SizedBox(height: 120,),
               MouseRegion(
                 cursor: SystemMouseCursors.click,
                 onEnter: (_) {
@@ -173,7 +176,7 @@ class _MobileLayoutState extends State<MobileLayout> {
                     router.go('/employees');
                   },
                   child: Container(
-                    height: 45,
+                    height: 40,
                     decoration: BoxDecoration(
                         color: isHovered
                             ? AppColors.mainDarkAccent
@@ -184,7 +187,7 @@ class _MobileLayoutState extends State<MobileLayout> {
                       child: Center(
                         child: Text(
                           AppLocalizations.of(context)!.login,
-                          style: AppTheme.themeData.textTheme.headlineMedium,
+                          style: AppTheme.themeData.textTheme.headlineMedium?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
                         ),
                       ),
                     ),

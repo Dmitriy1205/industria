@@ -171,8 +171,25 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                 child: LayoutBuilder(
                   builder: (context, constraints) => Column(
                     children: [
+                      SizedBox(height: 34,),
                       Row(
                         children: [
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                context.go('/admin/vacancies');
+                              },
+                              child: const Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Colors.black,
+                                size: 14,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 25,
+                          ),
                           Text(
                             AppLocalizations.of(context)!.vacancy,
                             style: TextStyle(
@@ -205,118 +222,6 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                     SizedBox(
                                       height: 15,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 15.0),
-                                      child: Row(
-                                        children: [
-                                          Expanded(
-                                            child: CustomTextFormField(
-                                              focusNode: _titleNode,
-                                              textController:
-                                              _titleController!,
-                                              labelText: '${AppLocalizations.of(context)!.title}*',
-                                              textInputType:
-                                              TextInputType.name,
-                                              validator: Validator.validate,
-                                              isSavePressed: true,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Expanded(
-                                            child: CustomDropdownField<
-                                                JobTypes>(
-                                              items:
-                                              JobTypes.values.toList(),
-                                              selectedItem: dropdownJobType,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  dropdownJobType = value!;
-                                                });
-                                              },
-                                              displayFunction: (job) {
-                                                return job.value;
-                                              },
-                                              hint: '${AppLocalizations.of(context)!.jobType}*',
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: CustomTextFormField(
-                                            focusNode: _salaryNode,
-                                            textController:
-                                            _salaryController!,
-                                            labelText: '${AppLocalizations.of(context)!.salary}*',
-                                            textInputType:
-                                            TextInputType.number,
-                                            validator:
-                                            Validator.validateNumber,
-                                            isSavePressed: true,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 37,
-                                        ),
-                                        Expanded(
-                                          child:
-                                          CustomDropdownField<Currency>(
-                                            items: Currency.values.toList(),
-                                            selectedItem: dropdownCurrency,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                dropdownCurrency = value!;
-                                              });
-                                            },
-                                            displayFunction: (cur) {
-                                              return cur.text;
-                                            },
-                                            hint: '${AppLocalizations.of(context)!.currency}*',
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 19,
-                                        ),
-                                        Expanded(
-                                          child:
-                                          CustomDropdownField<Period>(
-                                            items: Period.values.toList(),
-                                            selectedItem: dropdownPeriod,
-                                            onChanged: (value) {
-                                              setState(() {
-                                                dropdownPeriod = value!;
-                                              });
-                                            },
-                                            displayFunction: (job) {
-                                              return job.text;
-                                            },
-                                            hint: '${AppLocalizations.of(context)!.period}*',
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 25,
-                                      ),
-                                      Text(
-                                        AppLocalizations.of(context)!.vacancy,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        " / ${AppLocalizations.of(context)!.update}",
-                                        style: TextStyle(fontSize: 18),
-                                      )
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 37,
-                                  ),
                                   IntrinsicHeight(
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -328,285 +233,273 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 36),
-                                            child: Column(
-                                              children: [
-                                                SizedBox(
-                                                  height: 15,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical: 15.0),
-                                                  child: Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child:
-                                                            CustomTextFormField(
-                                                          focusNode: _titleNode,
-                                                          textController:
-                                                              _titleController!,
-                                                          labelText:
-                                                              '${AppLocalizations.of(context)!.title}*',
-                                                          textInputType:
-                                                              TextInputType
-                                                                  .name,
-                                                          validator: Validator
-                                                              .validate,
-                                                          isSavePressed: true,
-                                                        ),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 15,
-                                                      ),
-                                                      Expanded(
-                                                        child:
-                                                            CustomDropdownField<
-                                                                JobTypes>(
-                                                          items: JobTypes.values
-                                                              .toList(),
-                                                          selectedItem:
-                                                              dropdownJobType,
-                                                          onChanged: (value) {
-                                                            setState(() {
-                                                              dropdownJobType =
-                                                                  value!;
-                                                            });
-                                                          },
-                                                          displayFunction:
-                                                              (job) {
-                                                            return job.value;
-                                                          },
-                                                          hint:
-                                                              '${AppLocalizations.of(context)!.jobType}*',
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Row(
+                                          Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 15,
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets
+                                                    .symmetric(
+                                                    vertical: 15.0),
+                                                child: Row(
                                                   children: [
                                                     Expanded(
                                                       child:
                                                           CustomTextFormField(
-                                                        focusNode: _salaryNode,
+                                                        focusNode: _titleNode,
                                                         textController:
-                                                            _salaryController!,
+                                                            _titleController!,
                                                         labelText:
-                                                            '${AppLocalizations.of(context)!.salary}*',
+                                                            '${AppLocalizations.of(context)!.title}*',
                                                         textInputType:
                                                             TextInputType
-                                                                .number,
+                                                                .name,
                                                         validator: Validator
-                                                            .validateNumber,
+                                                            .validate,
                                                         isSavePressed: true,
                                                       ),
                                                     ),
                                                     const SizedBox(
-                                                      width: 37,
+                                                      width: 15,
                                                     ),
                                                     Expanded(
                                                       child:
                                                           CustomDropdownField<
-                                                              Currency>(
-                                                        items: Currency.values
+                                                              JobTypes>(
+                                                        items: JobTypes.values
                                                             .toList(),
                                                         selectedItem:
-                                                            dropdownCurrency,
+                                                            dropdownJobType,
                                                         onChanged: (value) {
                                                           setState(() {
-                                                            dropdownCurrency =
+                                                            dropdownJobType =
                                                                 value!;
                                                           });
                                                         },
-                                                        displayFunction: (cur) {
-                                                          return cur.text;
+                                                        displayFunction:
+                                                            (job) {
+                                                          return job.value;
                                                         },
                                                         hint:
-                                                            '${AppLocalizations.of(context)!.currency}*',
-                                                      ),
-                                                    ),
-                                                    const SizedBox(
-                                                      width: 19,
-                                                    ),
-                                                    Expanded(
-                                                      child:
-                                                          CustomDropdownField<
-                                                              Period>(
-                                                        items: Period.values
-                                                            .toList(),
-                                                        selectedItem:
-                                                            dropdownPeriod,
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            dropdownPeriod =
-                                                                value!;
-                                                          });
-                                                        },
-                                                        displayFunction: (job) {
-                                                          return job.text;
-                                                        },
-                                                        hint:
-                                                            '${AppLocalizations.of(context)!.period}*',
+                                                            '${AppLocalizations.of(context)!.jobType}*',
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                                const SizedBox(
-                                                  width: 25,
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical: 15.0),
-                                                  child: DropdownTextFormField(
-                                                    width:
-                                                        constraints.maxWidth -
-                                                            72,
-                                                    variants: state
-                                                        .map((e) => e.name)
-                                                        .toList(),
-                                                    controller:
-                                                        _companyController!,
-                                                    isSavePressed: false,
-                                                    hintText:
-                                                        '${AppLocalizations.of(context)!.companyName}*',
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        dropdownCompany = state
-                                                            .where((e) =>
-                                                                e.name == value)
-                                                            .firstOrNull;
-                                                      });
-                                                    },
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child:
+                                                        CustomTextFormField(
+                                                      focusNode: _salaryNode,
+                                                      textController:
+                                                          _salaryController!,
+                                                      labelText:
+                                                          '${AppLocalizations.of(context)!.salary}*',
+                                                      textInputType:
+                                                          TextInputType
+                                                              .number,
+                                                      validator: Validator
+                                                          .validateNumber,
+                                                      isSavePressed: true,
+                                                    ),
                                                   ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 25,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      vertical: 15.0),
-                                                  child: CustomDropdownField<
-                                                      JobAreas>(
-                                                    items: JobAreas.elements
-                                                        .toList(),
-                                                    selectedItem:
-                                                        dropdownJobArea,
-                                                    onChanged: (value) {
-                                                      setState(() {
-                                                        dropdownJobArea =
-                                                            value!;
-                                                      });
-                                                    },
-                                                    displayFunction: (area) {
-                                                      return area.localizedName(
-                                                          context
-                                                              .read<
-                                                                  LocalizationBloc>()
-                                                              .state
-                                                              .locale);
-                                                    },
-                                                    hint:
-                                                        '${AppLocalizations.of(context)!.area}*',
+                                                  const SizedBox(
+                                                    width: 37,
                                                   ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical: 15.0),
-                                                  child: CustomTextFormField(
-                                                    focusNode: _cityNode,
-                                                    textController:
-                                                        _cityController!,
-                                                    labelText:
-                                                        '${AppLocalizations.of(context)!.city}*',
-                                                    textInputType:
-                                                        TextInputType.name,
-                                                    validator:
-                                                        Validator.validate,
-                                                    isSavePressed: true,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical: 15.0),
-                                                  child: CustomTextFormField(
-                                                    focusNode: _locationNode,
-                                                    textController:
-                                                        _locationController!,
-                                                    labelText:
-                                                        '${AppLocalizations.of(context)!.location}*',
-                                                    textInputType:
-                                                        TextInputType.name,
-                                                    validator:
-                                                        Validator.validate,
-                                                    isSavePressed: true,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      vertical: 15.0),
-                                                  child: CustomTextFormField(
-                                                    height: 166,
-                                                    maxLines: 15,
-                                                    focusNode: _descriptionNode,
-                                                    textController:
-                                                        _descriptionController!,
-                                                    labelText:
-                                                        '${AppLocalizations.of(context)!.description}*',
-                                                    textInputType:
-                                                        TextInputType.multiline,
-                                                    validator:
-                                                        Validator.validate,
-                                                    isSavePressed: true,
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 15,
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      Alignment.centerRight,
-                                                  child: SizedBox(
-                                                    width: 150,
-                                                    height: 42,
-                                                    child: AppElevatedButton(
-                                                      text: AppLocalizations.of(
-                                                              context)!
-                                                          .questions,
-                                                      verticalPadding: 0,
-                                                      textStyle:
-                                                          const TextStyle(
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color: AppColors
-                                                                  .darkGrey),
-                                                      prefixIcon: const Icon(
-                                                        FontAwesomeIcons.plus,
-                                                        color:
-                                                            AppColors.darkGrey,
-                                                        size: 12,
-                                                      ),
-                                                      color: Colors.white,
-                                                      borderColor:
-                                                          AppColors.lightGrey,
-                                                      onPressed: () {
-                                                        _addTextField();
+                                                  Expanded(
+                                                    child:
+                                                        CustomDropdownField<
+                                                            Currency>(
+                                                      items: Currency.values
+                                                          .toList(),
+                                                      selectedItem:
+                                                          dropdownCurrency,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          dropdownCurrency =
+                                                              value!;
+                                                        });
                                                       },
+                                                      displayFunction: (cur) {
+                                                        return cur.text;
+                                                      },
+                                                      hint:
+                                                          '${AppLocalizations.of(context)!.currency}*',
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 19,
+                                                  ),
+                                                  Expanded(
+                                                    child:
+                                                        CustomDropdownField<
+                                                            Period>(
+                                                      items: Period.values
+                                                          .toList(),
+                                                      selectedItem:
+                                                          dropdownPeriod,
+                                                      onChanged: (value) {
+                                                        setState(() {
+                                                          dropdownPeriod =
+                                                              value!;
+                                                        });
+                                                      },
+                                                      displayFunction: (job) {
+                                                        return job.text;
+                                                      },
+                                                      hint:
+                                                          '${AppLocalizations.of(context)!.period}*',
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            );
-                                          }),
-                                    ),
+                                              Padding(
+                                                padding: const EdgeInsets
+                                                    .symmetric(
+                                                    vertical: 15.0),
+                                                child: DropdownTextFormField(
+                                                  width:
+                                                      constraints.maxWidth -
+                                                          72,
+                                                  variants: state
+                                                      .map((e) => e.name)
+                                                      .toList(),
+                                                  controller:
+                                                      _companyController!,
+                                                  isSavePressed: false,
+                                                  hintText:
+                                                      '${AppLocalizations.of(context)!.companyName}*',
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      dropdownCompany = state
+                                                          .where((e) =>
+                                                              e.name == value)
+                                                          .firstOrNull;
+                                                    });
+                                                  },
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 15.0),
+                                                child: CustomDropdownField<
+                                                    JobAreas>(
+                                                  items: JobAreas.elements
+                                                      .toList(),
+                                                  selectedItem:
+                                                      dropdownJobArea,
+                                                  onChanged: (value) {
+                                                    setState(() {
+                                                      dropdownJobArea =
+                                                          value!;
+                                                    });
+                                                  },
+                                                  displayFunction: (area) {
+                                                    return area.localizedName(
+                                                        context
+                                                            .read<
+                                                                LocalizationBloc>()
+                                                            .state
+                                                            .locale);
+                                                  },
+                                                  hint:
+                                                      '${AppLocalizations.of(context)!.area}*',
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets
+                                                    .symmetric(
+                                                    vertical: 15.0),
+                                                child: CustomTextFormField(
+                                                  focusNode: _cityNode,
+                                                  textController:
+                                                      _cityController!,
+                                                  labelText:
+                                                      '${AppLocalizations.of(context)!.city}*',
+                                                  textInputType:
+                                                      TextInputType.name,
+                                                  validator:
+                                                      Validator.validate,
+                                                  isSavePressed: true,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets
+                                                    .symmetric(
+                                                    vertical: 15.0),
+                                                child: CustomTextFormField(
+                                                  focusNode: _locationNode,
+                                                  textController:
+                                                      _locationController!,
+                                                  labelText:
+                                                      '${AppLocalizations.of(context)!.location}*',
+                                                  textInputType:
+                                                      TextInputType.name,
+                                                  validator:
+                                                      Validator.validate,
+                                                  isSavePressed: true,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets
+                                                    .symmetric(
+                                                    vertical: 15.0),
+                                                child: CustomTextFormField(
+                                                  height: 166,
+                                                  maxLines: 15,
+                                                  focusNode: _descriptionNode,
+                                                  textController:
+                                                      _descriptionController!,
+                                                  labelText:
+                                                      '${AppLocalizations.of(context)!.description}*',
+                                                  textInputType:
+                                                      TextInputType.multiline,
+                                                  validator:
+                                                      Validator.validate,
+                                                  isSavePressed: true,
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 15,
+                                              ),
+                                              Align(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                child: SizedBox(
+                                                  width: 150,
+                                                  height: 42,
+                                                  child: AppElevatedButton(
+                                                    text: AppLocalizations.of(
+                                                            context)!
+                                                        .questions,
+                                                    verticalPadding: 0,
+                                                    textStyle:
+                                                        const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400,
+                                                            color: AppColors
+                                                                .darkGrey),
+                                                    prefixIcon: const Icon(
+                                                      FontAwesomeIcons.plus,
+                                                      color:
+                                                          AppColors.darkGrey,
+                                                      size: 12,
+                                                    ),
+                                                    color: Colors.white,
+                                                    borderColor:
+                                                        AppColors.lightGrey,
+                                                    onPressed: () {
+                                                      _addTextField();
+                                                    },
+                                                  ),
+                                                )),
+                                              ],
+                                            )]))),
                                     const SizedBox(
                                       height: 10,
                                     ),

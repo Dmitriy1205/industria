@@ -133,7 +133,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                 cursor: SystemMouseCursors.click,
                                 child: GestureDetector(
                                   onTap: () {
-                                    router.go('/admin/vacancies');
+                                    context.go('/admin/vacancies');
                                   },
                                   child: const Icon(
                                     Icons.arrow_back_ios_new,

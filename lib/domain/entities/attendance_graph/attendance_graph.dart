@@ -40,7 +40,7 @@ class AttendanceGraph with _$AttendanceGraph {
 
   DateTime? get finish => keys.where((e) => e.status == AttendanceGraphStatus.finished).firstOrNull?.mark;
 
-  double? get totalHours => finish == null ? null : finish!.difference(start!).cleanHours - pause!;
+  double? get totalHours => finish == null ? null : finish!.difference(start!).cleanHours - (pause ?? 0.0);
 
   const factory AttendanceGraph(
       {@JsonKey(

@@ -278,5 +278,6 @@
    "finish": "Beenden",
    "are_you_sure_delete_report": "Möchten Sie die ausgewählten Berichte wirklich löschen?",
    "documentDeletedSuccessfully": "Dokument erfolgreich gelöscht",
-   "failedDeleteDocument": "Dokument konnte nicht gelöscht werden"
+   "failedDeleteDocument": "Dokument konnte nicht gelöscht werden",
+   "close": "Schließen"
 }

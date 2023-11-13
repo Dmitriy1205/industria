@@ -74,12 +74,13 @@ class _EmployeeHomeState extends State<EmployeeHome> {
         }
       },
       child: BlocBuilder<AttendanceGraphBloc, AttendanceGraphState>(
-        builder: (context, state) => !state.isLoaded
+        builder: (context, state) => !state.isLoaded || context.watch<EmployeeWeeklyReportCubit>().state == null
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : LayoutBuilder(
-                builder: (context, constraints) => SingleChildScrollView(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
                   child: ColoredBox(
                     color: AppColors.background,
                     child: Padding(
@@ -531,7 +532,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                       ),
                     ),
                   ),
-                ),
+                );
+                },
               ),
       ),
     );
@@ -788,41 +790,66 @@ Future<void> _showFinishDayPopup(BuildContext context){
           color: Colors.white,
           borderRadius: BorderRadius.circular(15)
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 22),
-          child: IntrinsicHeight(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(AppLocalizations.of(context)!.finishTheDay, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
-                SizedBox(height: 10,),
-                Text(AppLocalizations.of(context)!.ifYouHaveDayComments, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-                SizedBox(height: 10,),
-                TextField(
-                  onChanged: (val){
-                    text = val;
-                  },
-                  style: TextStyle(
-                    fontSize: 14
-                  ),
-                  cursorColor: AppColors.mainAccent,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: AppColors.lightGrey
-                      )
-                    )
-                  ),
-                  minLines: 6,
-                  maxLines: null,
+        child: IntrinsicHeight(
+          child: Column(
+            children: [
+              Container(height: 156, width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                  color: Color(0xFFD1EAFF),
                 ),
-                SizedBox(height: 15,),
-                AppElevatedButton(text: AppLocalizations.of(context)!.finish, onPressed: (){
-                  context.read<AttendanceGraphBloc>().add(AttendanceGraphEvent.finishWork(date: DateTime.now(), comment: text));
-                  Navigator.of(context).pop();
-                }, verticalPadding: 5, textStyle: TextStyle(fontSize: 14),)
-              ],
-            ),
+                child: Center(
+                  child: SvgPicture.asset("assets/images/bussiness_competition.svg"),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 22),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(AppLocalizations.of(context)!.finishTheDay, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
+                    SizedBox(height: 10,),
+                    Text(AppLocalizations.of(context)!.ifYouHaveDayComments, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
+                    SizedBox(height: 10,),
+                    TextField(
+                      onChanged: (val){
+                        text = val;
+                      },
+                      style: TextStyle(
+                        fontSize: 14
+                      ),
+                      cursorColor: AppColors.mainAccent,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.lightGrey
+                          )
+                        )
+                      ),
+                      minLines: 6,
+                      maxLines: null,
+                    ),
+                    SizedBox(height: 15,),
+                    Row(
+                      children: [
+                        Spacer(),
+                        TextButton(onPressed: (){
+                          Navigator.of(context).pop();
+                        }, child: Text(AppLocalizations.of(context)!.close, style: TextStyle(color: AppColors.mainAccent, fontSize: 14),)),
+                        SizedBox(width: 25,),
+                        SizedBox(
+                          width: 105,
+                          child: AppElevatedButton(text: AppLocalizations.of(context)!.finish, onPressed: (){
+                            context.read<AttendanceGraphBloc>().add(AttendanceGraphEvent.finishWork(date: DateTime.now(), comment: text));
+                            Navigator.of(context).pop();
+                          }, verticalPadding: 5, textStyle: TextStyle(fontSize: 14),),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

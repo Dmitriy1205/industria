@@ -278,5 +278,6 @@
  "finish": "Finish",
  "are_you_sure_delete_report": "Are you sure you want to delete selected reports?",
  "documentDeletedSuccessfully": "Document deleted successfully",
- "failedDeleteDocument": "Failed to delete document"
+ "failedDeleteDocument": "Failed to delete document",
+ "close": "Close"
 }

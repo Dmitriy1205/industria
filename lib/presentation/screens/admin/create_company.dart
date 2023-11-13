@@ -11,6 +11,7 @@ import 'package:industria/presentation/bloc/companies_feature/create_company/cre
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 
+import '../../../app/router.dart';
 import '../../../core/services/service_locator.dart';
 import '../../bloc/companies_feature/admin_companies_list/admin_companies_list_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -68,8 +69,21 @@ class _CreateCompanyState extends State<CreateCompany> {
               ),
               Row(
                 children: [
+                  MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        router.go('/admin/companies');
+                      },
+                      child: const Icon(
+                        Icons.arrow_back_ios_new,
+                        color: Colors.black,
+                        size: 14,
+                      ),
+                    ),
+                  ),
                   SizedBox(
-                    width: 11,
+                    width: 25,
                   ),
                   Text(
                     AppLocalizations.of(context)!.companies,

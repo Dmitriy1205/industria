@@ -14,6 +14,7 @@ import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/custom_text_form_field.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
 
+import '../../../app/router.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/route_value.dart';
 import '../../../core/validator/field_validator.dart';
@@ -103,8 +104,21 @@ class _UpdateCompanyState extends State<UpdateCompany> {
                       ),
                       Row(
                         children: [
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                router.go('/admin/companies');
+                              },
+                              child: const Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Colors.black,
+                                size: 14,
+                              ),
+                            ),
+                          ),
                           SizedBox(
-                            width: 11,
+                            width: 25,
                           ),
                           Text(
                             AppLocalizations.of(context)!.companies,

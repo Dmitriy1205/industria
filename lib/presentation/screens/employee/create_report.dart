@@ -61,7 +61,7 @@ class _CreateReportState extends State<CreateReport> {
               },
               success: (_) {
                 showSuccessSnackBar(context, "Created Report successfully!");
-                context.go('/employee/delete_reports');
+                context.go('/employee/reports');
               },
               error: (value) {
                 showErrorSnackBar(context, "Failed to create Report!");

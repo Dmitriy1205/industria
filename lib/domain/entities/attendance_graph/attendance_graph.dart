@@ -3,7 +3,7 @@ import 'package:industria/core/extensions/duration.dart';
 import 'package:industria/core/utils/firebase_timestamp_converters.dart';
 
 import '../../../core/enums/attendance_graph_status.dart';
-import '../../attendance_graph_key/attendance_graph_key.dart';
+import '../attendance_graph_key/attendance_graph_key.dart';
 
 part 'attendance_graph.freezed.dart';
 

@@ -11,6 +11,7 @@ import 'package:industria/data/remote/attendance/attendance_service_impl.dart';
 import 'package:industria/data/remote/admin_feedback/admin_feedback_service_impl.dart';
 import 'package:industria/data/remote/attendance_graph/attendance_graph_service_contract.dart';
 import 'package:industria/data/remote/contact_requests/contact_requests_service_impl.dart';
+import 'package:industria/data/remote/employee_documents/employee_documents_service_impl.dart';
 import 'package:industria/data/remote/holiday_requests/holiday_requests_service_impl.dart';
 import 'package:industria/data/remote/job/job_service_impl.dart';
 import 'package:industria/domain/repositories/admin_company/admin_company_repository_contract.dart';
@@ -27,6 +28,8 @@ import 'package:industria/domain/repositories/auth/auth_repository_impl.dart';
 import 'package:industria/domain/repositories/contact_request/contact_request_repository_contract.dart';
 import 'package:industria/data/local/language/language_service_impl.dart';
 import 'package:industria/data/remote/job_application/job_application_service_impl.dart';
+import 'package:industria/domain/repositories/employee_documents/employee_documents_repository_contract.dart';
+import 'package:industria/domain/repositories/employee_documents/employee_documents_repository_impl.dart';
 import 'package:industria/domain/repositories/holiday_requests/holiday_requests_repository_contract.dart';
 import 'package:industria/domain/repositories/holiday_requests/holiday_requests_repository_impl.dart';
 import 'package:industria/domain/repositories/job/job_repository_contract.dart';
@@ -35,6 +38,7 @@ import 'package:industria/domain/repositories/job_application/job_application_re
 import 'package:industria/domain/repositories/job_application/job_application_repository_impl.dart';
 import 'package:industria/domain/repositories/language/language_repository_impl.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
+import 'package:industria/presentation/bloc/attendance/attendance_cubit.dart';
 import 'package:industria/presentation/bloc/attendance_graph/attendance_graph_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/companies_feature/admin_companies_list/admin_companies_list_bloc.dart';
@@ -42,7 +46,11 @@ import 'package:industria/presentation/bloc/contact_requests/contact_request_blo
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 import 'package:industria/presentation/bloc/create_report/create_report_bloc.dart';
 import 'package:industria/presentation/bloc/delete_reports/delete_reports_bloc.dart';
+import 'package:industria/presentation/bloc/employee_documents_feature/create_employee_document/create_employee_document_bloc.dart';
+import 'package:industria/presentation/bloc/employee_documents_feature/delete_employee_document/delete_employee_document_bloc.dart';
+import 'package:industria/presentation/bloc/employee_documents_feature/employee_documents/employee_documents_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
+import 'package:industria/presentation/bloc/employee_weekly_report/employee_weekly_report_cubit.dart';
 import 'package:industria/presentation/bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
 import 'package:industria/presentation/bloc/feedback_feature/admin_feedback_list/admin_feedback_list_bloc.dart';
 import 'package:industria/presentation/bloc/holiday_request_feature/viewReportCubit.dart';
@@ -117,6 +125,9 @@ Future<void> init() async {
           db: FirebaseFirestore.instance,
           algolia: algolia,
           storage: FirebaseStorage.instance));
+  final employeeDocumentsRepository = EmployeeDocumentsRepositoryImpl(
+      db: EmployeeDocumentsServiceImpl(
+          db: FirebaseFirestore.instance, storage: FirebaseStorage.instance));
 
   final attendanceGraphRepository = AttendanceGraphRepositoryImpl(
       db: AttendanceGraphServiceImpl(db: FirebaseFirestore.instance));
@@ -137,7 +148,8 @@ Future<void> init() async {
   sl.registerSingleton<AdminFeedbackRepository>(feedbackRepository);
   sl.registerSingleton<AdminVacancyRepository>(adminVacancyRepository);
   sl.registerSingleton<AttendanceGraphRepository>(attendanceGraphRepository);
-
+  sl.registerSingleton<EmployeeDocumentsRepository>(
+      employeeDocumentsRepository);
 
   sl.registerLazySingleton(() => AttendanceGraphBloc(
       attendanceGraphRepository: attendanceGraphRepository));
@@ -179,4 +191,12 @@ Future<void> init() async {
       adminHolidayRequestsListBloc: sl()));
   sl.registerLazySingleton(() =>
       ViewReportCubit(holidayRequestsRepository: holidayRequestsRepository));
+  sl.registerLazySingleton(() =>
+      EmployeeWeeklyReportCubit(attendanceRepository: attendanceRepository));
+  sl.registerLazySingleton(() => DeleteEmployeeDocumentBloc(
+      employeeDocumentsRepository: employeeDocumentsRepository));
+  sl.registerLazySingleton(() => CreateEmployeeDocumentBloc(
+      employeeDocumentsRepository: employeeDocumentsRepository));
+  sl.registerLazySingleton(() => EmployeeDocumentsBloc(
+      employeeDocumentsRepository: employeeDocumentsRepository));
 }

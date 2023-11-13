@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
+import 'package:industria/presentation/bloc/attendance/attendance_cubit.dart';
 import 'package:industria/presentation/bloc/attendance_graph/attendance_graph_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
+import 'package:industria/presentation/bloc/employee_documents_feature/employee_documents/employee_documents_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
+import 'package:industria/presentation/bloc/employee_weekly_report/employee_weekly_report_cubit.dart';
 import 'package:industria/presentation/bloc/holiday_request_feature/admin_holiday_requests_list/admin_holiday_requests_list_bloc.dart';
 import 'package:industria/presentation/bloc/feedback_feature/admin_feedback_list/admin_feedback_list_bloc.dart';
 import 'package:industria/presentation/bloc/jobs/jobs_bloc.dart';
@@ -45,7 +48,9 @@ class Providers extends StatelessWidget {
         BlocProvider(create: (context) => sl<AdminDeleteFeedbackBloc>()),
         BlocProvider(create: (context) => sl<AdminVacancyListBloc>()),
         BlocProvider(create: (context) => sl<AdminDeleteVacancyBloc>()),
-        BlocProvider(create: (context) => sl<AttendanceGraphBloc>())
+        BlocProvider(create: (context) => sl<AttendanceGraphBloc>()),
+        BlocProvider(create: (context) => sl<EmployeeWeeklyReportCubit>()),
+        BlocProvider(create: (context) => sl<EmployeeDocumentsBloc>()),
       ],
       child: child,
     );

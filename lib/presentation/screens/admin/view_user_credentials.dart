@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/extensions/date.dart';
+import 'package:industria/core/utils/download_storage_file.dart';
 import 'package:industria/core/utils/pdf_attendance.dart';
 import 'package:industria/core/utils/time.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
+import 'package:industria/domain/entities/employee_document/employee_document.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
+import 'package:industria/presentation/bloc/admin_employee_documents/admin_employee_documents_cubit.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_details/admin_employee_details_cubit.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
@@ -16,6 +19,7 @@ import '../../../core/services/service_locator.dart';
 import '../../../core/utils/route_value.dart';
 import '../../../domain/entities/attendance/attendance.dart';
 import '../../../domain/repositories/attendance/attendance_repository_contract.dart';
+import '../../../domain/repositories/employee_documents/employee_documents_repository_contract.dart';
 import '../../bloc/attendance/attendance_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -30,6 +34,8 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
   final _attendanceCubit =
       AttendanceCubit(attendanceRepository: sl<AttendanceRepository>());
 
+  final _documentsCubit = AdminEmployeeDocumentsCubit(employeeDocumentsRepository: sl<EmployeeDocumentsRepository>());
+
   final _adminEmployeeDetailsCubit = AdminEmployeeDetailsCubit(
       adminEmployeeRepository: sl<AdminEmployeeRepository>());
 
@@ -41,6 +47,7 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
       if (paramValue != null) {
         _attendanceCubit.fetchUserAttendanceReports(userUid: paramValue);
         _adminEmployeeDetailsCubit.fetchEmployeeById(paramValue);
+        _documentsCubit.fetchEmployeeDocuments(employeeUid: paramValue);
       }
     });
   }
@@ -162,7 +169,7 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                  right: 30, left: 30, bottom: 40),
+                                  right: 30, left: 30, bottom: 30),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -285,7 +292,7 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                                                                   .spaceBetween,
                                                           children: [
                                                             Text(
-                                                                "${AppLocalizations.of(context)!.attendance_report} | ${e.start.formattedTexted(context.watch<LocalizationBloc>().state.locale)} - ${e.end.formattedTexted(context.watch<LocalizationBloc>().state.locale)}"),
+                                                                "${AppLocalizations.of(context)!.attendance_report} | ${e.start.formattedTexted(context.watch<LocalizationBloc>().state.locale)} - ${e.end.formattedTexted(context.watch<LocalizationBloc>().state.locale)}", style: TextStyle(fontSize: 14),),
                                                             TextButton(
                                                                 onPressed: () {
                                                                   generatePdfAttendance(
@@ -296,6 +303,7 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                                                                           context)!
                                                                       .download,
                                                                   style: TextStyle(
+                                                                    fontSize: 14,
                                                                       decoration:
                                                                           TextDecoration
                                                                               .underline,
@@ -312,6 +320,71 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                                                         ))
                                                     .toList()
                                               ]);
+                                  }))),
+                    ),
+                    SizedBox(height: 30,),
+                    IntrinsicHeight(
+                      child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                          ),
+                          width: double.infinity,
+                          child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 30, vertical: 20),
+                              child: BlocBuilder<AdminEmployeeDocumentsCubit,
+                                  List<EmployeeDocument>?>(
+                                  bloc: _documentsCubit,
+                                  builder: (context, state) {
+                                    return state == null
+                                        ? Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                        : Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Documents",
+                                            style: TextStyle(
+                                                fontWeight:
+                                                FontWeight.w600),
+                                          ),
+                                          ...state
+                                              .map((e) => Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceBetween,
+                                            children: [
+                                              Text(
+                                                e.name, style: TextStyle(fontSize: 14),),
+                                              TextButton(
+                                                  onPressed: () {
+                                                    downloadStorageFile(e.location);
+                                                  },
+                                                  child: Text(
+                                                    AppLocalizations.of(
+                                                        context)!
+                                                        .download,
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        decoration:
+                                                        TextDecoration
+                                                            .underline,
+                                                        color: AppColors
+                                                            .mainAccent,
+                                                        decorationColor:
+                                                        AppColors
+                                                            .mainAccent,
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w600),
+                                                  ))
+                                            ],
+                                          ))
+                                              .toList()
+                                        ]);
                                   }))),
                     ),
                   ],

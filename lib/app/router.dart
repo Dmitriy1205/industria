@@ -26,7 +26,9 @@ import 'package:industria/presentation/screens/admin/view_vacancy.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
 import 'package:industria/presentation/screens/data_protection.dart';
+import 'package:industria/presentation/screens/employee/create_document.dart';
 import 'package:industria/presentation/screens/employee/create_report.dart';
+import 'package:industria/presentation/screens/employee/employee_documents.dart';
 import 'package:industria/presentation/screens/employee/employee_home.dart';
 import 'package:industria/presentation/screens/employee/employee_main_screen.dart';
 import 'package:industria/presentation/screens/for_employees.dart';
@@ -101,11 +103,19 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        path: '/employee/delete_reports',
+        path: '/employee/reports',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
           child: const Reports(),
+        ),
+      ),
+      GoRoute(
+        path: '/employee/documents',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const EmployeeDocuments(),
         ),
       ),
       GoRoute(
@@ -114,6 +124,14 @@ final GoRouter router = GoRouter(
           context: context,
           state: state,
           child: const CreateReport(),
+        ),
+      ),
+      GoRoute(
+        path: '/employee/create_document',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const CreateDocument(),
         ),
       ),
       GoRoute(name: 'ViewReport',

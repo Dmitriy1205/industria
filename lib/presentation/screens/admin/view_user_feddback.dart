@@ -58,7 +58,7 @@ class _ViewUserFeedbackState extends State<ViewUserFeedback> {
                             cursor: SystemMouseCursors.click,
                             child: GestureDetector(
                               onTap: () {
-                                router.go('/admin/holidays');
+                                router.go('/admin/feedbacks');
                               },
                               child: const Icon(
                                 Icons.arrow_back_ios_new,

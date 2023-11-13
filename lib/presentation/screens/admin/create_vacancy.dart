@@ -127,6 +127,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                     child: LayoutBuilder(
                       builder: (context, constraints) => Column(
                         children: [
+                          SizedBox(height: 34,),
                           Row(
                             children: [
                               MouseRegion(

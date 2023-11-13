@@ -83,7 +83,7 @@ class _ViewJobApplicationState extends State<ViewJobApplication> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 20,
+                    height: 34,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 18),

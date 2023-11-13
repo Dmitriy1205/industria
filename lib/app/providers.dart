@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:industria/presentation/bloc/admin_auth/admin_auth_bloc.dart';
+import 'package:industria/presentation/bloc/attendance_graph/attendance_graph_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
 import 'package:industria/presentation/bloc/cookie/cookie_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
@@ -44,6 +45,7 @@ class Providers extends StatelessWidget {
         BlocProvider(create: (context) => sl<AdminDeleteFeedbackBloc>()),
         BlocProvider(create: (context) => sl<AdminVacancyListBloc>()),
         BlocProvider(create: (context) => sl<AdminDeleteVacancyBloc>()),
+        BlocProvider(create: (context) => sl<AttendanceGraphBloc>())
       ],
       child: child,
     );

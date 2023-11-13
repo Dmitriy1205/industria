@@ -43,9 +43,9 @@ Map<String, dynamic> _$$_JobApplicationToJson(_$_JobApplication instance) =>
       'address': instance.address,
       'availableDate':
           FirebaseTimestampConverters.toTimestamp(instance.availableDate),
-      'documents': instance.documents,
+      'documents': instance.documents.toJson(),
       'companyId': instance.companyId,
-      'company': instance.company,
+      'company': instance.company.toJson(),
       'jobOfferId': instance.jobOfferId,
       'jobOfferName': instance.jobOfferName,
       'status': instance.status,

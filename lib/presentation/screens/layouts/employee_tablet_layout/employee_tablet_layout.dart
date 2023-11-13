@@ -13,6 +13,7 @@ import '../../../../core/constants/strings.dart';
 import '../../../../core/themes/theme.dart';
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../bloc/localization/localization_bloc.dart';
+import '../../../widgets/firebase_image.dart';
 
 class EmployeeTabletLayout extends StatefulWidget {
   const EmployeeTabletLayout({Key? key, required this.child}) : super(key: key);
@@ -43,6 +44,30 @@ class _EmployeeTabletLayoutState extends State<EmployeeTabletLayout> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                context.watch<AuthBloc>().state.isEmployeeAuthenticated ? Padding(
+                  padding: EdgeInsets.only(left: 10),
+                  child: SelectionContainer.disabled(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        FirebaseImage(storageRef: context.watch<AuthBloc>().state.employee!.photoRef, rounded: true,),
+                        SizedBox(width: 20,),
+                        SizedBox(
+                          width: 80,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(context.watch<AuthBloc>().state.employee!.firstname + " " + context.watch<AuthBloc>().state.employee!.lastname, style: TextStyle(fontSize: 14), maxLines: 1, overflow: TextOverflow.ellipsis,),
+                              Text(context.watch<AuthBloc>().state.employee!.email.split("@").first, style: TextStyle(fontSize: 14, color: AppColors.darkGrey), maxLines: 1, overflow: TextOverflow.ellipsis),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ) : SizedBox.shrink(),
+                SizedBox(height: 15,),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: Theme(

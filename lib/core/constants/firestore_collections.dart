@@ -6,4 +6,5 @@ class FirestoreCollections{
   static String holidays = "holidays";
   static String attendances = "attendance";
   static String companies = "companies";
+  static String attendanceGraph = "attendance_graph";
 }

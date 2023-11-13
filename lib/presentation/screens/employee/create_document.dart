@@ -56,7 +56,7 @@ class _CreateDocumentState extends State<CreateDocument> {
                 },
                 success: (_) {
                   showSuccessSnackBar(context, "Created document successfully!");
-                  context.go('/employee/documents');
+                  context.go('/employees/documents');
                 },
                 fail: (value) {
                   showErrorSnackBar(context, "Failed to create document!");
@@ -85,7 +85,7 @@ class _CreateDocumentState extends State<CreateDocument> {
                                   const SizedBox(
                                     height: 22,
                                   ),
-                                  Container(height: 81, width: double.infinity,
+                                  Container(height: 67, width: double.infinity,
                                     constraints: BoxConstraints(maxWidth: 550),
                                     decoration: BoxDecoration(
                                     borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
@@ -96,11 +96,11 @@ class _CreateDocumentState extends State<CreateDocument> {
                                     children: [
                                       IconButton(
                                           onPressed: (){
-                                            context.go("/employee/documents");
+
                                           },
-                                          icon: Icon(FontAwesomeIcons.chevronLeft, color: AppColors.mainDarkAccent, size: 15,)),
+                                          icon: Icon(FontAwesomeIcons.chevronLeft, color: AppColors.mainDarkAccent, size: 13,)),
                                       SizedBox(width: 25,),
-                                      Text("Upload document", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppColors.mainDarkAccent),)
+                                      Text("Upload document", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.mainDarkAccent),)
                                     ],
                                   ),
                                       ),),

@@ -62,6 +62,8 @@ String? _authAdminRedirect(String fullPath, bool isAuthenticated) {
 }
 
 String? _authEmployeeRedirect(String fullPath, bool isAuthenticated) {
+  print(fullPath);
+  print(isAuthenticated);
   if (fullPath == '/employees' && isAuthenticated) {
     return '/employees/home';
   } else if (fullPath.contains('/employees') && !isAuthenticated) {
@@ -95,7 +97,7 @@ final GoRouter router = GoRouter(
     ),
     ShellRoute(routes: [
       GoRoute(
-        path: '/employee/messaging',
+        path: '/employees/messaging',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
@@ -103,7 +105,7 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        path: '/employee/reports',
+        path: '/employees/reports',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
@@ -111,7 +113,7 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        path: '/employee/documents',
+        path: '/employees/documents',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
@@ -119,7 +121,7 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        path: '/employee/create_report',
+        path: '/employees/create_report',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
@@ -127,7 +129,7 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        path: '/employee/create_document',
+        path: '/employees/create_document',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
@@ -135,7 +137,7 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(name: 'ViewReport',
-        path: '/employee/view_report',
+        path: '/employees/view_report',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,

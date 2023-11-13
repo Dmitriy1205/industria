@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/enums/attendance_graph_status.dart';
 import 'package:industria/core/extensions/date.dart';
@@ -378,7 +379,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         },
                                         child: GestureDetector(
                                           onTap: () =>
-                                              router.go('/employee/reports'),
+                                              context.go('/employees/reports'),
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 color: isHoveredReportsButton
@@ -428,7 +429,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         },
                                         child: GestureDetector(
                                           onTap: () {
-                                            router.go('/employee/messaging');
+                                            context.go('/employees/messaging');
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
@@ -479,7 +480,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         },
                                         child: GestureDetector(
                                           onTap: () =>
-                                              router.go('/employee/documents'),
+                                              context.go('/employees/documents'),
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 color: isHoveredDocumentsButton

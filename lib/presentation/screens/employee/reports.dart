@@ -112,11 +112,11 @@ class _ReportsState extends State<Reports> {
                     height: 20,
                   ),
                   LayoutBuilder(builder: (context, constraints) {
-                    return constraints.maxWidth < 950
+                    return constraints.maxWidth < 1350
                         ? Padding(
                             padding: const EdgeInsets.only(left: 24, right: 24),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(
                                   width: 16,
@@ -143,7 +143,7 @@ class _ReportsState extends State<Reports> {
                                       ),
                                       textStyle: const TextStyle(fontSize: 14),
                                       onPressed: () {
-                                        context.go('/employee/create_report');
+                                        context.go('/employees/create_report');
                                       },
                                       verticalPadding: 15,
                                     ))
@@ -156,6 +156,7 @@ class _ReportsState extends State<Reports> {
                             child: SizedBox(
                               height: 52,
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const SizedBox(
                                     width: 16,
@@ -183,7 +184,7 @@ class _ReportsState extends State<Reports> {
                                         textStyle:
                                             const TextStyle(fontSize: 14),
                                         onPressed: () {
-                                          context.go('/employee/create_report');
+                                          context.go('/employees/create_report');
                                         },
                                         verticalPadding: 15,
                                       ))
@@ -356,7 +357,7 @@ class _ReportsState extends State<Reports> {
                               .tableData
                               .element[i];
                           router.go(
-                            "/employee/view_report?reportId=${report.id}",
+                            "/employees/view_report?reportId=${report.id}",
                             // pathParameters: {'id': id}
                           );
 
@@ -369,7 +370,7 @@ class _ReportsState extends State<Reports> {
                         },
                         divider: BorderSide(
                           width: 1,
-                          color: Colors.grey,
+                          color: AppColors.lightGrey,
                         ),
                         backgroundColor: Colors.white,
                         horizontalPadding: 30,

@@ -103,11 +103,11 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                     height: 20,
                   ),
                   LayoutBuilder(builder: (context, constraints) {
-                    return constraints.maxWidth < 950
+                    return constraints.maxWidth < 1350
                         ? Padding(
                       padding: const EdgeInsets.only(left: 24, right: 24),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
                             width: 16,
@@ -133,7 +133,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                                 ),
                                 textStyle: const TextStyle(fontSize: 14),
                                 onPressed: () {
-                                  context.go('/employee/create_document');
+                                  context.go('/employees/create_document');
                                 },
                                 verticalPadding: 15,
                               ))
@@ -146,6 +146,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                       child: SizedBox(
                         height: 52,
                         child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const SizedBox(
                               width: 16,
@@ -172,7 +173,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                                   textStyle:
                                   const TextStyle(fontSize: 14),
                                   onPressed: () {
-                                    context.go('/employee/create_document');
+                                    context.go('/employees/create_document');
                                   },
                                   verticalPadding: 15,
                                 ))

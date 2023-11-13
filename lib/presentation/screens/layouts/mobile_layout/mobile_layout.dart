@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:industria/presentation/screens/layouts/tablet_layout/tablet_navbar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../app/router.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/images.dart';
 import '../../../../core/themes/theme.dart';
 import '../../../bloc/localization/localization_bloc.dart';
+import 'mobile_navbar.dart';
 
-class TabletLayout extends StatefulWidget {
-  const TabletLayout({Key? key, required this.child}) : super(key: key);
+class MobileLayout extends StatefulWidget {
+  const MobileLayout({Key? key, required this.child}) : super(key: key);
   final Widget child;
 
   @override
-  State<TabletLayout> createState() => _TabletLayoutState();
+  State<MobileLayout> createState() => _MobileLayoutState();
 }
 
-class _TabletLayoutState extends State<TabletLayout> {
+class _MobileLayoutState extends State<MobileLayout> {
   bool changedLang = true;
   String flag = AppImages.engFlag;
   bool isHovered = false;
@@ -197,7 +197,7 @@ class _TabletLayoutState extends State<TabletLayout> {
       ),
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 110),
-        child: TabletNavbar(scaffold: scaffoldState,),
+        child: MobileNavbar(scaffold: scaffoldState,),
       ),
       body: widget.child,
     );

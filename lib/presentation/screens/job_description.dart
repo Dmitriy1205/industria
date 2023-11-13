@@ -246,7 +246,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                           ],
                                         ),
                                       ),
-                                      const Spacer(),
+                                      SizedBox(width: 60,),
                                       FirebaseImage(
                                           storageRef: state.company.logo)
                                     ],

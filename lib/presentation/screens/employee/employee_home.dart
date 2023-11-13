@@ -3,19 +3,21 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/enums/attendance_graph_status.dart';
 import 'package:industria/core/extensions/date.dart';
-import 'package:industria/domain/attendance_graph_key/attendance_graph_key.dart';
 import 'package:industria/domain/entities/attendance_graph/attendance_graph.dart';
 import 'package:industria/presentation/bloc/attendance_graph/attendance_graph_bloc.dart';
 import 'package:industria/presentation/bloc/auth/auth_bloc.dart';
+import 'package:industria/presentation/bloc/employee_weekly_report/employee_weekly_report_cubit.dart';
 import 'package:industria/presentation/bloc/localization/localization_bloc.dart';
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
-import 'package:industria/presentation/widgets/custom_text_form_field.dart';
+import '../../../domain/entities/attendance_graph_key/attendance_graph_key.dart';
 import '../../../app/router.dart';
 import '../../../core/themes/theme.dart';
 import '../../widgets/bold_text_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmployeeHome extends StatefulWidget {
   const EmployeeHome({Key? key}) : super(key: key);
@@ -25,10 +27,9 @@ class EmployeeHome extends StatefulWidget {
 }
 
 class _EmployeeHomeState extends State<EmployeeHome> {
-  bool isHoveredStopBreakButton = false;
-  bool isHoveredFinishDayButton = false;
   bool isHoveredChatButton = false;
   bool isHoveredReportsButton = false;
+  bool isHoveredDocumentsButton = false;
 
   DateTime currentDate = DateTime.now();
 
@@ -43,6 +44,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
           AttendanceGraphEvent.fetchAttendanceGraph(
               date: currentDate,
               userUid: context.read<AuthBloc>().state.employee!.id!));
+      context.read<EmployeeWeeklyReportCubit>().fetchAttendance(
+          employeeUid: context.read<AuthBloc>().state.employee!.id!);
     }
     _timer = Timer.periodic(const Duration(seconds: 10), (timer) {
       setState(() {
@@ -66,15 +69,18 @@ class _EmployeeHomeState extends State<EmployeeHome> {
           context.read<AttendanceGraphBloc>().add(
               AttendanceGraphEvent.fetchAttendanceGraph(
                   date: currentDate, userUid: state.employee!.id!));
+          context.read<EmployeeWeeklyReportCubit>().fetchAttendance(
+              employeeUid: context.read<AuthBloc>().state.employee!.id!);
         }
       },
       child: BlocBuilder<AttendanceGraphBloc, AttendanceGraphState>(
-        builder: (context, state) => !state.isLoaded
+        builder: (context, state) => !state.isLoaded || context.watch<EmployeeWeeklyReportCubit>().state == null
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : LayoutBuilder(
-                builder: (context, constraints) => SingleChildScrollView(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
                   child: ColoredBox(
                     color: AppColors.background,
                     child: Padding(
@@ -101,14 +107,14 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               RichText(
                                   text: TextSpan(children: [
                                 TextSpan(
-                                    text: 'Worked this week:  ',
+                                    text: "${AppLocalizations.of(context)!.workedThisWeek}  ",
                                     style: AppTheme
                                         .themeData.textTheme.labelLarge!
                                         .copyWith(
                                             color: AppColors.darkGrey,
                                             fontSize: 14)),
                                 TextSpan(
-                                    text: '32 hours',
+                                    text: "${context.watch<EmployeeWeeklyReportCubit>().state?.cleanWeekWork.toInt().toString() ?? "--/--"} ${AppLocalizations.of(context)!.hours}",
                                     style: AppTheme
                                         .themeData.textTheme.labelLarge!
                                         .copyWith(
@@ -181,7 +187,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         width: 13,
                                       ),
                                       BoldTextWidget(
-                                        text: 'Not available',
+                                        text: AppLocalizations.of(context)!.notAvailable,
                                         style: AppTheme
                                             .themeData.textTheme.labelLarge!
                                             .copyWith(
@@ -203,7 +209,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         width: 13,
                                       ),
                                       BoldTextWidget(
-                                        text: 'Working',
+                                        text: AppLocalizations.of(context)!.working,
                                         style: AppTheme
                                             .themeData.textTheme.labelLarge!
                                             .copyWith(
@@ -225,7 +231,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         width: 13,
                                       ),
                                       BoldTextWidget(
-                                        text: 'Break',
+                                        text: AppLocalizations.of(context)!.breaked,
                                         style: AppTheme
                                             .themeData.textTheme.labelLarge!
                                             .copyWith(
@@ -257,7 +263,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Text('Check-in',
+                                              Text(AppLocalizations.of(context)!.checkIn,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelSmall!
                                                       .copyWith(
@@ -282,7 +288,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Text('Pause',
+                                              Text(AppLocalizations.of(context)!.pause,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelSmall!
                                                       .copyWith(
@@ -307,7 +313,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Text('Check-out',
+                                              Text(AppLocalizations.of(context)!.checkOut,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelSmall!
                                                       .copyWith(
@@ -332,7 +338,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                             crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                             children: [
-                                              Text('Total hours',
+                                              Text(AppLocalizations.of(context)!.totalHours,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelSmall!
                                                       .copyWith(
@@ -354,7 +360,10 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                   const SizedBox(
                                     height: 45,
                                   ),
-                                  Row(
+                                  Wrap(
+                                    runSpacing: 20,
+                                    spacing: 20,
+                                    alignment: WrapAlignment.center,
                                     children: [
                                       MouseRegion(
                                         cursor: SystemMouseCursors.click,
@@ -372,7 +381,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         },
                                         child: GestureDetector(
                                           onTap: () =>
-                                              router.go('/employee/delete_reports'),
+                                              context.go('/employees/reports'),
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 color: isHoveredReportsButton
@@ -393,7 +402,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                                 ),
                                                 SelectionContainer.disabled(
                                                   child: Text(
-                                                    'REPORTS',
+                                                    AppLocalizations.of(context)!.reports.toUpperCase(),
                                                     style: AppTheme.themeData
                                                         .textTheme.labelMedium!
                                                         .copyWith(
@@ -405,9 +414,6 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 33,
                                       ),
                                       MouseRegion(
                                         cursor: SystemMouseCursors.click,
@@ -425,7 +431,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         },
                                         child: GestureDetector(
                                           onTap: () {
-                                            router.go('/employee/messaging');
+                                            context.go('/employees/messaging');
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(
@@ -447,12 +453,62 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                                 ),
                                                 SelectionContainer.disabled(
                                                   child: Text(
-                                                    'CHAT',
+                                                    AppLocalizations.of(context)!.chat.toUpperCase(),
                                                     style: AppTheme.themeData
                                                         .textTheme.labelMedium!
                                                         .copyWith(
                                                             color:
                                                                 Colors.white),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      MouseRegion(
+                                        cursor: SystemMouseCursors.click,
+                                        onEnter: (_) {
+                                          setState(() {
+                                            isHoveredDocumentsButton =
+                                            !isHoveredDocumentsButton;
+                                          });
+                                        },
+                                        onExit: (_) {
+                                          setState(() {
+                                            isHoveredDocumentsButton =
+                                            !isHoveredDocumentsButton;
+                                          });
+                                        },
+                                        child: GestureDetector(
+                                          onTap: () =>
+                                              context.go('/employees/documents'),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: isHoveredDocumentsButton
+                                                    ? AppColors.mainDarkAccent
+                                                    : AppColors.mainAccent,
+                                                borderRadius:
+                                                BorderRadius.circular(12)),
+                                            width: 142,
+                                            height: 119,
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: [
+                                                SvgPicture.asset(
+                                                    'assets/icons/document.svg'),
+                                                const SizedBox(
+                                                  height: 13,
+                                                ),
+                                                SelectionContainer.disabled(
+                                                  child: Text(
+                                                    AppLocalizations.of(context)!.documents.toUpperCase(),
+                                                    style: AppTheme.themeData
+                                                        .textTheme.labelMedium!
+                                                        .copyWith(
+                                                        color:
+                                                        Colors.white),
                                                   ),
                                                 )
                                               ],
@@ -476,7 +532,8 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                       ),
                     ),
                   ),
-                ),
+                );
+                },
               ),
       ),
     );
@@ -485,7 +542,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
   Widget _interactionButtons({required AttendanceGraphStatus status}) {
     if (status == AttendanceGraphStatus.notStarted) {
       return _InteractionButton(
-        text: "Start working",
+        text: AppLocalizations.of(context)!.startWorking,
         color: AppColors.mainAccent,
         hoverColor: AppColors.mainDarkAccent,
         onTap: (){
@@ -496,7 +553,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
     } else if (status == AttendanceGraphStatus.working) {
       return Row(
         children: [
-          _InteractionButton(text: "Start break", color: AppColors.secondaryAccent,
+          _InteractionButton(text: AppLocalizations.of(context)!.startBreak, color: AppColors.secondaryAccent,
           hoverColor: const Color(0xFFD39E00), onTap: (){
               context.read<AttendanceGraphBloc>().add(AttendanceGraphEvent.startBreak(date: currentDate));
             },),
@@ -504,7 +561,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
             width: 23,
           ),
           _InteractionButton(
-            text: "Finish day",
+            text: AppLocalizations.of(context)!.finishDay,
             color: AppColors.darkGrey,
             hoverColor: const Color(0xFF676767),
             onTap: () async{
@@ -517,7 +574,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
       return Row(
         children: [
           _InteractionButton(
-            text: "Stop break",
+            text: AppLocalizations.of(context)!.stopBreak,
             color: AppColors.mainAccent,
             hoverColor: AppColors.mainDarkAccent,
             onTap: (){
@@ -528,7 +585,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
             width: 23,
           ),
           _InteractionButton(
-            text: "Finish day",
+            text: AppLocalizations.of(context)!.finishDay,
             color: AppColors.darkGrey,
             hoverColor: const Color(0xFF676767),
             onTap: () async{
@@ -547,22 +604,21 @@ class _EmployeeHomeState extends State<EmployeeHome> {
 
   List<String> _timesheetLabels({required double width}) {
     if (width < 600) {
-      return ["0 AM", "6 AM", "12 AM", "6 PM", "12 PM"];
+      return ["6 AM", "12 AM", "6 PM", "12 PM"];
     } else if (width < 1200) {
       return [
-        "0 AM",
         "2 AM",
         "4 AM",
         "6 AM",
         "8 AM",
         "10 AM",
         "12 AM",
-        "2 PM",
+        "2 AM",
         "4 PM",
         "6 PM",
         "8 PM",
         "10 PM",
-        "12 PM"
+        "12 PM",
       ];
     } else {
       return [
@@ -734,41 +790,66 @@ Future<void> _showFinishDayPopup(BuildContext context){
           color: Colors.white,
           borderRadius: BorderRadius.circular(15)
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 22),
-          child: IntrinsicHeight(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Finish the day!", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
-                SizedBox(height: 10,),
-                Text("If you have any comments about day, specify them below or leave it blank.", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
-                SizedBox(height: 10,),
-                TextField(
-                  onChanged: (val){
-                    text = val;
-                  },
-                  style: TextStyle(
-                    fontSize: 14
-                  ),
-                  cursorColor: AppColors.mainAccent,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: AppColors.lightGrey
-                      )
-                    )
-                  ),
-                  minLines: 6,
-                  maxLines: null,
+        child: IntrinsicHeight(
+          child: Column(
+            children: [
+              Container(height: 156, width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                  color: Color(0xFFD1EAFF),
                 ),
-                SizedBox(height: 15,),
-                AppElevatedButton(text: "Finish", onPressed: (){
-                  context.read<AttendanceGraphBloc>().add(AttendanceGraphEvent.finishWork(date: DateTime.now(), comment: text));
-                  Navigator.of(context).pop();
-                }, verticalPadding: 5, textStyle: TextStyle(fontSize: 14),)
-              ],
-            ),
+                child: Center(
+                  child: SvgPicture.asset("assets/images/bussiness_competition.svg"),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 32, vertical: 22),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(AppLocalizations.of(context)!.finishTheDay, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
+                    SizedBox(height: 10,),
+                    Text(AppLocalizations.of(context)!.ifYouHaveDayComments, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
+                    SizedBox(height: 10,),
+                    TextField(
+                      onChanged: (val){
+                        text = val;
+                      },
+                      style: TextStyle(
+                        fontSize: 14
+                      ),
+                      cursorColor: AppColors.mainAccent,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: AppColors.lightGrey
+                          )
+                        )
+                      ),
+                      minLines: 6,
+                      maxLines: null,
+                    ),
+                    SizedBox(height: 15,),
+                    Row(
+                      children: [
+                        Spacer(),
+                        TextButton(onPressed: (){
+                          Navigator.of(context).pop();
+                        }, child: Text(AppLocalizations.of(context)!.close, style: TextStyle(color: AppColors.mainAccent, fontSize: 14),)),
+                        SizedBox(width: 25,),
+                        SizedBox(
+                          width: 105,
+                          child: AppElevatedButton(text: AppLocalizations.of(context)!.finish, onPressed: (){
+                            context.read<AttendanceGraphBloc>().add(AttendanceGraphEvent.finishWork(date: DateTime.now(), comment: text));
+                            Navigator.of(context).pop();
+                          }, verticalPadding: 5, textStyle: TextStyle(fontSize: 14),),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

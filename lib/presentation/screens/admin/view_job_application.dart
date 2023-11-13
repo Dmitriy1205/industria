@@ -54,12 +54,9 @@ class _ViewJobApplicationState extends State<ViewJobApplication> {
                 selectedStatus = state.jobApplication.status;
               });
             },
-            changedStatus: (state) {
-              context.read<AdminJobApplicationsBloc>().add(
-                  AdminJobApplicationsEvent.replaceJobApplication(
-                      id: state.jobApplication.id,
-                      jobApplication: state.jobApplication));
-              showSuccessSnackBar(context, "Saved");
+            changedStatus: (state){
+              context.read<AdminJobApplicationsBloc>().add(AdminJobApplicationsEvent.replaceJobApplication(id: state.jobApplication.id, jobApplication: state.jobApplication));
+              showSuccessSnackBar(context, AppLocalizations.of(context)!.saved);
               context.go("/admin/job_applications");
             },
             markedAsRead: (state) {

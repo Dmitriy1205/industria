@@ -3,7 +3,7 @@ import 'package:industria/core/extensions/duration.dart';
 import 'package:industria/core/utils/firebase_timestamp_converters.dart';
 
 import '../../../core/enums/attendance_graph_status.dart';
-import '../../attendance_graph_key/attendance_graph_key.dart';
+import '../attendance_graph_key/attendance_graph_key.dart';
 
 part 'attendance_graph.freezed.dart';
 
@@ -40,7 +40,7 @@ class AttendanceGraph with _$AttendanceGraph {
 
   DateTime? get finish => keys.where((e) => e.status == AttendanceGraphStatus.finished).firstOrNull?.mark;
 
-  double? get totalHours => finish == null ? null : finish!.difference(start!).cleanHours - pause!;
+  double? get totalHours => finish == null ? null : finish!.difference(start!).cleanHours - (pause ?? 0.0);
 
   const factory AttendanceGraph(
       {@JsonKey(

@@ -36,10 +36,7 @@ class _ReportsState extends State<Reports> {
   @override
   void initState() {
     super.initState();
-    print('initState1');
     if (context.read<AuthBloc>().state.employee != null) {
-      print('initState2');
-
       context.read<AdminHolidayRequestsListBloc>().add(
           AdminHolidayRequestsListEvent.fetchData(
               elementsPerPage: 7,
@@ -72,7 +69,7 @@ class _ReportsState extends State<Reports> {
             listener: (context, DeleteReportsState state) {
               state.maybeMap(
                 success: (_) {
-                  showSuccessSnackBar(context, "Report deleted successfully!");
+                  showSuccessSnackBar(context, AppLocalizations.of(context)!.reportDeletedSuccessfully);
                   Future.delayed(
                     Duration(seconds: 1),
                     () {
@@ -100,7 +97,7 @@ class _ReportsState extends State<Reports> {
                   showProgressSnackBar(context);
                 },
                 error: (_) {
-                  showErrorSnackBar(context, 'Error: Report is not Deleted');
+                  showErrorSnackBar(context, AppLocalizations.of(context)!.failedDeleteReport);
                 },
                 orElse: () {},
               );
@@ -112,11 +109,11 @@ class _ReportsState extends State<Reports> {
                     height: 20,
                   ),
                   LayoutBuilder(builder: (context, constraints) {
-                    return constraints.maxWidth < 950
+                    return constraints.maxWidth < 1350
                         ? Padding(
                             padding: const EdgeInsets.only(left: 24, right: 24),
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(
                                   width: 16,
@@ -143,7 +140,7 @@ class _ReportsState extends State<Reports> {
                                       ),
                                       textStyle: const TextStyle(fontSize: 14),
                                       onPressed: () {
-                                        context.go('/employee/create_report');
+                                        context.go('/employees/create_report');
                                       },
                                       verticalPadding: 15,
                                     ))
@@ -156,6 +153,7 @@ class _ReportsState extends State<Reports> {
                             child: SizedBox(
                               height: 52,
                               child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   const SizedBox(
                                     width: 16,
@@ -183,7 +181,7 @@ class _ReportsState extends State<Reports> {
                                         textStyle:
                                             const TextStyle(fontSize: 14),
                                         onPressed: () {
-                                          context.go('/employee/create_report');
+                                          context.go('/employees/create_report');
                                         },
                                         verticalPadding: 15,
                                       ))
@@ -220,7 +218,7 @@ class _ReportsState extends State<Reports> {
                                   deleteBucketDialog(
                                     context,
                                     text:
-                                        'Are you sure you want to delete selected Reports?',
+                                        AppLocalizations.of(context)!.are_you_sure_delete_report,
                                   );
                                 },
                                 child: SizedBox(
@@ -356,7 +354,7 @@ class _ReportsState extends State<Reports> {
                               .tableData
                               .element[i];
                           router.go(
-                            "/employee/view_report?reportId=${report.id}",
+                            "/employees/view_report?reportId=${report.id}",
                             // pathParameters: {'id': id}
                           );
 
@@ -369,7 +367,7 @@ class _ReportsState extends State<Reports> {
                         },
                         divider: BorderSide(
                           width: 1,
-                          color: Colors.grey,
+                          color: AppColors.lightGrey,
                         ),
                         backgroundColor: Colors.white,
                         horizontalPadding: 30,
@@ -515,8 +513,8 @@ class _ReportsState extends State<Reports> {
 
   deleteBucketDialog(BuildContext context, {required String text}) {
     Widget cancelButton = TextButton(
-      child: const Text(
-        'Cancel',
+      child: Text(
+        AppLocalizations.of(context)!.cancel,
         style: TextStyle(color: AppColors.red),
       ),
       onPressed: () {
@@ -524,8 +522,8 @@ class _ReportsState extends State<Reports> {
       },
     );
     Widget continueButton = TextButton(
-      child: const Text(
-        'Delete',
+      child: Text(
+        AppLocalizations.of(context)!.delete,
         style: TextStyle(color: AppColors.mainAccent),
       ),
       onPressed: () {
@@ -538,7 +536,7 @@ class _ReportsState extends State<Reports> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      title: Text('Warning', style: AppTheme.themeData.textTheme.titleSmall),
+      title: Text(AppLocalizations.of(context)!.warning, style: AppTheme.themeData.textTheme.titleSmall),
       content: Text(text, style: AppTheme.themeData.textTheme.bodySmall),
       actions: [
         cancelButton,

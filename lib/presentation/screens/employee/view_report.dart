@@ -26,7 +26,6 @@ class _ViewReportState extends State<ViewReport> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final paramValue = routeValue(context, "reportId");
-      print('reportreport $paramValue');
       if (paramValue != null) {
         viewReportCubit.viewReport(paramValue);
       }

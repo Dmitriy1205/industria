@@ -1,8 +1,8 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:industria/core/enums/attendance_graph_status.dart';
-import 'package:industria/domain/attendance_graph_key/attendance_graph_key.dart';
 import 'package:industria/domain/entities/attendance_graph/attendance_graph.dart';
+import 'package:industria/domain/entities/attendance_graph_key/attendance_graph_key.dart';
 import 'package:industria/domain/repositories/attendance_graph/attendance_graph_repository_contract.dart';
 import 'package:industria/presentation/bloc/attendance_graph/attendance_graph_bloc.dart';
 import 'package:mocktail/mocktail.dart';

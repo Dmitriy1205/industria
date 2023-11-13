@@ -563,13 +563,13 @@ class _JobDescriptionState extends State<JobDescription> {
                                   const SizedBox(
                                     height: 25,
                                   ),
-                                  Text(
+                                  state.questions.isEmpty ? SizedBox.shrink() : Text(
                                     AppLocalizations.of(context)!.questions,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 16),
                                   ),
-                                  const SizedBox(
+                                  state.questions.isEmpty ? SizedBox.shrink() : const SizedBox(
                                     height: 20,
                                   ),
                                   ...state.questions.asMap().entries.map((e) =>

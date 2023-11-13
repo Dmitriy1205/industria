@@ -26,7 +26,9 @@ import 'package:industria/presentation/screens/admin/view_vacancy.dart';
 import 'package:industria/presentation/screens/condition.dart';
 import 'package:industria/presentation/screens/cookie.dart';
 import 'package:industria/presentation/screens/data_protection.dart';
+import 'package:industria/presentation/screens/employee/create_document.dart';
 import 'package:industria/presentation/screens/employee/create_report.dart';
+import 'package:industria/presentation/screens/employee/employee_documents.dart';
 import 'package:industria/presentation/screens/employee/employee_home.dart';
 import 'package:industria/presentation/screens/employee/employee_main_screen.dart';
 import 'package:industria/presentation/screens/for_employees.dart';
@@ -60,6 +62,8 @@ String? _authAdminRedirect(String fullPath, bool isAuthenticated) {
 }
 
 String? _authEmployeeRedirect(String fullPath, bool isAuthenticated) {
+  print(fullPath);
+  print(isAuthenticated);
   if (fullPath == '/employees' && isAuthenticated) {
     return '/employees/home';
   } else if (fullPath.contains('/employees') && !isAuthenticated) {
@@ -93,7 +97,7 @@ final GoRouter router = GoRouter(
     ),
     ShellRoute(routes: [
       GoRoute(
-        path: '/employee/messaging',
+        path: '/employees/messaging',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
@@ -101,7 +105,7 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        path: '/employee/delete_reports',
+        path: '/employees/reports',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
@@ -109,15 +113,31 @@ final GoRouter router = GoRouter(
         ),
       ),
       GoRoute(
-        path: '/employee/create_report',
+        path: '/employees/documents',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const EmployeeDocuments(),
+        ),
+      ),
+      GoRoute(
+        path: '/employees/create_report',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,
           child: const CreateReport(),
         ),
       ),
+      GoRoute(
+        path: '/employees/create_document',
+        pageBuilder: (context, state) => pageTransition<void>(
+          context: context,
+          state: state,
+          child: const CreateDocument(),
+        ),
+      ),
       GoRoute(name: 'ViewReport',
-        path: '/employee/view_report',
+        path: '/employees/view_report',
         pageBuilder: (context, state) => pageTransition<void>(
           context: context,
           state: state,

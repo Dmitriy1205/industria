@@ -77,17 +77,17 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
         state.map(
             initial: (_) {},
             loading: (_) {
-              showProgressSnackBar(context);
+              showProgressSnackBar(context, AppLocalizations.of(context)!.creatingUser);
             },
             success: (_) {
-              showSuccessSnackBar(context, "Created user successfully!");
+              showSuccessSnackBar(context, AppLocalizations.of(context)!.successCreateUser);
               context.read<AdminEmployeeListBloc>().add(
                   AdminEmployeeListEvent.fetchData(
                       page: 0, elementsPerPage: 5));
               context.pop();
             },
             fail: (_) {
-              showErrorSnackBar(context, "Failed to update user!");
+              showErrorSnackBar(context, AppLocalizations.of(context)!.failedCreateUser);
             });
       },
       child: Form(
@@ -360,7 +360,7 @@ class _CreateUserCredentialsState extends State<CreateUserCredentials> {
                                     if (_photoBytes == null ||
                                         _photoFileName == null) {
                                       showErrorSnackBar(
-                                          context, "No photo is specified");
+                                          context, AppLocalizations.of(context)!.noPhotoSpecified);
                                       return;
                                     }
                                     _adminCreateEmployeeBloc.add(

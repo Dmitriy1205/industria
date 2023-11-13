@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:industria/core/enums/attendance_graph_status.dart';
-import 'package:industria/domain/attendance_graph_key/attendance_graph_key.dart';
 
 import '../../../domain/entities/attendance_graph/attendance_graph.dart';
+import '../../../domain/entities/attendance_graph_key/attendance_graph_key.dart';
 import '../../../domain/repositories/attendance_graph/attendance_graph_repository_contract.dart';
 
 part 'attendance_graph_event.dart';

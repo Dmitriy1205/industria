@@ -137,58 +137,165 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
         }
       },
       bloc: _adminViewVacancyCubit,
-      builder: (context, state) => state == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : BlocBuilder<CompaniesCubit, List<Company>?>(
-              bloc: _companiesCubit,
-              builder: (context, state) => state == null
-                  ? Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : BlocListener<AdminUpdateVacancyBloc,
-                      AdminUpdateVacancyState>(
-                      bloc: _adminUpdateVacancyBloc,
-                      listener: (context, state) {
-                        state.map(
-                            initial: (_) {},
-                            loading: (_) {
-                              showProgressSnackBar(context);
-                            },
-                            success: (_) {
-                              showSuccessSnackBar(
-                                  context, "Updated vacancy successfully!");
-                              context.read<AdminVacancyListBloc>().add(
-                                  const AdminVacancyListEvent.fetchData(
-                                      page: 0, elementsPerPage: 5));
-                              context.go("/admin/vacancies");
-                            },
-                            fail: (_) {
-                              showErrorSnackBar(
-                                  context, "Failed to update vacancy!");
-                            });
-                      },
-                      child: Form(
-                        key: _formKey,
-                        child: SingleChildScrollView(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 14.0),
-                            child: LayoutBuilder(
-                              builder: (context, constraints) => Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      MouseRegion(
-                                        cursor: SystemMouseCursors.click,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            router.go('/admin/vacancies');
-                                          },
-                                          child: const Icon(
-                                            Icons.arrow_back_ios_new,
-                                            color: Colors.black,
-                                            size: 14,
+      builder: (context,state) => state == null ? Center(child: CircularProgressIndicator(),) : BlocBuilder<CompaniesCubit, List<Company>?>(
+        bloc: _companiesCubit,
+        builder: (context, state) => state == null
+            ? Center(
+          child: CircularProgressIndicator(),
+        )
+            : BlocListener<AdminUpdateVacancyBloc, AdminUpdateVacancyState>(
+          bloc: _adminUpdateVacancyBloc,
+          listener: (context, state) {
+            state.map(
+                initial: (_) {},
+                loading: (_) {
+                  showProgressSnackBar(context, AppLocalizations.of(context)!.updatingVacancy);
+                },
+                success: (_) {
+                  showSuccessSnackBar(
+                      context, AppLocalizations.of(context)!.successUpdateVacancy);
+                  context.read<AdminVacancyListBloc>().add(
+                      const AdminVacancyListEvent.fetchData(
+                          page: 0, elementsPerPage: 5));
+                  context.go("/admin/vacancies");
+                },
+                fail: (_) {
+                  showErrorSnackBar(context, AppLocalizations.of(context)!.failedUpdateVacancy);
+                });
+          },
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 14.0),
+                child: LayoutBuilder(
+                  builder: (context, constraints) => Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.vacancy,
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            " / ${AppLocalizations.of(context)!.update}",
+                           style: TextStyle(fontSize: 18),
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 37,
+                      ),
+                      IntrinsicHeight(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.white,
+                          ),
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 36),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: CustomTextFormField(
+                                              focusNode: _titleNode,
+                                              textController:
+                                              _titleController!,
+                                              labelText: '${AppLocalizations.of(context)!.title}*',
+                                              textInputType:
+                                              TextInputType.name,
+                                              validator: Validator.validate,
+                                              isSavePressed: true,
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 15,
+                                          ),
+                                          Expanded(
+                                            child: CustomDropdownField<
+                                                JobTypes>(
+                                              items:
+                                              JobTypes.values.toList(),
+                                              selectedItem: dropdownJobType,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  dropdownJobType = value!;
+                                                });
+                                              },
+                                              displayFunction: (job) {
+                                                return job.value;
+                                              },
+                                              hint: '${AppLocalizations.of(context)!.jobType}*',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: CustomTextFormField(
+                                            focusNode: _salaryNode,
+                                            textController:
+                                            _salaryController!,
+                                            labelText: '${AppLocalizations.of(context)!.salary}*',
+                                            textInputType:
+                                            TextInputType.number,
+                                            validator:
+                                            Validator.validateNumber,
+                                            isSavePressed: true,
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 37,
+                                        ),
+                                        Expanded(
+                                          child:
+                                          CustomDropdownField<Currency>(
+                                            items: Currency.values.toList(),
+                                            selectedItem: dropdownCurrency,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                dropdownCurrency = value!;
+                                              });
+                                            },
+                                            displayFunction: (cur) {
+                                              return cur.text;
+                                            },
+                                            hint: '${AppLocalizations.of(context)!.currency}*',
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 19,
+                                        ),
+                                        Expanded(
+                                          child:
+                                          CustomDropdownField<Period>(
+                                            items: Period.values.toList(),
+                                            selectedItem: dropdownPeriod,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                dropdownPeriod = value!;
+                                              });
+                                            },
+                                            displayFunction: (job) {
+                                              return job.text;
+                                            },
+                                            hint: '${AppLocalizations.of(context)!.period}*',
                                           ),
                                         ),
                                       ),
@@ -495,116 +602,37 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                                       },
                                                     ),
                                                   ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 15,
-                                                ),
-                                                SizedBox(
-                                                  width: double.infinity,
-                                                  height: 300,
-                                                  child: ListView.builder(
-                                                      shrinkWrap: true,
-                                                      itemCount: _counter,
-                                                      itemBuilder:
-                                                          (context, index) {
-                                                        return Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                                  bottom: 30.0),
-                                                          child: Row(
-                                                            children: [
-                                                              Expanded(
-                                                                child:
-                                                                    CustomTextFormField(
-                                                                  focusNode:
-                                                                      _questionNodes[
-                                                                          index],
-                                                                  textController:
-                                                                      _questionControllers[
-                                                                          index],
-                                                                  labelText:
-                                                                      '${AppLocalizations.of(context)!.question}*',
-                                                                  textInputType:
-                                                                      TextInputType
-                                                                          .text,
-                                                                  validator:
-                                                                      (v) {},
-                                                                  isSavePressed:
-                                                                      true,
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width: 8,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 63,
-                                                                height: 38,
-                                                                child:
-                                                                    AppElevatedButton(
-                                                                  text: '-',
-                                                                  verticalPadding:
-                                                                      0,
-                                                                  textStyle: const TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w400,
-                                                                      color: AppColors
-                                                                          .darkGrey),
-                                                                  color: Colors
-                                                                      .white,
-                                                                  borderColor:
-                                                                      AppColors
-                                                                          .lightGrey,
-                                                                  onPressed:
-                                                                      () {
-                                                                    _removeTextField(
-                                                                        index);
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      }),
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                AppElevatedButton(
-                                                  text: AppLocalizations.of(
-                                                          context)!
-                                                      .save,
-                                                  onPressed: () {
-                                                    if (!_formKey.currentState!
-                                                        .validate()) return;
-                                                    if (dropdownCompany ==
-                                                        null) {
-                                                      showErrorSnackBar(context,
-                                                          "You haven't selected a company");
-                                                      return;
-                                                    }
-                                                    final title =
-                                                        _titleController!.text;
-                                                    final salary =
-                                                        _salaryController!.text;
-                                                    final location =
-                                                        _locationController!
-                                                            .text;
-                                                    final description =
-                                                        _descriptionController!
-                                                            .text;
-                                                    final city =
-                                                        _cityController!.text;
-                                                    final questions =
-                                                        _questionControllers
-                                                            .map((e) => e.text)
-                                                            .where((e) =>
-                                                                e.isNotEmpty)
-                                                            .toList();
-
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    AppElevatedButton(
+                                      text: AppLocalizations.of(context)!.save,
+                                      onPressed: () {
+                                        if (!_formKey.currentState!
+                                            .validate()) return;
+                                        if (dropdownCompany == null) {
+                                          showErrorSnackBar(context,
+                                              AppLocalizations.of(context)!.youHaventSelectedCompany);
+                                          return;
+                                        }
+                                        final title = _titleController!.text;
+                                        final salary =
+                                            _salaryController!.text;
+                                        final location =
+                                            _locationController!.text;
+                                        final description =
+                                            _descriptionController!.text;
+                                        final city = _cityController!.text;
+                                        final questions =
+                                        _questionControllers
+                                            .map((e) => e.text)
+                                            .where((e) => e.isNotEmpty)
+                                            .toList();
                                                     _adminUpdateVacancyBloc.add(
                                                         AdminUpdateVacancyEvent.updateVacancy(
                                                             id: id!,

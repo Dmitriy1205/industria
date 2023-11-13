@@ -21,11 +21,11 @@ class FileUploadFormWidget extends FormField<List<String>> {
   final List<String> pickedFilesNames;
   final Function(List<FileUploadPickResult> pickResults) onPick;
   final bool singlePick;
-  final List<String> allowedTypes;
+  final List<String>? allowedTypes;
   final bool mandatory;
 
   FileUploadFormWidget(
-      {super.key, required this.allowedTypes, required this.icon, this.validationError, required this.hint, required this.pickedFilesNames, required this.onPick, required this.singlePick, required this.mandatory})
+      {super.key, this.allowedTypes, required this.icon, this.validationError, required this.hint, required this.pickedFilesNames, required this.onPick, required this.singlePick, required this.mandatory})
       : super(
       autovalidateMode: AutovalidateMode.disabled,
       enabled: true,
@@ -65,14 +65,14 @@ class FileUploadWidget extends StatefulWidget {
   final Function(List<FileUploadPickResult> pickResults) onPick;
   final bool singlePick;
   final bool mandatory;
-  final List<String> allowedTypes;
+  final List<String>? allowedTypes;
 
   const FileUploadWidget({Key? key,
     required this.icon,
     required this.hint,
     required this.pickedFilesNames,
     required this.onPick,
-    required this.allowedTypes,
+    this.allowedTypes,
     this.singlePick = false, required this.mandatory, this.errorText})
       : super(key: key);
 
@@ -103,8 +103,9 @@ class _FileUploadWidgetState extends State<FileUploadWidget> {
             },
             child: GestureDetector(
               onTap: () async {
+
                 final files = await FilePicker.platform
-                    .pickFiles(allowMultiple: !widget.singlePick, allowedExtensions: widget.allowedTypes, type: FileType.custom);
+                    .pickFiles(allowMultiple: !widget.singlePick, allowedExtensions: widget.allowedTypes, type: widget.allowedTypes == null ? FileType.any : FileType.custom);
                 if (files == null) {
                   return;
                 }

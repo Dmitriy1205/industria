@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +6,8 @@ import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/extensions/date.dart';
 import 'package:industria/core/utils/toast.dart';
 import 'package:industria/core/validator/field_validator.dart';
-import 'package:industria/data/remote/admin_employee/admin_employee_service_impl.dart';
 import 'package:industria/domain/entities/employee/employee.dart';
 import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_contract.dart';
-import 'package:industria/domain/repositories/admin_employee/admin_employee_repository_impl.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_details/admin_employee_details_cubit.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_employee_list/admin_employee_list_bloc.dart';
 import 'package:industria/presentation/bloc/employee_feature/admin_update_employee/admin_update_employee_bloc.dart';
@@ -97,14 +93,14 @@ class _ChangeUserCredentialsState extends State<ChangeUserCredentials> {
         state.map(
             initial: (_) {},
             loading: (_) {
-              showProgressSnackBar(context);
+              showProgressSnackBar(context, AppLocalizations.of(context)!.updatingUser);
             },
             success: (_) {
-              showSuccessSnackBar(context, "Updated user successfully!");
+              showSuccessSnackBar(context, AppLocalizations.of(context)!.successUpdateUser);
               context.read<AdminEmployeeListBloc>().add(AdminEmployeeListEvent.fetchData(elementsPerPage: 5, page: 0));
             },
             fail: (_) {
-              showErrorSnackBar(context, "Failed to update user!");
+              showErrorSnackBar(context, AppLocalizations.of(context)!.failedUpdateUser);
             });
       },
       child: BlocConsumer<AdminEmployeeDetailsCubit, Employee?>(

@@ -42,7 +42,6 @@ class _MobileLayoutState extends State<MobileLayout> {
     return Scaffold(
       key: scaffoldState,
       drawer: Drawer(
-        // backgroundColor: Colors.white,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         child: Container(color: Colors.white,
           child: Padding(

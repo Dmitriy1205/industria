@@ -19,6 +19,21 @@ class Navbar extends StatefulWidget {
 
 class _NavbarState extends State<Navbar> {
   bool isHovered = false;
+  List<bool> isHighlighted = [true, false, false, false, false, false];
+  late List<String> texts;
+
+  @override
+  void didChangeDependencies() {
+    texts = [
+      AppLocalizations.of(context)!.home,
+      AppLocalizations.of(context)!.jobs,
+      AppLocalizations.of(context)!.forEmployers,
+      AppLocalizations.of(context)!.forEmployees,
+      AppLocalizations.of(context)!.ourTeam,
+      AppLocalizations.of(context)!.contact,
+    ];
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,95 +42,147 @@ class _NavbarState extends State<Navbar> {
       flexibleSpace: Stack(
         fit: StackFit.passthrough,
         children: [
-          Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: TextButton(
-                    onPressed: () {
-                      router.go('/home');
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.home,
-                      style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: Color(0xFF575757)),
-                    ),
-                  ),
-                ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: TextButton(
-                    onPressed: () {
-                      router.go('/jobs');
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.jobs,
-                      style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: Color(0xFF575757)),
-                    ),
-                  ),
-                ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: TextButton(
-                    onPressed: () {
-                      router.go('/employers');
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.forEmployers,
-                      style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: Color(0xFF575757)),
-                    ),
-                  ),
-                ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: TextButton(
-                    onPressed: () {
-                      router.go('/employees');
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.forEmployees,
-                      style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: Color(0xFF575757)),
-                    ),
-                  ),
-                ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: TextButton(
-                    onPressed: () {
-                      router.go('/ourteam');
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.ourTeam,
-                      style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: Color(0xFF575757)),
-                    ),
-                  ),
-                ),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: TextButton(
-                    onPressed: () {
-                      router.go('/contact');
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)!.contact,
-                      style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(color: Color(0xFF575757)),
-                    ),
-                  ),
-                ),
-              ]
-                  .map((e) => Container(
-                        margin: EdgeInsets.symmetric(horizontal: 22),
-                        child: e,
-                      ))
-                  .toList(),
-            ),
+          Padding(padding: EdgeInsets.only(left: 290),
+            child: ListView.builder(scrollDirection: Axis.horizontal,
+                itemCount: texts.length,
+                itemBuilder: (_, index) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(width: 30,),
+                      TextButton(
+                        onPressed: () {
+                          for (int i = 0;
+                          i < isHighlighted.length;
+                          i++) {
+                            setState(() {
+                              if (index == i) {
+                                isHighlighted[index] = true;
+                              } else {
+                                //the condition to change the highlighted item
+                                isHighlighted[i] = false;
+                              }
+                            });
+                          }
+                          switch (index) {
+                            case 0:
+                              router.go('/home');
+                              break;
+                            case 1:
+                              router.go('/jobs');
+                            case 2:
+                              router.go('/employers');
+                            case 3:
+                              router.go('/employees');
+                            case 4:
+                              router.go('/ourteam');
+                            case 5:
+                              router.go('/contact');
+                          }
+                        },
+                        child: Text(
+                          texts[index],
+                          style: AppTheme
+                              .themeData.textTheme.headlineMedium!
+                              .copyWith(
+                              color: Colors.black,
+                              fontWeight: isHighlighted[index]
+                                  ? FontWeight.w600
+                                  : FontWeight.w400),
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+
+            // child: Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     MouseRegion(
+            //       cursor: SystemMouseCursors.click,
+            //       child: TextButton(
+            //         onPressed: () {
+            //           router.go('/home');
+            //         },
+            //         child: Text(
+            //           AppLocalizations.of(context)!.home,
+            //           style: AppTheme.themeData.textTheme.titleMedium!
+            //               .copyWith(color: Color(0xFF575757)),
+            //         ),
+            //       ),
+            //     ),
+            //     MouseRegion(
+            //       cursor: SystemMouseCursors.click,
+            //       child: TextButton(
+            //         onPressed: () {
+            //           router.go('/jobs');
+            //         },
+            //         child: Text(
+            //           AppLocalizations.of(context)!.jobs,
+            //           style: AppTheme.themeData.textTheme.titleMedium!
+            //               .copyWith(color: Color(0xFF575757)),
+            //         ),
+            //       ),
+            //     ),
+            //     MouseRegion(
+            //       cursor: SystemMouseCursors.click,
+            //       child: TextButton(
+            //         onPressed: () {
+            //           router.go('/employers');
+            //         },
+            //         child: Text(
+            //           AppLocalizations.of(context)!.forEmployers,
+            //           style: AppTheme.themeData.textTheme.titleMedium!
+            //               .copyWith(color: Color(0xFF575757)),
+            //         ),
+            //       ),
+            //     ),
+            //     MouseRegion(
+            //       cursor: SystemMouseCursors.click,
+            //       child: TextButton(
+            //         onPressed: () {
+            //           router.go('/employees');
+            //         },
+            //         child: Text(
+            //           AppLocalizations.of(context)!.forEmployees,
+            //           style: AppTheme.themeData.textTheme.titleMedium!
+            //               .copyWith(color: Color(0xFF575757)),
+            //         ),
+            //       ),
+            //     ),
+            //     MouseRegion(
+            //       cursor: SystemMouseCursors.click,
+            //       child: TextButton(
+            //         onPressed: () {
+            //           router.go('/ourteam');
+            //         },
+            //         child: Text(
+            //           AppLocalizations.of(context)!.ourTeam,
+            //           style: AppTheme.themeData.textTheme.titleMedium!
+            //               .copyWith(color: Color(0xFF575757)),
+            //         ),
+            //       ),
+            //     ),
+            //     MouseRegion(
+            //       cursor: SystemMouseCursors.click,
+            //       child: TextButton(
+            //         onPressed: () {
+            //           router.go('/contact');
+            //         },
+            //         child: Text(
+            //           AppLocalizations.of(context)!.contact,
+            //           style: AppTheme.themeData.textTheme.titleMedium!
+            //               .copyWith(color: Color(0xFF575757)),
+            //         ),
+            //       ),
+            //     ),
+            //   ]
+            //       .map((e) => Container(
+            //             margin: EdgeInsets.symmetric(horizontal: 22),
+            //             child: e,
+            //           ))
+            //       .toList(),
+            // ),
           ),
           Padding(
             padding: const EdgeInsets.only(

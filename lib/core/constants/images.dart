@@ -6,7 +6,7 @@ class AppImages{
   static const String baker = 'assets/images/baker.png';
   static const String coulson = 'assets/images/coulson.png';
   static const String homePic = 'assets/images/homePic.png';
-  static const String homePic2 = 'assets/images/homePic2.png';
+  static const String homePic2 = 'assets/images/homePic2.jpg';
   static const String homePic3 = 'assets/images/homePic3.png';
   static const String youtube = 'assets/images/youtube.png';
   static const String cup = 'assets/images/cup.png';

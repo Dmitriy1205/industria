@@ -216,32 +216,37 @@ class _JobDescriptionState extends State<JobDescription> {
                                   ),
                                   Row(
                                     children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            state.title,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineLarge
-                                                ?.copyWith(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 32),
-                                          ),
-                                          Text(
-                                            JobTypes.fromString(state.jobType)!
-                                                .localizedString(context),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineLarge
-                                                ?.copyWith(
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 18),
-                                          ),
-                                        ],
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              state.title,
+                                              softWrap: true,
+                                              maxLines: 3,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineLarge
+                                                  ?.copyWith(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 32),
+                                            ),
+                                            Text(
+                                              JobTypes.fromString(state.jobType)!
+                                                  .localizedString(context),
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headlineLarge
+                                                  ?.copyWith(
+                                                      fontWeight: FontWeight.w600,
+                                                      fontSize: 18),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      const Spacer(),
+                                      SizedBox(width: 60,),
                                       FirebaseImage(
                                           storageRef: state.company.logo)
                                     ],
@@ -304,7 +309,8 @@ class _JobDescriptionState extends State<JobDescription> {
                                           textController: _firstnameController,
                                           labelText:
                                               AppLocalizations.of(context)!
-                                                  .firstname + "*",
+                                                      .firstname +
+                                                  "*",
                                           validator: Validator.validate,
                                           textInputType: TextInputType.text,
                                           isSavePressed: isSavePressed,
@@ -321,7 +327,8 @@ class _JobDescriptionState extends State<JobDescription> {
                                           textController: _lastnameController,
                                           labelText:
                                               AppLocalizations.of(context)!
-                                                  .lastname + "*",
+                                                      .lastname +
+                                                  "*",
                                           validator: Validator.validate,
                                           textInputType: TextInputType.text,
                                           isSavePressed: isSavePressed,
@@ -352,8 +359,9 @@ class _JobDescriptionState extends State<JobDescription> {
                                                       .date,
                                                   labelText:
                                                       AppLocalizations.of(
-                                                              context)!
-                                                          .dateOfBirth + "*",
+                                                                  context)!
+                                                              .dateOfBirth +
+                                                          "*",
                                                   validator: Validator.validate,
                                                   textInputType:
                                                       TextInputType.text,
@@ -390,8 +398,9 @@ class _JobDescriptionState extends State<JobDescription> {
                                                   variants: ["Male", "Female"],
                                                   onChanged: _clickable,
                                                   hintText: AppLocalizations.of(
-                                                          context)!
-                                                      .gender + "*",
+                                                              context)!
+                                                          .gender +
+                                                      "*",
                                                   width:
                                                       constraints.maxWidth / 2 -
                                                           8,
@@ -421,7 +430,8 @@ class _JobDescriptionState extends State<JobDescription> {
                                               variants: Nationalities.list,
                                               hintText:
                                                   AppLocalizations.of(context)!
-                                                      .citizenship + "*",
+                                                          .citizenship +
+                                                      "*",
                                               width: constraints.maxWidth,
                                             ),
                                           ],
@@ -439,7 +449,8 @@ class _JobDescriptionState extends State<JobDescription> {
                                             type: CustomTextFormFieldType.date,
                                             labelText:
                                                 AppLocalizations.of(context)!
-                                                    .dateOfBirth + "*",
+                                                        .dateOfBirth +
+                                                    "*",
                                             validator: Validator.validate,
                                             textInputType: TextInputType.text,
                                             isSavePressed: isSavePressed,
@@ -475,7 +486,8 @@ class _JobDescriptionState extends State<JobDescription> {
                                             variants: Nationalities.list,
                                             hintText:
                                                 AppLocalizations.of(context)!
-                                                    .citizenship + "*",
+                                                        .citizenship +
+                                                    "*",
                                             width:
                                                 constraints.maxWidth / 2 - 16,
                                           ),
@@ -501,7 +513,8 @@ class _JobDescriptionState extends State<JobDescription> {
                                             onChanged: _clickable,
                                             hintText:
                                                 AppLocalizations.of(context)!
-                                                    .gender + "*",
+                                                        .gender +
+                                                    "*",
                                             width:
                                                 constraints.maxWidth / 4 - 16,
                                           ),
@@ -516,7 +529,8 @@ class _JobDescriptionState extends State<JobDescription> {
                                     focusNode: _addressFocus,
                                     textController: _addressController,
                                     labelText:
-                                        AppLocalizations.of(context)!.address + "*",
+                                        AppLocalizations.of(context)!.address +
+                                            "*",
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
@@ -531,7 +545,8 @@ class _JobDescriptionState extends State<JobDescription> {
                                     textController: _availableDateController,
                                     type: CustomTextFormFieldType.date,
                                     labelText: AppLocalizations.of(context)!
-                                        .availabilityDate + "*",
+                                            .availabilityDate +
+                                        "*",
                                     validator: Validator.validate,
                                     textInputType: TextInputType.text,
                                     isSavePressed: isSavePressed,
@@ -557,24 +572,23 @@ class _JobDescriptionState extends State<JobDescription> {
                                   state.questions.isEmpty ? SizedBox.shrink() : const SizedBox(
                                     height: 20,
                                   ),
-                                  ...state.questions
-                                      .asMap()
-                                      .entries
-                                      .map((e) => Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              _questionInput(
-                                                focusNode: _questionsFocusNodes[e.key],
-                                                  controller:
-                                                      _questionsTextEditingControllers[
-                                                          e.key],
-                                                  question: e.value),
-                                              const SizedBox(
-                                                height: 15,
-                                              ),
-                                            ],
-                                          )),
+                                  ...state.questions.asMap().entries.map((e) =>
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          _questionInput(
+                                              focusNode:
+                                                  _questionsFocusNodes[e.key],
+                                              controller:
+                                                  _questionsTextEditingControllers[
+                                                      e.key],
+                                              question: e.value),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                        ],
+                                      )),
                                   const SizedBox(
                                     height: 30,
                                   ),
@@ -749,7 +763,13 @@ class _JobDescriptionState extends State<JobDescription> {
                                         if (!valid) return;
 
                                         final jobApplicationRequest = JobApplicationRequest(
-                                            questionAnswers: state.questions.asMap().entries.map((e) => {e.value: _questionsTextEditingControllers[e.key].text}).fold({}, (previousValue, element) => {...previousValue,...element}),
+                                            questionAnswers:
+                                                state.questions.asMap().entries.map((e) => {e.value: _questionsTextEditingControllers[e.key].text}).fold(
+                                                    {},
+                                                    (previousValue, element) => {
+                                                          ...previousValue,
+                                                          ...element
+                                                        }),
                                             offer: state,
                                             firstname:
                                                 _firstnameController.text,
@@ -762,13 +782,11 @@ class _JobDescriptionState extends State<JobDescription> {
                                             availableDate: _availableDate!,
                                             company: state.company,
                                             documents: JobApplicationRequestDocuments(
-                                                photo:
-                                                    JobApplicationRequestDocument(
-                                                        bytes: photo!.bytes,
-                                                        extension: photo!
-                                                            .filename
-                                                            .split(".")
-                                                            .last),
+                                                photo: JobApplicationRequestDocument(
+                                                    bytes: photo!.bytes,
+                                                    extension: photo!.filename
+                                                        .split(".")
+                                                        .last),
                                                 cv: JobApplicationRequestDocument(
                                                     bytes: cv!.bytes,
                                                     extension: cv!.filename
@@ -778,10 +796,7 @@ class _JobDescriptionState extends State<JobDescription> {
                                                     .map((e) =>
                                                         JobApplicationRequestDocument(
                                                             bytes: e.bytes,
-                                                            extension: e
-                                                                .filename
-                                                                .split(".")
-                                                                .last))
+                                                            extension: e.filename.split(".").last))
                                                     .toList()));
                                         sl<JobApplicationBloc>().add(
                                             JobApplicationEvent.applyJob(

@@ -439,13 +439,8 @@ class _HomeState extends State<Home> {
                                   const SizedBox(
                                     height: 63,
                                   ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(32),
-                                        boxShadow: [
-                                          BoxShadow(offset: const Offset(0,4), blurRadius: 20, color: Colors.black.withOpacity(0.25))
-                                        ]
-                                    ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(32),
                                     child: Image.asset(
                                       AppImages.homePic2,
                                       scale: 1,
@@ -1248,16 +1243,11 @@ class _HomeState extends State<Home> {
                                 ),
                               ],
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(32),
-                                boxShadow: [
-                                  BoxShadow(offset: const Offset(0,4), blurRadius: 20, color: Colors.black.withOpacity(0.25))
-                                ]
-                              ),
-                              child: Image.asset(
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(32),
+                              child: Image.asset(fit: BoxFit.fitHeight,
                                 AppImages.homePic2,
-                                height: 477,
+                                height: 320,
                                 width: 472,
                               ),
                             ),

@@ -54,7 +54,7 @@ class Steps extends StatelessWidget {
                   ),
                 ]),
                 SizedBox(
-                    height: 90,
+                    height: 82,
                     width: 3,
                     child: ColoredBox(
                       color: AppColors.mainAccent,
@@ -93,7 +93,7 @@ class Steps extends StatelessWidget {
                       ],
                     )),
                 SizedBox(
-                    height: 90,
+                    height: 80,
                     width: 3,
                     child: ColoredBox(
                       color: AppColors.mainAccent,
@@ -149,7 +149,7 @@ class Steps extends StatelessWidget {
               // Positioned(left: 10,
               // child:
               SizedBox(
-                height: 80,
+                height: 70,
                 width: MediaQuery.of(context).size.width * 0.25,
                 child: Text(AppLocalizations.of(context)!.getListOfRecommendedJobs,
                     style: AppTheme.themeData.textTheme.bodyMedium!
@@ -164,7 +164,7 @@ class Steps extends StatelessWidget {
                         .copyWith(fontSize: 16, fontWeight: FontWeight.w600)),
               ),
               SizedBox(
-                height: 80,
+                height: 70,
                 width: MediaQuery.of(context).size.width * 0.25,
                 child: Text(AppLocalizations.of(context)!.weWillSetUpAMeetingAtGoogle,
                     style: AppTheme.themeData.textTheme.bodyMedium!

@@ -15,6 +15,7 @@ import 'package:industria/presentation/bloc/localization/localization_bloc.dart'
 import 'package:industria/presentation/widgets/firebase_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../app/router.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/utils/route_value.dart';
 import '../../../domain/entities/attendance/attendance.dart';
@@ -68,8 +69,21 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                     ),
                     Row(
                       children: [
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              router.go('/admin/users');
+                            },
+                            child: const Icon(
+                              Icons.arrow_back_ios_new,
+                              color: Colors.black,
+                              size: 14,
+                            ),
+                          ),
+                        ),
                         SizedBox(
-                          width: 11,
+                          width: 25,
                         ),
                         Text(
                           AppLocalizations.of(context)!.employee,

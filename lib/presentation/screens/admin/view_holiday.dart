@@ -10,6 +10,7 @@ import 'package:industria/presentation/bloc/holiday_request_feature/admin_holida
 import 'package:industria/presentation/widgets/app_elevated_button.dart';
 import 'package:industria/presentation/widgets/firebase_image.dart';
 
+import '../../../app/router.dart';
 import '../../../core/services/service_locator.dart';
 import '../../../core/themes/theme.dart';
 import '../../bloc/holiday_request_feature/view_holiday/view_holiday_bloc.dart';
@@ -87,6 +88,22 @@ class _ViewHolidayState extends State<ViewHoliday> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                              onTap: () {
+                                router.go('/admin/holidays');
+                              },
+                              child: const Icon(
+                                Icons.arrow_back_ios_new,
+                                color: Colors.black,
+                                size: 14,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 25,
+                          ),
                           Text(
                             AppLocalizations.of(context)!.reports,
                             style: TextStyle(
@@ -176,7 +193,8 @@ class _ViewHolidayState extends State<ViewHoliday> {
                                           ],
                                         )
                                       : Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             _section(
                                                 title: AppLocalizations.of(
@@ -184,13 +202,17 @@ class _ViewHolidayState extends State<ViewHoliday> {
                                                     .unavailable,
                                                 subtitle:
                                                     "${state.holiday!.unavailableFrom.formattedTexted(context.watch<LocalizationBloc>().state.locale)} - ${state.holiday!.unavailableTo.formattedTexted(context.watch<LocalizationBloc>().state.locale)}"),
-                                            SizedBox(height: 30,),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
                                             _section(
                                                 title: AppLocalizations.of(
                                                         context)!
                                                     .type,
                                                 subtitle: state.holiday!.type),
-                                            SizedBox(height: 30,),
+                                            SizedBox(
+                                              height: 30,
+                                            ),
                                             _section(
                                                 title: AppLocalizations.of(
                                                         context)!

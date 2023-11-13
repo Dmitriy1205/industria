@@ -63,16 +63,16 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
       listener: (context, state) {
         state.maybeMap(
             loading: (_) {
-              showProgressSnackBar(context, "Deleting feedback ...");
+              showProgressSnackBar(context, AppLocalizations.of(context)!.deletingFeedback);
             },
             success: (_) {
-              showSuccessSnackBar(context, "Successfully deleted feedback");
+              showSuccessSnackBar(context, AppLocalizations.of(context)!.successDeleteFeedback);
               context.read<AdminFeedbackListBloc>().add(
                   const AdminFeedbackListEvent.fetchData(
                       page: 0, elementsPerPage: 5));
             },
             fail: (e) {
-              showErrorSnackBar(context, "Failed to delete feedback");
+              showErrorSnackBar(context, AppLocalizations.of(context)!.failedDeleteFeedback);
             },
             orElse: () {});
       },
@@ -121,7 +121,7 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
                           onPressed: () {
                             deleteBucketDialog(context,
                                 text:
-                                    'Are you sure you want to delete feedback?',
+                                    AppLocalizations.of(context)!.you_sure_delete_feedback,
                                 feedbacks: feedback,
                                 checkable: checkable);
                           },
@@ -132,8 +132,8 @@ class _AdminFeedbacksState extends State<AdminFeedbacks> {
                                         .state
                                         .tableData
                                         .totalElementCounts
-                                ? 'Delete All'
-                                : 'Delete Selected',
+                                ? AppLocalizations.of(context)!.deleteAll
+                                : AppLocalizations.of(context)!.deleteSelected,
                             style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
@@ -352,8 +352,8 @@ deleteBucketDialog(BuildContext context,
     required List<Feedback>? feedbacks,
     required List<bool>? checkable}) {
   Widget cancelButton = TextButton(
-    child: const Text(
-      'Cancel',
+    child: Text(
+      AppLocalizations.of(context)!.cancel,
       style: TextStyle(color: AppColors.red),
     ),
     onPressed: () {
@@ -361,8 +361,8 @@ deleteBucketDialog(BuildContext context,
     },
   );
   Widget continueButton = TextButton(
-    child: const Text(
-      'Delete',
+    child: Text(
+      AppLocalizations.of(context)!.delete,
       style: TextStyle(color: AppColors.mainAccent),
     ),
     onPressed: () {
@@ -376,7 +376,7 @@ deleteBucketDialog(BuildContext context,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10.0),
     ),
-    title: Text('Warning', style: AppTheme.themeData.textTheme.titleSmall),
+    title: Text(AppLocalizations.of(context)!.warning, style: AppTheme.themeData.textTheme.titleSmall),
     content: Text(text, style: AppTheme.themeData.textTheme.bodySmall),
     actions: [
       cancelButton,

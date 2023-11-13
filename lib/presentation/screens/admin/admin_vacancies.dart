@@ -67,16 +67,16 @@ class _AdminVacanciesState extends State<AdminVacancies> {
       listener: (context, state) {
         state.maybeMap(
             loading: (_) {
-              showProgressSnackBar(context, "Deleting vacancy ...");
+              showProgressSnackBar(context, AppLocalizations.of(context)!.deletingVacancy);
             },
             success: (_) {
-              showSuccessSnackBar(context, "Successfully deleted vacancy");
+              showSuccessSnackBar(context, AppLocalizations.of(context)!.successDeleteVacancy);
               context.read<AdminVacancyListBloc>().add(
                   const AdminVacancyListEvent.fetchData(
                       page: 0, elementsPerPage: 7));
             },
             fail: (_) {
-              showErrorSnackBar(context, "Failed to delete vacancy");
+              showErrorSnackBar(context, AppLocalizations.of(context)!.failedDeleteVacancy);
             },
             orElse: () {});
       },
@@ -196,7 +196,7 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                       TextButton(
                         onPressed: () {
                           deleteVacancyDialog(context,
-                              text: 'Are you sure you want to delete vacancy?',
+                              text: AppLocalizations.of(context)!.you_sure_delete_vacancy,
                               vacancy: vacancies,
                               checkable: checkable);
                         },
@@ -207,8 +207,8 @@ class _AdminVacanciesState extends State<AdminVacancies> {
                                       .state
                                       .tableData
                                       .totalElementCounts
-                              ? 'Delete All'
-                              : 'Delete Selected',
+                              ? AppLocalizations.of(context)!.deleteAll
+                              : AppLocalizations.of(context)!.deleteSelected,
                           style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
@@ -441,8 +441,8 @@ deleteVacancyDialog(BuildContext context,
     List<JobOffer>? vacancy,
     required List<bool>? checkable}) {
   Widget cancelButton = TextButton(
-    child: const Text(
-      'Cancel',
+    child: Text(
+      AppLocalizations.of(context)!.cancel,
       style: TextStyle(color: AppColors.red),
     ),
     onPressed: () {
@@ -450,8 +450,8 @@ deleteVacancyDialog(BuildContext context,
     },
   );
   Widget continueButton = TextButton(
-    child: const Text(
-      'Delete',
+    child: Text(
+      AppLocalizations.of(context)!.delete,
       style: TextStyle(color: AppColors.mainAccent),
     ),
     onPressed: () {
@@ -465,7 +465,7 @@ deleteVacancyDialog(BuildContext context,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(10.0),
     ),
-    title: Text('Warning', style: AppTheme.themeData.textTheme.titleSmall),
+    title: Text(AppLocalizations.of(context)!.warning, style: AppTheme.themeData.textTheme.titleSmall),
     content: Text(text, style: AppTheme.themeData.textTheme.bodySmall),
     actions: [
       cancelButton,

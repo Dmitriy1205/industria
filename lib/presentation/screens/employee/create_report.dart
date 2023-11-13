@@ -58,14 +58,14 @@ class _CreateReportState extends State<CreateReport> {
         listener: (context, CreateReportState state) {
           state.maybeMap(
               loading: (_) {
-                showProgressSnackBar(context);
+                showProgressSnackBar(context, AppLocalizations.of(context)!.creatingReport);
               },
               success: (_) {
-                showSuccessSnackBar(context, "Created Report successfully!");
+                showSuccessSnackBar(context, AppLocalizations.of(context)!.successCreateReport);
                 context.go('/employees/reports');
               },
               error: (value) {
-                showErrorSnackBar(context, "Failed to create Report!");
+                showErrorSnackBar(context, AppLocalizations.of(context)!.failedCreatedReport);
               },
               orElse: () {});
         },
@@ -97,7 +97,7 @@ class _CreateReportState extends State<CreateReport> {
                                         },
                                         icon: Icon(FontAwesomeIcons.chevronLeft, color: AppColors.mainDarkAccent, size: 13,)),
                                     SizedBox(width: 25,),
-                                    Text("Create report", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.mainDarkAccent),)
+                                    Text(AppLocalizations.of(context)!.createReport, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.mainDarkAccent),)
                                   ],
                                 ),
                               ),),
@@ -189,7 +189,6 @@ class _CreateReportState extends State<CreateReport> {
                       activeColor:
                       AppColors.mainAccent,
                       onChanged: (value) {
-                        print(value);
                         setState(() {
                           reportType =
                           'Absence report';
@@ -296,7 +295,6 @@ class _CreateReportState extends State<CreateReport> {
             onPressed: () {
                 if (!_formKey.currentState!
                       .validate()) {
-                  print('notValid');
                   return;
                 }
                 _createReportBloc.add(

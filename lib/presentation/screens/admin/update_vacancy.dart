@@ -138,18 +138,18 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
             state.map(
                 initial: (_) {},
                 loading: (_) {
-                  showProgressSnackBar(context);
+                  showProgressSnackBar(context, AppLocalizations.of(context)!.updatingVacancy);
                 },
                 success: (_) {
                   showSuccessSnackBar(
-                      context, "Updated vacancy successfully!");
+                      context, AppLocalizations.of(context)!.successUpdateVacancy);
                   context.read<AdminVacancyListBloc>().add(
                       const AdminVacancyListEvent.fetchData(
                           page: 0, elementsPerPage: 5));
                   context.go("/admin/vacancies");
                 },
                 fail: (_) {
-                  showErrorSnackBar(context, "Failed to update vacancy!");
+                  showErrorSnackBar(context, AppLocalizations.of(context)!.failedUpdateVacancy);
                 });
           },
           child: Form(
@@ -477,7 +477,7 @@ class _UpdateVacancyState extends State<UpdateVacancy> {
                                             .validate()) return;
                                         if (dropdownCompany == null) {
                                           showErrorSnackBar(context,
-                                              "You haven't selected a company");
+                                              AppLocalizations.of(context)!.youHaventSelectedCompany);
                                           return;
                                         }
                                         final title = _titleController!.text;

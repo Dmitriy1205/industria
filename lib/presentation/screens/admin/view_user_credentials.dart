@@ -346,7 +346,7 @@ class _ViewUserCredentialsState extends State<ViewUserCredentials> {
                                         CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Documents",
+                                            AppLocalizations.of(context)!.documents,
                                             style: TextStyle(
                                                 fontWeight:
                                                 FontWeight.w600),

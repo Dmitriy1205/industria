@@ -52,14 +52,14 @@ class _CreateDocumentState extends State<CreateDocument> {
           listener: (context, CreateEmployeeDocumentState state) {
             state.maybeMap(
                 loading: (_) {
-                  showProgressSnackBar(context);
+                  showProgressSnackBar(context, AppLocalizations.of(context)!.creatingDocument);
                 },
                 success: (_) {
-                  showSuccessSnackBar(context, "Created document successfully!");
+                  showSuccessSnackBar(context, AppLocalizations.of(context)!.successCreateDocument);
                   context.go('/employees/documents');
                 },
                 fail: (value) {
-                  showErrorSnackBar(context, "Failed to create document!");
+                  showErrorSnackBar(context, AppLocalizations.of(context)!.failedCreatedDocument);
                 },
                 orElse: () {});
           },
@@ -100,7 +100,7 @@ class _CreateDocumentState extends State<CreateDocument> {
                                           },
                                           icon: Icon(FontAwesomeIcons.chevronLeft, color: AppColors.mainDarkAccent, size: 13,)),
                                       SizedBox(width: 25,),
-                                      Text("Upload document", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.mainDarkAccent),)
+                                      Text(AppLocalizations.of(context)!.creatingDocument, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.mainDarkAccent),)
                                     ],
                                   ),
                                       ),),
@@ -119,8 +119,8 @@ class _CreateDocumentState extends State<CreateDocument> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
-                                                Text("Enter the name of your document to share with admin.", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),),
-                                                Text("(contract, tax id, agreements, passport, etc...)", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.darkGrey),),
+                                                Text(AppLocalizations.of(context)!.uploadDocumentHint1, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),),
+                                                Text(AppLocalizations.of(context)!.uploadDocumentHint2, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.darkGrey),),
                                                 SizedBox(height: 24,),
                                                 Expanded(
                                                   child: CustomTextFormField(
@@ -143,8 +143,8 @@ class _CreateDocumentState extends State<CreateDocument> {
                                                   width: double.infinity,
                                                   height: 200,
                                                   child: FileUploadFormWidget(
-                                                      validationError: "Select file",
-                                                      icon: FontAwesomeIcons.solidFile, hint: "Drag your file here*", pickedFilesNames: _filename == null ? [] : [_filename!], onPick: (files){
+                                                      validationError: AppLocalizations.of(context)!.selectFile,
+                                                      icon: FontAwesomeIcons.solidFile, hint: "${AppLocalizations.of(context)!.dragYouFileHere}*", pickedFilesNames: _filename == null ? [] : [_filename!], onPick: (files){
                                                     final file = files.first;
                                                     _bytes = file.bytes;
                                                     _filename = file.filename;
@@ -156,7 +156,7 @@ class _CreateDocumentState extends State<CreateDocument> {
                                                 ),
                                                 AppElevatedButton(
                                                   borderRadius: 15,
-                                                  text: "Upload",
+                                                  text: AppLocalizations.of(context)!.upload,
                                                   textStyle:
                                                       const TextStyle(fontSize: 14),
                                                   onPressed: () {

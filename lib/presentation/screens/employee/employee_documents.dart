@@ -69,7 +69,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
             listener: (context, DeleteEmployeeDocumentState state) {
               state.maybeMap(
                 success: (_) {
-                  showSuccessSnackBar(context, "Report deleted successfully!");
+                  showSuccessSnackBar(context, AppLocalizations.of(context)!.documentDeletedSuccessfully);
                   Future.delayed(
                     Duration(seconds: 1),
                         () {
@@ -91,7 +91,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                   showProgressSnackBar(context);
                 },
                 fail: (_) {
-                  showErrorSnackBar(context, 'Error: Report is not Deleted');
+                  showErrorSnackBar(context, AppLocalizations.of(context)!.failedDeleteDocument);
                 },
                 orElse: () {},
               );
@@ -114,7 +114,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                           ),
                           _tableTitle(
                               title:
-                              "Documents",
+                              AppLocalizations.of(context)!.documents,
                               subtitle: context
                                   .read<EmployeeDocumentsBloc>()
                                   .state
@@ -125,7 +125,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                           SizedBox(
                               width: 200,
                               child: AppElevatedButton(
-                                text: "Create document",
+                                text: AppLocalizations.of(context)!.createDocument,
                                 prefixIcon: const Icon(
                                   size: 15,
                                   FontAwesomeIcons.plus,
@@ -153,7 +153,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                             ),
                             _tableTitle(
                                 title:
-                                "Documents",
+                                AppLocalizations.of(context)!.documents,
                                 subtitle: context
                                     .read<EmployeeDocumentsBloc>()
                                     .state
@@ -164,7 +164,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                             SizedBox(
                                 width: 200,
                                 child: AppElevatedButton(
-                                  text: "Create document",
+                                  text: AppLocalizations.of(context)!.createDocument,
                                   prefixIcon: const Icon(
                                     size: 15,
                                     FontAwesomeIcons.plus,
@@ -210,7 +210,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                                   deleteBucketDialog(
                                     context,
                                     text:
-                                    'Are you sure you want to delete selected document?',
+                                    AppLocalizations.of(context)!.are_you_sure_delete_document,
                                   );
                                 },
                                 child: SizedBox(
@@ -281,7 +281,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
                               PTableViewRowFixed(
                                   width: 350,
                                   child: Text(
-                                    "Extension",
+                                    AppLocalizations.of(context)!.extension,
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500, fontSize: 12),
                                   )),
@@ -375,7 +375,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
               child: SizedBox(
                 width: 120,
                 child: AppElevatedButton(
-                  text: "Download",
+                  text: AppLocalizations.of(context)!.download,
                   verticalPadding: 5,
                   textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
                   color: AppColors.lightGrey,
@@ -424,8 +424,8 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
 
   deleteBucketDialog(BuildContext context, {required String text}) {
     Widget cancelButton = TextButton(
-      child: const Text(
-        'Cancel',
+      child: Text(
+        AppLocalizations.of(context)!.cancel,
         style: TextStyle(color: AppColors.red),
       ),
       onPressed: () {
@@ -433,8 +433,8 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
       },
     );
     Widget continueButton = TextButton(
-      child: const Text(
-        'Delete',
+      child: Text(
+        AppLocalizations.of(context)!.delete,
         style: TextStyle(color: AppColors.mainAccent),
       ),
       onPressed: () {
@@ -447,7 +447,7 @@ class _EmployeeDocumentsState extends State<EmployeeDocuments> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      title: Text('Warning', style: AppTheme.themeData.textTheme.titleSmall),
+      title: Text(AppLocalizations.of(context)!.warning, style: AppTheme.themeData.textTheme.titleSmall),
       content: Text(text, style: AppTheme.themeData.textTheme.bodySmall),
       actions: [
         cancelButton,

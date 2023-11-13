@@ -55,7 +55,7 @@ class _ViewHolidayState extends State<ViewHoliday> {
               context.read<AdminHolidayRequestsListBloc>().add(
                   AdminHolidayRequestsListEvent.replaceHoliday(
                       id: state.holiday.id, holiday: state.holiday));
-              showSuccessSnackBar(context, "Saved");
+              showSuccessSnackBar(context, AppLocalizations.of(context)!.saved);
               context.go("/admin/holidays");
             },
             markedAsRead: (state) {

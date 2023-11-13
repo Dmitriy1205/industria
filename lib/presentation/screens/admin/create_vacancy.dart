@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:industria/app/router.dart';
 import 'package:industria/core/constants/colors.dart';
 import 'package:industria/core/enums/currency.dart';
 import 'package:industria/core/enums/job_areas.dart';
@@ -105,18 +104,18 @@ class _CreateVacancyState extends State<CreateVacancy> {
                 state.map(
                     initial: (_) {},
                     loading: (_) {
-                      showProgressSnackBar(context);
+                      showProgressSnackBar(context, AppLocalizations.of(context)!.creatingVacancy);
                     },
                     success: (_) {
                       showSuccessSnackBar(
-                          context, "Created vacancy successfully!");
+                          context, AppLocalizations.of(context)!.successCreateVacancy);
                       context.read<AdminVacancyListBloc>().add(
                           const AdminVacancyListEvent.fetchData(
                               page: 0, elementsPerPage: 5));
                       context.go("/admin/vacancies");
                     },
                     fail: (_) {
-                      showErrorSnackBar(context, "Failed to create vacancy!");
+                      showErrorSnackBar(context, AppLocalizations.of(context)!.failedCreateVacancy);
                     });
               },
               child: Form(
@@ -279,7 +278,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                               if (state
                                                   .where((e) => e.name == val)
                                                   .isEmpty) {
-                                                return "Choose a valid company from list";
+                                                return AppLocalizations.of(context)!.chooseValidCompany;
                                               } else {
                                                 setState(() {
                                                   dropdownCompany = state
@@ -463,7 +462,7 @@ class _CreateVacancyState extends State<CreateVacancy> {
                                                 .validate()) return;
                                             if (dropdownCompany == null) {
                                               showErrorSnackBar(context,
-                                                  "You haven't selected a company");
+                                                  AppLocalizations.of(context)!.youHaventSelectedCompany);
                                               return;
                                             }
                                             final title = _titleController.text;

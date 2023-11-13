@@ -43,7 +43,7 @@ class _AdminLoginState extends State<AdminLogin> {
       listener: (context, state){
         state.maybeMap(
             authenticationFailed: (_){
-              showErrorSnackBar(context, "Invalid credentials");
+              showErrorSnackBar(context, AppLocalizations.of(context)!.invalidCredentials);
             },
             authenticated: (_){
               context.go('/admin/users');

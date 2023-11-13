@@ -74,11 +74,11 @@ class _UpdateCompanyState extends State<UpdateCompany> {
               listener: (context, state) {
                 state.maybeMap(
                     loading: (_) {
-                      showProgressSnackBar(context, "Updating a company...");
+                      showProgressSnackBar(context, AppLocalizations.of(context)!.updatingCompany);
                     },
                     success: (_) {
                       showSuccessSnackBar(
-                          context, "Successfully updated a company!");
+                          context, AppLocalizations.of(context)!.successUpdateCompany);
                       context.read<AdminCompaniesListBloc>().add(
                           AdminCompaniesListEvent.fetchData(
                               page: 0, elementsPerPage: 7));
@@ -86,9 +86,9 @@ class _UpdateCompanyState extends State<UpdateCompany> {
                     },
                     fail: (e) {
                       if(e.code == 'name-exists'){
-                        showErrorSnackBar(context, "Company with such name exists");
+                        showErrorSnackBar(context, AppLocalizations.of(context)!.companyWithSuchNameExists);
                       }else{
-                        showErrorSnackBar(context, "Failed to update a company");
+                        showErrorSnackBar(context, AppLocalizations.of(context)!.failedUpdateCompany);
                       }
                     },
                     orElse: () {});

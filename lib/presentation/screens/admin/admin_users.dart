@@ -48,16 +48,16 @@ class _AdminUsersState extends State<AdminUsers> {
       listener: (context, state) {
         state.maybeMap(
             loading: (_) {
-              showProgressSnackBar(context, "Deleting employee account...");
+              showProgressSnackBar(context, AppLocalizations.of(context)!.deletingEmployeeAccount);
             },
             success: (_) {
-              showSuccessSnackBar(context, "Successfully deleted employee");
+              showSuccessSnackBar(context, AppLocalizations.of(context)!.successDeleteEmployee);
               context.read<AdminEmployeeListBloc>().add(
                    AdminEmployeeListEvent.fetchData(
                       page: 0, elementsPerPage: 7));
             },
             fail: (_) {
-              showErrorSnackBar(context, "Failed to delete employee");
+              showErrorSnackBar(context, AppLocalizations.of(context)!.failedDeleteEmployee);
             },
             orElse: () {});
       },

@@ -42,18 +42,18 @@ class _CreateCompanyState extends State<CreateCompany> {
       listener: (context, state) {
         state.maybeMap(
             loading: (_){
-              showProgressSnackBar(context, "Creating a company...");
+              showProgressSnackBar(context, AppLocalizations.of(context)!.creatingCompany);
             },
             successful: (_) {
-              showSuccessSnackBar(context, "Successfully created a company!");
+              showSuccessSnackBar(context, AppLocalizations.of(context)!.successCreateCompany);
               context.read<AdminCompaniesListBloc>().add(AdminCompaniesListEvent.fetchData(page: 0, elementsPerPage: 7));
               context.go("/admin/companies");
             },
             error: (e) {
               if(e.code == 'name-exists'){
-                showErrorSnackBar(context, "Company with such name exists");
+                showErrorSnackBar(context, AppLocalizations.of(context)!.companyWithSuchNameExists);
               }else{
-                showErrorSnackBar(context, "Failed to create a company");
+                showErrorSnackBar(context, AppLocalizations.of(context)!.failedCreateCompany);
               }
             },
             orElse: () {});

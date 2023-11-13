@@ -17,6 +17,7 @@ import '../../../domain/entities/attendance_graph_key/attendance_graph_key.dart'
 import '../../../app/router.dart';
 import '../../../core/themes/theme.dart';
 import '../../widgets/bold_text_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EmployeeHome extends StatefulWidget {
   const EmployeeHome({Key? key}) : super(key: key);
@@ -105,14 +106,14 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                               RichText(
                                   text: TextSpan(children: [
                                 TextSpan(
-                                    text: 'Worked this week:  ',
+                                    text: "${AppLocalizations.of(context)!.workedThisWeek}  ",
                                     style: AppTheme
                                         .themeData.textTheme.labelLarge!
                                         .copyWith(
                                             color: AppColors.darkGrey,
                                             fontSize: 14)),
                                 TextSpan(
-                                    text: (context.watch<EmployeeWeeklyReportCubit>().state?.cleanWeekWork.toInt().toString() ?? "--/--") + " hours",
+                                    text: "${context.watch<EmployeeWeeklyReportCubit>().state?.cleanWeekWork.toInt().toString() ?? "--/--"} ${AppLocalizations.of(context)!.hours}",
                                     style: AppTheme
                                         .themeData.textTheme.labelLarge!
                                         .copyWith(
@@ -185,7 +186,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         width: 13,
                                       ),
                                       BoldTextWidget(
-                                        text: 'Not available',
+                                        text: AppLocalizations.of(context)!.notAvailable,
                                         style: AppTheme
                                             .themeData.textTheme.labelLarge!
                                             .copyWith(
@@ -207,7 +208,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         width: 13,
                                       ),
                                       BoldTextWidget(
-                                        text: 'Working',
+                                        text: AppLocalizations.of(context)!.working,
                                         style: AppTheme
                                             .themeData.textTheme.labelLarge!
                                             .copyWith(
@@ -229,7 +230,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                         width: 13,
                                       ),
                                       BoldTextWidget(
-                                        text: 'Break',
+                                        text: AppLocalizations.of(context)!.breaked,
                                         style: AppTheme
                                             .themeData.textTheme.labelLarge!
                                             .copyWith(
@@ -261,7 +262,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Text('Check-in',
+                                              Text(AppLocalizations.of(context)!.checkIn,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelSmall!
                                                       .copyWith(
@@ -286,7 +287,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Text('Pause',
+                                              Text(AppLocalizations.of(context)!.pause,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelSmall!
                                                       .copyWith(
@@ -311,7 +312,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
-                                              Text('Check-out',
+                                              Text(AppLocalizations.of(context)!.checkOut,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelSmall!
                                                       .copyWith(
@@ -336,7 +337,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                             crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                             children: [
-                                              Text('Total hours',
+                                              Text(AppLocalizations.of(context)!.totalHours,
                                                   style: AppTheme.themeData
                                                       .textTheme.labelSmall!
                                                       .copyWith(
@@ -400,7 +401,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                                 ),
                                                 SelectionContainer.disabled(
                                                   child: Text(
-                                                    'REPORTS',
+                                                    AppLocalizations.of(context)!.reports.toUpperCase(),
                                                     style: AppTheme.themeData
                                                         .textTheme.labelMedium!
                                                         .copyWith(
@@ -451,7 +452,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                                 ),
                                                 SelectionContainer.disabled(
                                                   child: Text(
-                                                    'CHAT',
+                                                    AppLocalizations.of(context)!.chat.toUpperCase(),
                                                     style: AppTheme.themeData
                                                         .textTheme.labelMedium!
                                                         .copyWith(
@@ -501,7 +502,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
                                                 ),
                                                 SelectionContainer.disabled(
                                                   child: Text(
-                                                    'DOCUMENTS',
+                                                    AppLocalizations.of(context)!.documents.toUpperCase(),
                                                     style: AppTheme.themeData
                                                         .textTheme.labelMedium!
                                                         .copyWith(
@@ -539,7 +540,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
   Widget _interactionButtons({required AttendanceGraphStatus status}) {
     if (status == AttendanceGraphStatus.notStarted) {
       return _InteractionButton(
-        text: "Start working",
+        text: AppLocalizations.of(context)!.startWorking,
         color: AppColors.mainAccent,
         hoverColor: AppColors.mainDarkAccent,
         onTap: (){
@@ -550,7 +551,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
     } else if (status == AttendanceGraphStatus.working) {
       return Row(
         children: [
-          _InteractionButton(text: "Start break", color: AppColors.secondaryAccent,
+          _InteractionButton(text: AppLocalizations.of(context)!.startBreak, color: AppColors.secondaryAccent,
           hoverColor: const Color(0xFFD39E00), onTap: (){
               context.read<AttendanceGraphBloc>().add(AttendanceGraphEvent.startBreak(date: currentDate));
             },),
@@ -558,7 +559,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
             width: 23,
           ),
           _InteractionButton(
-            text: "Finish day",
+            text: AppLocalizations.of(context)!.finishDay,
             color: AppColors.darkGrey,
             hoverColor: const Color(0xFF676767),
             onTap: () async{
@@ -571,7 +572,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
       return Row(
         children: [
           _InteractionButton(
-            text: "Stop break",
+            text: AppLocalizations.of(context)!.stopBreak,
             color: AppColors.mainAccent,
             hoverColor: AppColors.mainDarkAccent,
             onTap: (){
@@ -582,7 +583,7 @@ class _EmployeeHomeState extends State<EmployeeHome> {
             width: 23,
           ),
           _InteractionButton(
-            text: "Finish day",
+            text: AppLocalizations.of(context)!.finishDay,
             color: AppColors.darkGrey,
             hoverColor: const Color(0xFF676767),
             onTap: () async{
@@ -793,9 +794,9 @@ Future<void> _showFinishDayPopup(BuildContext context){
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Finish the day!", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
+                Text(AppLocalizations.of(context)!.finishTheDay, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),),
                 SizedBox(height: 10,),
-                Text("If you have any comments about day, specify them below or leave it blank.", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
+                Text(AppLocalizations.of(context)!.ifYouHaveDayComments, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
                 SizedBox(height: 10,),
                 TextField(
                   onChanged: (val){
@@ -816,7 +817,7 @@ Future<void> _showFinishDayPopup(BuildContext context){
                   maxLines: null,
                 ),
                 SizedBox(height: 15,),
-                AppElevatedButton(text: "Finish", onPressed: (){
+                AppElevatedButton(text: AppLocalizations.of(context)!.finish, onPressed: (){
                   context.read<AttendanceGraphBloc>().add(AttendanceGraphEvent.finishWork(date: DateTime.now(), comment: text));
                   Navigator.of(context).pop();
                 }, verticalPadding: 5, textStyle: TextStyle(fontSize: 14),)

@@ -49,14 +49,14 @@ class _AdminCompaniesState extends State<AdminCompanies> {
         listener: (context,state){
           state.maybeMap(
               loading: (_){
-                showProgressSnackBar(context, "Deleting company...");
+                showProgressSnackBar(context, AppLocalizations.of(context)!.deletingCompany);
               },
               success: (_){
-                showSuccessSnackBar(context, "Successfully deleted company");
+                showSuccessSnackBar(context, AppLocalizations.of(context)!.successDeleteCompany);
                 context.read<AdminCompaniesListBloc>().add(AdminCompaniesListEvent.fetchData(page: 0, elementsPerPage: 7));
               },
               fail: (_){
-                showErrorSnackBar(context, "Failed to delete company");
+                showErrorSnackBar(context, AppLocalizations.of(context)!.failedDeleteCompany);
               },
               orElse: (){});
         },

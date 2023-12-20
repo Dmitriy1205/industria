@@ -412,8 +412,7 @@ class _ContactState extends State<Contact> {
                 ConstrainedBox(
                   constraints: BoxConstraints(maxWidth: 1200),
                   child: Padding(
-                    padding:
-                    EdgeInsets.only(left: 24, right: 24, top: 129),
+                    padding: EdgeInsets.only(left: 24, right: 24, top: 129),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
